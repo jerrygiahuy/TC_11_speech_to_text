@@ -1,0 +1,65 @@
+{
+  "id": "ca-08",
+  "ten": "Ù tai, nghe kém",
+  "hanh_chinh": {
+    "ho_ten": "Người Giả Số Tám",
+    "tuoi": 58,
+    "gioi": "Nữ",
+    "can_nang": 55
+  },
+  "input_noi": "À chị này đến khám vì ù tai và nghe kém. Bệnh sử khoảng 2 tháng nay ù tai 2 bên liên tục, tiếng ve kêu, nghe kém dần, không chóng mặt, không chảy tai. Ừ tiền sử tăng huyết áp đang uống thuốc, không dị ứng thuốc. Toàn thân tỉnh, huyết áp 130 trên 80. Khám tai mũi họng thấy ống tai sạch, màng nhĩ 2 bên bình thường, mũi họng không có gì đặc biệt. Chẩn đoán ù tai, nghe kém 2 bên, kèm theo tăng huyết áp. Hướng điều trị nội khoa, chờ kết quả thính lực. Chỉ định đo thính lực, đo nhĩ lượng và nội soi tai. Kê đơn: Betahistin 16 mg uống 1 viên một lần, ngày 3 lần, sau ăn, 30 ngày. Ginkgo biloba 40 mg uống 1 viên một lần, ngày 3 lần, 30 ngày. Dặn tránh nơi ồn, hạn chế cà phê. Hẹn tái khám sau 1 tháng.",
+  "input_go_tat": "LD: ù tai, nghe kém. BS: 2 tháng nay ù tai 2 bên liên tục, tiếng ve kêu, nghe kém dần, không chóng mặt, không chảy tai. TS: tăng huyết áp đang uống thuốc, không dị ứng thuốc. TT: tỉnh, huyết áp 130/80. TMH: ống tai sạch, màng nhĩ 2 bên bình thường, mũi họng không có gì đặc biệt. CĐ: ù tai, nghe kém 2 bên. Kèm theo: tăng huyết áp. ĐT: nội khoa, chờ kết quả thính lực. CLS: ĐTL, ĐNL, NS tai. Đơn: Betahistin 16 mg uống 1 v x 3 l/n sau ăn 30n; Ginkgo biloba 40 mg uống 1 v x 3 l/n 30n. Dặn: tránh nơi ồn, hạn chế cà phê. Hẹn: sau 1 tháng.",
+  "mau_id": "u-tai-nghe-kem",
+  "input_mau": "ù tai nghe kém, 2 bên, 2 tháng",
+  "expected": {
+    "phieu_kham": {
+      "ly_do_kham": "Ù tai, nghe kém",
+      "benh_su": "2 tháng nay ù tai 2 bên liên tục, tiếng ve kêu, nghe kém dần, không chóng mặt, không chảy tai",
+      "tien_su": "Tăng huyết áp đang uống thuốc, không dị ứng thuốc",
+      "kham_toan_than": "Tỉnh, huyết áp 130/80",
+      "kham_chuyen_khoa": "Ống tai sạch, màng nhĩ 2 bên bình thường, mũi họng không có gì đặc biệt",
+      "chan_doan_chinh": "Ù tai, nghe kém 2 bên",
+      "chan_doan_kem": "Tăng huyết áp",
+      "huong_dieu_tri": "Điều trị nội khoa, chờ kết quả thính lực",
+      "loi_dan": "Tránh nơi ồn, hạn chế cà phê",
+      "hen_tai_kham": "Sau 1 tháng"
+    },
+    "chi_dinh": [
+      {
+        "ma_dich_vu": "21.60",
+        "ten_dich_vu": "Đo thính lực đơn âm"
+      },
+      {
+        "ma_dich_vu": "21.64",
+        "ten_dich_vu": "Đo nhĩ lượng"
+      },
+      {
+        "ma_dich_vu": "DV-TMH-003",
+        "ten_dich_vu": "Nội soi tai"
+      }
+    ],
+    "ke_don": [
+      {
+        "ma_thuoc": "TH-031",
+        "ten_thuoc": "Betahistin",
+        "ham_luong": "16 mg",
+        "duong_dung": "Uống",
+        "lieu_moi_lan": "1 viên",
+        "so_lan_ngay": 3,
+        "thoi_diem": "Sau ăn",
+        "so_ngay": 30,
+        "tong_so_luong": 90
+      },
+      {
+        "ma_thuoc": "TH-032",
+        "ten_thuoc": "Ginkgo biloba",
+        "ham_luong": "40 mg",
+        "duong_dung": "Uống",
+        "lieu_moi_lan": "1 viên",
+        "so_lan_ngay": 3,
+        "so_ngay": 30,
+        "tong_so_luong": 90
+      }
+    ]
+  }
+}

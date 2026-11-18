@@ -1,0 +1,6 @@
+[
+  { "id": "enc-demo-000123-a", "appointment_id": null, "patient_id": "000123", "facility_id": "CS01", "doctor_id": "BS02", "encounter_at": "2026-10-20T09:00:00+07:00", "status": "hoan_thanh_kham", "summary": "Viêm mũi dị ứng, đã dặn dùng thuốc xịt mũi (dữ liệu giả)" },
+  { "id": "enc-demo-000123-b", "appointment_id": null, "patient_id": "000123", "facility_id": "CS01", "doctor_id": "BS01", "encounter_at": "2026-09-05T14:30:00+07:00", "status": "hoan_thanh_kham", "summary": null },
+  { "id": "enc-demo-000124-a", "appointment_id": null, "patient_id": "000124", "facility_id": "CS01", "doctor_id": "BS01", "encounter_at": "2026-10-30T10:15:00+07:00", "status": "hoan_thanh_kham", "summary": "Viêm tai giữa cấp, hẹn tái khám (dữ liệu giả)" },
+  { "id": "enc-demo-000127-a", "appointment_id": null, "patient_id": "000127", "facility_id": "CS02", "doctor_id": "BS03", "encounter_at": "2026-10-10T08:00:00+07:00", "status": "hoan_thanh_kham", "summary": "Khám họng ở cơ sở khác (dữ liệu giả)" }
+]

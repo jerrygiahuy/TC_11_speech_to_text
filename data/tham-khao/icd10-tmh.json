@@ -1,0 +1,3899 @@
+[
+ {
+  "ma": "A36",
+  "ten": "Bệnh bạch hầu",
+  "ten_en": "Diphtheria",
+  "ma_nhom": "A36",
+  "khoang": "A30-A49",
+  "chuong": "I",
+  "chi_tiet": false
+ },
+ {
+  "ma": "A36.0",
+  "ten": "Bệnh bạch hầu họng",
+  "ten_en": "Pharyngeal diphtheria",
+  "ma_nhom": "A36",
+  "khoang": "A30-A49",
+  "chuong": "I",
+  "chi_tiet": true
+ },
+ {
+  "ma": "A36.1",
+  "ten": "Bệnh bạch hầu thể mũi - họng",
+  "ten_en": "Nasopharyngeal diphtheria",
+  "ma_nhom": "A36",
+  "khoang": "A30-A49",
+  "chuong": "I",
+  "chi_tiet": true
+ },
+ {
+  "ma": "A36.2",
+  "ten": "Bệnh bạch hầu thanh quản",
+  "ten_en": "Laryngeal diphtheria",
+  "ma_nhom": "A36",
+  "khoang": "A30-A49",
+  "chuong": "I",
+  "chi_tiet": true
+ },
+ {
+  "ma": "A36.3",
+  "ten": "Bệnh bạch hầu da",
+  "ten_en": "Cutaneous diphtheria",
+  "ma_nhom": "A36",
+  "khoang": "A30-A49",
+  "chuong": "I",
+  "chi_tiet": true
+ },
+ {
+  "ma": "A36.8",
+  "ten": "Bệnh bạch hầu khác",
+  "ten_en": "Other diphtheria",
+  "ma_nhom": "A36",
+  "khoang": "A30-A49",
+  "chuong": "I",
+  "chi_tiet": true
+ },
+ {
+  "ma": "A36.9",
+  "ten": "Bệnh bạch hầu, không xác định",
+  "ten_en": "Diphtheria, unspecified",
+  "ma_nhom": "A36",
+  "khoang": "A30-A49",
+  "chuong": "I",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C00",
+  "ten": "U ác tính ở môi",
+  "ten_en": "Malignant neoplasm of lip",
+  "ma_nhom": "C00",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": false
+ },
+ {
+  "ma": "C00.0",
+  "ten": "U ác tính ở phần ngoài môi trên",
+  "ten_en": "External upper lip",
+  "ma_nhom": "C00",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C00.1",
+  "ten": "U ác tính ở phần ngoài môi dưới",
+  "ten_en": "External lower lip",
+  "ma_nhom": "C00",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C00.2",
+  "ten": "U ác tính ở phần ngoài môi, không xác định môi trên hoặc môi đưới",
+  "ten_en": "External lip, unspecified",
+  "ma_nhom": "C00",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C00.3",
+  "ten": "U ác tính ở môi trên, mặt trong",
+  "ten_en": "Upper lip, inner aspect",
+  "ma_nhom": "C00",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C00.4",
+  "ten": "U ác tính ở môi dưới, mặt trong",
+  "ten_en": "Lower lip, inner aspect",
+  "ma_nhom": "C00",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C00.5",
+  "ten": "U ác tính ở môi, mặt trong, không xác định môi trên hoặc môi dưới",
+  "ten_en": "Lip, unspecified, inner aspect",
+  "ma_nhom": "C00",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C00.6",
+  "ten": "U ác tính ở mép môi",
+  "ten_en": "Commissure of lip",
+  "ma_nhom": "C00",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C00.8",
+  "ten": "U ác tính có tổn thương chồng lấn ở môi",
+  "ten_en": "Overlapping lesion of lip",
+  "ma_nhom": "C00",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C00.9",
+  "ten": "U ác tính ở môi, không xác định",
+  "ten_en": "Lip, unspecified",
+  "ma_nhom": "C00",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C01",
+  "ten": "U ác tính ở gốc [rễ] lưỡi",
+  "ten_en": "Malignant neoplasm of base of tongue",
+  "ma_nhom": "C01",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C02",
+  "ten": "U ác tính ở phần khác và/hoặc không xác định của lưỡi",
+  "ten_en": "Malignant neoplasm of other and unspecified parts of tongue",
+  "ma_nhom": "C02",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": false
+ },
+ {
+  "ma": "C02.0",
+  "ten": "U ác tính ở mặt lưng của lưỡi",
+  "ten_en": "Dorsal surface of tongue",
+  "ma_nhom": "C02",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C02.1",
+  "ten": "U ác tính ở bờ của lưỡi",
+  "ten_en": "Border of tongue",
+  "ma_nhom": "C02",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C02.2",
+  "ten": "U ác tính ở mặt bụng [dưới] của lưỡi",
+  "ten_en": "Ventral surface of tongue",
+  "ma_nhom": "C02",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C02.3",
+  "ten": "U ác tính ở hai phần ba [2/3] trước của lưỡi, phần không xác định",
+  "ten_en": "Anterior two- thirds of tongue, part unspecified",
+  "ma_nhom": "C02",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C02.4",
+  "ten": "U ác tính ở amydan lưỡi",
+  "ten_en": "Lingual tonsil",
+  "ma_nhom": "C02",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C02.8",
+  "ten": "U ác tính có tổn thương chồng lấn ở lưỡi",
+  "ten_en": "Overlapping lesion of tongue",
+  "ma_nhom": "C02",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C02.9",
+  "ten": "U ác tính ở lưỡi, không xác định",
+  "ten_en": "Tongue, unspecified",
+  "ma_nhom": "C02",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C03",
+  "ten": "U ác tính ở lợi [nướu răng]",
+  "ten_en": "Malignant neoplasm of gum",
+  "ma_nhom": "C03",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": false
+ },
+ {
+  "ma": "C03.0",
+  "ten": "U ác tính ở lợi [nướu] hàm trên",
+  "ten_en": "Upper gum",
+  "ma_nhom": "C03",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C03.1",
+  "ten": "U ác tính ở lợi [nướu] hàm dưới",
+  "ten_en": "Lower gum",
+  "ma_nhom": "C03",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C03.9",
+  "ten": "U ác tính ở lợi [nướu], không xác định",
+  "ten_en": "Gum, unspecified",
+  "ma_nhom": "C03",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C04",
+  "ten": "U ác tính ở sàn miệng",
+  "ten_en": "Malignant neoplasm of floor of mouth",
+  "ma_nhom": "C04",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": false
+ },
+ {
+  "ma": "C04.0",
+  "ten": "U ác tính ở sàn miệng trước",
+  "ten_en": "Anterior floor of mouth",
+  "ma_nhom": "C04",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C04.1",
+  "ten": "U ác tính ở sàn miệng bên",
+  "ten_en": "Lateral floor of mouth",
+  "ma_nhom": "C04",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C04.8",
+  "ten": "U ác tính có tổn thương chồng lấn ở sàn miệng",
+  "ten_en": "Overlapping lesion of floor of mouth",
+  "ma_nhom": "C04",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C04.9",
+  "ten": "U ác tính ở sàn miệng, không xác định",
+  "ten_en": "Floor of mouth, unspecified",
+  "ma_nhom": "C04",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C05",
+  "ten": "U ác tính ở khẩu cái [vòm miệng]",
+  "ten_en": "Malignant neoplasm of palate",
+  "ma_nhom": "C05",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": false
+ },
+ {
+  "ma": "C05.0",
+  "ten": "U ác tính ở khẩu cái [vòm miệng] cứng",
+  "ten_en": "Hard palate",
+  "ma_nhom": "C05",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C05.1",
+  "ten": "U ác tính ở khẩu cái [vòm miệng] mềm",
+  "ten_en": "Soft palate",
+  "ma_nhom": "C05",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C05.2",
+  "ten": "U ác tính ở lưỡi gà",
+  "ten_en": "Uvula",
+  "ma_nhom": "C05",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C05.8",
+  "ten": "U ác tính có tổn thương chồng lấn ở khẩu cái [vòm miệng]",
+  "ten_en": "Overlapping lesion of palate",
+  "ma_nhom": "C05",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C05.9",
+  "ten": "U ác tính ở khẩu cái [vòm miệng], không xác định",
+  "ten_en": "Palate, unspecified",
+  "ma_nhom": "C05",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C06",
+  "ten": "U ác tính ở phần khác và/hoặc không xác định của miệng",
+  "ten_en": "Malignant neoplasm of other and unspecified parts of mouth",
+  "ma_nhom": "C06",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": false
+ },
+ {
+  "ma": "C06.0",
+  "ten": "U ác tính ở niêm mạc má",
+  "ten_en": "Cheek mucosa",
+  "ma_nhom": "C06",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C06.1",
+  "ten": "U ác tính ở tiền đình của miệng",
+  "ten_en": "Vestibule of mouth",
+  "ma_nhom": "C06",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C06.2",
+  "ten": "U ác tính ở vùng hậu hàm",
+  "ten_en": "Retromolar area",
+  "ma_nhom": "C06",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C06.8",
+  "ten": "U ác tính có tổn thương chồng lấn của phần khác và/hoặc không xác định ở miệng",
+  "ten_en": "Overlapping lesion of other and unspecified parts of mouth",
+  "ma_nhom": "C06",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C06.9",
+  "ten": "U ác tính ở miệng, không xác định",
+  "ten_en": "Mouth, unspecified",
+  "ma_nhom": "C06",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C07",
+  "ten": "U ác tính ở tuyến mang tai",
+  "ten_en": "Malignant neoplasm of parotid gland",
+  "ma_nhom": "C07",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C08",
+  "ten": "U ác tính ở tuyến nước bọt chính khác và/hoặc không xác định",
+  "ten_en": "Malignant neoplasm of other and unspecified major salivary glands",
+  "ma_nhom": "C08",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": false
+ },
+ {
+  "ma": "C08.0",
+  "ten": "U ác tính ở tuyến nước bọt dưới hàm",
+  "ten_en": "Submandibular gland",
+  "ma_nhom": "C08",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C08.1",
+  "ten": "U ác tính ở tuyến nước bọt dưới lưỡi",
+  "ten_en": "Sublingual gland",
+  "ma_nhom": "C08",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C08.8",
+  "ten": "U ác tính có tổn thương chồng lấn ở tuyến nước bọt chính",
+  "ten_en": "Overlapping lesion of major salivary glands",
+  "ma_nhom": "C08",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C08.9",
+  "ten": "U ác tính ở tuyến nước bọt chính, không xác định",
+  "ten_en": "Major salivary gland, unspecified",
+  "ma_nhom": "C08",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C09",
+  "ten": "U ác tính ở amydan",
+  "ten_en": "Malignant neoplasm of tonsil",
+  "ma_nhom": "C09",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": false
+ },
+ {
+  "ma": "C09.0",
+  "ten": "U ác tính ở hố amydan",
+  "ten_en": "Tonsillar fossa",
+  "ma_nhom": "C09",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C09.1",
+  "ten": "U ác tính ở trụ amydan (trước) (sau)",
+  "ten_en": "Tonsillar pillar (anterior)(posterior)",
+  "ma_nhom": "C09",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C09.8",
+  "ten": "U ác tính có tổn thương chồng lấn ở amydan",
+  "ten_en": "Overlapping lesion of tonsil",
+  "ma_nhom": "C09",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C09.9",
+  "ten": "U ác tính ở amydan, không xác định",
+  "ten_en": "Tonsil, unspecified",
+  "ma_nhom": "C09",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C10",
+  "ten": "U ác tính ở miệng - hầu",
+  "ten_en": "Malignant neoplasm of oropharynx",
+  "ma_nhom": "C10",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": false
+ },
+ {
+  "ma": "C10.0",
+  "ten": "U ác tính ở rãnh nhỏ",
+  "ten_en": "Vallecula",
+  "ma_nhom": "C10",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C10.1",
+  "ten": "U ác tính ở mặt trước của nắp thanh môn",
+  "ten_en": "Anterior surface of epiglottis",
+  "ma_nhom": "C10",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C10.2",
+  "ten": "U ác tính ở thành bên miệng - hầu",
+  "ten_en": "Lateral wall of oropharynx",
+  "ma_nhom": "C10",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C10.3",
+  "ten": "U ác tính ở thành sau miệng - hầu",
+  "ten_en": "Posterior wall of oropharynx",
+  "ma_nhom": "C10",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C10.4",
+  "ten": "U ác tính ở khe mang",
+  "ten_en": "Branchial cleft",
+  "ma_nhom": "C10",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C10.8",
+  "ten": "U ác tính với tổn thương chồng lấn ở miệng - hầu",
+  "ten_en": "Overlapping lesion of oropharynx",
+  "ma_nhom": "C10",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C10.9",
+  "ten": "U ác tính ở miệng - hầu, không xác định",
+  "ten_en": "Oropharynx, unspecified",
+  "ma_nhom": "C10",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C11",
+  "ten": "U ác tính ở mũi - hầu",
+  "ten_en": "Malignant neoplasm of nasopharynx",
+  "ma_nhom": "C11",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": false
+ },
+ {
+  "ma": "C11.0",
+  "ten": "U ác tính ở vách trên mũi - hầu",
+  "ten_en": "Superior wall of nasopharynx",
+  "ma_nhom": "C11",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C11.1",
+  "ten": "U ác tính ở vách sau của mũi - hầu",
+  "ten_en": "Posterior wall of nasopharynx",
+  "ma_nhom": "C11",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C11.2",
+  "ten": "U ác tính ở vách bên của mũi - hầu",
+  "ten_en": "Lateral wall of nasopharynx",
+  "ma_nhom": "C11",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C11.3",
+  "ten": "U ác tính ở vách trước của mũi - hầu",
+  "ten_en": "Anterior wall of nasopharynx",
+  "ma_nhom": "C11",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C11.8",
+  "ten": "U ác tính có tổn thương chồng lấn ở mũi - hầu",
+  "ten_en": "Overlapping lesion of nasopharynx",
+  "ma_nhom": "C11",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C11.9",
+  "ten": "U ác tính ở mũi - hầu, không xác định",
+  "ten_en": "Nasopharynx, unspecified",
+  "ma_nhom": "C11",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C12",
+  "ten": "U ác tính ở xoang lê",
+  "ten_en": "Malignant neoplasm of piriform sinus",
+  "ma_nhom": "C12",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C13",
+  "ten": "U ác tính ở hạ họng",
+  "ten_en": "Malignant neoplasm of hypopharynx",
+  "ma_nhom": "C13",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": false
+ },
+ {
+  "ma": "C13.0",
+  "ten": "U ác tính ở vùng sau sụn nhẫn",
+  "ten_en": "Postcricoid region",
+  "ma_nhom": "C13",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C13.1",
+  "ten": "U ác tính ở nếp sụn phễu - nắp thanh quản, phía hạ họng",
+  "ten_en": "Aryepiglottic fold, hypopharyngeal aspect",
+  "ma_nhom": "C13",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C13.2",
+  "ten": "U ác tính ở thành sau của hạ họng",
+  "ten_en": "Posterior wall of hypopharynx",
+  "ma_nhom": "C13",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C13.8",
+  "ten": "U ác tính có tổn thương chồng lấn ở hạ họng",
+  "ten_en": "Overlapping lesion of hypopharynx",
+  "ma_nhom": "C13",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C13.9",
+  "ten": "U ác tính ở hạ họng, không xác định",
+  "ten_en": "Hypopharynx, unspecified",
+  "ma_nhom": "C13",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C14",
+  "ten": "U ác tính ở vị trí khác và/hoặc không rõ ràng ở môi, khoang miệng và/hoặc họng",
+  "ten_en": "Malignant neoplasm of other and ill-defined sites in the lip, oral cavity and pharynx",
+  "ma_nhom": "C14",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": false
+ },
+ {
+  "ma": "C14.0",
+  "ten": "U ác tính ở họng, không xác định",
+  "ten_en": "Pharynx, unspecified",
+  "ma_nhom": "C14",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C14.2",
+  "ten": "U ác tính ở vòng bạch huyết Waldeyer",
+  "ten_en": "Waldeyer ring",
+  "ma_nhom": "C14",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C14.8",
+  "ten": "U ác tính có tổn thương chồng lấn ở môi, khoang miệng và/hoặc họng",
+  "ten_en": "Overlapping lesion of lip, oral cavity and pharynx",
+  "ma_nhom": "C14",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C30",
+  "ten": "U ác tính ở khoang mũi và/hoặc tai giữa",
+  "ten_en": "Malignant neoplasm of nasal cavity and middle ear",
+  "ma_nhom": "C30",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": false
+ },
+ {
+  "ma": "C30.0",
+  "ten": "U ác tính ở khoang mũi",
+  "ten_en": "Nasal cavity",
+  "ma_nhom": "C30",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C30.1",
+  "ten": "U ác tính ở tai giữa",
+  "ten_en": "Middle ear",
+  "ma_nhom": "C30",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C31",
+  "ten": "U ác tính ở xoang phụ",
+  "ten_en": "Malignant neoplasm of accessory sinuses",
+  "ma_nhom": "C31",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": false
+ },
+ {
+  "ma": "C31.0",
+  "ten": "U ác tính ở xoang hàm",
+  "ten_en": "Maxillary sinus",
+  "ma_nhom": "C31",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C31.1",
+  "ten": "U ác tính ở xoang sàng",
+  "ten_en": "Ethmoidal sinus",
+  "ma_nhom": "C31",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C31.2",
+  "ten": "U ác tính ở xoang trán",
+  "ten_en": "Frontal sinus",
+  "ma_nhom": "C31",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C31.3",
+  "ten": "U ác tính ở xoang bướm",
+  "ten_en": "Sphenoidal sinus",
+  "ma_nhom": "C31",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C31.8",
+  "ten": "U ác tính với tổn thương chồng lấn ở xoang phụ",
+  "ten_en": "Overlapping lesion of accessory sinuses",
+  "ma_nhom": "C31",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C31.9",
+  "ten": "U ác tính ở xoang phụ, không xác định",
+  "ten_en": "Accessory sinus, unspecified",
+  "ma_nhom": "C31",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C32",
+  "ten": "U ác tính ở thanh quản",
+  "ten_en": "Malignant neoplasm of larynx",
+  "ma_nhom": "C32",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": false
+ },
+ {
+  "ma": "C32.0",
+  "ten": "U ác tính ở thanh môn",
+  "ten_en": "Glottis",
+  "ma_nhom": "C32",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C32.1",
+  "ten": "U ác tính ở vùng trên thanh môn",
+  "ten_en": "Supraglottis",
+  "ma_nhom": "C32",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C32.2",
+  "ten": "U ác tính ở vùng dưới thanh môn",
+  "ten_en": "Subglottis",
+  "ma_nhom": "C32",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C32.3",
+  "ten": "U ác tính ở sụn thanh quản",
+  "ten_en": "Laryngeal cartilage",
+  "ma_nhom": "C32",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C32.8",
+  "ten": "U ác tính với tổn thương chồng lấn ở thanh quản",
+  "ten_en": "Overlapping lesion of larynx",
+  "ma_nhom": "C32",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "C32.9",
+  "ten": "U ác tính ở thanh quản, không xác định",
+  "ten_en": "Larynx, unspecified",
+  "ma_nhom": "C32",
+  "khoang": "C00-C97",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "D10",
+  "ten": "U lành ở miệng và/hoặc họng",
+  "ten_en": "Benign neoplasm of mouth and pharynx",
+  "ma_nhom": "D10",
+  "khoang": "D10-D36",
+  "chuong": "II",
+  "chi_tiet": false
+ },
+ {
+  "ma": "D10.0",
+  "ten": "U lành ở môi",
+  "ten_en": "Lip",
+  "ma_nhom": "D10",
+  "khoang": "D10-D36",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "D10.1",
+  "ten": "U lành ở lưỡi",
+  "ten_en": "Tongue",
+  "ma_nhom": "D10",
+  "khoang": "D10-D36",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "D10.2",
+  "ten": "U lành ở sàn miệng",
+  "ten_en": "Floor of mouth",
+  "ma_nhom": "D10",
+  "khoang": "D10-D36",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "D10.3",
+  "ten": "U lành ở phần khác và/hoặc không xác định của miệng",
+  "ten_en": "Other and unspecified parts of mouth",
+  "ma_nhom": "D10",
+  "khoang": "D10-D36",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "D10.4",
+  "ten": "U lành ở amydan",
+  "ten_en": "Tonsil",
+  "ma_nhom": "D10",
+  "khoang": "D10-D36",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "D10.5",
+  "ten": "U lành ở phần khác của hầu - khẩu",
+  "ten_en": "Other parts of oropharynx",
+  "ma_nhom": "D10",
+  "khoang": "D10-D36",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "D10.6",
+  "ten": "U lành ở mũi - hầu",
+  "ten_en": "Nasopharynx",
+  "ma_nhom": "D10",
+  "khoang": "D10-D36",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "D10.7",
+  "ten": "U lành ở hạ họng",
+  "ten_en": "Hypopharynx",
+  "ma_nhom": "D10",
+  "khoang": "D10-D36",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "D10.9",
+  "ten": "U lành ở hầu, không xác định",
+  "ten_en": "Pharynx, unspecified",
+  "ma_nhom": "D10",
+  "khoang": "D10-D36",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "D14.0",
+  "ten": "U lành ở tai giữa, hốc mũi và/hoặc xoang phụ",
+  "ten_en": "Middle ear, nasal cavity and accessory sinuses",
+  "ma_nhom": "D14",
+  "khoang": "D10-D36",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "D14.1",
+  "ten": "U lành ở thanh quản",
+  "ten_en": "Larynx",
+  "ma_nhom": "D14",
+  "khoang": "D10-D36",
+  "chuong": "II",
+  "chi_tiet": true
+ },
+ {
+  "ma": "G51.0",
+  "ten": "Liệt Bell",
+  "ten_en": "Bell's palsy",
+  "ma_nhom": "G51",
+  "khoang": "G50-G59",
+  "chuong": "VI",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H60",
+  "ten": "Viêm tai ngoài",
+  "ten_en": "Otitis externa",
+  "ma_nhom": "H60",
+  "khoang": "H60-H62",
+  "chuong": "VIII",
+  "chi_tiet": false
+ },
+ {
+  "ma": "H60.0",
+  "ten": "Áp xe tai ngoài",
+  "ten_en": "Abscess of external ear",
+  "ma_nhom": "H60",
+  "khoang": "H60-H62",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H60.1",
+  "ten": "Viêm mô tế bào tai ngoài",
+  "ten_en": "Cellulitis of external ear",
+  "ma_nhom": "H60",
+  "khoang": "H60-H62",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H60.2",
+  "ten": "Viêm tai ngoài ác tính",
+  "ten_en": "Malignant otitis externa",
+  "ma_nhom": "H60",
+  "khoang": "H60-H62",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H60.3",
+  "ten": "Viêm tai ngoài khác do nhiễm trùng",
+  "ten_en": "Other infective otitis externa",
+  "ma_nhom": "H60",
+  "khoang": "H60-H62",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H60.4",
+  "ten": "Viêm tai ngoài có Cholesteatoma",
+  "ten_en": "Cholesteatoma of external ear",
+  "ma_nhom": "H60",
+  "khoang": "H60-H62",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H60.5",
+  "ten": "Viêm tai ngoài cấp tính, không do nhiễm trùng",
+  "ten_en": "Acute otitis externa, noninfective",
+  "ma_nhom": "H60",
+  "khoang": "H60-H62",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H60.8",
+  "ten": "Viêm tai ngoài khác",
+  "ten_en": "Other otitis externa",
+  "ma_nhom": "H60",
+  "khoang": "H60-H62",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H60.9",
+  "ten": "Viêm tai ngoài, không xác định",
+  "ten_en": "Otitis externa, unspecified",
+  "ma_nhom": "H60",
+  "khoang": "H60-H62",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H61",
+  "ten": "Rối loạn khác của tai ngoài",
+  "ten_en": "Other disorders of external ear",
+  "ma_nhom": "H61",
+  "khoang": "H60-H62",
+  "chuong": "VIII",
+  "chi_tiet": false
+ },
+ {
+  "ma": "H61.0",
+  "ten": "Viêm màng sụn tai ngoài",
+  "ten_en": "Perichondritis of external ear",
+  "ma_nhom": "H61",
+  "khoang": "H60-H62",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H61.1",
+  "ten": "Rối loạn không do nhiễm trùng của vành tai",
+  "ten_en": "Noninfective disorders of pinna",
+  "ma_nhom": "H61",
+  "khoang": "H60-H62",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H61.2",
+  "ten": "Nút ráy tai",
+  "ten_en": "Impacted cerumen",
+  "ma_nhom": "H61",
+  "khoang": "H60-H62",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H61.3",
+  "ten": "Hẹp ống tai ngoài mắc phải",
+  "ten_en": "Acquired stenosis of external ear canal",
+  "ma_nhom": "H61",
+  "khoang": "H60-H62",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H61.8",
+  "ten": "Rối loạn xác định khác của tai ngoài",
+  "ten_en": "Other specified disorders of external ear",
+  "ma_nhom": "H61",
+  "khoang": "H60-H62",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H61.9",
+  "ten": "Rối loạn tai ngoài, không xác định",
+  "ten_en": "Disorder of external ear, unspecified",
+  "ma_nhom": "H61",
+  "khoang": "H60-H62",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H62",
+  "ten": "Rối loạn tai ngoài ở bệnh phân loại mục khác",
+  "ten_en": "Disorders of external ear in diseases classified elsewhere",
+  "ma_nhom": "H62",
+  "khoang": "H60-H62",
+  "chuong": "VIII",
+  "chi_tiet": false
+ },
+ {
+  "ma": "H62.0",
+  "ten": "Viêm tai ngoài do nhiễm khuẩn phân loại mục khác",
+  "ten_en": "Otitis externa in bacterial diseases classified elsewhere",
+  "ma_nhom": "H62",
+  "khoang": "H60-H62",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H62.1",
+  "ten": "Viêm tai ngoài do virus phân loại mục khác",
+  "ten_en": "Otitis externa in viral diseases classified elsewhere",
+  "ma_nhom": "H62",
+  "khoang": "H60-H62",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H62.2",
+  "ten": "Viêm tai ngoài do nhiễm nấm",
+  "ten_en": "Otitis externa in mycoses",
+  "ma_nhom": "H62",
+  "khoang": "H60-H62",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H62.3",
+  "ten": "Viêm tai ngoài do bệnh nhiễm trùng và/hoặc do nhiễm ký sinh trùng khác phân loại mục khác",
+  "ten_en": "Otitis externa in other infectious and parasitic diseases classified elsewhere",
+  "ma_nhom": "H62",
+  "khoang": "H60-H62",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H62.4",
+  "ten": "Viêm tai ngoài do bệnh khác phân loại mục khác",
+  "ten_en": "Otitis externa in other diseases classified elsewhere",
+  "ma_nhom": "H62",
+  "khoang": "H60-H62",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H62.8",
+  "ten": "Rối loạn khác của tai ngoài ở bệnh phân loại mục khác",
+  "ten_en": "Other disorders of external ear in diseases classified elsewhere",
+  "ma_nhom": "H62",
+  "khoang": "H60-H62",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H65",
+  "ten": "Viêm tai giữa không có mủ",
+  "ten_en": "Nonsuppurative otitis media",
+  "ma_nhom": "H65",
+  "khoang": "H65-H75",
+  "chuong": "VIII",
+  "chi_tiet": false
+ },
+ {
+  "ma": "H65.0",
+  "ten": "Viêm tai giữa tiết dịch cấp tính",
+  "ten_en": "Acute serous otitis media",
+  "ma_nhom": "H65",
+  "khoang": "H65-H75",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H65.1",
+  "ten": "Viêm tai giữa cấp tính không có mủ khác",
+  "ten_en": "Other acute nonsuppurative otitis media",
+  "ma_nhom": "H65",
+  "khoang": "H65-H75",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H65.2",
+  "ten": "Viêm tai giữa tiết dịch mạn tính",
+  "ten_en": "Chronic serous otitis media",
+  "ma_nhom": "H65",
+  "khoang": "H65-H75",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H65.3",
+  "ten": "Viêm tai giữa tiết dịch nhày mạn tính",
+  "ten_en": "Chronic mucoid otitis media",
+  "ma_nhom": "H65",
+  "khoang": "H65-H75",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H65.4",
+  "ten": "Viêm tai giữa không có mủ mạn tính khác",
+  "ten_en": "Other chronic nonsuppurative otitis media",
+  "ma_nhom": "H65",
+  "khoang": "H65-H75",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H65.9",
+  "ten": "Viêm tai giữa không có mủ, không xác định",
+  "ten_en": "Nonsuppurative otitis media, unspecified",
+  "ma_nhom": "H65",
+  "khoang": "H65-H75",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H66",
+  "ten": "Viêm tai giữa có mủ và/hoặc viêm tai giữa không xác định",
+  "ten_en": "Suppurative and unspecified otitis media",
+  "ma_nhom": "H66",
+  "khoang": "H65-H75",
+  "chuong": "VIII",
+  "chi_tiet": false
+ },
+ {
+  "ma": "H66.0",
+  "ten": "Viêm tai giữa có mủ cấp tính",
+  "ten_en": "Acute suppurative otitis media",
+  "ma_nhom": "H66",
+  "khoang": "H65-H75",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H66.1",
+  "ten": "Viêm tai giữa có mủ ở vòi hòm nhĩ mạn tính",
+  "ten_en": "Chronic tubotympanic suppurative otitis media",
+  "ma_nhom": "H66",
+  "khoang": "H65-H75",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H66.2",
+  "ten": "Viêm tai giữa có mủ ở thượng nhĩ mạn tính",
+  "ten_en": "Chronic atticoantral suppurative otitis media",
+  "ma_nhom": "H66",
+  "khoang": "H65-H75",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H66.3",
+  "ten": "Viêm tai giữa có mủ mạn tính khác",
+  "ten_en": "Other chronic suppurative otitis media",
+  "ma_nhom": "H66",
+  "khoang": "H65-H75",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H66.4",
+  "ten": "Viêm tai giữa có mủ, không xác định",
+  "ten_en": "Suppurative otitis media, unspecified",
+  "ma_nhom": "H66",
+  "khoang": "H65-H75",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H66.9",
+  "ten": "Viêm tai giữa, không xác định",
+  "ten_en": "Otitis media, unspecified",
+  "ma_nhom": "H66",
+  "khoang": "H65-H75",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H67",
+  "ten": "Viêm tai giữa do bệnh phân loại mục khác",
+  "ten_en": "Otitis media in diseases classified elsewhere",
+  "ma_nhom": "H67",
+  "khoang": "H65-H75",
+  "chuong": "VIII",
+  "chi_tiet": false
+ },
+ {
+  "ma": "H67.0",
+  "ten": "Viêm tai giữa do nhiễm vi khuẩn phân loại mục khác",
+  "ten_en": "Otitis media in bacterial diseases classified elsewhere",
+  "ma_nhom": "H67",
+  "khoang": "H65-H75",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H67.1",
+  "ten": "Viêm tai giữa do virus phân loại mục khác",
+  "ten_en": "Otitis media in viral diseases classified elsewhere",
+  "ma_nhom": "H67",
+  "khoang": "H65-H75",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H67.8",
+  "ten": "Viêm tai giữa do bệnh khác phân loại mục khác",
+  "ten_en": "Otitis media in other diseases classified elsewhere",
+  "ma_nhom": "H67",
+  "khoang": "H65-H75",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H68",
+  "ten": "Viêm và/hoặc tắc vòi tai [vòi Eustache, vòi nhĩ]",
+  "ten_en": "Eustachian salpingitis and obstruction",
+  "ma_nhom": "H68",
+  "khoang": "H65-H75",
+  "chuong": "VIII",
+  "chi_tiet": false
+ },
+ {
+  "ma": "H68.0",
+  "ten": "Viêm vòi tai [vòi Eustache, vòi nhĩ]",
+  "ten_en": "Eustachian salpingitis",
+  "ma_nhom": "H68",
+  "khoang": "H65-H75",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H68.1",
+  "ten": "Tắc vòi tai [vòi Eustache, vòi nhĩ]",
+  "ten_en": "Obstruction of Eustachian tube",
+  "ma_nhom": "H68",
+  "khoang": "H65-H75",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H69",
+  "ten": "Rối loạn khác của vòi tai [vòi Eustache, vòi nhĩ]",
+  "ten_en": "Other disorders of Eustachian tube",
+  "ma_nhom": "H69",
+  "khoang": "H65-H75",
+  "chuong": "VIII",
+  "chi_tiet": false
+ },
+ {
+  "ma": "H69.0",
+  "ten": "Giãn rộng vòi tai [vòi Eustache, vòi nhĩ]",
+  "ten_en": "Patulous Eustachian tube",
+  "ma_nhom": "H69",
+  "khoang": "H65-H75",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H69.8",
+  "ten": "Rối loạn xác định khác của vòi tai [vòi Eustache, vòi nhĩ]",
+  "ten_en": "Other specified disorders of Eustachian tube",
+  "ma_nhom": "H69",
+  "khoang": "H65-H75",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H69.9",
+  "ten": "Rối loạn vòi tai [vòi Eustache, vòi nhĩ], không xác định",
+  "ten_en": "Eustachian tube disorder, unspecified",
+  "ma_nhom": "H69",
+  "khoang": "H65-H75",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H70",
+  "ten": "Viêm xương chũm và/hoặc bệnh liên quan",
+  "ten_en": "Mastoiditis and related conditions",
+  "ma_nhom": "H70",
+  "khoang": "H65-H75",
+  "chuong": "VIII",
+  "chi_tiet": false
+ },
+ {
+  "ma": "H70.0",
+  "ten": "Viêm xương chũm cấp tính",
+  "ten_en": "Acute mastoiditis",
+  "ma_nhom": "H70",
+  "khoang": "H65-H75",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H70.1",
+  "ten": "Viêm xương chũm mạn tính",
+  "ten_en": "Chronic mastoiditis",
+  "ma_nhom": "H70",
+  "khoang": "H65-H75",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H70.2",
+  "ten": "Viêm xương đá",
+  "ten_en": "Petrositis",
+  "ma_nhom": "H70",
+  "khoang": "H65-H75",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H70.8",
+  "ten": "Viêm xương chũm khác và/hoặc bệnh liên quan",
+  "ten_en": "Other mastoiditis and related conditions",
+  "ma_nhom": "H70",
+  "khoang": "H65-H75",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H70.9",
+  "ten": "Viêm xương chũm, không xác định",
+  "ten_en": "Mastoiditis, unspecified",
+  "ma_nhom": "H70",
+  "khoang": "H65-H75",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H71",
+  "ten": "Viêm tai giữa có Cholesteatoma",
+  "ten_en": "Cholesteatoma of middle ear",
+  "ma_nhom": "H71",
+  "khoang": "H65-H75",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H72",
+  "ten": "Thủng màng nhĩ",
+  "ten_en": "Perforation of tympanic membrane",
+  "ma_nhom": "H72",
+  "khoang": "H65-H75",
+  "chuong": "VIII",
+  "chi_tiet": false
+ },
+ {
+  "ma": "H72.0",
+  "ten": "Thủng màng nhĩ trung tâm",
+  "ten_en": "Central perforation of tympanic membrane",
+  "ma_nhom": "H72",
+  "khoang": "H65-H75",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H72.1",
+  "ten": "Thủng màng nhĩ ở vị trí thượng nhĩ",
+  "ten_en": "Attic perforation of tympanic membrane",
+  "ma_nhom": "H72",
+  "khoang": "H65-H75",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H72.2",
+  "ten": "Thủng màng nhĩ ở vùng rìa khác",
+  "ten_en": "Other marginal perforations of tympanic membrane",
+  "ma_nhom": "H72",
+  "khoang": "H65-H75",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H72.8",
+  "ten": "Thủng màng nhĩ khác",
+  "ten_en": "Other perforations of tympanic membrane",
+  "ma_nhom": "H72",
+  "khoang": "H65-H75",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H72.9",
+  "ten": "Thủng màng nhĩ, không xác định",
+  "ten_en": "Perforation of tympanic membrane, unspecified",
+  "ma_nhom": "H72",
+  "khoang": "H65-H75",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H73",
+  "ten": "Rối loạn khác của màng nhĩ",
+  "ten_en": "Other disorders of tympanic membrane",
+  "ma_nhom": "H73",
+  "khoang": "H65-H75",
+  "chuong": "VIII",
+  "chi_tiet": false
+ },
+ {
+  "ma": "H73.0",
+  "ten": "Viêm màng nhĩ cấp tính",
+  "ten_en": "Acute myringitis",
+  "ma_nhom": "H73",
+  "khoang": "H65-H75",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H73.1",
+  "ten": "Viêm màng nhĩ mạn tính",
+  "ten_en": "Chronic myringitis",
+  "ma_nhom": "H73",
+  "khoang": "H65-H75",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H73.8",
+  "ten": "Rối loạn xác định khác của màng nhĩ",
+  "ten_en": "Other specified disorders of tympanic membrane",
+  "ma_nhom": "H73",
+  "khoang": "H65-H75",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H73.9",
+  "ten": "Rối loạn màng nhĩ, không xác định",
+  "ten_en": "Disorder of tympanic membrane, unspecified",
+  "ma_nhom": "H73",
+  "khoang": "H65-H75",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H74",
+  "ten": "Rối loạn khác của tai giữa và/hoặc xương chũm",
+  "ten_en": "Other disorders of middle ear and mastoid",
+  "ma_nhom": "H74",
+  "khoang": "H65-H75",
+  "chuong": "VIII",
+  "chi_tiet": false
+ },
+ {
+  "ma": "H74.0",
+  "ten": "Xơ hoá màng nhĩ và niêm mạc tai giữa",
+  "ten_en": "Tympanosclerosis",
+  "ma_nhom": "H74",
+  "khoang": "H65-H75",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H74.1",
+  "ten": "Viêm tai giữa dính",
+  "ten_en": "Adhesive middle ear disease",
+  "ma_nhom": "H74",
+  "khoang": "H65-H75",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H74.2",
+  "ten": "Gián đoạn và/hoặc trật khớp chuỗi xương con",
+  "ten_en": "Discontinuity and dislocation of ear ossicles",
+  "ma_nhom": "H74",
+  "khoang": "H65-H75",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H74.3",
+  "ten": "Bất thường mắc phải khác của chuỗi xương con",
+  "ten_en": "Other acquired abnormalities of ear ossicles",
+  "ma_nhom": "H74",
+  "khoang": "H65-H75",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H74.4",
+  "ten": "Polyp ở tai giữa",
+  "ten_en": "Polyp of middle ear",
+  "ma_nhom": "H74",
+  "khoang": "H65-H75",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H74.8",
+  "ten": "Rối loạn xác định khác của tai giữa và/hoặc xương chũm",
+  "ten_en": "Other specified disorders of middle ear and mastoid",
+  "ma_nhom": "H74",
+  "khoang": "H65-H75",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H74.9",
+  "ten": "Rối loạn tai giữa và/hoặc xương chũm, không xác định",
+  "ten_en": "Disorder of middle ear and mastoid, unspecified",
+  "ma_nhom": "H74",
+  "khoang": "H65-H75",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H75",
+  "ten": "Rối loạn tai giữa và/hoặc xương chũm do bệnh phân loại mục khác",
+  "ten_en": "Other disorders of middle ear and mastoid in diseases classified elsewhere",
+  "ma_nhom": "H75",
+  "khoang": "H65-H75",
+  "chuong": "VIII",
+  "chi_tiet": false
+ },
+ {
+  "ma": "H75.0",
+  "ten": "Viêm xương chũm do nhiễm trùng và/hoặc do nhiễm ký sinh trùng phân loại mục khác",
+  "ten_en": "Mastoiditis in infectious and parasitic diseases classified elsewhere",
+  "ma_nhom": "H75",
+  "khoang": "H65-H75",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H75.8",
+  "ten": "Những rối loạn xác định khác của tai giữa và/hoặc xương chũm do bệnh đã phân loại mục khác",
+  "ten_en": "Other specified disorders of middle ear and mastoid in diseases classified elsewhere",
+  "ma_nhom": "H75",
+  "khoang": "H65-H75",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H80",
+  "ten": "Xốp xơ tai",
+  "ten_en": "Otosclerosis",
+  "ma_nhom": "H80",
+  "khoang": "H80-H83",
+  "chuong": "VIII",
+  "chi_tiet": false
+ },
+ {
+  "ma": "H80.0",
+  "ten": "Xốp xơ tai ở cửa sổ bầu dục, không gây bít tắc",
+  "ten_en": "Otosclerosis involving oval window, nonobliterative",
+  "ma_nhom": "H80",
+  "khoang": "H80-H83",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H80.1",
+  "ten": "Xốp xơ tai ở cửa sổ bầu dục, có gây bít tắc",
+  "ten_en": "Otosclerosis involving oval window, obliterative",
+  "ma_nhom": "H80",
+  "khoang": "H80-H83",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H80.2",
+  "ten": "Xốp xơ ốc tai",
+  "ten_en": "Cochlear otosclerosis",
+  "ma_nhom": "H80",
+  "khoang": "H80-H83",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H80.8",
+  "ten": "Xốp xơ tai khác",
+  "ten_en": "Other otosclerosis",
+  "ma_nhom": "H80",
+  "khoang": "H80-H83",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H80.9",
+  "ten": "Xốp xơ tai, không xác định",
+  "ten_en": "Otosclerosis, unspecified",
+  "ma_nhom": "H80",
+  "khoang": "H80-H83",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H81",
+  "ten": "Rối loạn chức năng tiền đình",
+  "ten_en": "Disorders of vestibular function",
+  "ma_nhom": "H81",
+  "khoang": "H80-H83",
+  "chuong": "VIII",
+  "chi_tiet": false
+ },
+ {
+  "ma": "H81.0",
+  "ten": "Bệnh Ménière",
+  "ten_en": "Ménière disease",
+  "ma_nhom": "H81",
+  "khoang": "H80-H83",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H81.1",
+  "ten": "Chóng mặt kịch phát lành tính",
+  "ten_en": "Benign paroxysmal vertigo",
+  "ma_nhom": "H81",
+  "khoang": "H80-H83",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H81.2",
+  "ten": "Viêm dây thần kinh tiền đình",
+  "ten_en": "Vestibular neuronitis",
+  "ma_nhom": "H81",
+  "khoang": "H80-H83",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H81.3",
+  "ten": "Chóng mặt do rối loạn tiền đình ngoại biên khác",
+  "ten_en": "Other peripheral vertigo",
+  "ma_nhom": "H81",
+  "khoang": "H80-H83",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H81.4",
+  "ten": "Chóng mặt do rối loạn tiền đình trung ương",
+  "ten_en": "Vertigo of central origin",
+  "ma_nhom": "H81",
+  "khoang": "H80-H83",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H81.8",
+  "ten": "Rối loạn chức năng tiền đình khác",
+  "ten_en": "Other disorders of vestibular function",
+  "ma_nhom": "H81",
+  "khoang": "H80-H83",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H81.9",
+  "ten": "Rối loạn chức năng tiền đình, không xác định",
+  "ten_en": "Disorder of vestibular function, unspecified",
+  "ma_nhom": "H81",
+  "khoang": "H80-H83",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H82",
+  "ten": "Hội chứng chóng mặt do bệnh được phân loại mục khác",
+  "ten_en": "Vertiginous syndromes in diseases classified elsewhere",
+  "ma_nhom": "H82",
+  "khoang": "H80-H83",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H83",
+  "ten": "Bệnh khác của tai trong",
+  "ten_en": "Other diseases of inner ear",
+  "ma_nhom": "H83",
+  "khoang": "H80-H83",
+  "chuong": "VIII",
+  "chi_tiet": false
+ },
+ {
+  "ma": "H83.0",
+  "ten": "Viêm mê nhĩ",
+  "ten_en": "Labyrinthitis",
+  "ma_nhom": "H83",
+  "khoang": "H80-H83",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H83.1",
+  "ten": "Rò mê nhĩ",
+  "ten_en": "Labyrinthine fistula",
+  "ma_nhom": "H83",
+  "khoang": "H80-H83",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H83.2",
+  "ten": "Rối loạn chức năng mê nhĩ",
+  "ten_en": "Labyrinthine dysfunction",
+  "ma_nhom": "H83",
+  "khoang": "H80-H83",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H83.3",
+  "ten": "Ảnh hưởng của tiếng ồn lên tai trong",
+  "ten_en": "Noise effects on inner ear",
+  "ma_nhom": "H83",
+  "khoang": "H80-H83",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H83.8",
+  "ten": "Bệnh xác định khác của tai trong",
+  "ten_en": "Other specified diseases of inner ear",
+  "ma_nhom": "H83",
+  "khoang": "H80-H83",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H83.9",
+  "ten": "Bệnh của tai trong, không xác định",
+  "ten_en": "Disease of inner ear, unspecified",
+  "ma_nhom": "H83",
+  "khoang": "H80-H83",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H90",
+  "ten": "Giảm thính lực dẫn truyền và/hoặc giảm thính lực thần kinh giác quan",
+  "ten_en": "Conductive and sensorineural hearing loss",
+  "ma_nhom": "H90",
+  "khoang": "H90-H95",
+  "chuong": "VIII",
+  "chi_tiet": false
+ },
+ {
+  "ma": "H90.0",
+  "ten": "Giảm thính lực dẫn truyền, hai tai",
+  "ten_en": "Conductive hearing loss, bilateral",
+  "ma_nhom": "H90",
+  "khoang": "H90-H95",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H90.1",
+  "ten": "Giảm thính lực dẫn truyền một bên tai, không hạn chế sức nghe ở tai còn lại",
+  "ten_en": "Conductive hearing loss, unilateral with unrestricted hearing on the contralateral side",
+  "ma_nhom": "H90",
+  "khoang": "H90-H95",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H90.2",
+  "ten": "Giảm thính lực dẫn truyền, không xác định",
+  "ten_en": "Conductive hearing loss, unspecified",
+  "ma_nhom": "H90",
+  "khoang": "H90-H95",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H90.3",
+  "ten": "Giảm thính lực thần kinh giác quan, hai tai",
+  "ten_en": "Sensorineural hearing loss, bilateral",
+  "ma_nhom": "H90",
+  "khoang": "H90-H95",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H90.4",
+  "ten": "Giảm thính lực thần kinh giác quan một bên tai, không hạn chế sức nghe ở tai còn lại",
+  "ten_en": "Sensorineural hearing loss, unilateral with unrestricted hearing on the contralateral side",
+  "ma_nhom": "H90",
+  "khoang": "H90-H95",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H90.5",
+  "ten": "Giảm thính lực thần kinh giác quan, không xác định",
+  "ten_en": "Sensorineural hearing loss, unspecified",
+  "ma_nhom": "H90",
+  "khoang": "H90-H95",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H90.6",
+  "ten": "Giảm thính lực hỗn hợp dẫn truyền và/hoặc giảm thính lực thần kinh giác quan, hai tai",
+  "ten_en": "Mixed conductive and sensorineural hearing loss, bilateral",
+  "ma_nhom": "H90",
+  "khoang": "H90-H95",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H90.7",
+  "ten": "Giảm thính lực hỗn hợp dẫn truyền và/hoặc giảm thính lực thần kinh giác quan một tai, không hạn chế sức nghe ở tai còn lại",
+  "ten_en": "Mixed conductive and sensorineural hearing loss, unilateral with unrestricted hearing on the contralateral side",
+  "ma_nhom": "H90",
+  "khoang": "H90-H95",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H90.8",
+  "ten": "Giảm thính lực thần kinh giác quan và/hoặc dẫn truyền hỗn hợp, không xác định",
+  "ten_en": "Mixed conductive and sensorineural hearing loss, unspecified",
+  "ma_nhom": "H90",
+  "khoang": "H90-H95",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H91",
+  "ten": "Giảm thính lực khác",
+  "ten_en": "Other hearing loss",
+  "ma_nhom": "H91",
+  "khoang": "H90-H95",
+  "chuong": "VIII",
+  "chi_tiet": false
+ },
+ {
+  "ma": "H91.0",
+  "ten": "Giảm thính lực độc tai [chất hoá học gây ảnh hưởng đến thính lực]",
+  "ten_en": "Ototoxic hearing loss",
+  "ma_nhom": "H91",
+  "khoang": "H90-H95",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H91.1",
+  "ten": "Giảm thính lực ở người cao tuổi [lão thính]",
+  "ten_en": "Presbycusis",
+  "ma_nhom": "H91",
+  "khoang": "H90-H95",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H91.2",
+  "ten": "Giảm thính lực đột ngột vô căn",
+  "ten_en": "Sudden idiopathic hearing loss",
+  "ma_nhom": "H91",
+  "khoang": "H90-H95",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H91.3",
+  "ten": "Câm điếc, không phân loại mục khác",
+  "ten_en": "Deaf mutism, not elsewhere classified",
+  "ma_nhom": "H91",
+  "khoang": "H90-H95",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H91.8",
+  "ten": "Giảm thính lực xác định khác",
+  "ten_en": "Other specified hearing loss",
+  "ma_nhom": "H91",
+  "khoang": "H90-H95",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H91.9",
+  "ten": "Giảm thính lực, không xác định",
+  "ten_en": "Hearing loss, unspecified",
+  "ma_nhom": "H91",
+  "khoang": "H90-H95",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H92",
+  "ten": "Đau tai và/hoặc tràn dịch tai",
+  "ten_en": "Otalgia and effusion of ear",
+  "ma_nhom": "H92",
+  "khoang": "H90-H95",
+  "chuong": "VIII",
+  "chi_tiet": false
+ },
+ {
+  "ma": "H92.0",
+  "ten": "Đau tai",
+  "ten_en": "Otalgia",
+  "ma_nhom": "H92",
+  "khoang": "H90-H95",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H92.1",
+  "ten": "Chảy dịch tai",
+  "ten_en": "Otorrhoea",
+  "ma_nhom": "H92",
+  "khoang": "H90-H95",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H92.2",
+  "ten": "Chảy máu tai",
+  "ten_en": "Otorrhagia",
+  "ma_nhom": "H92",
+  "khoang": "H90-H95",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H93",
+  "ten": "Rối loạn khác của tai, không phân loại mục khác",
+  "ten_en": "Other disorders of ear, not elsewhere classified",
+  "ma_nhom": "H93",
+  "khoang": "H90-H95",
+  "chuong": "VIII",
+  "chi_tiet": false
+ },
+ {
+  "ma": "H93.0",
+  "ten": "Thoái hoá và/hoặc rối loạn mạch máu tai",
+  "ten_en": "Degenerative and vascular disorders of ear",
+  "ma_nhom": "H93",
+  "khoang": "H90-H95",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H93.1",
+  "ten": "Ù tai",
+  "ten_en": "Tinnitus",
+  "ma_nhom": "H93",
+  "khoang": "H90-H95",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H93.2",
+  "ten": "Nhận thức thính giác bất thường khác",
+  "ten_en": "Other abnormal auditory perceptions",
+  "ma_nhom": "H93",
+  "khoang": "H90-H95",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H93.3",
+  "ten": "Rối loạn thần kinh thính giác",
+  "ten_en": "Disorders of acoustic nerve",
+  "ma_nhom": "H93",
+  "khoang": "H90-H95",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H93.8",
+  "ten": "Rối loạn xác định khác của tai",
+  "ten_en": "Other specified disorders of ear",
+  "ma_nhom": "H93",
+  "khoang": "H90-H95",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H93.9",
+  "ten": "Rối loạn tai, không xác định",
+  "ten_en": "Disorder of ear, unspecified",
+  "ma_nhom": "H93",
+  "khoang": "H90-H95",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H94",
+  "ten": "Rối loạn khác của tai do bệnh phân loại mục khác",
+  "ten_en": "Other disorders of ear in diseases classified elsewhere",
+  "ma_nhom": "H94",
+  "khoang": "H90-H95",
+  "chuong": "VIII",
+  "chi_tiet": false
+ },
+ {
+  "ma": "H94.0",
+  "ten": "Viêm dây thần kinh thính giác do nhiễm trùng và/hoặc nhiễm ký sinh trùng phân loại mục khác",
+  "ten_en": "Acoustic neuritis in infectious and parasitic diseases classified elsewhere",
+  "ma_nhom": "H94",
+  "khoang": "H90-H95",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H94.8",
+  "ten": "Rối loạn xác định khác của tai do bệnh phân loại mục khác",
+  "ten_en": "Other specified disorders of ear in diseases classified elsewhere",
+  "ma_nhom": "H94",
+  "khoang": "H90-H95",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H95",
+  "ten": "Rối loạn tai và/hoặc xương chũm sau can thiệp, không phân loại mục khác",
+  "ten_en": "Postprocedural disorders of ear and mastoid process, not elsewhere classified",
+  "ma_nhom": "H95",
+  "khoang": "H90-H95",
+  "chuong": "VIII",
+  "chi_tiet": false
+ },
+ {
+  "ma": "H95.0",
+  "ten": "Cholesteatoma tái phát sau phẫu thuật khoét hang chũm",
+  "ten_en": "Recurrent cholesteatoma of postmastoidectomy cavity",
+  "ma_nhom": "H95",
+  "khoang": "H90-H95",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H95.1",
+  "ten": "Rối loạn khác sau phẫu thuật khoét chũm",
+  "ten_en": "Other disorders following mastoidectomy",
+  "ma_nhom": "H95",
+  "khoang": "H90-H95",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H95.8",
+  "ten": "Rối loạn khác của tai và/hoặc xương chũm sau can thiệp",
+  "ten_en": "Other postprocedural disorders of ear and mastoid process",
+  "ma_nhom": "H95",
+  "khoang": "H90-H95",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "H95.9",
+  "ten": "Rối loạn của tai và/hoặc xương chũm sau can thiệp, không xác định",
+  "ten_en": "Postprocedural disorder of ear and mastoid process, unspecified",
+  "ma_nhom": "H95",
+  "khoang": "H90-H95",
+  "chuong": "VIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J00",
+  "ten": "Viêm mũi họng cấp tính [cảm thường]",
+  "ten_en": "Acute nasopharyngitis [common cold]",
+  "ma_nhom": "J00",
+  "khoang": "J00-J06",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J01",
+  "ten": "Viêm xoang cấp tính",
+  "ten_en": "Acute sinusitis",
+  "ma_nhom": "J01",
+  "khoang": "J00-J06",
+  "chuong": "X",
+  "chi_tiet": false
+ },
+ {
+  "ma": "J01.0",
+  "ten": "Viêm xoang hàm cấp tính",
+  "ten_en": "Acute maxillary sinusitis",
+  "ma_nhom": "J01",
+  "khoang": "J00-J06",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J01.1",
+  "ten": "Viêm xoang trán cấp tính",
+  "ten_en": "Acute frontal sinusitis",
+  "ma_nhom": "J01",
+  "khoang": "J00-J06",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J01.2",
+  "ten": "Viêm xoang sàng cấp tính",
+  "ten_en": "Acute ethmoidal sinusitis",
+  "ma_nhom": "J01",
+  "khoang": "J00-J06",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J01.3",
+  "ten": "Viêm xoang bướm cấp tính",
+  "ten_en": "Acute sphenoidal sinusitis",
+  "ma_nhom": "J01",
+  "khoang": "J00-J06",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J01.4",
+  "ten": "Viêm toàn bộ xoang cấp tính",
+  "ten_en": "Acute pansinusitis",
+  "ma_nhom": "J01",
+  "khoang": "J00-J06",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J01.8",
+  "ten": "Viêm xoang cấp tính khác",
+  "ten_en": "Other acute sinusitis",
+  "ma_nhom": "J01",
+  "khoang": "J00-J06",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J01.9",
+  "ten": "Viêm xoang cấp tính, không xác định",
+  "ten_en": "Acute sinusitis, unspecified",
+  "ma_nhom": "J01",
+  "khoang": "J00-J06",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J02",
+  "ten": "Viêm họng cấp tính",
+  "ten_en": "Acute pharyngitis",
+  "ma_nhom": "J02",
+  "khoang": "J00-J06",
+  "chuong": "X",
+  "chi_tiet": false
+ },
+ {
+  "ma": "J02.0",
+  "ten": "Viêm họng do liên cầu khuẩn [Streptococcus]",
+  "ten_en": "Streptococcal pharyngitis",
+  "ma_nhom": "J02",
+  "khoang": "J00-J06",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J02.8",
+  "ten": "Viêm họng cấp tính do vi sinh vật xác định khác",
+  "ten_en": "Acute pharyngitis due to other specified organisms",
+  "ma_nhom": "J02",
+  "khoang": "J00-J06",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J02.9",
+  "ten": "Viêm họng cấp tính, không xác định",
+  "ten_en": "Acute pharyngitis, unspecified",
+  "ma_nhom": "J02",
+  "khoang": "J00-J06",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J03",
+  "ten": "Viêm amydan cấp tính",
+  "ten_en": "Acute tonsillitis",
+  "ma_nhom": "J03",
+  "khoang": "J00-J06",
+  "chuong": "X",
+  "chi_tiet": false
+ },
+ {
+  "ma": "J03.0",
+  "ten": "Viêm amydan do liên cầu khuẩn [Streptococcus]",
+  "ten_en": "Streptococcal tonsillitis",
+  "ma_nhom": "J03",
+  "khoang": "J00-J06",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J03.8",
+  "ten": "Viêm amydan cấp tính do vi sinh vật xác định khác",
+  "ten_en": "Acute tonsillitis due to other specified organisms",
+  "ma_nhom": "J03",
+  "khoang": "J00-J06",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J03.9",
+  "ten": "Viêm amydan cấp tính, không xác định",
+  "ten_en": "Acute tonsillitis, unspecified",
+  "ma_nhom": "J03",
+  "khoang": "J00-J06",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J04",
+  "ten": "Viêm thanh quản và/hoặc khí quản cấp tính",
+  "ten_en": "Acute laryngitis and tracheitis",
+  "ma_nhom": "J04",
+  "khoang": "J00-J06",
+  "chuong": "X",
+  "chi_tiet": false
+ },
+ {
+  "ma": "J04.0",
+  "ten": "Viêm thanh quản cấp tính",
+  "ten_en": "Acute laryngitis",
+  "ma_nhom": "J04",
+  "khoang": "J00-J06",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J04.1",
+  "ten": "Viêm khí quản cấp tính",
+  "ten_en": "Acute tracheitis",
+  "ma_nhom": "J04",
+  "khoang": "J00-J06",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J04.2",
+  "ten": "Viêm thanh khí quản cấp tính",
+  "ten_en": "Acute laryngotracheitis",
+  "ma_nhom": "J04",
+  "khoang": "J00-J06",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J05",
+  "ten": "Viêm thanh quản tắc nghẽn [tắc nghẽn thanh quản] và/hoặc nắp thanh môn cấp tính",
+  "ten_en": "Acute obstructive laryngitis [croup] and epiglottitis",
+  "ma_nhom": "J05",
+  "khoang": "J00-J06",
+  "chuong": "X",
+  "chi_tiet": false
+ },
+ {
+  "ma": "J05.0",
+  "ten": "Viêm thanh quản tắc nghẽn cấp tính [yết hầu]",
+  "ten_en": "Acute obstructive laryngitis [croup]",
+  "ma_nhom": "J05",
+  "khoang": "J00-J06",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J05.1",
+  "ten": "Viêm nắp thanh môn cấp tính",
+  "ten_en": "Acute epiglottitis",
+  "ma_nhom": "J05",
+  "khoang": "J00-J06",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J06",
+  "ten": "Nhiễm trùng đường hô hấp trên cấp tính ở nhiều vị trí và/hoặc vị trí không xác định",
+  "ten_en": "Acute upper respiratory infections of multiple and unspecified sites",
+  "ma_nhom": "J06",
+  "khoang": "J00-J06",
+  "chuong": "X",
+  "chi_tiet": false
+ },
+ {
+  "ma": "J06.0",
+  "ten": "Viêm họng - thanh quản cấp tính",
+  "ten_en": "Acute laryngopharyngitis",
+  "ma_nhom": "J06",
+  "khoang": "J00-J06",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J06.8",
+  "ten": "Nhiễm trùng đường hô hấp trên cấp tính khác ở nhiều vị trí",
+  "ten_en": "Other acute upper respiratory infections of multiple sites",
+  "ma_nhom": "J06",
+  "khoang": "J00-J06",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J06.9",
+  "ten": "Nhiễm trùng đường hô hấp trên cấp tính, không xác định",
+  "ten_en": "Acute upper respiratory infection, unspecified",
+  "ma_nhom": "J06",
+  "khoang": "J00-J06",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J30",
+  "ten": "Viêm mũi vận mạch và/hoặc viêm mũi dị ứng",
+  "ten_en": "Vasomotor and allergic rhinitis",
+  "ma_nhom": "J30",
+  "khoang": "J30-J39",
+  "chuong": "X",
+  "chi_tiet": false
+ },
+ {
+  "ma": "J30.0",
+  "ten": "Viêm mũi vận mạch",
+  "ten_en": "Vasomotor rhinitis",
+  "ma_nhom": "J30",
+  "khoang": "J30-J39",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J30.1",
+  "ten": "Viêm mũi dị ứng do phấn hoa",
+  "ten_en": "Allergic rhinitis due to pollen",
+  "ma_nhom": "J30",
+  "khoang": "J30-J39",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J30.2",
+  "ten": "Viêm mũi dị ứng theo mùa khác",
+  "ten_en": "Other seasonal allergic rhinitis",
+  "ma_nhom": "J30",
+  "khoang": "J30-J39",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J30.3",
+  "ten": "Viêm mũi dị ứng khác",
+  "ten_en": "Other allergic rhinitis",
+  "ma_nhom": "J30",
+  "khoang": "J30-J39",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J30.4",
+  "ten": "Viêm mũi dị ứng, không xác định",
+  "ten_en": "Allergic rhinitis, unspecified",
+  "ma_nhom": "J30",
+  "khoang": "J30-J39",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J31",
+  "ten": "Viêm mũi, viêm mũi họng và/hoặc viêm họng mạn tính",
+  "ten_en": "Chronic rhinitis, nasopharyngitis and pharyngitis",
+  "ma_nhom": "J31",
+  "khoang": "J30-J39",
+  "chuong": "X",
+  "chi_tiet": false
+ },
+ {
+  "ma": "J31.0",
+  "ten": "Viêm mũi mạn tính",
+  "ten_en": "Chronic rhinitis",
+  "ma_nhom": "J31",
+  "khoang": "J30-J39",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J31.1",
+  "ten": "Viêm mũi họng mạn tính",
+  "ten_en": "Chronic nasopharyngitis",
+  "ma_nhom": "J31",
+  "khoang": "J30-J39",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J31.2",
+  "ten": "Viêm họng mạn tính",
+  "ten_en": "Chronic pharyngitis",
+  "ma_nhom": "J31",
+  "khoang": "J30-J39",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J32",
+  "ten": "Viêm xoang mạn tính",
+  "ten_en": "Chronic sinusitis",
+  "ma_nhom": "J32",
+  "khoang": "J30-J39",
+  "chuong": "X",
+  "chi_tiet": false
+ },
+ {
+  "ma": "J32.0",
+  "ten": "Viêm xoang hàm mạn tính",
+  "ten_en": "Chronic maxillary sinusitis",
+  "ma_nhom": "J32",
+  "khoang": "J30-J39",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J32.1",
+  "ten": "Viêm xoang trán mạn tính",
+  "ten_en": "Chronic frontal sinusitis",
+  "ma_nhom": "J32",
+  "khoang": "J30-J39",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J32.2",
+  "ten": "Viêm xoang sàng mạn tính",
+  "ten_en": "Chronic ethmoidal sinusitis",
+  "ma_nhom": "J32",
+  "khoang": "J30-J39",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J32.3",
+  "ten": "Viêm xoang bướm mạn tính",
+  "ten_en": "Chronic sphenoidal sinusitis",
+  "ma_nhom": "J32",
+  "khoang": "J30-J39",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J32.4",
+  "ten": "Viêm đa xoang mạn tính",
+  "ten_en": "Chronic pansinusitis",
+  "ma_nhom": "J32",
+  "khoang": "J30-J39",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J32.8",
+  "ten": "Viêm xoang mạn tính khác",
+  "ten_en": "Other chronic sinusitis",
+  "ma_nhom": "J32",
+  "khoang": "J30-J39",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J32.9",
+  "ten": "Viêm xoang mạn tính, không xác định",
+  "ten_en": "Chronic sinusitis, unspecified",
+  "ma_nhom": "J32",
+  "khoang": "J30-J39",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J33",
+  "ten": "Polyp mũi",
+  "ten_en": "Nasal polyp",
+  "ma_nhom": "J33",
+  "khoang": "J30-J39",
+  "chuong": "X",
+  "chi_tiet": false
+ },
+ {
+  "ma": "J33.0",
+  "ten": "Polyp khoang mũi",
+  "ten_en": "Polyp of nasal cavity",
+  "ma_nhom": "J33",
+  "khoang": "J30-J39",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J33.1",
+  "ten": "Thoái hoá xoang dạng polyp",
+  "ten_en": "Polypoid sinus degeneration",
+  "ma_nhom": "J33",
+  "khoang": "J30-J39",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J33.8",
+  "ten": "Polyp khác của xoang",
+  "ten_en": "Other polyp of sinus",
+  "ma_nhom": "J33",
+  "khoang": "J30-J39",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J33.9",
+  "ten": "Polyp mũi, không xác định",
+  "ten_en": "Nasal polyp, unspecified",
+  "ma_nhom": "J33",
+  "khoang": "J30-J39",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J34",
+  "ten": "Rối loạn khác của mũi và/hoặc xoang",
+  "ten_en": "Other disorders of nose and nasal sinuses",
+  "ma_nhom": "J34",
+  "khoang": "J30-J39",
+  "chuong": "X",
+  "chi_tiet": false
+ },
+ {
+  "ma": "J34.0",
+  "ten": "Áp xe, nhọt và/hoặc nhọt tiền đình mũi",
+  "ten_en": "Abscess, furuncle and carbuncle of nose",
+  "ma_nhom": "J34",
+  "khoang": "J30-J39",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J34.1",
+  "ten": "U nang và/hoặc nang nhầy của mũi và/hoặc xoang mũi",
+  "ten_en": "Cyst and mucocele of nose and nasal sinus",
+  "ma_nhom": "J34",
+  "khoang": "J30-J39",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J34.2",
+  "ten": "Vẹo vách ngăn mũi",
+  "ten_en": "Deviated nasal septum",
+  "ma_nhom": "J34",
+  "khoang": "J30-J39",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J34.3",
+  "ten": "Phì đại [quá phát] cuốn mũi",
+  "ten_en": "Hypertrophy of nasal turbinates",
+  "ma_nhom": "J34",
+  "khoang": "J30-J39",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J34.8",
+  "ten": "Rối loạn xác định khác của mũi và/hoặc xoang",
+  "ten_en": "Other specified disorders of nose and nasal sinuses",
+  "ma_nhom": "J34",
+  "khoang": "J30-J39",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J35",
+  "ten": "Bệnh mạn tính của amydan và khối mô lympho ở vòm họng [VA]",
+  "ten_en": "Chronic diseases of tonsils and adenoids",
+  "ma_nhom": "J35",
+  "khoang": "J30-J39",
+  "chuong": "X",
+  "chi_tiet": false
+ },
+ {
+  "ma": "J35.0",
+  "ten": "Viêm amydan mạn tính",
+  "ten_en": "Chronic tonsillitis",
+  "ma_nhom": "J35",
+  "khoang": "J30-J39",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J35.1",
+  "ten": "Phì đại amydan",
+  "ten_en": "Hypertrophy of tonsils",
+  "ma_nhom": "J35",
+  "khoang": "J30-J39",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J35.2",
+  "ten": "Phì đại khối mô lympho ở vòm họng [VA]",
+  "ten_en": "Hypertrophy of adenoids",
+  "ma_nhom": "J35",
+  "khoang": "J30-J39",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J35.3",
+  "ten": "Phì đại amydan kèm phì đại khối mô lympho ở vòm họng [VA]",
+  "ten_en": "Hypertrophy of tonsils with hypertrophy of adenoids",
+  "ma_nhom": "J35",
+  "khoang": "J30-J39",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J35.8",
+  "ten": "Bệnh mạn tính khác của amydan và/hoặc khối mô lympho ở vòm họng [VA]",
+  "ten_en": "Other chronic diseases of tonsils and adenoids",
+  "ma_nhom": "J35",
+  "khoang": "J30-J39",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J35.9",
+  "ten": "Bệnh mạn tính của amydan và/hoặc khối mô lympho ở vòm họng [VA], không xác định",
+  "ten_en": "Chronic disease of tonsils and adenoids, unspecified",
+  "ma_nhom": "J35",
+  "khoang": "J30-J39",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J36",
+  "ten": "Áp xe quanh amydan",
+  "ten_en": "Peritonsillar abscess",
+  "ma_nhom": "J36",
+  "khoang": "J30-J39",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J37",
+  "ten": "Viêm thanh quản và/hoặc viêm thanh khí quản mạn tính",
+  "ten_en": "Chronic laryngitis and laryngotracheitis",
+  "ma_nhom": "J37",
+  "khoang": "J30-J39",
+  "chuong": "X",
+  "chi_tiet": false
+ },
+ {
+  "ma": "J37.0",
+  "ten": "Viêm thanh quản mạn tính",
+  "ten_en": "Chronic laryngitis",
+  "ma_nhom": "J37",
+  "khoang": "J30-J39",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J37.1",
+  "ten": "Viêm thanh khí quản mạn tính",
+  "ten_en": "Chronic laryngotracheitis",
+  "ma_nhom": "J37",
+  "khoang": "J30-J39",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J38",
+  "ten": "Bệnh của dây thanh âm và/hoặc thanh quản, không phân loại mục khác",
+  "ten_en": "Diseases of vocal cords and larynx, not elsewhere classified",
+  "ma_nhom": "J38",
+  "khoang": "J30-J39",
+  "chuong": "X",
+  "chi_tiet": false
+ },
+ {
+  "ma": "J38.0",
+  "ten": "Liệt dây thanh âm và/hoặc thanh quản",
+  "ten_en": "Paralysis of vocal cords and larynx",
+  "ma_nhom": "J38",
+  "khoang": "J30-J39",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J38.1",
+  "ten": "Polyp của dây thanh âm và/hoặc thanh quản",
+  "ten_en": "Polyp of vocal cord and larynx",
+  "ma_nhom": "J38",
+  "khoang": "J30-J39",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J38.2",
+  "ten": "Hạt xơ dây thanh",
+  "ten_en": "Nodules of vocal cords",
+  "ma_nhom": "J38",
+  "khoang": "J30-J39",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J38.3",
+  "ten": "Bệnh lý khác của dây thanh âm",
+  "ten_en": "Other diseases of vocal cords",
+  "ma_nhom": "J38",
+  "khoang": "J30-J39",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J38.4",
+  "ten": "Phù thanh quản",
+  "ten_en": "Oedema of larynx",
+  "ma_nhom": "J38",
+  "khoang": "J30-J39",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J38.5",
+  "ten": "Co thắt thanh quản",
+  "ten_en": "Laryngeal spasm",
+  "ma_nhom": "J38",
+  "khoang": "J30-J39",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J38.6",
+  "ten": "Hẹp thanh quản",
+  "ten_en": "Stenosis of larynx",
+  "ma_nhom": "J38",
+  "khoang": "J30-J39",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J38.7",
+  "ten": "Bệnh khác của thanh quản",
+  "ten_en": "Other diseases of larynx",
+  "ma_nhom": "J38",
+  "khoang": "J30-J39",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J39",
+  "ten": "Bệnh khác của đường hô hấp trên",
+  "ten_en": "Other diseases of upper respiratory tract",
+  "ma_nhom": "J39",
+  "khoang": "J30-J39",
+  "chuong": "X",
+  "chi_tiet": false
+ },
+ {
+  "ma": "J39.0",
+  "ten": "Áp xe sau họng và/hoặc áp xe cận họng",
+  "ten_en": "Retropharyngeal and parapharyngeal abscess",
+  "ma_nhom": "J39",
+  "khoang": "J30-J39",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J39.1",
+  "ten": "Áp xe khác của họng",
+  "ten_en": "Other abscess of pharynx",
+  "ma_nhom": "J39",
+  "khoang": "J30-J39",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J39.2",
+  "ten": "Bệnh khác của họng",
+  "ten_en": "Other diseases of pharynx",
+  "ma_nhom": "J39",
+  "khoang": "J30-J39",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J39.3",
+  "ten": "Phản ứng quá mẫn đường hô hấp trên, vị trí không xác định",
+  "ten_en": "Upper respiratory tract hypersensitivity reaction, site unspecified",
+  "ma_nhom": "J39",
+  "khoang": "J30-J39",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J39.8",
+  "ten": "Bệnh xác định khác của đường hô hấp trên",
+  "ten_en": "Other specified diseases of upper respiratory tract",
+  "ma_nhom": "J39",
+  "khoang": "J30-J39",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "J39.9",
+  "ten": "Bệnh ở đường hô hấp trên, không xác định",
+  "ten_en": "Disease of upper respiratory tract, unspecified",
+  "ma_nhom": "J39",
+  "khoang": "J30-J39",
+  "chuong": "X",
+  "chi_tiet": true
+ },
+ {
+  "ma": "K21",
+  "ten": "Bệnh trào ngược dạ dày - thực quản",
+  "ten_en": "Gastro- oesophageal reflux disease",
+  "ma_nhom": "K21",
+  "khoang": "K20-K31",
+  "chuong": "XI",
+  "chi_tiet": false
+ },
+ {
+  "ma": "K21.0",
+  "ten": "Bệnh trào ngược dạ dày - thực quản kèm viêm thực quản",
+  "ten_en": "Gastro- oesophageal reflux disease with oesophagitis",
+  "ma_nhom": "K21",
+  "khoang": "K20-K31",
+  "chuong": "XI",
+  "chi_tiet": true
+ },
+ {
+  "ma": "K21.9",
+  "ten": "Bệnh trào ngược dạ dày - thực quản không kèm viêm thực quản",
+  "ten_en": "Gastro- oesophageal reflux disease without oesophagitis",
+  "ma_nhom": "K21",
+  "khoang": "K20-K31",
+  "chuong": "XI",
+  "chi_tiet": true
+ },
+ {
+  "ma": "L72.1",
+  "ten": "Kén ở nang lông/tuyến bã",
+  "ten_en": "Trichilemmal cyst",
+  "ma_nhom": "L72",
+  "khoang": "L60-L75",
+  "chuong": "XII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "Q16",
+  "ten": "Dị tật bẩm sinh ở tai gây suy giảm thính lực",
+  "ten_en": "Congenital malformations of ear causing impairment of hearing",
+  "ma_nhom": "Q16",
+  "khoang": "Q10-Q18",
+  "chuong": "XVII",
+  "chi_tiet": false
+ },
+ {
+  "ma": "Q16.0",
+  "ten": "Dị tật thiếu tai ngoài [vành tai] bẩm sinh",
+  "ten_en": "Congenital absence of (ear) auricle",
+  "ma_nhom": "Q16",
+  "khoang": "Q10-Q18",
+  "chuong": "XVII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "Q16.1",
+  "ten": "Dị tật thiếu, teo và/hoặc hẹp ống tai ngoài bẩm sinh",
+  "ten_en": "Congenital absence, atresia and stricture of auditory canal (external)",
+  "ma_nhom": "Q16",
+  "khoang": "Q10-Q18",
+  "chuong": "XVII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "Q16.2",
+  "ten": "Dị tật thiếu vòi nhĩ [eustache]",
+  "ten_en": "Absence of eustachian tube",
+  "ma_nhom": "Q16",
+  "khoang": "Q10-Q18",
+  "chuong": "XVII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "Q16.3",
+  "ten": "Dị tật bẩm sinh các xương con của tai",
+  "ten_en": "Congenital malformation of ear ossicles",
+  "ma_nhom": "Q16",
+  "khoang": "Q10-Q18",
+  "chuong": "XVII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "Q16.4",
+  "ten": "Dị tật bẩm sinh khác của tai giữa",
+  "ten_en": "Other congenital malformations of middle ear",
+  "ma_nhom": "Q16",
+  "khoang": "Q10-Q18",
+  "chuong": "XVII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "Q16.5",
+  "ten": "Dị tật bẩm sinh tai trong",
+  "ten_en": "Congenital malformation of inner ear",
+  "ma_nhom": "Q16",
+  "khoang": "Q10-Q18",
+  "chuong": "XVII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "Q16.9",
+  "ten": "Dị tật bẩm sinh ở tai gây khiếm thính, không xác định",
+  "ten_en": "Congenital malformation of ear causing impairment of hearing, unspecified",
+  "ma_nhom": "Q16",
+  "khoang": "Q10-Q18",
+  "chuong": "XVII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "Q17",
+  "ten": "Dị tật bẩm sinh khác ở tai",
+  "ten_en": "Other congenital malformations of ear",
+  "ma_nhom": "Q17",
+  "khoang": "Q10-Q18",
+  "chuong": "XVII",
+  "chi_tiet": false
+ },
+ {
+  "ma": "Q17.0",
+  "ten": "Dị tật thừa vành tai [dị tật nhiều tai]",
+  "ten_en": "Accessory auricle",
+  "ma_nhom": "Q17",
+  "khoang": "Q10-Q18",
+  "chuong": "XVII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "Q17.1",
+  "ten": "Dị tật vành tai to",
+  "ten_en": "Macrotia",
+  "ma_nhom": "Q17",
+  "khoang": "Q10-Q18",
+  "chuong": "XVII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "Q17.2",
+  "ten": "Dị tật tai bé [Thiểu sản vành tai]",
+  "ten_en": "Microtia",
+  "ma_nhom": "Q17",
+  "khoang": "Q10-Q18",
+  "chuong": "XVII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "Q17.3",
+  "ten": "Dị đạng vành tai [tai ngoài]",
+  "ten_en": "Other misshapen ear",
+  "ma_nhom": "Q17",
+  "khoang": "Q10-Q18",
+  "chuong": "XVII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "Q17.4",
+  "ten": "Dị tật vành tai ở vị trí bất thường",
+  "ten_en": "Misplaced ear",
+  "ma_nhom": "Q17",
+  "khoang": "Q10-Q18",
+  "chuong": "XVII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "Q17.5",
+  "ten": "Dị dạng vành tai nhô [vểnh, to]",
+  "ten_en": "Prominent ear",
+  "ma_nhom": "Q17",
+  "khoang": "Q10-Q18",
+  "chuong": "XVII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "Q17.8",
+  "ten": "Dị tật bẩm sinh xác định khác của tai",
+  "ten_en": "Other specified congenital malformations of ear",
+  "ma_nhom": "Q17",
+  "khoang": "Q10-Q18",
+  "chuong": "XVII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "Q17.9",
+  "ten": "Dị tật bẩm sinh tai, không xác định",
+  "ten_en": "Congenital malformation of ear, unspecified",
+  "ma_nhom": "Q17",
+  "khoang": "Q10-Q18",
+  "chuong": "XVII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "Q18",
+  "ten": "Dị tật bẩm sinh khác của mặt và/hoặc cổ",
+  "ten_en": "Other congenital malformations of face and neck",
+  "ma_nhom": "Q18",
+  "khoang": "Q10-Q18",
+  "chuong": "XVII",
+  "chi_tiet": false
+ },
+ {
+  "ma": "Q18.0",
+  "ten": "Dị tật xoang, đường rò và/hoặc nang khe mang",
+  "ten_en": "Sinus, fistula and cyst of branchial cleft",
+  "ma_nhom": "Q18",
+  "khoang": "Q10-Q18",
+  "chuong": "XVII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "Q18.1",
+  "ten": "Di tật rò và/hoặc nang luân nhĩ",
+  "ten_en": "Preauricular sinus and cyst",
+  "ma_nhom": "Q18",
+  "khoang": "Q10-Q18",
+  "chuong": "XVII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "Q18.2",
+  "ten": "Dị tật khe mang khác",
+  "ten_en": "Other branchial cleft malformations",
+  "ma_nhom": "Q18",
+  "khoang": "Q10-Q18",
+  "chuong": "XVII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "Q18.3",
+  "ten": "Dị tật màng da cổ",
+  "ten_en": "Webbing of neck",
+  "ma_nhom": "Q18",
+  "khoang": "Q10-Q18",
+  "chuong": "XVII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "Q18.4",
+  "ten": "Dị tật miệng rộng [dị tật khe hở ngang mặt]",
+  "ten_en": "Macrostomia",
+  "ma_nhom": "Q18",
+  "khoang": "Q10-Q18",
+  "chuong": "XVII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "Q18.5",
+  "ten": "Dị tật miệng nhỏ",
+  "ten_en": "Microstomia",
+  "ma_nhom": "Q18",
+  "khoang": "Q10-Q18",
+  "chuong": "XVII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "Q18.6",
+  "ten": "Dị tật môi to",
+  "ten_en": "Macrocheilia",
+  "ma_nhom": "Q18",
+  "khoang": "Q10-Q18",
+  "chuong": "XVII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "Q18.7",
+  "ten": "Dị tật môi nhỏ",
+  "ten_en": "Microcheilia",
+  "ma_nhom": "Q18",
+  "khoang": "Q10-Q18",
+  "chuong": "XVII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "Q18.8",
+  "ten": "Dị tật bẩm sinh xác định khác ở mặt và/hoặc cổ",
+  "ten_en": "Other specified congenital malformations of face and neck",
+  "ma_nhom": "Q18",
+  "khoang": "Q10-Q18",
+  "chuong": "XVII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "Q18.9",
+  "ten": "Dị tật bẩm sinh ở mặt và/hoặc cổ, không xác định",
+  "ten_en": "Congenital malformation of face and neck, unspecified",
+  "ma_nhom": "Q18",
+  "khoang": "Q10-Q18",
+  "chuong": "XVII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "Q30",
+  "ten": "Dị tật bẩm sinh ở mũi",
+  "ten_en": "Congenital malformations of nose",
+  "ma_nhom": "Q30",
+  "khoang": "Q30-Q34",
+  "chuong": "XVII",
+  "chi_tiet": false
+ },
+ {
+  "ma": "Q30.0",
+  "ten": "Dị tật hẹp [teo] lỗ mũi sau bẩm sinh",
+  "ten_en": "Choanal atresia",
+  "ma_nhom": "Q30",
+  "khoang": "Q30-Q34",
+  "chuong": "XVII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "Q30.1",
+  "ten": "Dị tật bất sản và/hoặc khuyết thiếu trong sự phát triển của mũi",
+  "ten_en": "Agenesis and underdevelopment of nose",
+  "ma_nhom": "Q30",
+  "khoang": "Q30-Q34",
+  "chuong": "XVII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "Q30.2",
+  "ten": "Mũi có rãnh, có lõm hoặc nứt kẽ bẩm sinh",
+  "ten_en": "Fissured, notched and cleft nose",
+  "ma_nhom": "Q30",
+  "khoang": "Q30-Q34",
+  "chuong": "XVII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "Q30.3",
+  "ten": "Dị tật thủng vách mũi bẩm sinh",
+  "ten_en": "Congenital perforated nasal septum",
+  "ma_nhom": "Q30",
+  "khoang": "Q30-Q34",
+  "chuong": "XVII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "Q30.8",
+  "ten": "Dị tật bẩm sinh khác ở mũi",
+  "ten_en": "Other congenital malformations of nose",
+  "ma_nhom": "Q30",
+  "khoang": "Q30-Q34",
+  "chuong": "XVII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "Q30.9",
+  "ten": "Dị tật bẩm sinh ở mũi, không xác định",
+  "ten_en": "Congenital malformation of nose, unspecified",
+  "ma_nhom": "Q30",
+  "khoang": "Q30-Q34",
+  "chuong": "XVII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "Q31",
+  "ten": "Dị tật bẩm sinh của thanh quản",
+  "ten_en": "Congenital malformations of larynx",
+  "ma_nhom": "Q31",
+  "khoang": "Q30-Q34",
+  "chuong": "XVII",
+  "chi_tiet": false
+ },
+ {
+  "ma": "Q31.0",
+  "ten": "Màng thanh quản",
+  "ten_en": "Web of larynx",
+  "ma_nhom": "Q31",
+  "khoang": "Q30-Q34",
+  "chuong": "XVII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "Q31.1",
+  "ten": "Dị tật hẹp vùng hạ thanh môn bẩm sinh",
+  "ten_en": "Congenital subglottic stenosis",
+  "ma_nhom": "Q31",
+  "khoang": "Q30-Q34",
+  "chuong": "XVII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "Q31.2",
+  "ten": "Giảm sản thanh quản",
+  "ten_en": "Laryngeal hypoplasia",
+  "ma_nhom": "Q31",
+  "khoang": "Q30-Q34",
+  "chuong": "XVII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "Q31.3",
+  "ten": "Thoát vị thanh quản",
+  "ten_en": "Laryngocele",
+  "ma_nhom": "Q31",
+  "khoang": "Q30-Q34",
+  "chuong": "XVII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "Q31.5",
+  "ten": "Dị tật nhuyễn cơ thanh quản bẩm sinh",
+  "ten_en": "Congenital laryngomalacia",
+  "ma_nhom": "Q31",
+  "khoang": "Q30-Q34",
+  "chuong": "XVII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "Q31.8",
+  "ten": "Dị tật bẩm sinh khác của thanh quản",
+  "ten_en": "Other congenital malformations of larynx",
+  "ma_nhom": "Q31",
+  "khoang": "Q30-Q34",
+  "chuong": "XVII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "Q31.9",
+  "ten": "Dị tật thanh quản bẩm sinh, không xác định",
+  "ten_en": "Congenital malformation of larynx, unspecified",
+  "ma_nhom": "Q31",
+  "khoang": "Q30-Q34",
+  "chuong": "XVII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "Q35",
+  "ten": "Khe hở vòm miệng",
+  "ten_en": "Cleft palate",
+  "ma_nhom": "Q35",
+  "khoang": "Q35-Q37",
+  "chuong": "XVII",
+  "chi_tiet": false
+ },
+ {
+  "ma": "Q35.1",
+  "ten": "Khe hở vòm miệng cứng",
+  "ten_en": "Cleft hard palate",
+  "ma_nhom": "Q35",
+  "khoang": "Q35-Q37",
+  "chuong": "XVII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "Q35.3",
+  "ten": "Khe hở vòm miệng mềm",
+  "ten_en": "Cleft soft palate",
+  "ma_nhom": "Q35",
+  "khoang": "Q35-Q37",
+  "chuong": "XVII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "Q35.5",
+  "ten": "Khe hở vòm miệng cứng và mềm",
+  "ten_en": "Cleft hard palate with cleft soft palate",
+  "ma_nhom": "Q35",
+  "khoang": "Q35-Q37",
+  "chuong": "XVII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "Q35.7",
+  "ten": "Khe hở lưỡi gà",
+  "ten_en": "Cleft uvula",
+  "ma_nhom": "Q35",
+  "khoang": "Q35-Q37",
+  "chuong": "XVII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "Q35.9",
+  "ten": "Khe hở vòm miệng, một bên, không xác định",
+  "ten_en": "Cleft palate, unspecified",
+  "ma_nhom": "Q35",
+  "khoang": "Q35-Q37",
+  "chuong": "XVII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "Q36",
+  "ten": "Khe hở môi",
+  "ten_en": "Cleft lip",
+  "ma_nhom": "Q36",
+  "khoang": "Q35-Q37",
+  "chuong": "XVII",
+  "chi_tiet": false
+ },
+ {
+  "ma": "Q36.0",
+  "ten": "Khe hở môi, hai bên",
+  "ten_en": "Cleft lip, bilateral",
+  "ma_nhom": "Q36",
+  "khoang": "Q35-Q37",
+  "chuong": "XVII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "Q36.1",
+  "ten": "Khe hở giữa môi",
+  "ten_en": "Cleft lip, median",
+  "ma_nhom": "Q36",
+  "khoang": "Q35-Q37",
+  "chuong": "XVII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "Q36.9",
+  "ten": "Khe hở môi, một bên",
+  "ten_en": "Cleft lip, unilateral",
+  "ma_nhom": "Q36",
+  "khoang": "Q35-Q37",
+  "chuong": "XVII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "Q37",
+  "ten": "Khe hở vòm miệng kết hợp khe hở môi",
+  "ten_en": "Cleft palate with cleft lip",
+  "ma_nhom": "Q37",
+  "khoang": "Q35-Q37",
+  "chuong": "XVII",
+  "chi_tiet": false
+ },
+ {
+  "ma": "Q37.0",
+  "ten": "Khe hở vòm miệng cứng kết hợp khe hở môi hai bên",
+  "ten_en": "Cleft hard palate with bilateral cleft lip",
+  "ma_nhom": "Q37",
+  "khoang": "Q35-Q37",
+  "chuong": "XVII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "Q37.1",
+  "ten": "Khe hở vòm miệng cứng kết hợp khe hở môi một bên",
+  "ten_en": "Cleft hard palate with unilateral cleft lip",
+  "ma_nhom": "Q37",
+  "khoang": "Q35-Q37",
+  "chuong": "XVII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "Q37.2",
+  "ten": "Khe hở vòm miệng mềm kết hợp khe hở môi hai bên",
+  "ten_en": "Cleft soft palate with bilateral cleft lip",
+  "ma_nhom": "Q37",
+  "khoang": "Q35-Q37",
+  "chuong": "XVII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "Q37.3",
+  "ten": "Khe hở vòm miệng mềm kết hợp khe hở môi một bên",
+  "ten_en": "Cleft soft palate with unilateral cleft lip",
+  "ma_nhom": "Q37",
+  "khoang": "Q35-Q37",
+  "chuong": "XVII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "Q37.4",
+  "ten": "Khe hở vòm miệng cứng và mềm, kết hợp khe hở môi hai bên",
+  "ten_en": "Cleft hard and soft palate with bilateral cleft lip",
+  "ma_nhom": "Q37",
+  "khoang": "Q35-Q37",
+  "chuong": "XVII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "Q37.5",
+  "ten": "Khe hở vòm miệng cứng và mềm, kết hợp khe hở môi một bên",
+  "ten_en": "Cleft hard and soft palate with unilateral cleft lip",
+  "ma_nhom": "Q37",
+  "khoang": "Q35-Q37",
+  "chuong": "XVII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "Q37.8",
+  "ten": "Khe hở vòm miệng không xác định kết hợp khe hở môi hai bên",
+  "ten_en": "Unspecified cleft palate with bilateral cleft lip",
+  "ma_nhom": "Q37",
+  "khoang": "Q35-Q37",
+  "chuong": "XVII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "Q37.9",
+  "ten": "Khe hở vòm miệng không xác định kết hợp khe hở môi một bên không xác định",
+  "ten_en": "Unspecified cleft palate with unilateral cleft lip",
+  "ma_nhom": "Q37",
+  "khoang": "Q35-Q37",
+  "chuong": "XVII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "R04.0",
+  "ten": "Chảy máu cam",
+  "ten_en": "Epistaxis",
+  "ma_nhom": "R04",
+  "khoang": "R00-R09",
+  "chuong": "XVIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "R04.1",
+  "ten": "Chảy máu họng",
+  "ten_en": "Haemorrhage from throat",
+  "ma_nhom": "R04",
+  "khoang": "R00-R09",
+  "chuong": "XVIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "R06.1",
+  "ten": "Thở rít",
+  "ten_en": "Stridor",
+  "ma_nhom": "R06",
+  "khoang": "R00-R09",
+  "chuong": "XVIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "R07.0",
+  "ten": "Đau họng",
+  "ten_en": "Pain in throat",
+  "ma_nhom": "R07",
+  "khoang": "R00-R09",
+  "chuong": "XVIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "R13",
+  "ten": "Khó nuốt",
+  "ten_en": "Dysphagia",
+  "ma_nhom": "R13",
+  "khoang": "R10-R19",
+  "chuong": "XVIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "R42",
+  "ten": "Hoa mắt và/hoặc chóng mặt",
+  "ten_en": "Dizziness and giddiness",
+  "ma_nhom": "R42",
+  "khoang": "R40-R46",
+  "chuong": "XVIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "R43",
+  "ten": "Rối loạn khứu giác và/hoặc vị giác",
+  "ten_en": "Disturbances of smell and taste",
+  "ma_nhom": "R43",
+  "khoang": "R40-R46",
+  "chuong": "XVIII",
+  "chi_tiet": false
+ },
+ {
+  "ma": "R43.0",
+  "ten": "Mất khứu giác",
+  "ten_en": "Anosmia",
+  "ma_nhom": "R43",
+  "khoang": "R40-R46",
+  "chuong": "XVIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "R43.1",
+  "ten": "Rối loạn khứu giác",
+  "ten_en": "Parosmia",
+  "ma_nhom": "R43",
+  "khoang": "R40-R46",
+  "chuong": "XVIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "R43.2",
+  "ten": "Rối loạn vị giác",
+  "ten_en": "Parageusia",
+  "ma_nhom": "R43",
+  "khoang": "R40-R46",
+  "chuong": "XVIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "R43.8",
+  "ten": "Rối loạn khứu giác và/ hoặc vị giác khác và/hoặc không xác định",
+  "ten_en": "Other and unspecified disturbances of smell and taste",
+  "ma_nhom": "R43",
+  "khoang": "R40-R46",
+  "chuong": "XVIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "R49",
+  "ten": "Rối loạn giọng nói",
+  "ten_en": "Voice disturbances",
+  "ma_nhom": "R49",
+  "khoang": "R47-R49",
+  "chuong": "XVIII",
+  "chi_tiet": false
+ },
+ {
+  "ma": "R49.0",
+  "ten": "Rối loạn phát âm",
+  "ten_en": "Dysphonia",
+  "ma_nhom": "R49",
+  "khoang": "R47-R49",
+  "chuong": "XVIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "R49.1",
+  "ten": "Chứng mất tiếng",
+  "ten_en": "Aphonia",
+  "ma_nhom": "R49",
+  "khoang": "R47-R49",
+  "chuong": "XVIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "R49.2",
+  "ten": "Giọng mũi nhiều và/hoặc giọng mũi ít",
+  "ten_en": "Hypernasality and hyponasality",
+  "ma_nhom": "R49",
+  "khoang": "R47-R49",
+  "chuong": "XVIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "R49.8",
+  "ten": "Rối loạn giọng nói khác và/hoặc không xác định",
+  "ten_en": "Other and unspecified voice disturbances",
+  "ma_nhom": "R49",
+  "khoang": "R47-R49",
+  "chuong": "XVIII",
+  "chi_tiet": true
+ },
+ {
+  "ma": "S02.2",
+  "ten": "Gãy xương chính mũi",
+  "ten_en": "Fracture of nasal bones",
+  "ma_nhom": "S02",
+  "khoang": "S00-S09",
+  "chuong": "XIX",
+  "chi_tiet": true
+ },
+ {
+  "ma": "S02.20",
+  "ten": "Gãy xương chính mũi, gãy kín",
+  "ten_en": "Fracture of nasal bones, closed",
+  "ma_nhom": "S02",
+  "khoang": "S00-S09",
+  "chuong": "XIX",
+  "chi_tiet": true
+ },
+ {
+  "ma": "S02.21",
+  "ten": "Gãy xương chính mũi, gãy hở",
+  "ten_en": "Fracture of nasal bones, open",
+  "ma_nhom": "S02",
+  "khoang": "S00-S09",
+  "chuong": "XIX",
+  "chi_tiet": true
+ },
+ {
+  "ma": "T16",
+  "ten": "Dị vật ở tai",
+  "ten_en": "Foreign body in ear",
+  "ma_nhom": "T16",
+  "khoang": "T15-T19",
+  "chuong": "XIX",
+  "chi_tiet": true
+ },
+ {
+  "ma": "T17",
+  "ten": "Dị vật đường hô hấp",
+  "ten_en": "Foreign body in respiratory tract",
+  "ma_nhom": "T17",
+  "khoang": "T15-T19",
+  "chuong": "XIX",
+  "chi_tiet": false
+ },
+ {
+  "ma": "T17.0",
+  "ten": "Dị vật trong xoang mũi",
+  "ten_en": "Foreign body in nasal sinus",
+  "ma_nhom": "T17",
+  "khoang": "T15-T19",
+  "chuong": "XIX",
+  "chi_tiet": true
+ },
+ {
+  "ma": "T17.1",
+  "ten": "Dị vật trong lỗ mũi",
+  "ten_en": "Foreign body in nostril",
+  "ma_nhom": "T17",
+  "khoang": "T15-T19",
+  "chuong": "XIX",
+  "chi_tiet": true
+ },
+ {
+  "ma": "T17.2",
+  "ten": "Dị vật trong họng",
+  "ten_en": "Foreign body in pharynx",
+  "ma_nhom": "T17",
+  "khoang": "T15-T19",
+  "chuong": "XIX",
+  "chi_tiet": true
+ },
+ {
+  "ma": "T17.3",
+  "ten": "Dị vật trong thanh quản",
+  "ten_en": "Foreign body in larynx",
+  "ma_nhom": "T17",
+  "khoang": "T15-T19",
+  "chuong": "XIX",
+  "chi_tiet": true
+ },
+ {
+  "ma": "T17.4",
+  "ten": "Dị vật trong khí quản",
+  "ten_en": "Foreign body in trachea",
+  "ma_nhom": "T17",
+  "khoang": "T15-T19",
+  "chuong": "XIX",
+  "chi_tiet": true
+ },
+ {
+  "ma": "T17.5",
+  "ten": "Dị vật trong phế quản",
+  "ten_en": "Foreign body in bronchus",
+  "ma_nhom": "T17",
+  "khoang": "T15-T19",
+  "chuong": "XIX",
+  "chi_tiet": true
+ },
+ {
+  "ma": "T17.8",
+  "ten": "Dị vật ở vị trí khác và/hoặc ở nhiều vị trí của đường hô hấp",
+  "ten_en": "Foreign body in other and multiple parts of respiratory tract",
+  "ma_nhom": "T17",
+  "khoang": "T15-T19",
+  "chuong": "XIX",
+  "chi_tiet": true
+ },
+ {
+  "ma": "T17.9",
+  "ten": "Dị vật đường hô hấp, phần không xác định",
+  "ten_en": "Foreign body in respiratory tract, part unspecified",
+  "ma_nhom": "T17",
+  "khoang": "T15-T19",
+  "chuong": "XIX",
+  "chi_tiet": true
+ },
+ {
+  "ma": "T18.0",
+  "ten": "Dị vật trong miệng",
+  "ten_en": "Foreign body in mouth",
+  "ma_nhom": "T18",
+  "khoang": "T15-T19",
+  "chuong": "XIX",
+  "chi_tiet": true
+ },
+ {
+  "ma": "T18.1",
+  "ten": "Dị vật trong thực quản",
+  "ten_en": "Foreign body in oesophagus",
+  "ma_nhom": "T18",
+  "khoang": "T15-T19",
+  "chuong": "XIX",
+  "chi_tiet": true
+ },
+ {
+  "ma": "Z01.1",
+  "ten": "Khám tai và/hoặc kiểm tra thính lực",
+  "ten_en": "Examination of ears and hearing",
+  "ma_nhom": "Z01",
+  "khoang": "Z00-Z13",
+  "chuong": "XXI",
+  "chi_tiet": true
+ },
+ {
+  "ma": "Z46.1",
+  "ten": "Điều chỉnh thiết bị trợ thính",
+  "ten_en": "Fitting and adjustment of hearing aid",
+  "ma_nhom": "Z46",
+  "khoang": "Z40-Z54",
+  "chuong": "XXI",
+  "chi_tiet": true
+ },
+ {
+  "ma": "Z96.2",
+  "ten": "Sự có mặt của thiết bị/dụng cụ cấy ghép tai và/hoặc thính giác",
+  "ten_en": "Presence of otological and audiological implants",
+  "ma_nhom": "Z96",
+  "khoang": "Z80-Z99",
+  "chuong": "XXI",
+  "chi_tiet": true
+ }
+]

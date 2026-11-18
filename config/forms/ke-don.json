@@ -1,0 +1,19 @@
+{
+  "id": "ke_don",
+  "title": "Đơn thuốc",
+  "system": "Registration",
+  "mode": "rows",
+  "mock_keywords": ["kê đơn", "đơn thuốc", "kê thuốc", "đơn", "toa"],
+  "fields": [
+    { "id": "ma_thuoc", "label": "Mã thuốc", "type": "text", "required": false, "hint": "Tìm trong danh mục", "ai_fill": false, "catalog": "thuoc", "name_field": "ten_thuoc", "strength_field": "ham_luong" },
+    { "id": "ten_thuoc", "label": "Tên thuốc", "type": "text", "required": true, "hint": "", "ai_fill": true },
+    { "id": "ham_luong", "label": "Hàm lượng", "type": "text", "required": false, "hint": "Ví dụ: 500 mg", "ai_fill": true },
+    { "id": "duong_dung", "label": "Đường dùng", "type": "select", "options": ["Uống", "Ngậm", "Xịt mũi", "Nhỏ mũi", "Rửa mũi", "Nhỏ tai", "Súc họng", "Khí dung", "Bôi"], "required": false, "hint": "", "ai_fill": true },
+    { "id": "lieu_moi_lan", "label": "Liều mỗi lần", "type": "text", "required": true, "hint": "Ví dụ: 1 viên", "ai_fill": true },
+    { "id": "so_lan_ngay", "label": "Số lần/ngày", "type": "number", "required": true, "hint": "", "ai_fill": true },
+    { "id": "thoi_diem", "label": "Thời điểm dùng", "type": "text", "required": false, "hint": "Ví dụ: Sau ăn sáng, tối", "ai_fill": true },
+    { "id": "so_ngay", "label": "Số ngày", "type": "number", "required": true, "hint": "", "ai_fill": true },
+    { "id": "tong_so_luong", "label": "Tổng số lượng", "type": "number", "required": false, "hint": "Tự tính với thuốc đếm được (viên, gói, ống)", "ai_fill": false },
+    { "id": "ghi_chu", "label": "Ghi chú", "type": "text", "required": false, "hint": "", "ai_fill": true }
+  ]
+}

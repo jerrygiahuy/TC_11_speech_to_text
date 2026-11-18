@@ -1,0 +1,13 @@
+{
+  "id": "chi_dinh",
+  "title": "Chỉ định",
+  "system": "Registration",
+  "mode": "rows",
+  "mock_keywords": ["chỉ định", "cls", "cho làm"],
+  "fields": [
+    { "id": "ma_dich_vu", "label": "Mã dịch vụ", "type": "text", "required": false, "hint": "Tìm trong danh mục", "ai_fill": false, "catalog": "dich-vu", "name_field": "ten_dich_vu" },
+    { "id": "ten_dich_vu", "label": "Tên dịch vụ", "type": "text", "required": true, "hint": "", "ai_fill": true },
+    { "id": "so_luong", "label": "Số lượng", "type": "number", "required": false, "hint": "", "ai_fill": true },
+    { "id": "ghi_chu", "label": "Ghi chú", "type": "text", "required": false, "hint": "", "ai_fill": true }
+  ]
+}

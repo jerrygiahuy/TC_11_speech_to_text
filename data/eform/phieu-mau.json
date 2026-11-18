@@ -1,0 +1,1788 @@
+{
+  "_ghi_chu": "Phiếu mẫu theo bệnh, dữ liệu giả, liều chỉ để minh họa. Soạn tham khảo cách viết của data/cases/*.json, các bộ mẫu ở goi-y-theo-chan-doan.json và kiến thức lâm sàng chung, chưa đối chiếu hướng dẫn của Bộ Y tế và chưa được bác sĩ duyệt. Không ghi mã: icd_ten phải đúng tên một mã trong data/tham-khao/icd10-tmh.json, mã dịch vụ và thuốc do src/shared/match.ts gán khi nạp trang. Chỗ riêng của bệnh nhân viết [phải|trái|2 bên] (chọn) hoặc [số] trước đơn vị (ngày, tuần, tháng, độ, lần). Trường số không có chỗ trống. Kiểm tra bằng npm test.",
+  "mau": [
+    {
+      "id": "viem-tai-giua-cap",
+      "ten": "Viêm tai giữa cấp",
+      "bi_danh": [
+        "vtg cấp",
+        "vtgc"
+      ],
+      "icd_ten": "Viêm tai giữa có mủ cấp tính",
+      "kham_khac": "Tim đều, phổi không ran. Bụng mềm. Chưa phát hiện bất thường cơ quan khác.",
+      "nhap": {
+        "phieu_kham": {
+          "ly_do_kham": "Đau tai [phải|trái|2 bên], sốt",
+          "benh_su": "[số] ngày nay đau tai [phải|trái|2 bên], sốt, trước đó sổ mũi, ngạt mũi. Không chảy tai, không chóng mặt.",
+          "kham_toan_than": "Tỉnh, tiếp xúc tốt. Sốt [số] độ.",
+          "kham_chuyen_khoa": "Màng nhĩ [phải|trái|2 bên] đỏ, phồng, mất nón sáng. Ống tai sạch. Mũi có dịch nhầy, họng đỏ nhẹ.",
+          "chan_doan_chinh": "Viêm tai giữa cấp tai [phải|trái|2 bên]",
+          "huong_dieu_tri": "Điều trị nội khoa ngoại trú",
+          "loi_dan": "Giữ khô tai, không ngoáy tai. Quay lại ngay nếu sốt cao, đau tai tăng, chảy mủ tai.",
+          "hen_tai_kham": "Sau 7 ngày"
+        },
+        "chi_dinh": [
+          {
+            "ten_dich_vu": "Nội soi tai"
+          },
+          {
+            "ten_dich_vu": "Đo nhĩ lượng"
+          }
+        ],
+        "ke_don": [
+          {
+            "ten_thuoc": "Augmentin",
+            "ham_luong": "625 mg",
+            "duong_dung": "Uống",
+            "lieu_moi_lan": "1 viên",
+            "so_lan_ngay": 2,
+            "thoi_diem": "Sau ăn sáng, tối",
+            "so_ngay": 7
+          },
+          {
+            "ten_thuoc": "Paracetamol",
+            "ham_luong": "500 mg",
+            "duong_dung": "Uống",
+            "lieu_moi_lan": "1 viên",
+            "so_lan_ngay": 3,
+            "thoi_diem": "Khi sốt trên 38,5 độ hoặc đau",
+            "so_ngay": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "viem-tai-giua-cap-tre-em",
+      "ten": "Viêm tai giữa cấp trẻ em",
+      "bi_danh": [
+        "vtg cấp trẻ em",
+        "vtg trẻ em"
+      ],
+      "icd_ten": "Viêm tai giữa có mủ cấp tính",
+      "kham_khac": "Tim đều, phổi không ran. Bụng mềm. Chưa phát hiện bất thường cơ quan khác.",
+      "nhap": {
+        "phieu_kham": {
+          "ly_do_kham": "Đau tai [phải|trái|2 bên], sốt",
+          "benh_su": "[số] ngày nay trẻ đau tai [phải|trái|2 bên], quấy khóc, sốt, trước đó sổ mũi. Không chảy tai.",
+          "kham_toan_than": "Trẻ tỉnh, sốt [số] độ. Cân nặng [số] kg.",
+          "kham_chuyen_khoa": "Màng nhĩ [phải|trái|2 bên] đỏ, phồng, mất nón sáng. Mũi có dịch nhầy.",
+          "chan_doan_chinh": "Viêm tai giữa cấp tai [phải|trái|2 bên]",
+          "huong_dieu_tri": "Điều trị nội khoa ngoại trú",
+          "loi_dan": "Rửa mũi cho trẻ hằng ngày. Quay lại ngay nếu sốt cao, li bì, chảy mủ tai.",
+          "hen_tai_kham": "Sau 7 ngày"
+        },
+        "chi_dinh": [
+          {
+            "ten_dich_vu": "Nội soi tai mũi họng"
+          }
+        ],
+        "ke_don": [
+          {
+            "ten_thuoc": "Amoxicillin",
+            "ham_luong": "250 mg",
+            "duong_dung": "Uống",
+            "lieu_moi_lan": "2 gói",
+            "so_lan_ngay": 2,
+            "thoi_diem": "Sau ăn",
+            "so_ngay": 7
+          },
+          {
+            "ten_thuoc": "Paracetamol",
+            "ham_luong": "250 mg",
+            "duong_dung": "Uống",
+            "lieu_moi_lan": "1 gói",
+            "so_lan_ngay": 3,
+            "thoi_diem": "Khi sốt trên 38,5 độ",
+            "so_ngay": 3
+          },
+          {
+            "ten_thuoc": "Natri clorid 0,9%",
+            "ham_luong": "0,9%",
+            "duong_dung": "Nhỏ mũi",
+            "lieu_moi_lan": "2 giọt",
+            "so_lan_ngay": 3,
+            "so_ngay": 7
+          }
+        ]
+      }
+    },
+    {
+      "id": "viem-tai-giua-man-dot-cap",
+      "ten": "Viêm tai giữa mạn đợt cấp",
+      "bi_danh": [
+        "vtg mạn",
+        "vtg mạn đợt cấp",
+        "đợt cấp vtg mạn"
+      ],
+      "icd_ten": "Viêm tai giữa có mủ mạn tính khác",
+      "kham_khac": "Tim đều, phổi không ran. Bụng mềm. Chưa phát hiện bất thường cơ quan khác.",
+      "nhap": {
+        "phieu_kham": {
+          "ly_do_kham": "Chảy mủ tai [phải|trái|2 bên], đau tai",
+          "benh_su": "[số] ngày nay chảy mủ vàng tai [phải|trái|2 bên], đau tai, nghe kém. Không chóng mặt, không đau đầu. Đã chảy tai nhiều đợt.",
+          "kham_toan_than": "Tỉnh, sốt nhẹ.",
+          "kham_chuyen_khoa": "Ống tai [phải|trái|2 bên] có mủ vàng, màng nhĩ thủng trung tâm. Tai còn lại bình thường. Mũi họng bình thường.",
+          "chan_doan_chinh": "Đợt cấp viêm tai giữa mạn tính có mủ tai [phải|trái|2 bên]",
+          "huong_dieu_tri": "Điều trị nội khoa, làm sạch tai",
+          "loi_dan": "Giữ khô tai, không tự ngoáy tai, không bơi. Cân nhắc phẫu thuật khi tai khô.",
+          "hen_tai_kham": "Sau 7 ngày"
+        },
+        "chi_dinh": [
+          {
+            "ten_dich_vu": "Nội soi tai"
+          },
+          {
+            "ten_dich_vu": "Đo thính lực đơn âm"
+          },
+          {
+            "ten_dich_vu": "Làm sạch ống tai, hút dịch tai"
+          }
+        ],
+        "ke_don": [
+          {
+            "ten_thuoc": "Ciprofloxacin nhỏ tai",
+            "ham_luong": "0,3%",
+            "duong_dung": "Nhỏ tai",
+            "lieu_moi_lan": "5 giọt",
+            "so_lan_ngay": 2,
+            "so_ngay": 7
+          },
+          {
+            "ten_thuoc": "Paracetamol",
+            "ham_luong": "500 mg",
+            "duong_dung": "Uống",
+            "lieu_moi_lan": "1 viên",
+            "so_lan_ngay": 3,
+            "thoi_diem": "Sau ăn",
+            "so_ngay": 5
+          }
+        ]
+      }
+    },
+    {
+      "id": "viem-tai-ngoai",
+      "ten": "Viêm tai ngoài",
+      "bi_danh": [
+        "vtn",
+        "vtn cấp",
+        "viêm tai ngoài cấp"
+      ],
+      "icd_ten": "Viêm tai ngoài khác do nhiễm trùng",
+      "kham_khac": "Tim đều, phổi không ran. Bụng mềm. Chưa phát hiện bất thường cơ quan khác.",
+      "nhap": {
+        "phieu_kham": {
+          "ly_do_kham": "Đau tai [phải|trái|2 bên]",
+          "benh_su": "[số] ngày nay đau tai [phải|trái|2 bên] tăng dần, đau nhiều khi nhai, sau ngoáy tai hoặc đi bơi. Chảy dịch ít.",
+          "kham_toan_than": "Tỉnh, tiếp xúc tốt. Không sốt.",
+          "kham_chuyen_khoa": "Ống tai ngoài [phải|trái|2 bên] phù nề, đỏ, có dịch. Ấn nắp bình tai đau. Màng nhĩ khó quan sát.",
+          "chan_doan_chinh": "Viêm tai ngoài cấp tai [phải|trái|2 bên]",
+          "huong_dieu_tri": "Điều trị nội khoa, làm sạch ống tai",
+          "loi_dan": "Giữ khô tai, không ngoáy tai, tránh nước vào tai.",
+          "hen_tai_kham": "Sau 5 ngày"
+        },
+        "chi_dinh": [
+          {
+            "ten_dich_vu": "Nội soi tai"
+          },
+          {
+            "ten_dich_vu": "Làm sạch ống tai, hút dịch tai"
+          }
+        ],
+        "ke_don": [
+          {
+            "ten_thuoc": "Ofloxacin nhỏ tai",
+            "ham_luong": "0,3%",
+            "duong_dung": "Nhỏ tai",
+            "lieu_moi_lan": "5 giọt",
+            "so_lan_ngay": 2,
+            "so_ngay": 7
+          },
+          {
+            "ten_thuoc": "Ibuprofen",
+            "ham_luong": "400 mg",
+            "duong_dung": "Uống",
+            "lieu_moi_lan": "1 viên",
+            "so_lan_ngay": 3,
+            "thoi_diem": "Sau ăn",
+            "so_ngay": 5
+          }
+        ]
+      }
+    },
+    {
+      "id": "nut-ray-tai",
+      "ten": "Nút ráy tai",
+      "bi_danh": [
+        "ráy tai",
+        "nút ráy"
+      ],
+      "icd_ten": "Nút ráy tai",
+      "kham_khac": "Tim đều, phổi không ran. Bụng mềm. Chưa phát hiện bất thường cơ quan khác.",
+      "nhap": {
+        "phieu_kham": {
+          "ly_do_kham": "Ù tai, nghe kém tai [phải|trái|2 bên]",
+          "benh_su": "[số] ngày nay ù tai, nghe kém tai [phải|trái|2 bên] sau tắm gội. Không đau, không chảy tai.",
+          "kham_toan_than": "Tỉnh, tiếp xúc tốt. Không sốt.",
+          "kham_chuyen_khoa": "Ống tai [phải|trái|2 bên] có nút ráy bít kín, không quan sát được màng nhĩ. Mũi họng bình thường.",
+          "chan_doan_chinh": "Nút ráy tai [phải|trái|2 bên]",
+          "huong_dieu_tri": "Lấy ráy tai tại phòng khám",
+          "loi_dan": "Không dùng tăm bông ngoáy sâu trong tai.",
+          "hen_tai_kham": "Khi có bất thường"
+        },
+        "chi_dinh": [
+          {
+            "ten_dich_vu": "Nội soi tai"
+          },
+          {
+            "ten_dich_vu": "Lấy nút ráy tai"
+          }
+        ],
+        "ke_don": []
+      }
+    },
+    {
+      "id": "di-vat-tai",
+      "ten": "Dị vật tai",
+      "bi_danh": [
+        "dị vật ống tai",
+        "dv tai"
+      ],
+      "icd_ten": "Dị vật ở tai",
+      "kham_khac": "Tim đều, phổi không ran. Bụng mềm. Chưa phát hiện bất thường cơ quan khác.",
+      "nhap": {
+        "phieu_kham": {
+          "ly_do_kham": "Dị vật tai [phải|trái|2 bên]",
+          "benh_su": "[số] giờ trước có dị vật vào tai [phải|trái|2 bên]. Không chảy máu, chưa tự lấy.",
+          "kham_toan_than": "Tỉnh, tiếp xúc tốt. Không sốt.",
+          "kham_chuyen_khoa": "Dị vật ở ống tai ngoài [phải|trái|2 bên], ống tai không rách. Tai còn lại bình thường.",
+          "chan_doan_chinh": "Dị vật ống tai [phải|trái|2 bên]",
+          "huong_dieu_tri": "Lấy dị vật tại phòng khám",
+          "loi_dan": "Không tự ngoáy tai. Quay lại nếu đau tai, chảy dịch hoặc nghe kém.",
+          "hen_tai_kham": "Khi có bất thường"
+        },
+        "chi_dinh": [
+          {
+            "ten_dich_vu": "Nội soi tai"
+          },
+          {
+            "ten_dich_vu": "Lấy dị vật tai"
+          }
+        ],
+        "ke_don": []
+      }
+    },
+    {
+      "id": "u-tai-nghe-kem",
+      "ten": "Ù tai, nghe kém",
+      "bi_danh": [
+        "ù tai nghe kém"
+      ],
+      "icd_ten": "Ù tai",
+      "kham_khac": "Tim đều, phổi không ran. Bụng mềm. Chưa phát hiện bất thường cơ quan khác.",
+      "nhap": {
+        "phieu_kham": {
+          "ly_do_kham": "Ù tai, nghe kém",
+          "benh_su": "[số] tháng nay ù tai [phải|trái|2 bên] liên tục, tiếng ve kêu, nghe kém dần. Không chóng mặt, không chảy tai.",
+          "kham_toan_than": "Tỉnh, huyết áp [số] mmHg.",
+          "kham_chuyen_khoa": "Ống tai sạch, màng nhĩ 2 bên bình thường. Mũi họng không có gì đặc biệt.",
+          "chan_doan_chinh": "Ù tai, nghe kém [phải|trái|2 bên]",
+          "huong_dieu_tri": "Điều trị nội khoa, chờ kết quả thính lực",
+          "loi_dan": "Tránh nơi ồn, hạn chế cà phê, rượu bia.",
+          "hen_tai_kham": "Sau 1 tháng"
+        },
+        "chi_dinh": [
+          {
+            "ten_dich_vu": "Đo thính lực đơn âm"
+          },
+          {
+            "ten_dich_vu": "Đo nhĩ lượng"
+          },
+          {
+            "ten_dich_vu": "Nội soi tai"
+          }
+        ],
+        "ke_don": [
+          {
+            "ten_thuoc": "Betahistin",
+            "ham_luong": "16 mg",
+            "duong_dung": "Uống",
+            "lieu_moi_lan": "1 viên",
+            "so_lan_ngay": 3,
+            "thoi_diem": "Sau ăn",
+            "so_ngay": 30
+          },
+          {
+            "ten_thuoc": "Ginkgo biloba",
+            "ham_luong": "40 mg",
+            "duong_dung": "Uống",
+            "lieu_moi_lan": "1 viên",
+            "so_lan_ngay": 3,
+            "so_ngay": 30
+          }
+        ]
+      }
+    },
+    {
+      "id": "viem-mui-xoang-cap",
+      "ten": "Viêm mũi xoang cấp",
+      "bi_danh": [
+        "vmx cấp",
+        "vmxc",
+        "viêm xoang cấp"
+      ],
+      "icd_ten": "Viêm xoang cấp tính, không xác định",
+      "kham_khac": "Tim đều, phổi không ran. Bụng mềm. Chưa phát hiện bất thường cơ quan khác.",
+      "nhap": {
+        "phieu_kham": {
+          "ly_do_kham": "Ngạt mũi, chảy mũi đặc, đau vùng mặt",
+          "benh_su": "[số] ngày nay, sau cảm, ngạt mũi [phải|trái|2 bên], chảy mũi vàng đặc, đau nhức vùng má tăng khi cúi.",
+          "kham_toan_than": "Tỉnh, tiếp xúc tốt. Không sốt.",
+          "kham_chuyen_khoa": "Niêm mạc mũi phù nề, sung huyết, có mủ khe giữa [phải|trái|2 bên]. Họng bình thường. Tai bình thường.",
+          "chan_doan_chinh": "Viêm mũi xoang cấp",
+          "huong_dieu_tri": "Điều trị nội khoa",
+          "loi_dan": "Rửa mũi đều, không xì mũi mạnh. Quay lại nếu sốt cao, sưng nề quanh mắt.",
+          "hen_tai_kham": "Sau 7 ngày"
+        },
+        "chi_dinh": [
+          {
+            "ten_dich_vu": "Nội soi mũi xoang"
+          },
+          {
+            "ten_dich_vu": "Chụp X-quang Blondeau"
+          }
+        ],
+        "ke_don": [
+          {
+            "ten_thuoc": "Augmentin",
+            "ham_luong": "1 g",
+            "duong_dung": "Uống",
+            "lieu_moi_lan": "1 viên",
+            "so_lan_ngay": 2,
+            "thoi_diem": "Sau ăn",
+            "so_ngay": 7
+          },
+          {
+            "ten_thuoc": "Mometason xịt mũi",
+            "ham_luong": "50 mcg/liều",
+            "duong_dung": "Xịt mũi",
+            "lieu_moi_lan": "2 xịt mỗi bên",
+            "so_lan_ngay": 1,
+            "thoi_diem": "Buổi sáng",
+            "so_ngay": 14
+          },
+          {
+            "ten_thuoc": "Muối rửa mũi",
+            "duong_dung": "Rửa mũi",
+            "lieu_moi_lan": "1 gói",
+            "so_lan_ngay": 2,
+            "so_ngay": 7
+          }
+        ]
+      }
+    },
+    {
+      "id": "viem-mui-di-ung",
+      "ten": "Viêm mũi dị ứng",
+      "bi_danh": [
+        "vmdu",
+        "vmdư"
+      ],
+      "icd_ten": "Viêm mũi dị ứng, không xác định",
+      "kham_khac": "Tim đều, phổi không ran. Bụng mềm. Chưa phát hiện bất thường cơ quan khác.",
+      "nhap": {
+        "phieu_kham": {
+          "ly_do_kham": "Hắt hơi, ngứa mũi, chảy mũi trong",
+          "benh_su": "[số] tuần nay hắt hơi từng tràng, ngứa mũi, chảy mũi trong, ngạt mũi [phải|trái|2 bên], tăng khi tiếp xúc bụi, thay đổi thời tiết.",
+          "kham_toan_than": "Tỉnh, tiếp xúc tốt. Không sốt.",
+          "kham_chuyen_khoa": "Niêm mạc mũi nhợt, phù nề, cuốn dưới to [phải|trái|2 bên], dịch trong. Họng bình thường.",
+          "chan_doan_chinh": "Viêm mũi dị ứng",
+          "huong_dieu_tri": "Điều trị nội khoa, tránh dị nguyên",
+          "loi_dan": "Tránh bụi, lông thú, khói thuốc. Đeo khẩu trang khi ra ngoài.",
+          "hen_tai_kham": "Sau 2 tuần"
+        },
+        "chi_dinh": [
+          {
+            "ten_dich_vu": "Nội soi mũi xoang"
+          }
+        ],
+        "ke_don": [
+          {
+            "ten_thuoc": "Fexofenadin",
+            "ham_luong": "180 mg",
+            "duong_dung": "Uống",
+            "lieu_moi_lan": "1 viên",
+            "so_lan_ngay": 1,
+            "thoi_diem": "Buổi sáng",
+            "so_ngay": 14
+          },
+          {
+            "ten_thuoc": "Mometason xịt mũi",
+            "ham_luong": "50 mcg/liều",
+            "duong_dung": "Xịt mũi",
+            "lieu_moi_lan": "2 xịt mỗi bên",
+            "so_lan_ngay": 1,
+            "thoi_diem": "Buổi sáng",
+            "so_ngay": 30
+          },
+          {
+            "ten_thuoc": "Natri clorid 0,9%",
+            "ham_luong": "0,9%",
+            "duong_dung": "Nhỏ mũi",
+            "lieu_moi_lan": "3 giọt mỗi bên",
+            "so_lan_ngay": 3,
+            "so_ngay": 14
+          }
+        ]
+      }
+    },
+    {
+      "id": "viem-hong-cap",
+      "ten": "Viêm họng cấp",
+      "bi_danh": [
+        "vh cấp",
+        "vhc"
+      ],
+      "icd_ten": "Viêm họng cấp tính, không xác định",
+      "kham_khac": "Tim đều, phổi không ran. Bụng mềm. Chưa phát hiện bất thường cơ quan khác.",
+      "nhap": {
+        "phieu_kham": {
+          "ly_do_kham": "Đau họng, nuốt đau",
+          "benh_su": "[số] ngày nay đau họng tăng dần, nuốt đau, sốt nhẹ, ho ít.",
+          "kham_toan_than": "Tỉnh, tiếp xúc tốt. Sốt [số] độ.",
+          "kham_chuyen_khoa": "Họng đỏ, thành sau họng có xuất tiết, amidan không to. Tai mũi bình thường.",
+          "chan_doan_chinh": "Viêm họng cấp",
+          "huong_dieu_tri": "Điều trị nội khoa",
+          "loi_dan": "Uống nhiều nước ấm, súc họng nước muối ấm. Quay lại nếu sốt quá 3 ngày hoặc khó nuốt tăng.",
+          "hen_tai_kham": "Sau 7 ngày nếu không đỡ"
+        },
+        "chi_dinh": [
+          {
+            "ten_dich_vu": "Test nhanh liên cầu họng"
+          }
+        ],
+        "ke_don": [
+          {
+            "ten_thuoc": "Paracetamol",
+            "ham_luong": "500 mg",
+            "duong_dung": "Uống",
+            "lieu_moi_lan": "1 viên",
+            "so_lan_ngay": 3,
+            "thoi_diem": "Khi đau hoặc sốt",
+            "so_ngay": 3
+          },
+          {
+            "ten_thuoc": "Alpha Choay",
+            "ham_luong": "4,2 mg",
+            "duong_dung": "Ngậm",
+            "lieu_moi_lan": "2 viên",
+            "so_lan_ngay": 3,
+            "so_ngay": 5
+          }
+        ]
+      }
+    },
+    {
+      "id": "viem-amidan-cap",
+      "ten": "Viêm amidan cấp",
+      "bi_danh": [
+        "viêm amydan cấp",
+        "amidan cấp"
+      ],
+      "icd_ten": "Viêm amydan cấp tính, không xác định",
+      "kham_khac": "Tim đều, phổi không ran. Bụng mềm. Chưa phát hiện bất thường cơ quan khác.",
+      "nhap": {
+        "phieu_kham": {
+          "ly_do_kham": "Đau họng, sốt cao",
+          "benh_su": "[số] ngày nay đau họng nhiều, nuốt vướng, sốt cao, mệt mỏi.",
+          "kham_toan_than": "Tỉnh, sốt [số] độ. Hạch dưới hàm [phải|trái|2 bên].",
+          "kham_chuyen_khoa": "Amidan 2 bên to, sung huyết, có mủ ở hốc. Tai mũi bình thường.",
+          "chan_doan_chinh": "Viêm amidan cấp",
+          "huong_dieu_tri": "Điều trị nội khoa",
+          "loi_dan": "Ăn mềm, uống nhiều nước. Viêm tái phát nhiều lần thì cân nhắc cắt amidan.",
+          "hen_tai_kham": "Sau 7 ngày"
+        },
+        "chi_dinh": [
+          {
+            "ten_dich_vu": "Tổng phân tích tế bào máu ngoại vi (bằng máy đếm laser)"
+          },
+          {
+            "ten_dich_vu": "Định lượng CRP (C-Reactive Protein)"
+          }
+        ],
+        "ke_don": [
+          {
+            "ten_thuoc": "Cefuroxim",
+            "ham_luong": "500 mg",
+            "duong_dung": "Uống",
+            "lieu_moi_lan": "1 viên",
+            "so_lan_ngay": 2,
+            "thoi_diem": "Sau ăn",
+            "so_ngay": 7
+          },
+          {
+            "ten_thuoc": "Paracetamol",
+            "ham_luong": "500 mg",
+            "duong_dung": "Uống",
+            "lieu_moi_lan": "1 viên",
+            "so_lan_ngay": 3,
+            "thoi_diem": "Khi sốt",
+            "so_ngay": 3
+          },
+          {
+            "ten_thuoc": "Alpha Choay",
+            "ham_luong": "4,2 mg",
+            "duong_dung": "Ngậm",
+            "lieu_moi_lan": "2 viên",
+            "so_lan_ngay": 3,
+            "so_ngay": 5
+          }
+        ]
+      }
+    },
+    {
+      "id": "viem-va-tre-em",
+      "ten": "Viêm VA trẻ em",
+      "bi_danh": [
+        "viêm va",
+        "va quá phát"
+      ],
+      "icd_ten": "Phì đại khối mô lympho ở vòm họng [VA]",
+      "kham_khac": "Tim đều, phổi không ran. Bụng mềm. Chưa phát hiện bất thường cơ quan khác.",
+      "nhap": {
+        "phieu_kham": {
+          "ly_do_kham": "Ngạt mũi, ngủ ngáy",
+          "benh_su": "[số] ngày nay trẻ ngạt mũi, chảy mũi xanh, ngủ ngáy, thở miệng về đêm.",
+          "kham_toan_than": "Trẻ tỉnh, không sốt. Cân nặng [số] kg.",
+          "kham_chuyen_khoa": "Mũi có dịch xanh, VA quá phát có mủ bám. Màng nhĩ 2 bên bình thường.",
+          "chan_doan_chinh": "Viêm VA",
+          "huong_dieu_tri": "Điều trị nội khoa, theo dõi",
+          "loi_dan": "Vệ sinh mũi cho trẻ trước khi ngủ.",
+          "hen_tai_kham": "Sau 10 ngày"
+        },
+        "chi_dinh": [
+          {
+            "ten_dich_vu": "Nội soi tai mũi họng"
+          },
+          {
+            "ten_dich_vu": "Hút rửa mũi xoang"
+          }
+        ],
+        "ke_don": [
+          {
+            "ten_thuoc": "Amoxicillin",
+            "ham_luong": "250 mg",
+            "duong_dung": "Uống",
+            "lieu_moi_lan": "2 gói",
+            "so_lan_ngay": 2,
+            "thoi_diem": "Sau ăn",
+            "so_ngay": 7
+          },
+          {
+            "ten_thuoc": "Desloratadin siro",
+            "ham_luong": "0,5 mg/ml",
+            "duong_dung": "Uống",
+            "lieu_moi_lan": "2,5 ml",
+            "so_lan_ngay": 1,
+            "thoi_diem": "Buổi tối",
+            "so_ngay": 10
+          },
+          {
+            "ten_thuoc": "Natri clorid 0,9%",
+            "ham_luong": "0,9%",
+            "duong_dung": "Nhỏ mũi",
+            "lieu_moi_lan": "2 giọt",
+            "so_lan_ngay": 4,
+            "so_ngay": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "viem-thanh-quan-cap",
+      "ten": "Viêm thanh quản cấp",
+      "bi_danh": [
+        "vtq cấp",
+        "viêm thanh quản"
+      ],
+      "icd_ten": "Viêm thanh quản cấp tính",
+      "kham_khac": "Tim đều, phổi không ran. Bụng mềm. Chưa phát hiện bất thường cơ quan khác.",
+      "nhap": {
+        "phieu_kham": {
+          "ly_do_kham": "Khàn tiếng",
+          "benh_su": "[số] ngày nay khàn tiếng, nói nhiều thì mệt, ho khan. Không khó thở, không nuốt nghẹn.",
+          "kham_toan_than": "Tỉnh, tiếp xúc tốt. Không sốt.",
+          "kham_chuyen_khoa": "2 dây thanh phù nề, sung huyết, khép chưa kín. Tai mũi bình thường.",
+          "chan_doan_chinh": "Viêm thanh quản cấp",
+          "huong_dieu_tri": "Điều trị nội khoa, nghỉ giọng",
+          "loi_dan": "Hạn chế nói to, nói nhiều. Uống đủ nước, không hút thuốc.",
+          "hen_tai_kham": "Sau 2 tuần"
+        },
+        "chi_dinh": [
+          {
+            "ten_dich_vu": "Nội soi họng thanh quản"
+          }
+        ],
+        "ke_don": [
+          {
+            "ten_thuoc": "Acetylcystein",
+            "ham_luong": "200 mg",
+            "duong_dung": "Uống",
+            "lieu_moi_lan": "1 gói",
+            "so_lan_ngay": 3,
+            "thoi_diem": "Sau ăn",
+            "so_ngay": 7
+          },
+          {
+            "ten_thuoc": "Methylprednisolon",
+            "ham_luong": "16 mg",
+            "duong_dung": "Uống",
+            "lieu_moi_lan": "1 viên",
+            "so_lan_ngay": 1,
+            "thoi_diem": "Sau ăn sáng",
+            "so_ngay": 5
+          }
+        ]
+      }
+    },
+    {
+      "id": "trao-nguoc-hong-thanh-quan",
+      "ten": "Trào ngược họng thanh quản",
+      "bi_danh": [
+        "trào ngược họng thanh quản",
+        "lpr"
+      ],
+      "icd_ten": "Bệnh trào ngược dạ dày - thực quản không kèm viêm thực quản",
+      "kham_khac": "Tim đều, phổi không ran. Bụng mềm. Chưa phát hiện bất thường cơ quan khác.",
+      "nhap": {
+        "phieu_kham": {
+          "ly_do_kham": "Vướng họng, ợ nóng",
+          "benh_su": "[số] tuần nay vướng họng, hắng giọng nhiều, ợ nóng, ợ chua, khàn tiếng nhẹ buổi sáng.",
+          "kham_toan_than": "Tỉnh, tiếp xúc tốt. Không sốt.",
+          "kham_chuyen_khoa": "Sụn phễu đỏ, phù nề vùng liên phễu. Dây thanh di động tốt. Tai mũi bình thường.",
+          "chan_doan_chinh": "Trào ngược dạ dày thực quản",
+          "huong_dieu_tri": "Điều trị nội khoa, thay đổi lối sống",
+          "loi_dan": "Không ăn no trước khi ngủ 3 giờ, kê cao đầu giường, hạn chế cà phê, rượu bia, đồ chua cay.",
+          "hen_tai_kham": "Sau 4 tuần"
+        },
+        "chi_dinh": [
+          {
+            "ten_dich_vu": "Nội soi họng thanh quản"
+          }
+        ],
+        "ke_don": [
+          {
+            "ten_thuoc": "Esomeprazol",
+            "ham_luong": "40 mg",
+            "duong_dung": "Uống",
+            "lieu_moi_lan": "1 viên",
+            "so_lan_ngay": 1,
+            "thoi_diem": "Trước ăn sáng 30 phút",
+            "so_ngay": 28
+          }
+        ]
+      }
+    },
+    {
+      "id": "nhot-ong-tai",
+      "ten": "Nhọt ống tai",
+      "bi_danh": [
+        "nhọt ống tai ngoài",
+        "áp xe ống tai"
+      ],
+      "icd_ten": "Áp xe tai ngoài",
+      "kham_khac": "Tim đều, phổi không ran. Bụng mềm. Chưa phát hiện bất thường cơ quan khác.",
+      "nhap": {
+        "phieu_kham": {
+          "ly_do_kham": "Đau tai [phải|trái|2 bên] dữ dội",
+          "benh_su": "[số] ngày nay đau tai [phải|trái|2 bên] tăng dần, đau lan ra vùng thái dương, đau khi nhai.",
+          "kham_toan_than": "Tỉnh, tiếp xúc tốt. Không sốt.",
+          "kham_chuyen_khoa": "Ống tai ngoài [phải|trái|2 bên] có khối sưng đỏ, có ngòi mủ, ấn nắp bình tai đau. Màng nhĩ không quan sát rõ.",
+          "chan_doan_chinh": "Nhọt ống tai [phải|trái|2 bên]",
+          "huong_dieu_tri": "Trích nhọt, điều trị nội khoa",
+          "loi_dan": "Không ngoáy tai, giữ khô tai.",
+          "hen_tai_kham": "Sau 5 ngày"
+        },
+        "chi_dinh": [
+          {
+            "ten_dich_vu": "Nội soi tai"
+          },
+          {
+            "ten_dich_vu": "Trích nhọt ống tai ngoài"
+          }
+        ],
+        "ke_don": [
+          {
+            "ten_thuoc": "Cefuroxim",
+            "ham_luong": "500 mg",
+            "duong_dung": "Uống",
+            "lieu_moi_lan": "1 viên",
+            "so_lan_ngay": 2,
+            "thoi_diem": "Sau ăn",
+            "so_ngay": 7
+          },
+          {
+            "ten_thuoc": "Paracetamol",
+            "ham_luong": "500 mg",
+            "duong_dung": "Uống",
+            "lieu_moi_lan": "1 viên",
+            "so_lan_ngay": 3,
+            "thoi_diem": "Khi đau",
+            "so_ngay": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "nam-ong-tai",
+      "ten": "Nấm ống tai",
+      "bi_danh": [
+        "nấm tai",
+        "viêm tai ngoài do nấm"
+      ],
+      "icd_ten": "Viêm tai ngoài do nhiễm nấm",
+      "kham_khac": "Tim đều, phổi không ran. Bụng mềm. Chưa phát hiện bất thường cơ quan khác.",
+      "nhap": {
+        "phieu_kham": {
+          "ly_do_kham": "Ngứa tai, ù tai [phải|trái|2 bên]",
+          "benh_su": "[số] tuần nay ngứa tai [phải|trái|2 bên], ù tai, chảy dịch ít, hay ngoáy tai.",
+          "kham_toan_than": "Tỉnh, tiếp xúc tốt. Không sốt.",
+          "kham_chuyen_khoa": "Ống tai [phải|trái|2 bên] có mảng nấm trắng xám bám thành ống tai, da ống tai nề đỏ. Màng nhĩ nguyên vẹn.",
+          "chan_doan_chinh": "Nấm ống tai [phải|trái|2 bên]",
+          "huong_dieu_tri": "Làm sạch ống tai, điều trị tại chỗ",
+          "loi_dan": "Không ngoáy tai, giữ khô tai, không tự nhỏ thuốc khác.",
+          "hen_tai_kham": "Sau 7 ngày"
+        },
+        "chi_dinh": [
+          {
+            "ten_dich_vu": "Nội soi tai"
+          },
+          {
+            "ten_dich_vu": "Làm sạch ống tai, hút dịch tai"
+          }
+        ],
+        "ke_don": [
+          {
+            "ten_thuoc": "Clotrimazol nhỏ tai",
+            "ham_luong": "1%",
+            "duong_dung": "Nhỏ tai",
+            "lieu_moi_lan": "3 giọt",
+            "so_lan_ngay": 2,
+            "so_ngay": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "viem-tai-giua-u-dich",
+      "ten": "Viêm tai giữa ứ dịch",
+      "bi_danh": [
+        "vtg ứ dịch",
+        "vtg tiết dịch"
+      ],
+      "icd_ten": "Viêm tai giữa tiết dịch cấp tính",
+      "kham_khac": "Tim đều, phổi không ran. Bụng mềm. Chưa phát hiện bất thường cơ quan khác.",
+      "nhap": {
+        "phieu_kham": {
+          "ly_do_kham": "Ù tai, nghe kém [phải|trái|2 bên]",
+          "benh_su": "[số] tuần nay ù tai, nghe kém [phải|trái|2 bên], cảm giác đầy tai, sau đợt viêm mũi họng. Không đau, không chảy tai.",
+          "kham_toan_than": "Tỉnh, tiếp xúc tốt. Không sốt.",
+          "kham_chuyen_khoa": "Màng nhĩ [phải|trái|2 bên] đục, lõm, có mức dịch sau màng nhĩ. Mũi có dịch nhầy.",
+          "chan_doan_chinh": "Viêm tai giữa ứ dịch tai [phải|trái|2 bên]",
+          "huong_dieu_tri": "Điều trị nội khoa, theo dõi",
+          "loi_dan": "Rửa mũi hằng ngày, tránh xì mũi mạnh.",
+          "hen_tai_kham": "Sau 2 tuần"
+        },
+        "chi_dinh": [
+          {
+            "ten_dich_vu": "Nội soi tai"
+          },
+          {
+            "ten_dich_vu": "Đo nhĩ lượng"
+          },
+          {
+            "ten_dich_vu": "Đo thính lực đơn âm"
+          }
+        ],
+        "ke_don": [
+          {
+            "ten_thuoc": "Mometason xịt mũi",
+            "ham_luong": "50 mcg/liều",
+            "duong_dung": "Xịt mũi",
+            "lieu_moi_lan": "2 xịt mỗi bên",
+            "so_lan_ngay": 1,
+            "thoi_diem": "Buổi sáng",
+            "so_ngay": 14
+          },
+          {
+            "ten_thuoc": "Natri clorid 0,9%",
+            "ham_luong": "0,9%",
+            "duong_dung": "Nhỏ mũi",
+            "lieu_moi_lan": "3 giọt mỗi bên",
+            "so_lan_ngay": 3,
+            "so_ngay": 14
+          }
+        ]
+      }
+    },
+    {
+      "id": "tac-voi-tai",
+      "ten": "Tắc vòi tai",
+      "bi_danh": [
+        "tắc vòi nhĩ",
+        "rối loạn vòi tai"
+      ],
+      "icd_ten": "Tắc vòi tai [vòi Eustache, vòi nhĩ]",
+      "kham_khac": "Tim đều, phổi không ran. Bụng mềm. Chưa phát hiện bất thường cơ quan khác.",
+      "nhap": {
+        "phieu_kham": {
+          "ly_do_kham": "Đầy tai, ù tai [phải|trái|2 bên]",
+          "benh_su": "[số] ngày nay đầy tai, ù tai [phải|trái|2 bên], nghe tiếng mình vang trong tai, sau cảm hoặc đi máy bay.",
+          "kham_toan_than": "Tỉnh, tiếp xúc tốt. Không sốt.",
+          "kham_chuyen_khoa": "Màng nhĩ [phải|trái|2 bên] lõm, kém di động. Niêm mạc mũi nề, cuốn dưới to.",
+          "chan_doan_chinh": "Tắc vòi tai [phải|trái|2 bên]",
+          "huong_dieu_tri": "Điều trị nội khoa",
+          "loi_dan": "Tập nghiệm pháp Valsalva nhẹ, rửa mũi hằng ngày.",
+          "hen_tai_kham": "Sau 2 tuần"
+        },
+        "chi_dinh": [
+          {
+            "ten_dich_vu": "Nội soi tai mũi họng"
+          },
+          {
+            "ten_dich_vu": "Đo nhĩ lượng"
+          }
+        ],
+        "ke_don": [
+          {
+            "ten_thuoc": "Mometason xịt mũi",
+            "ham_luong": "50 mcg/liều",
+            "duong_dung": "Xịt mũi",
+            "lieu_moi_lan": "2 xịt mỗi bên",
+            "so_lan_ngay": 1,
+            "thoi_diem": "Buổi sáng",
+            "so_ngay": 14
+          },
+          {
+            "ten_thuoc": "Xylometazolin nhỏ mũi",
+            "ham_luong": "0,05%",
+            "duong_dung": "Nhỏ mũi",
+            "lieu_moi_lan": "2 giọt mỗi bên",
+            "so_lan_ngay": 2,
+            "so_ngay": 5
+          }
+        ]
+      }
+    },
+    {
+      "id": "thung-mang-nhi",
+      "ten": "Thủng màng nhĩ",
+      "bi_danh": [
+        "thủng nhĩ",
+        "thủng màng nhĩ chấn thương"
+      ],
+      "icd_ten": "Thủng màng nhĩ, không xác định",
+      "kham_khac": "Tim đều, phổi không ran. Bụng mềm. Chưa phát hiện bất thường cơ quan khác.",
+      "nhap": {
+        "phieu_kham": {
+          "ly_do_kham": "Đau tai, nghe kém tai [phải|trái|2 bên]",
+          "benh_su": "[số] ngày nay đau tai, nghe kém tai [phải|trái|2 bên] sau chấn thương, có ít máu ở tai lúc đầu.",
+          "kham_toan_than": "Tỉnh, tiếp xúc tốt. Không sốt.",
+          "kham_chuyen_khoa": "Màng nhĩ [phải|trái|2 bên] thủng nhỏ, bờ không đều, có ít máu khô. Không chảy dịch. Tai còn lại bình thường.",
+          "chan_doan_chinh": "Thủng màng nhĩ [phải|trái|2 bên]",
+          "huong_dieu_tri": "Theo dõi, giữ khô tai",
+          "loi_dan": "Không nhỏ thuốc tai, không để nước vào tai, không xì mũi mạnh.",
+          "hen_tai_kham": "Sau 2 tuần"
+        },
+        "chi_dinh": [
+          {
+            "ten_dich_vu": "Nội soi tai"
+          },
+          {
+            "ten_dich_vu": "Đo thính lực đơn âm"
+          }
+        ],
+        "ke_don": [
+          {
+            "ten_thuoc": "Paracetamol",
+            "ham_luong": "500 mg",
+            "duong_dung": "Uống",
+            "lieu_moi_lan": "1 viên",
+            "so_lan_ngay": 3,
+            "thoi_diem": "Khi đau",
+            "so_ngay": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "chong-mat-tu-the",
+      "ten": "Chóng mặt tư thế kịch phát lành tính",
+      "bi_danh": [
+        "chóng mặt tư thế",
+        "bppv"
+      ],
+      "icd_ten": "Chóng mặt kịch phát lành tính",
+      "kham_khac": "Tim đều, phổi không ran. Bụng mềm. Chưa phát hiện bất thường cơ quan khác.",
+      "nhap": {
+        "phieu_kham": {
+          "ly_do_kham": "Chóng mặt khi thay đổi tư thế",
+          "benh_su": "[số] ngày nay chóng mặt quay cuồng vài chục giây khi nằm xuống, trở mình hoặc ngẩng đầu, buồn nôn. Không ù tai, không nghe kém.",
+          "kham_toan_than": "Tỉnh, huyết áp [số] mmHg. Không dấu hiệu thần kinh khu trú.",
+          "kham_chuyen_khoa": "Ống tai sạch, màng nhĩ 2 bên bình thường. Nghiệm pháp tư thế dương tính bên [phải|trái|2 bên].",
+          "chan_doan_chinh": "Chóng mặt tư thế kịch phát lành tính",
+          "huong_dieu_tri": "Nghiệm pháp đặt lại sỏi tai, điều trị nội khoa",
+          "loi_dan": "Đứng dậy từ từ, tránh cúi ngửa đột ngột. Quay lại ngay nếu yếu tay chân, nói khó.",
+          "hen_tai_kham": "Sau 1 tuần"
+        },
+        "chi_dinh": [
+          {
+            "ten_dich_vu": "Nội soi tai"
+          },
+          {
+            "ten_dich_vu": "Đo thính lực đơn âm"
+          }
+        ],
+        "ke_don": [
+          {
+            "ten_thuoc": "Betahistin",
+            "ham_luong": "16 mg",
+            "duong_dung": "Uống",
+            "lieu_moi_lan": "1 viên",
+            "so_lan_ngay": 3,
+            "thoi_diem": "Sau ăn",
+            "so_ngay": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "meniere",
+      "ten": "Bệnh Ménière",
+      "bi_danh": [
+        "meniere",
+        "hội chứng meniere"
+      ],
+      "icd_ten": "Bệnh Ménière",
+      "kham_khac": "Tim đều, phổi không ran. Bụng mềm. Chưa phát hiện bất thường cơ quan khác.",
+      "nhap": {
+        "phieu_kham": {
+          "ly_do_kham": "Chóng mặt, ù tai, nghe kém [phải|trái|2 bên]",
+          "benh_su": "Từng cơn chóng mặt quay cuồng kéo dài vài giờ, kèm ù tai, nghe kém, đầy tai [phải|trái|2 bên], đã tái phát [số] lần.",
+          "kham_toan_than": "Tỉnh, huyết áp [số] mmHg.",
+          "kham_chuyen_khoa": "Ống tai sạch, màng nhĩ 2 bên bình thường. Mũi họng bình thường.",
+          "chan_doan_chinh": "Bệnh Ménière tai [phải|trái|2 bên]",
+          "huong_dieu_tri": "Điều trị nội khoa, theo dõi thính lực",
+          "loi_dan": "Ăn nhạt, hạn chế cà phê, rượu bia, ngủ đủ giấc.",
+          "hen_tai_kham": "Sau 1 tháng"
+        },
+        "chi_dinh": [
+          {
+            "ten_dich_vu": "Đo thính lực đơn âm"
+          },
+          {
+            "ten_dich_vu": "Đo nhĩ lượng"
+          }
+        ],
+        "ke_don": [
+          {
+            "ten_thuoc": "Betahistin",
+            "ham_luong": "16 mg",
+            "duong_dung": "Uống",
+            "lieu_moi_lan": "1 viên",
+            "so_lan_ngay": 3,
+            "thoi_diem": "Sau ăn",
+            "so_ngay": 30
+          },
+          {
+            "ten_thuoc": "Flunarizin",
+            "ham_luong": "5 mg",
+            "duong_dung": "Uống",
+            "lieu_moi_lan": "1 viên",
+            "so_lan_ngay": 1,
+            "thoi_diem": "Buổi tối",
+            "so_ngay": 30
+          }
+        ]
+      }
+    },
+    {
+      "id": "viem-than-kinh-tien-dinh",
+      "ten": "Viêm dây thần kinh tiền đình",
+      "bi_danh": [
+        "viêm tk tiền đình",
+        "viêm thần kinh tiền đình"
+      ],
+      "icd_ten": "Viêm dây thần kinh tiền đình",
+      "kham_khac": "Tim đều, phổi không ran. Bụng mềm. Chưa phát hiện bất thường cơ quan khác.",
+      "nhap": {
+        "phieu_kham": {
+          "ly_do_kham": "Chóng mặt liên tục",
+          "benh_su": "[số] ngày nay chóng mặt quay cuồng liên tục, buồn nôn, nôn, đi lại loạng choạng, sau đợt cảm. Không ù tai, không nghe kém.",
+          "kham_toan_than": "Tỉnh, có rung giật nhãn cầu. Không dấu hiệu thần kinh khu trú.",
+          "kham_chuyen_khoa": "Ống tai sạch, màng nhĩ 2 bên bình thường. Mũi họng bình thường.",
+          "chan_doan_chinh": "Viêm dây thần kinh tiền đình",
+          "huong_dieu_tri": "Điều trị nội khoa",
+          "loi_dan": "Nằm nghỉ khi chóng mặt, tập vận động sớm khi đỡ. Quay lại ngay nếu yếu tay chân, nói khó.",
+          "hen_tai_kham": "Sau 1 tuần"
+        },
+        "chi_dinh": [
+          {
+            "ten_dich_vu": "Đo thính lực đơn âm"
+          }
+        ],
+        "ke_don": [
+          {
+            "ten_thuoc": "Methylprednisolon",
+            "ham_luong": "16 mg",
+            "duong_dung": "Uống",
+            "lieu_moi_lan": "1 viên",
+            "so_lan_ngay": 1,
+            "thoi_diem": "Sau ăn sáng",
+            "so_ngay": 7
+          },
+          {
+            "ten_thuoc": "Betahistin",
+            "ham_luong": "16 mg",
+            "duong_dung": "Uống",
+            "lieu_moi_lan": "1 viên",
+            "so_lan_ngay": 3,
+            "thoi_diem": "Sau ăn",
+            "so_ngay": 14
+          }
+        ]
+      }
+    },
+    {
+      "id": "diec-dot-ngot",
+      "ten": "Điếc đột ngột",
+      "bi_danh": [
+        "nghe kém đột ngột",
+        "điếc đột ngột vô căn"
+      ],
+      "icd_ten": "Giảm thính lực đột ngột vô căn",
+      "kham_khac": "Tim đều, phổi không ran. Bụng mềm. Chưa phát hiện bất thường cơ quan khác.",
+      "nhap": {
+        "phieu_kham": {
+          "ly_do_kham": "Nghe kém đột ngột tai [phải|trái|2 bên]",
+          "benh_su": "[số] ngày nay đột ngột nghe kém tai [phải|trái|2 bên], kèm ù tai. Không đau tai, không chảy tai.",
+          "kham_toan_than": "Tỉnh, tiếp xúc tốt. Không sốt.",
+          "kham_chuyen_khoa": "Ống tai sạch, màng nhĩ 2 bên bình thường. Mũi họng bình thường.",
+          "chan_doan_chinh": "Điếc đột ngột tai [phải|trái|2 bên]",
+          "huong_dieu_tri": "Điều trị nội khoa sớm, theo dõi thính lực",
+          "loi_dan": "Nghỉ ngơi, tránh tiếng ồn. Quay lại ngay nếu chóng mặt nhiều.",
+          "hen_tai_kham": "Sau 1 tuần"
+        },
+        "chi_dinh": [
+          {
+            "ten_dich_vu": "Đo thính lực đơn âm"
+          },
+          {
+            "ten_dich_vu": "Đo nhĩ lượng"
+          },
+          {
+            "ten_dich_vu": "Đo điện thính giác thân não (ABR)"
+          }
+        ],
+        "ke_don": [
+          {
+            "ten_thuoc": "Methylprednisolon",
+            "ham_luong": "16 mg",
+            "duong_dung": "Uống",
+            "lieu_moi_lan": "1 viên",
+            "so_lan_ngay": 1,
+            "thoi_diem": "Sau ăn sáng",
+            "so_ngay": 7
+          },
+          {
+            "ten_thuoc": "Ginkgo biloba",
+            "ham_luong": "40 mg",
+            "duong_dung": "Uống",
+            "lieu_moi_lan": "1 viên",
+            "so_lan_ngay": 3,
+            "so_ngay": 30
+          }
+        ]
+      }
+    },
+    {
+      "id": "lao-thinh",
+      "ten": "Nghe kém tuổi già",
+      "bi_danh": [
+        "lão thính",
+        "nghe kém người cao tuổi"
+      ],
+      "icd_ten": "Giảm thính lực ở người cao tuổi [lão thính]",
+      "kham_khac": "Tim đều, phổi không ran. Bụng mềm. Chưa phát hiện bất thường cơ quan khác.",
+      "nhap": {
+        "phieu_kham": {
+          "ly_do_kham": "Nghe kém 2 tai",
+          "benh_su": "[số] năm nay nghe kém dần 2 tai, nghe khó nhất ở nơi đông người, có ù tai.",
+          "kham_toan_than": "Tỉnh, tiếp xúc tốt. Không sốt.",
+          "kham_chuyen_khoa": "Ống tai sạch, màng nhĩ 2 bên bình thường. Mũi họng không có gì đặc biệt.",
+          "chan_doan_chinh": "Nghe kém tuổi già 2 tai",
+          "huong_dieu_tri": "Tư vấn máy trợ thính, theo dõi thính lực",
+          "loi_dan": "Tránh tiếng ồn, kiểm tra thính lực định kỳ.",
+          "hen_tai_kham": "Sau 6 tháng"
+        },
+        "chi_dinh": [
+          {
+            "ten_dich_vu": "Đo thính lực đơn âm"
+          },
+          {
+            "ten_dich_vu": "Đo nhĩ lượng"
+          }
+        ],
+        "ke_don": [
+          {
+            "ten_thuoc": "Ginkgo biloba",
+            "ham_luong": "40 mg",
+            "duong_dung": "Uống",
+            "lieu_moi_lan": "1 viên",
+            "so_lan_ngay": 3,
+            "so_ngay": 30
+          }
+        ]
+      }
+    },
+    {
+      "id": "viem-mui-hong-cap",
+      "ten": "Viêm mũi họng cấp",
+      "bi_danh": [
+        "vmh cấp",
+        "cảm thường"
+      ],
+      "icd_ten": "Viêm mũi họng cấp tính [cảm thường]",
+      "kham_khac": "Tim đều, phổi không ran. Bụng mềm. Chưa phát hiện bất thường cơ quan khác.",
+      "nhap": {
+        "phieu_kham": {
+          "ly_do_kham": "Sổ mũi, đau họng, sốt nhẹ",
+          "benh_su": "[số] ngày nay hắt hơi, sổ mũi trong, ngạt mũi, đau rát họng, sốt nhẹ, mệt mỏi.",
+          "kham_toan_than": "Tỉnh, tiếp xúc tốt. Sốt [số] độ.",
+          "kham_chuyen_khoa": "Niêm mạc mũi nề đỏ, dịch trong. Họng đỏ nhẹ, amidan không to. Màng nhĩ 2 bên bình thường.",
+          "chan_doan_chinh": "Viêm mũi họng cấp",
+          "huong_dieu_tri": "Điều trị triệu chứng",
+          "loi_dan": "Nghỉ ngơi, uống nhiều nước, rửa mũi. Quay lại nếu sốt quá 3 ngày, đau tai, khó thở.",
+          "hen_tai_kham": "Khi có bất thường"
+        },
+        "chi_dinh": [
+          {
+            "ten_dich_vu": "Nội soi tai mũi họng"
+          }
+        ],
+        "ke_don": [
+          {
+            "ten_thuoc": "Paracetamol",
+            "ham_luong": "500 mg",
+            "duong_dung": "Uống",
+            "lieu_moi_lan": "1 viên",
+            "so_lan_ngay": 3,
+            "thoi_diem": "Khi sốt hoặc đau",
+            "so_ngay": 3
+          },
+          {
+            "ten_thuoc": "Chlorpheniramin",
+            "ham_luong": "4 mg",
+            "duong_dung": "Uống",
+            "lieu_moi_lan": "1 viên",
+            "so_lan_ngay": 2,
+            "thoi_diem": "Sau ăn",
+            "so_ngay": 5
+          },
+          {
+            "ten_thuoc": "Natri clorid 0,9%",
+            "ham_luong": "0,9%",
+            "duong_dung": "Nhỏ mũi",
+            "lieu_moi_lan": "3 giọt mỗi bên",
+            "so_lan_ngay": 3,
+            "so_ngay": 7
+          }
+        ]
+      }
+    },
+    {
+      "id": "viem-mui-xoang-man",
+      "ten": "Viêm mũi xoang mạn",
+      "bi_danh": [
+        "vmx mạn",
+        "viêm xoang mạn"
+      ],
+      "icd_ten": "Viêm xoang mạn tính, không xác định",
+      "kham_khac": "Tim đều, phổi không ran. Bụng mềm. Chưa phát hiện bất thường cơ quan khác.",
+      "nhap": {
+        "phieu_kham": {
+          "ly_do_kham": "Ngạt mũi, chảy mũi kéo dài",
+          "benh_su": "[số] tháng nay ngạt mũi [phải|trái|2 bên], chảy mũi đục xuống họng, giảm ngửi, nặng mặt, đã điều trị nhiều đợt.",
+          "kham_toan_than": "Tỉnh, tiếp xúc tốt. Không sốt.",
+          "kham_chuyen_khoa": "Niêm mạc mũi phù nề, có mủ khe giữa [phải|trái|2 bên], cuốn giữa thoái hóa. Họng có dịch chảy từ vòm.",
+          "chan_doan_chinh": "Viêm mũi xoang mạn",
+          "huong_dieu_tri": "Điều trị nội khoa, chụp CT xoang đánh giá",
+          "loi_dan": "Rửa mũi hằng ngày, tránh khói bụi. Cân nhắc phẫu thuật nếu điều trị nội khoa không đỡ.",
+          "hen_tai_kham": "Sau 2 tuần"
+        },
+        "chi_dinh": [
+          {
+            "ten_dich_vu": "Nội soi mũi xoang"
+          },
+          {
+            "ten_dich_vu": "Chụp CT xoang"
+          }
+        ],
+        "ke_don": [
+          {
+            "ten_thuoc": "Clarithromycin",
+            "ham_luong": "500 mg",
+            "duong_dung": "Uống",
+            "lieu_moi_lan": "1 viên",
+            "so_lan_ngay": 2,
+            "thoi_diem": "Sau ăn",
+            "so_ngay": 14
+          },
+          {
+            "ten_thuoc": "Budesonid xịt mũi",
+            "ham_luong": "64 mcg/liều",
+            "duong_dung": "Xịt mũi",
+            "lieu_moi_lan": "2 xịt mỗi bên",
+            "so_lan_ngay": 2,
+            "so_ngay": 30
+          },
+          {
+            "ten_thuoc": "Muối rửa mũi",
+            "duong_dung": "Rửa mũi",
+            "lieu_moi_lan": "1 gói",
+            "so_lan_ngay": 2,
+            "so_ngay": 30
+          }
+        ]
+      }
+    },
+    {
+      "id": "polyp-mui",
+      "ten": "Polyp mũi",
+      "bi_danh": [
+        "polyp mũi xoang",
+        "polyp hốc mũi"
+      ],
+      "icd_ten": "Polyp mũi, không xác định",
+      "kham_khac": "Tim đều, phổi không ran. Bụng mềm. Chưa phát hiện bất thường cơ quan khác.",
+      "nhap": {
+        "phieu_kham": {
+          "ly_do_kham": "Ngạt mũi tăng dần, giảm ngửi",
+          "benh_su": "[số] tháng nay ngạt mũi [phải|trái|2 bên] tăng dần, giảm ngửi, chảy mũi, ngủ ngáy.",
+          "kham_toan_than": "Tỉnh, tiếp xúc tốt. Không sốt.",
+          "kham_chuyen_khoa": "Khối polyp nhẵn, màu trắng xám ở khe giữa [phải|trái|2 bên], chạm không chảy máu.",
+          "chan_doan_chinh": "Polyp mũi [phải|trái|2 bên]",
+          "huong_dieu_tri": "Điều trị nội khoa, cân nhắc phẫu thuật nội soi",
+          "loi_dan": "Rửa mũi hằng ngày, dùng thuốc xịt đều.",
+          "hen_tai_kham": "Sau 2 tuần"
+        },
+        "chi_dinh": [
+          {
+            "ten_dich_vu": "Nội soi mũi xoang"
+          },
+          {
+            "ten_dich_vu": "Chụp CT xoang"
+          }
+        ],
+        "ke_don": [
+          {
+            "ten_thuoc": "Mometason xịt mũi",
+            "ham_luong": "50 mcg/liều",
+            "duong_dung": "Xịt mũi",
+            "lieu_moi_lan": "2 xịt mỗi bên",
+            "so_lan_ngay": 2,
+            "so_ngay": 30
+          },
+          {
+            "ten_thuoc": "Prednisolon",
+            "ham_luong": "5 mg",
+            "duong_dung": "Uống",
+            "lieu_moi_lan": "4 viên",
+            "so_lan_ngay": 1,
+            "thoi_diem": "Sau ăn sáng",
+            "so_ngay": 7
+          }
+        ]
+      }
+    },
+    {
+      "id": "veo-vach-ngan",
+      "ten": "Vẹo vách ngăn",
+      "bi_danh": [
+        "lệch vách ngăn",
+        "vẹo vách ngăn mũi"
+      ],
+      "icd_ten": "Vẹo vách ngăn mũi",
+      "kham_khac": "Tim đều, phổi không ran. Bụng mềm. Chưa phát hiện bất thường cơ quan khác.",
+      "nhap": {
+        "phieu_kham": {
+          "ly_do_kham": "Ngạt mũi [phải|trái|2 bên] kéo dài",
+          "benh_su": "[số] năm nay ngạt mũi [phải|trái|2 bên], ngạt tăng khi nằm, hay đau đầu, chảy máu mũi ít lần.",
+          "kham_toan_than": "Tỉnh, tiếp xúc tốt. Không sốt.",
+          "kham_chuyen_khoa": "Vách ngăn vẹo hình chữ C sang [phải|trái|2 bên], cuốn dưới bên đối diện quá phát.",
+          "chan_doan_chinh": "Vẹo vách ngăn mũi",
+          "huong_dieu_tri": "Điều trị nội khoa, tư vấn phẫu thuật chỉnh hình vách ngăn",
+          "loi_dan": "Rửa mũi hằng ngày.",
+          "hen_tai_kham": "Sau 1 tháng"
+        },
+        "chi_dinh": [
+          {
+            "ten_dich_vu": "Nội soi mũi xoang"
+          }
+        ],
+        "ke_don": [
+          {
+            "ten_thuoc": "Mometason xịt mũi",
+            "ham_luong": "50 mcg/liều",
+            "duong_dung": "Xịt mũi",
+            "lieu_moi_lan": "2 xịt mỗi bên",
+            "so_lan_ngay": 1,
+            "thoi_diem": "Buổi sáng",
+            "so_ngay": 30
+          }
+        ]
+      }
+    },
+    {
+      "id": "qua-phat-cuon-mui",
+      "ten": "Quá phát cuốn mũi",
+      "bi_danh": [
+        "phì đại cuốn mũi",
+        "quá phát cuốn dưới"
+      ],
+      "icd_ten": "Phì đại [quá phát] cuốn mũi",
+      "kham_khac": "Tim đều, phổi không ran. Bụng mềm. Chưa phát hiện bất thường cơ quan khác.",
+      "nhap": {
+        "phieu_kham": {
+          "ly_do_kham": "Ngạt mũi 2 bên",
+          "benh_su": "[số] tháng nay ngạt mũi 2 bên luân phiên, ngạt tăng khi nằm, chảy mũi trong.",
+          "kham_toan_than": "Tỉnh, tiếp xúc tốt. Không sốt.",
+          "kham_chuyen_khoa": "Cuốn dưới 2 bên quá phát, niêm mạc nề, co kém với thuốc co mạch.",
+          "chan_doan_chinh": "Quá phát cuốn mũi",
+          "huong_dieu_tri": "Điều trị nội khoa, cân nhắc thủ thuật thu nhỏ cuốn",
+          "loi_dan": "Không dùng thuốc nhỏ mũi co mạch kéo dài.",
+          "hen_tai_kham": "Sau 1 tháng"
+        },
+        "chi_dinh": [
+          {
+            "ten_dich_vu": "Nội soi mũi xoang"
+          }
+        ],
+        "ke_don": [
+          {
+            "ten_thuoc": "Budesonid xịt mũi",
+            "ham_luong": "64 mcg/liều",
+            "duong_dung": "Xịt mũi",
+            "lieu_moi_lan": "2 xịt mỗi bên",
+            "so_lan_ngay": 1,
+            "thoi_diem": "Buổi sáng",
+            "so_ngay": 30
+          },
+          {
+            "ten_thuoc": "Natri clorid 0,9%",
+            "ham_luong": "0,9%",
+            "duong_dung": "Nhỏ mũi",
+            "lieu_moi_lan": "3 giọt mỗi bên",
+            "so_lan_ngay": 3,
+            "so_ngay": 30
+          }
+        ]
+      }
+    },
+    {
+      "id": "nhot-tien-dinh-mui",
+      "ten": "Nhọt tiền đình mũi",
+      "bi_danh": [
+        "nhọt mũi",
+        "nhọt cửa mũi"
+      ],
+      "icd_ten": "Áp xe, nhọt và/hoặc nhọt tiền đình mũi",
+      "kham_khac": "Tim đều, phổi không ran. Bụng mềm. Chưa phát hiện bất thường cơ quan khác.",
+      "nhap": {
+        "phieu_kham": {
+          "ly_do_kham": "Đau, sưng cửa mũi [phải|trái|2 bên]",
+          "benh_su": "[số] ngày nay sưng đau cửa mũi [phải|trái|2 bên], hay nặn mụn, ngoáy mũi.",
+          "kham_toan_than": "Tỉnh, tiếp xúc tốt. Không sốt.",
+          "kham_chuyen_khoa": "Tiền đình mũi [phải|trái|2 bên] có khối sưng đỏ, có ngòi mủ. Hốc mũi bình thường.",
+          "chan_doan_chinh": "Nhọt tiền đình mũi [phải|trái|2 bên]",
+          "huong_dieu_tri": "Điều trị nội khoa",
+          "loi_dan": "Không nặn, không ngoáy mũi. Quay lại ngay nếu sưng lan lên mắt, sốt cao.",
+          "hen_tai_kham": "Sau 5 ngày"
+        },
+        "chi_dinh": [
+          {
+            "ten_dich_vu": "Nội soi mũi xoang"
+          }
+        ],
+        "ke_don": [
+          {
+            "ten_thuoc": "Cefuroxim",
+            "ham_luong": "500 mg",
+            "duong_dung": "Uống",
+            "lieu_moi_lan": "1 viên",
+            "so_lan_ngay": 2,
+            "thoi_diem": "Sau ăn",
+            "so_ngay": 7
+          },
+          {
+            "ten_thuoc": "Paracetamol",
+            "ham_luong": "500 mg",
+            "duong_dung": "Uống",
+            "lieu_moi_lan": "1 viên",
+            "so_lan_ngay": 3,
+            "thoi_diem": "Khi đau",
+            "so_ngay": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "chay-mau-mui",
+      "ten": "Chảy máu mũi",
+      "bi_danh": [
+        "chảy máu cam",
+        "cmm"
+      ],
+      "icd_ten": "Chảy máu cam",
+      "kham_khac": "Tim đều, phổi không ran. Bụng mềm. Chưa phát hiện bất thường cơ quan khác.",
+      "nhap": {
+        "phieu_kham": {
+          "ly_do_kham": "Chảy máu mũi [phải|trái|2 bên]",
+          "benh_su": "[số] ngày nay chảy máu mũi [phải|trái|2 bên] nhiều lần, tự cầm khi ấn mũi. Không chấn thương, không dùng thuốc chống đông.",
+          "kham_toan_than": "Tỉnh, huyết áp [số] mmHg. Da niêm mạc hồng.",
+          "kham_chuyen_khoa": "Điểm mạch điểm Kisselbach [phải|trái|2 bên] giãn, còn vết máu khô. Không thấy khối bất thường.",
+          "chan_doan_chinh": "Chảy máu mũi [phải|trái|2 bên]",
+          "huong_dieu_tri": "Cầm máu tại chỗ, điều trị nội khoa",
+          "loi_dan": "Không ngoáy mũi, tránh xì mạnh. Khi chảy máu thì cúi đầu, bóp chặt cánh mũi 10 phút.",
+          "hen_tai_kham": "Sau 1 tuần"
+        },
+        "chi_dinh": [
+          {
+            "ten_dich_vu": "Nội soi mũi xoang"
+          },
+          {
+            "ten_dich_vu": "Tổng phân tích tế bào máu ngoại vi (bằng máy đếm laser)"
+          }
+        ],
+        "ke_don": [
+          {
+            "ten_thuoc": "Acid tranexamic",
+            "ham_luong": "500 mg",
+            "duong_dung": "Uống",
+            "lieu_moi_lan": "1 viên",
+            "so_lan_ngay": 3,
+            "thoi_diem": "Sau ăn",
+            "so_ngay": 5
+          }
+        ]
+      }
+    },
+    {
+      "id": "di-vat-mui",
+      "ten": "Dị vật mũi",
+      "bi_danh": [
+        "dị vật hốc mũi",
+        "dv mũi"
+      ],
+      "icd_ten": "Dị vật trong lỗ mũi",
+      "kham_khac": "Tim đều, phổi không ran. Bụng mềm. Chưa phát hiện bất thường cơ quan khác.",
+      "nhap": {
+        "phieu_kham": {
+          "ly_do_kham": "Dị vật mũi [phải|trái|2 bên]",
+          "benh_su": "[số] giờ trước trẻ nhét dị vật vào mũi [phải|trái|2 bên]. Không chảy máu, không khó thở.",
+          "kham_toan_than": "Trẻ tỉnh, không sốt, không khó thở.",
+          "kham_chuyen_khoa": "Dị vật ở hốc mũi [phải|trái|2 bên], niêm mạc nề nhẹ. Họng bình thường.",
+          "chan_doan_chinh": "Dị vật mũi [phải|trái|2 bên]",
+          "huong_dieu_tri": "Lấy dị vật tại phòng khám",
+          "loi_dan": "Không tự lấy dị vật. Quay lại nếu chảy máu, chảy mũi hôi.",
+          "hen_tai_kham": "Khi có bất thường"
+        },
+        "chi_dinh": [
+          {
+            "ten_dich_vu": "Nội soi mũi xoang"
+          },
+          {
+            "ten_dich_vu": "Lấy dị vật mũi"
+          }
+        ],
+        "ke_don": []
+      }
+    },
+    {
+      "id": "viem-hong-man",
+      "ten": "Viêm họng mạn",
+      "bi_danh": [
+        "vh mạn",
+        "viêm họng hạt"
+      ],
+      "icd_ten": "Viêm họng mạn tính",
+      "kham_khac": "Tim đều, phổi không ran. Bụng mềm. Chưa phát hiện bất thường cơ quan khác.",
+      "nhap": {
+        "phieu_kham": {
+          "ly_do_kham": "Vướng họng, hắng giọng",
+          "benh_su": "[số] tháng nay vướng họng, khô rát, hay hắng giọng, ho khan buổi sáng.",
+          "kham_toan_than": "Tỉnh, tiếp xúc tốt. Không sốt.",
+          "kham_chuyen_khoa": "Niêm mạc họng đỏ sẫm, thành sau họng nhiều tổ chức hạt. Amidan không to.",
+          "chan_doan_chinh": "Viêm họng mạn",
+          "huong_dieu_tri": "Điều trị nội khoa, đốt họng hạt",
+          "loi_dan": "Súc họng nước muối, uống đủ nước, hạn chế rượu bia, thuốc lá, đồ cay.",
+          "hen_tai_kham": "Sau 2 tuần"
+        },
+        "chi_dinh": [
+          {
+            "ten_dich_vu": "Nội soi họng thanh quản"
+          },
+          {
+            "ten_dich_vu": "Đốt họng hạt bằng nhiệt"
+          }
+        ],
+        "ke_don": [
+          {
+            "ten_thuoc": "Acetylcystein",
+            "ham_luong": "200 mg",
+            "duong_dung": "Uống",
+            "lieu_moi_lan": "1 gói",
+            "so_lan_ngay": 3,
+            "thoi_diem": "Sau ăn",
+            "so_ngay": 7
+          }
+        ]
+      }
+    },
+    {
+      "id": "viem-amidan-man",
+      "ten": "Viêm amidan mạn",
+      "bi_danh": [
+        "amidan mạn",
+        "viêm amydan mạn"
+      ],
+      "icd_ten": "Viêm amydan mạn tính",
+      "kham_khac": "Tim đều, phổi không ran. Bụng mềm. Chưa phát hiện bất thường cơ quan khác.",
+      "nhap": {
+        "phieu_kham": {
+          "ly_do_kham": "Đau họng tái phát",
+          "benh_su": "Đau họng, sốt tái phát [số] lần mỗi năm, hơi thở hôi, nuốt vướng.",
+          "kham_toan_than": "Tỉnh, tiếp xúc tốt. Không sốt.",
+          "kham_chuyen_khoa": "Amidan 2 bên to, hốc có chất bã đậu, trụ trước đỏ. Hạch dưới hàm nhỏ.",
+          "chan_doan_chinh": "Viêm amidan mạn",
+          "huong_dieu_tri": "Điều trị nội khoa, tư vấn cắt amidan",
+          "loi_dan": "Súc họng nước muối, ăn mềm. Tái khám để hẹn phẫu thuật nếu viêm tái phát nhiều.",
+          "hen_tai_kham": "Sau 2 tuần"
+        },
+        "chi_dinh": [
+          {
+            "ten_dich_vu": "Nội soi họng thanh quản"
+          },
+          {
+            "ten_dich_vu": "Tổng phân tích tế bào máu ngoại vi (bằng máy đếm laser)"
+          }
+        ],
+        "ke_don": [
+          {
+            "ten_thuoc": "Paracetamol",
+            "ham_luong": "500 mg",
+            "duong_dung": "Uống",
+            "lieu_moi_lan": "1 viên",
+            "so_lan_ngay": 3,
+            "thoi_diem": "Khi đau",
+            "so_ngay": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "ap-xe-quanh-amidan",
+      "ten": "Áp xe quanh amidan",
+      "bi_danh": [
+        "áp xe amidan",
+        "áp xe quanh amydan"
+      ],
+      "icd_ten": "Áp xe quanh amydan",
+      "kham_khac": "Tim đều, phổi không ran. Bụng mềm. Chưa phát hiện bất thường cơ quan khác.",
+      "nhap": {
+        "phieu_kham": {
+          "ly_do_kham": "Đau họng dữ dội, khó há miệng",
+          "benh_su": "[số] ngày nay đau họng [phải|trái|2 bên] tăng nhanh, nuốt đau lan lên tai, khó há miệng, sốt cao, nói giọng ngậm hạt thị.",
+          "kham_toan_than": "Tỉnh, sốt [số] độ, hơi thở hôi.",
+          "kham_chuyen_khoa": "Khít hàm, trụ trước amidan [phải|trái|2 bên] phồng đỏ, lưỡi gà bị đẩy lệch.",
+          "chan_doan_chinh": "Áp xe quanh amidan [phải|trái|2 bên]",
+          "huong_dieu_tri": "Trích rạch tháo mủ, điều trị nội khoa",
+          "loi_dan": "Ăn lỏng, súc họng nước muối. Quay lại ngay nếu khó thở, không nuốt được.",
+          "hen_tai_kham": "Sau 3 ngày"
+        },
+        "chi_dinh": [
+          {
+            "ten_dich_vu": "Trích áp xe quanh Amidan"
+          },
+          {
+            "ten_dich_vu": "Tổng phân tích tế bào máu ngoại vi (bằng máy đếm laser)"
+          },
+          {
+            "ten_dich_vu": "Định lượng CRP (C-Reactive Protein)"
+          }
+        ],
+        "ke_don": [
+          {
+            "ten_thuoc": "Augmentin",
+            "ham_luong": "1 g",
+            "duong_dung": "Uống",
+            "lieu_moi_lan": "1 viên",
+            "so_lan_ngay": 2,
+            "thoi_diem": "Sau ăn",
+            "so_ngay": 10
+          },
+          {
+            "ten_thuoc": "Metronidazol",
+            "ham_luong": "250 mg",
+            "duong_dung": "Uống",
+            "lieu_moi_lan": "2 viên",
+            "so_lan_ngay": 2,
+            "thoi_diem": "Sau ăn",
+            "so_ngay": 7
+          },
+          {
+            "ten_thuoc": "Paracetamol",
+            "ham_luong": "500 mg",
+            "duong_dung": "Uống",
+            "lieu_moi_lan": "1 viên",
+            "so_lan_ngay": 3,
+            "thoi_diem": "Khi sốt hoặc đau",
+            "so_ngay": 5
+          }
+        ]
+      }
+    },
+    {
+      "id": "viem-thanh-quan-man",
+      "ten": "Viêm thanh quản mạn",
+      "bi_danh": [
+        "vtq mạn",
+        "khàn tiếng mạn"
+      ],
+      "icd_ten": "Viêm thanh quản mạn tính",
+      "kham_khac": "Tim đều, phổi không ran. Bụng mềm. Chưa phát hiện bất thường cơ quan khác.",
+      "nhap": {
+        "phieu_kham": {
+          "ly_do_kham": "Khàn tiếng kéo dài",
+          "benh_su": "[số] tháng nay khàn tiếng, nói nhiều thì mệt, hay hắng giọng. Không khó thở, không nuốt nghẹn.",
+          "kham_toan_than": "Tỉnh, tiếp xúc tốt. Không sốt.",
+          "kham_chuyen_khoa": "2 dây thanh dày, sung huyết, bờ tự do không đều, khép chưa kín. Sụn phễu đỏ.",
+          "chan_doan_chinh": "Viêm thanh quản mạn",
+          "huong_dieu_tri": "Điều trị nội khoa, nghỉ giọng",
+          "loi_dan": "Hạn chế nói to, nói nhiều, không hút thuốc. Tái khám nội soi nếu còn khàn.",
+          "hen_tai_kham": "Sau 1 tháng"
+        },
+        "chi_dinh": [
+          {
+            "ten_dich_vu": "Nội soi họng thanh quản"
+          }
+        ],
+        "ke_don": [
+          {
+            "ten_thuoc": "Esomeprazol",
+            "ham_luong": "40 mg",
+            "duong_dung": "Uống",
+            "lieu_moi_lan": "1 viên",
+            "so_lan_ngay": 1,
+            "thoi_diem": "Trước ăn sáng 30 phút",
+            "so_ngay": 30
+          },
+          {
+            "ten_thuoc": "Acetylcystein",
+            "ham_luong": "200 mg",
+            "duong_dung": "Uống",
+            "lieu_moi_lan": "1 gói",
+            "so_lan_ngay": 3,
+            "thoi_diem": "Sau ăn",
+            "so_ngay": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "hat-xo-day-thanh",
+      "ten": "Hạt xơ dây thanh",
+      "bi_danh": [
+        "hạt xơ thanh quản",
+        "u xơ dây thanh"
+      ],
+      "icd_ten": "Hạt xơ dây thanh",
+      "kham_khac": "Tim đều, phổi không ran. Bụng mềm. Chưa phát hiện bất thường cơ quan khác.",
+      "nhap": {
+        "phieu_kham": {
+          "ly_do_kham": "Khàn tiếng",
+          "benh_su": "[số] tháng nay khàn tiếng, nói nhiều thì nặng hơn, công việc phải nói nhiều.",
+          "kham_toan_than": "Tỉnh, tiếp xúc tốt. Không sốt.",
+          "kham_chuyen_khoa": "Hạt xơ nhỏ đối xứng ở 1/3 trước và giữa 2 dây thanh, khép thanh môn hình đồng hồ cát.",
+          "chan_doan_chinh": "Hạt xơ dây thanh",
+          "huong_dieu_tri": "Nghỉ giọng, luyện giọng",
+          "loi_dan": "Nghỉ giọng 2 tuần, uống đủ nước, tránh nói to, la hét.",
+          "hen_tai_kham": "Sau 1 tháng"
+        },
+        "chi_dinh": [
+          {
+            "ten_dich_vu": "Nội soi họng thanh quản"
+          }
+        ],
+        "ke_don": []
+      }
+    },
+    {
+      "id": "polyp-day-thanh",
+      "ten": "Polyp dây thanh",
+      "bi_danh": [
+        "polyp thanh quản"
+      ],
+      "icd_ten": "Polyp của dây thanh âm và/hoặc thanh quản",
+      "kham_khac": "Tim đều, phổi không ran. Bụng mềm. Chưa phát hiện bất thường cơ quan khác.",
+      "nhap": {
+        "phieu_kham": {
+          "ly_do_kham": "Khàn tiếng kéo dài",
+          "benh_su": "[số] tháng nay khàn tiếng liên tục, không đỡ khi nghỉ giọng.",
+          "kham_toan_than": "Tỉnh, tiếp xúc tốt. Không sốt.",
+          "kham_chuyen_khoa": "Khối polyp nhẵn, có cuống ở bờ tự do dây thanh [phải|trái|2 bên], dây thanh di động tốt.",
+          "chan_doan_chinh": "Polyp dây thanh [phải|trái|2 bên]",
+          "huong_dieu_tri": "Tư vấn phẫu thuật nội soi cắt polyp",
+          "loi_dan": "Nghỉ giọng, không hút thuốc.",
+          "hen_tai_kham": "Sau 2 tuần"
+        },
+        "chi_dinh": [
+          {
+            "ten_dich_vu": "Nội soi họng thanh quản"
+          }
+        ],
+        "ke_don": []
+      }
+    },
+    {
+      "id": "hoc-xuong",
+      "ten": "Hóc xương",
+      "bi_danh": [
+        "hóc xương cá",
+        "dị vật họng"
+      ],
+      "icd_ten": "Dị vật trong họng",
+      "kham_khac": "Tim đều, phổi không ran. Bụng mềm. Chưa phát hiện bất thường cơ quan khác.",
+      "nhap": {
+        "phieu_kham": {
+          "ly_do_kham": "Hóc xương",
+          "benh_su": "[số] giờ trước ăn cá bị hóc, đau nhói họng [phải|trái|2 bên] khi nuốt. Không khó thở, không nôn ra máu.",
+          "kham_toan_than": "Tỉnh, tiếp xúc tốt. Không sốt.",
+          "kham_chuyen_khoa": "Dị vật xương nhỏ cắm ở amidan [phải|trái|2 bên], niêm mạc quanh đỏ nhẹ.",
+          "chan_doan_chinh": "Hóc xương họng",
+          "huong_dieu_tri": "Lấy dị vật tại phòng khám",
+          "loi_dan": "Ăn mềm 1–2 ngày. Quay lại ngay nếu đau tăng, sốt, khó nuốt.",
+          "hen_tai_kham": "Khi có bất thường"
+        },
+        "chi_dinh": [
+          {
+            "ten_dich_vu": "Nội soi họng thanh quản"
+          },
+          {
+            "ten_dich_vu": "Lấy dị vật họng miệng"
+          }
+        ],
+        "ke_don": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "id": "ca-07",
+  "ten": "Dị vật tai (không kê thuốc)",
+  "hanh_chinh": {
+    "ho_ten": "Bé Giả Số Bảy",
+    "tuoi": 7,
+    "gioi": "Nam",
+    "can_nang": 24
+  },
+  "input_noi": "Ừ bé này đến khám vì có dị vật trong tai phải. Bệnh sử khoảng 2 giờ trước bé nhét hạt nhựa vào tai phải khi chơi, không đau nhiều, không chảy máu, gia đình chưa tự lấy. À tiền sử khỏe mạnh, chưa dị ứng thuốc. Toàn thân tỉnh, không sốt. Khám tai mũi họng thấy dị vật tròn màu trắng ở ống tai ngoài phải, ống tai không rách, màng nhĩ không quan sát được do dị vật che, tai trái bình thường. Chẩn đoán dị vật ống tai phải. Hướng điều trị lấy dị vật tại phòng khám. Chỉ định nội soi tai và lấy dị vật tai. Lần này không kê thuốc. Ừ dặn không tự ngoáy tai, quay lại nếu đau tai hoặc chảy dịch. Hẹn tái khám khi có bất thường.",
+  "input_go_tat": "LD: dị vật tai P. BS: 2 giờ trước nhét hạt nhựa vào tai P khi chơi, không đau nhiều, không chảy máu, chưa tự lấy. TS: khỏe mạnh, chưa dị ứng thuốc. TT: tỉnh, không sốt. TMH: dị vật tròn màu trắng ở ống tai ngoài P, ống tai không rách, màng nhĩ không quan sát được do dị vật che, tai T bình thường. CĐ: dị vật ống tai P. ĐT: lấy dị vật tại phòng khám. CLS: NS tai, lấy dị vật tai. Dặn: không tự ngoáy tai, quay lại nếu đau tai hoặc chảy dịch. Hẹn: khi có bất thường.",
+  "mau_id": "di-vat-tai",
+  "input_mau": "dị vật ống tai, tai P, 2 giờ",
+  "expected": {
+    "phieu_kham": {
+      "ly_do_kham": "Dị vật tai phải",
+      "benh_su": "2 giờ trước nhét hạt nhựa vào tai phải khi chơi, không đau nhiều, không chảy máu, chưa tự lấy",
+      "tien_su": "Khỏe mạnh, chưa dị ứng thuốc",
+      "kham_toan_than": "Tỉnh, không sốt",
+      "kham_chuyen_khoa": "Dị vật tròn màu trắng ở ống tai ngoài phải, ống tai không rách, màng nhĩ không quan sát được do dị vật che, tai trái bình thường",
+      "chan_doan_chinh": "Dị vật ống tai phải",
+      "huong_dieu_tri": "Lấy dị vật tại phòng khám",
+      "loi_dan": "Không tự ngoáy tai, quay lại nếu đau tai hoặc chảy dịch",
+      "hen_tai_kham": "Khi có bất thường"
+    },
+    "chi_dinh": [
+      {
+        "ma_dich_vu": "DV-TMH-003",
+        "ten_dich_vu": "Nội soi tai"
+      },
+      {
+        "ma_dich_vu": "15.54",
+        "ten_dich_vu": "Lấy dị vật tai"
+      }
+    ],
+    "ke_don": []
+  }
+}

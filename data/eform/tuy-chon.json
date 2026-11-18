@@ -1,0 +1,5 @@
+{
+  "trang_thai": ["Đang khám", "Chờ KQ CLS", "Hoàn thành khám", "Nhập nội trú", "Chuyển cấp cứu", "Chuyển CSKCB BHYT", "Không khám"],
+  "tinh_trang_ra_vien": ["Khỏi", "Đỡ, giảm", "Chưa thay đổi", "Nặng hơn", "Khác"],
+  "loai_di_ung": ["Thực phẩm", "Thuốc", "Khác"]
+}

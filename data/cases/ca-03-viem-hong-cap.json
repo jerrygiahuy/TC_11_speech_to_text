@@ -1,0 +1,63 @@
+{
+  "id": "ca-03",
+  "ten": "Viêm họng cấp (minh họa ⚠: thiếu hàm lượng, thuốc ngoài danh mục)",
+  "hanh_chinh": {
+    "ho_ten": "Người Giả Số Ba",
+    "tuoi": 28,
+    "gioi": "Nam",
+    "can_nang": 65
+  },
+  "input_noi": "Ừ anh này đến khám vì đau họng, nuốt đau. Bệnh sử 2 ngày nay đau họng tăng dần, nuốt đau, sốt nhẹ, ho ít. À tiền sử chưa ghi nhận gì đặc biệt. Toàn thân tỉnh, sốt 37,8 độ. Khám tai mũi họng thấy họng đỏ, thành sau họng có xuất tiết, amidan không to, tai mũi bình thường. Chẩn đoán viêm họng cấp. Hướng điều trị nội khoa. Chỉ định test nhanh liên cầu họng. Kê đơn: Augmentin uống 1 viên một lần, ngày 2 lần, sau ăn, 7 ngày. Ừ, Strepsils ngậm 1 viên một lần, ngày 4 lần, 5 ngày. Paracetamol 500 mg uống 1 viên một lần, ngày 3 lần, khi đau hoặc sốt, 3 ngày. Dặn uống nhiều nước, súc họng nước muối ấm. Hẹn tái khám sau 7 ngày nếu không đỡ.",
+  "input_go_tat": "LD: đau họng, nuốt đau. BS: 2n nay đau họng tăng dần, nuốt đau, sốt nhẹ, ho ít. TS: chưa ghi nhận gì đặc biệt. TT: tỉnh, sốt 37,8 độ. TMH: họng đỏ, thành sau họng xuất tiết, amidan không to, tai mũi bình thường. CĐ: viêm họng cấp. ĐT: nội khoa. CLS: test nhanh liên cầu họng. Đơn: Augmentin uống 1 v x 2 l/n sau ăn 7n; Strepsils ngậm 1 v x 4 l/n 5n; Paracetamol 500 mg uống 1 v x 3 l/n khi đau hoặc sốt 3n. Dặn: uống nhiều nước, súc họng nước muối ấm. Hẹn: sau 7n nếu không đỡ.",
+  "mau_id": "viem-hong-cap",
+  "input_mau": "vh cấp, 2n, sốt 37,8",
+  "expected": {
+    "phieu_kham": {
+      "ly_do_kham": "Đau họng, nuốt đau",
+      "benh_su": "2 ngày nay đau họng tăng dần, nuốt đau, sốt nhẹ, ho ít",
+      "tien_su": "Chưa ghi nhận gì đặc biệt",
+      "kham_toan_than": "Tỉnh, sốt 37,8 độ",
+      "kham_chuyen_khoa": "Họng đỏ, thành sau họng có xuất tiết, amidan không to, tai mũi bình thường",
+      "chan_doan_chinh": "Viêm họng cấp",
+      "huong_dieu_tri": "Điều trị nội khoa",
+      "loi_dan": "Uống nhiều nước, súc họng nước muối ấm",
+      "hen_tai_kham": "Sau 7 ngày nếu không đỡ"
+    },
+    "chi_dinh": [
+      {
+        "ma_dich_vu": "DV-TMH-030",
+        "ten_dich_vu": "Test nhanh liên cầu họng"
+      }
+    ],
+    "ke_don": [
+      {
+        "ten_thuoc": "Augmentin",
+        "duong_dung": "Uống",
+        "lieu_moi_lan": "1 viên",
+        "so_lan_ngay": 2,
+        "thoi_diem": "Sau ăn",
+        "so_ngay": 7,
+        "tong_so_luong": 14
+      },
+      {
+        "ten_thuoc": "Strepsils",
+        "duong_dung": "Ngậm",
+        "lieu_moi_lan": "1 viên",
+        "so_lan_ngay": 4,
+        "so_ngay": 5,
+        "tong_so_luong": 20
+      },
+      {
+        "ma_thuoc": "TH-013",
+        "ten_thuoc": "Paracetamol",
+        "ham_luong": "500 mg",
+        "duong_dung": "Uống",
+        "lieu_moi_lan": "1 viên",
+        "so_lan_ngay": 3,
+        "thoi_diem": "Khi đau hoặc sốt",
+        "so_ngay": 3,
+        "tong_so_luong": 9
+      }
+    ]
+  }
+}

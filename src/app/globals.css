@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+/* Giá trị màu được bơm vào :root từ config/theme.json (xem src/app/layout.tsx) */
+@theme inline {
+  --color-primary: var(--primary);
+  --color-accent: var(--accent);
+  --color-on-accent: var(--on_accent);
+  --color-accent-2: var(--accent_2);
+  --color-navy: var(--navy);
+  --color-soft: var(--soft);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-warn: var(--warn);
+  --color-warn-text: color-mix(in srgb, var(--warn) 68%, black);
+  --color-ai: color-mix(in srgb, var(--primary) 9%, white);
+  /* Trang /eform: nền xám xanh nhạt, mặt phiếu trắng, xanh là thao tác chính; AI dùng tím, cần xem lại dùng vàng đất */
+  --color-ef-nen: var(--ef_nen);
+  --color-ef-vien: var(--ef_vien);
+  --color-ef-chu: var(--ef_chu);
+  --color-ef-phu: var(--ef_phu);
+  --color-ef-xanh: var(--ef_xanh);
+  --color-ef-xanh-nhat: color-mix(in srgb, var(--ef_xanh) 8%, white);
+  --color-ef-dam: var(--ef_dam);
+  --color-ef-do: var(--ef_do);
+  --color-ef-do-nhat: color-mix(in srgb, var(--ef_do) 8%, white);
+  --color-tim: var(--ai_tim);
+  --color-tim-nhat: color-mix(in srgb, var(--ai_tim) 7%, white);
+  --color-tim-vien: color-mix(in srgb, var(--ai_tim) 35%, white);
+  --color-xem: var(--xem);
+  --color-xem-nhat: color-mix(in srgb, var(--xem) 10%, white);
+  --font-sans: "Be Vietnam Pro", system-ui, sans-serif;
+}
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  background: var(--soft);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 15px;
+}
+
+/* "In ngay" trên eForm: chỉ in khối BanIn, khổ A4 */
+@media print {
+  @page {
+    size: A4;
+    margin: 15mm;
+  }
+
+  body {
+    background: white;
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "kham_toan_than": [
+    "Tỉnh táo, tiếp xúc tốt.",
+    "Da, niêm mạc hồng.",
+    "Hạch ngoại vi không sờ thấy.",
+    "Tim đều, phổi không ran."
+  ],
+  "kham_khac": [
+    "Chưa ghi nhận bất thường ở các bộ phận khác."
+  ],
+  "huong_dieu_tri": [
+    "Điều trị ngoại trú.",
+    "Điều trị nội khoa, đánh giá lại sau đợt điều trị.",
+    "Chỉ định thăm dò thêm, hẹn đọc kết quả."
+  ],
+  "loi_dan": [
+    "Dùng thuốc theo đơn, không tự ý ngừng thuốc.",
+    "Giữ khô tai, tránh để nước vào tai.",
+    "Tái khám ngay nếu sốt cao, đau tăng hoặc chóng mặt."
+  ]
+}

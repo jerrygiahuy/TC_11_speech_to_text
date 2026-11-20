@@ -29,7 +29,7 @@
 - Test PCM 75 giây kiểm chứng đủ mọi mẫu, đúng thứ tự và đoạn cuối; test điều phối 35 giây xác nhận callback kết quả chạy khi micro chưa đóng, sau đó flush đủ phần cuối.
 - Test quá tải với 14 đoạn và một đoạn flush cuối: tự dừng micro, xử lý đúng thứ tự toàn bộ hàng đợi + overflow, `onStopped` gọi đúng một lần. Test cancel xác nhận đóng pipeline và bỏ kết quả đến muộn.
 - Đây là kiểm thử luồng với pipeline giả lập, chưa phải phép đo độ trễ của micro vật lý/trình duyệt thực tế. Giao diện thực tế đã reload và xác nhận model sẵn sàng cùng nút phiên micro mới.
-- Native model thật nhận thành công cả 3 WAV mẫu khi bật hotwords y khoa (`tai mũi họng`, `viêm xoang`, `amoxicillin`); kết quả khớp baseline. Chưa có audio chuyên khoa có ground truth để đo cải thiện độ chính xác.
+- (Thời TMH, trước 20/11/2026.) Native model thật nhận thành công cả 3 WAV mẫu khi bật hotwords y khoa (`tai mũi họng`, `viêm xoang`, `amoxicillin`); kết quả khớp baseline. Chưa có audio chuyên khoa có ground truth để đo cải thiện độ chính xác.
 - Giới hạn 30 giây vẫn áp dụng cho file tải lên, không áp dụng cho tổng thời gian phiên micro. Đã bổ sung diarization như ghi bên dưới; không tự gán vai bác sĩ/bệnh nhân.
 
 

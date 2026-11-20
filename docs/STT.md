@@ -3,7 +3,7 @@
 ## Chạy thử ngay
 
 ```powershell
-cd C:\Users\LAPTOP\Documents\Projects\speech-to-navigation
+cd C:\Users\LAPTOP\Documents\Projects\TC_11_speech_to_text
 npm run stt:start
 ```
 

@@ -1,6 +1,6 @@
 # Hợp đồng transcript → AI → hồ sơ
 
-Phạm vi: ngoại trú TMH, chỉ phiếu khám và chỉ định dịch vụ trong task 2, 3, 4; phiên bản `1.1.0`. Bác sĩ tự kê đơn qua quy trình riêng. Hợp đồng đã được triển khai; endpoint `/api/clinical/extract` thay luồng raw cũ sau privacy ticket.
+Phạm vi: CardioNote ngoại trú Tim mạch (trước 20/11/2026 là ngoại trú TMH), chỉ phiếu khám và chỉ định dịch vụ trong task 2, 3, 4; phiên bản `1.1.0`. Bác sĩ tự kê đơn qua quy trình riêng. Hợp đồng đã được triển khai; endpoint `/api/clinical/extract` thay luồng raw cũ sau privacy ticket.
 
 ## 1. Đầu vào
 

@@ -1,4 +1,6 @@
 # Cấu trúc màn kê đơn trên OH – từ ảnh chụp 09/11/2026 (chiều, ~14:00)
+
+> Khảo sát tại PK Tai Mũi Họng (09/11/2026); cấu trúc màn EMR dùng chung các khoa, giữ làm tham khảo cho CardioNote.
 Đi kèm cau-truc-phieu-kham-ngoai-tru.md và cau-truc-man-chi-dinh-dich-vu.md.
 Quy ước: BS = bác sĩ, BN = bệnh nhân. Không ghi tên riêng (BN, BS kê đơn) trong bản nộp.
 

@@ -1,6 +1,6 @@
-# Task 2 — Cấu trúc dữ liệu khám ngoại trú TMH
+# Task 2 — Cấu trúc dữ liệu khám ngoại trú Tim mạch (CardioNote)
 
-Ngày: 12/11/2026. Phạm vi người dùng đã chọn: **ngoại trú Tai Mũi Họng trước**.
+Ngày: 12/11/2026. Phạm vi hiện tại: **CardioNote, ngoại trú Tim mạch** (trước 20/11/2026 phạm vi là ngoại trú Tai Mũi Họng).
 
 Phạm vi task 2, 3 và 4 chỉ gồm **phiếu khám và chỉ định dịch vụ**. **Bác sĩ tự kê đơn thuốc qua quy trình riêng**; cấu trúc lưu, đầu ra AI và mapping trong bộ thiết kế này không chứa đơn thuốc. Dị ứng và thuốc bệnh nhân đang dùng vẫn thuộc bệnh sử/tiền sử. Hướng điều trị và lời dặn chỉ ghi nội dung chăm sóc, theo dõi, tái khám; không chứa tên thuốc kê mới, liều dùng hoặc nội dung đơn thuốc.
 

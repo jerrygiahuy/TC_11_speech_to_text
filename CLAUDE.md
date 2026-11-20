@@ -63,7 +63,7 @@ Khai báo trong `.claude/settings.json`: `typescript-lsp` (cần `npm i -g types
 <!-- gitnexus:start -->
 # GitNexus — Code Intelligence
 
-This project is indexed by GitNexus as **speech-to-navigation** (3316 symbols, 8035 relationships, 277 execution flows).
+This project is `TC_11_speech_to_text` (CardioNote). GitNexus chưa có index (`.gitnexus/` không tồn tại); chạy `npx gitnexus analyze` để tạo. Khi chưa có index, các lệnh GitNexus dưới đây không chạy được: dùng `grep -rn` tìm nơi gọi trước khi sửa một hàm hoặc khóa, và ghi kết quả vào báo cáo.
 
 > Index stale? Run `node .gitnexus/run.cjs analyze --index-only` from the project root — it auto-selects an available runner. No `.gitnexus/run.cjs` yet? Bootstrap with `npx`, `bunx`, or `pnpm dlx` — e.g. `bunx gitnexus@latest analyze` (npm 11 npx crash; #1939).
 
@@ -87,10 +87,10 @@ This project is indexed by GitNexus as **speech-to-navigation** (3316 symbols, 8
 
 | Resource | Use for |
 | --- | --- |
-| `gitnexus://repo/speech-to-navigation/context` | Codebase overview, check index freshness |
-| `gitnexus://repo/speech-to-navigation/clusters` | All functional areas |
-| `gitnexus://repo/speech-to-navigation/processes` | All execution flows |
-| `gitnexus://repo/speech-to-navigation/process/{name}` | Step-by-step execution trace |
+| `gitnexus://repo/TC_11_speech_to_text/context` | Codebase overview, check index freshness |
+| `gitnexus://repo/TC_11_speech_to_text/clusters` | All functional areas |
+| `gitnexus://repo/TC_11_speech_to_text/processes` | All execution flows |
+| `gitnexus://repo/TC_11_speech_to_text/process/{name}` | Step-by-step execution trace |
 
 ## CLI
 

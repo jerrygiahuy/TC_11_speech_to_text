@@ -1,4 +1,6 @@
 # Cấu trúc màn chỉ định dịch vụ – EMR (emr.vinmec.com)
+
+> Khảo sát tại PK Tai Mũi Họng (09/11/2026); cấu trúc màn EMR dùng chung các khoa, giữ làm tham khảo cho CardioNote.
 Nguồn: phác tay trong sổ (09/11 chiều) + **5 ảnh chụp màn hình 09/11/2026 ~15:30–15:35** (một ca khám lại tại Phòng Khám TMH + khu Gói chỉ định).
 Đi kèm cau-truc-phieu-kham-ngoai-tru.md và cau-truc-man-ke-don-oh.md.
 Quy ước: BS = bác sĩ, BN = bệnh nhân. Không ghi tên riêng / tài khoản BS / tên BN trong bản nộp (kể cả tên người xuất hiện trong tên gói).

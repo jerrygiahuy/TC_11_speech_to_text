@@ -85,7 +85,6 @@ test("bệnh nhân của kịch bản mang đúng context của hội thoại k�
   const hoiThoai: Record<string, string> = { "ca-chuan": "SYN-CARDIO-001", "ca-tu-che": "SYN-CARDIO-013", "ca-chua-dong-y": "SYN-CARDIO-049" };
   for (const [id, ca] of Object.entries(hoiThoai)) {
     const moiNhat = [...contexts].reverse().find((c) => c.patient_id === loadKichBan(id).benh_nhan_id);
-    if (id === "ca-chuan") continue; // GIA-000123 có hai context (001, 039); thứ tự danh sách do test encounter-context cố định
     assert.ok(moiNhat?.ca._ghi_chu.includes(ca), `${id}: context mới nhất không phải ${ca}`);
   }
 });

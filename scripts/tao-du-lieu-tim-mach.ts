@@ -1,5 +1,5 @@
 // Sinh dữ liệu giả Tim mạch từ bộ 60 ca (data/cardiology/synthetic-cases.jsonl), chạy xác định, không dùng mạng:
-//   - ngữ cảnh lượt khám: data/eform/encounter-contexts.json (5 context: SYN-CARDIO-001, 013, 039, rồi 013 và 049 cho hai bệnh nhân của kịch bản demo) và data/eform/ca-gia.json (= ca đầu)
+//   - ngữ cảnh lượt khám: data/eform/encounter-contexts.json (6 context: SYN-CARDIO-001, 013, 039, rồi 013, 049, 001 cho ba bệnh nhân của kịch bản demo) và data/eform/ca-gia.json (= ca đầu)
 //   - dữ liệu phòng khám: data/clinic/{appointments,patients,directory-demo}.json và 4 phiếu cũ data/clinic/history/*.json
 // Chạy: npm run tao-du-lieu-tim-mach (ghi đè đúng các file này); thêm `-- --check` để chỉ so với file trên đĩa (lệch thì thoát mã 1).
 import fs from "node:fs";
@@ -51,6 +51,8 @@ const CONTEXTS: ContextSpec[] = [
   // ca-tu-che (hội thoại 013) chạy trên GIA-000789; ca-chua-dong-y (hội thoại 049) chạy trên GIA-000456. Hai context này đặt cuối danh sách.
   { caseId: "SYN-CARDIO-013", appointment: "LK-GIA-0458", patient: "GIA-000789", name: "Lê Văn Mới", sex: "Nam", ageMonths: 306, ngay: "09/11/2026", xemLai: "09/11/2026 08:58", mucDau: "3/10, vùng ngực khi gắng sức" },
   { caseId: "SYN-CARDIO-049", appointment: "LK-GIA-0461", patient: "GIA-000456", name: "Trần Văn Mô Phỏng", sex: "Nam", ageMonths: 420, ngay: "09/11/2026", xemLai: "09/11/2026 08:45", mucDau: "Không đau" },
+  // GIA-000123 có hai lượt (001 và 039) nhưng ca-chuan (hội thoại 001) cần context 001 là mới nhất: thêm lượt tái khám tăng huyết áp cuối danh sách.
+  { caseId: "SYN-CARDIO-001", appointment: "LK-GIA-0463", patient: "GIA-000123", name: "Nguyễn Thị Giả", sex: "Nữ", ageMonths: 576, ngay: "20/10/2026", xemLai: "09/11/2026 08:52", mucDau: "Không đau" },
 ];
 
 function tenDichVu(loai: "lab" | "imaging" | "paraclinical", text: string): string {
@@ -201,6 +203,7 @@ const APPOINTMENTS = [
   lich("LK-GIA-0460", "GIA-000123", "user_bs02", "2026-11-16T16:00:00+07:00", null, "Tái khám rối loạn nhịp, lịch của bác sĩ khác cùng cơ sở"),
   lich("LK-GIA-0461", "GIA-000456", "user_bs01", "2026-11-17T09:00:00+07:00", null, "Một lần ngất thoáng qua, lịch ngày mai"),
   lich("LK-GIA-0462", "GIA-000789", "user_bs01", "2026-11-17T10:30:00+07:00", null, "Đánh giá tim mạch trước thủ thuật"),
+  lich("LK-GIA-0463", "GIA-000123", "user_bs01", "2026-11-17T14:00:00+07:00", null, "Tái khám tăng huyết áp, lượt bổ sung cho kịch bản demo"),
 ];
 
 const trong = { known: false, enrolled: null, provider: null, plan: null, member_code: null, valid_from: null, valid_to: null };

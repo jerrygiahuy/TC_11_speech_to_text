@@ -4,6 +4,14 @@ Mỗi thay đổi, dù nhỏ, đều có một mục ở đây. Mục mới nh�
 
 ## 2026-11-20
 
+### ca-chuan chạy trên context SYN-CARDIO-001 (sửa Task 8, lần 2)
+- **Loại:** Dữ liệu, Kiểm thử
+- **Thay đổi:** `scripts/tao-du-lieu-tim-mach.ts` thêm context thứ 6 (SYN-CARDIO-001, GIA-000123) gắn lịch mới LK-GIA-0463 "Tái khám tăng huyết áp, lượt bổ sung cho kịch bản demo", đặt cuối danh sách để là context mới nhất của GIA-000123 (039 ở LK-GIA-0457 giữ nguyên cho test A2). Test thứ tự context trong `encounter-context.test.ts` thêm LK-GIA-0463; test cặp kịch bản/context trong `kich-ban.test.ts` nay phủ cả 3 kịch bản.
+- **Lý do:** ca-chuan (hội thoại 001) chạy trên GIA-000123 nhưng context mới nhất của bệnh nhân này là 039, sinh hiệu lệch.
+- **File:** `scripts/tao-du-lieu-tim-mach.ts`, `data/eform/encounter-contexts.json`, `data/clinic/appointments.json`, `src/server/clinical/encounter-context.test.ts`, `src/server/demo-luong/kich-ban.test.ts`
+- **Kiểm tra:** `npm test` 477/477 pass, `tsc` sạch, lint 0 lỗi, `tao-du-lieu-tim-mach --check` khớp 9 file.
+- **Ảnh hưởng:** lịch hẹn thành 11 (spec 05 nói 10, lượt thêm phục vụ demo).
+
 ### Bệnh nhân của kịch bản demo mang đúng context của hội thoại (sửa Task 8)
 - **Loại:** Dữ liệu, Kiểm thử
 - **Thay đổi:** `scripts/tao-du-lieu-tim-mach.ts` sinh 5 context thay vì 4: LK-GIA-0458 (GIA-000789) nay mang SYN-CARDIO-013, thêm context SYN-CARDIO-049 cho GIA-000456 gắn lịch LK-GIA-0461 (đặt cuối danh sách vì demo lấy context mới nhất của bệnh nhân). Lịch LK-GIA-0458 thành "khó chịu vùng ngực khi gắng sức, khám lần đầu", LK-GIA-0461 trở lại "một lần ngất thoáng qua". Thêm test `bệnh nhân của kịch bản mang đúng context...`; sửa danh sách context trong `encounter-context.test.ts`. Cờ đồng ý và `benh_nhan_id` của kịch bản giữ nguyên.

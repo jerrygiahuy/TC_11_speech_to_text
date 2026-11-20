@@ -15,10 +15,10 @@ const TOI_DA_GIAY = 60;
 // Đoạn đọc mẫu: lời khám bệnh giả, giọng đọc gần với khi khám thật.
 const DOAN_MAU = [
   "Bệnh nhân nam, sáu mươi hai tuổi, đến khám vì đau ngực trái khi leo cầu thang khoảng hai tuần nay, nghỉ thì đỡ.",
-  "Khám thấy tim đều, tiếng T1 T2 rõ, không có tiếng thổi. Phổi không ran, không phù hai chân.",
-  "Chẩn đoán tăng huyết áp độ hai. Chỉ định điện tim mười hai chuyển đạo và siêu âm tim một lần.",
+  "Tiếng T1, T2 đều rõ, không âm thổi.",
+  "Huyết áp một trăm bốn mươi tám trên tám mươi tám mi li mét thủy ngân, SpO2 chín mươi tám phần trăm.",
   "Kê đơn paracetamol năm trăm miligam, uống một viên một lần, ngày ba lần sau ăn, trong năm ngày.",
-  "Dặn bệnh nhân uống đủ nước, súc họng nước muối ấm, tái khám sau một tuần hoặc quay lại ngay khi sốt cao.",
+  "Bệnh nhân đang dùng Bisoprolol hai phẩy năm mi li gam mỗi ngày một lần.",
 ];
 
 type Pha = "dang-tai" | "cho" | "mo" | "thu" | "gui";

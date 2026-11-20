@@ -90,16 +90,16 @@ Sửa `config/stt-hotwords.json`, ví dụ:
 ```json
 {
   "phrases": [
-    "tai mũi họng",
-    "viêm xoang hàm",
-    "nội soi thanh quản",
-    "amoxicillin",
-    "clavulanate"
+    "rung nhĩ",
+    "tiếng T1 T2",
+    "phù mắt cá chân",
+    "apixaban",
+    "NT-proBNP"
   ]
 }
 ```
 
-Lưu file; đoạn nhận dạng tiếp theo dùng danh sách mới, không cần khởi động lại. File mặc định để rỗng để tránh thiên lệch thuật ngữ khi chưa biết chuyên khoa. Hỗ trợ tối đa 200 cụm, mỗi cụm tối đa 120 ký tự; không chứa `/`, `:`, xuống dòng hoặc ký tự NUL. Chuẩn hóa NFC và bỏ cụm trùng. JSON không hợp lệ báo `STT_HOTWORDS_INVALID`; không âm thầm bỏ qua.
+Lưu file; đoạn nhận dạng tiếp theo dùng danh sách mới, không cần khởi động lại. File mặc định là từ vựng Tim mạch (56 cụm): bệnh lý, triệu chứng và âm thanh khám tim phổi, tên thuốc của bộ ca (theo `handoff/claude/05-du-lieu-thay-tmh.md` mục 6). Không đưa cụm TMH (tai, mũi, họng, amidan, viêm xoang) vào đây; "nhịp xoang" là thuật ngữ tim mạch và được phép. Hỗ trợ tối đa 200 cụm, mỗi cụm tối đa 120 ký tự; không chứa `/`, `:`, xuống dòng hoặc ký tự NUL. Chuẩn hóa NFC và bỏ cụm trùng. JSON không hợp lệ báo `STT_HOTWORDS_INVALID`; không âm thầm bỏ qua.
 
 Đây là **contextual biasing** trong decoder modified beam search, score 1.5, không cập nhật trọng số. Hotwords giúp ưu tiên cụm phù hợp với âm thanh, không bảo đảm viết đúng tên thuốc tiếng nước ngoài, không thêm kiến thức y khoa và không sửa có kiểm soát mọi dạng phát âm. Danh sách quá rộng có thể làm giảm độ chính xác. Cần thử bằng giọng và thuật ngữ thực tế. [Tài liệu hotwords chính thức](https://k2-fsa.github.io/sherpa/onnx/hotwords/index.html).
 

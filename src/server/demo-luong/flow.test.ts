@@ -255,3 +255,19 @@ test("demo-luong: NER chạy thì che thêm và nhật ký ghi số đoạn", as
   assert.equal(line.ner.trang_thai, "chay"); assert.equal(line.ner.model_sha256, "b".repeat(64));
   assert.equal(line.ner.so_doan, che.du_lieu.ner.so_doan);
 });
+
+test("luong_demo_doi_chieu_sinh_hieu: huyết áp đọc khác sinh hiệu của phiếu thì bản nháp AI có cờ mau_thuan, sinh hiệu phiếu không đổi", async () => {
+  const store = newStore();
+  const p = createDemoPhieu(store, "GIA-000123");
+  const before = store.repo.read(p.encounter_id).sinh_hieu;
+  const noi = before.ha_tam_thu?.value === 150 ? 151 : 150;
+  assert.notEqual(before.ha_tam_thu?.value, undefined);
+  const events = await run(store, {
+    encounterId: p.encounter_id, source: { kind: "audio" }, audio: new Uint8Array([82, 73, 70, 70]),
+    transcribe: async () => ({ text: `Huyết áp ${noi} trên 90.`, engine: "zipformer-gia", audio_ms: 1000 }),
+  });
+  assert.ok(events.every((e) => e.trang_thai === "xong"), JSON.stringify(events.map((e) => [e.buoc, e.trang_thai])));
+  const flags = pick(events, "ai").du_lieu.extraction!.draft.can_xem_lai.filter((c) => c.loai === "mau_thuan");
+  assert.ok(flags.some((c) => c.field_path === "/sinh_hieu/ha_tam_thu"), JSON.stringify(flags));
+  assert.deepEqual(store.repo.read(p.encounter_id).sinh_hieu, before);
+});

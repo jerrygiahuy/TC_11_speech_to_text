@@ -1,5 +1,5 @@
 // Sinh dữ liệu giả Tim mạch từ bộ 60 ca (data/cardiology/synthetic-cases.jsonl), chạy xác định, không dùng mạng:
-//   - ngữ cảnh lượt khám: data/eform/encounter-contexts.json (3 ca: SYN-CARDIO-001, 013, 039) và data/eform/ca-gia.json (= ca đầu)
+//   - ngữ cảnh lượt khám: data/eform/encounter-contexts.json (4 ca: SYN-CARDIO-001, 013, 039, 049) và data/eform/ca-gia.json (= ca đầu)
 //   - dữ liệu phòng khám: data/clinic/{appointments,patients,directory-demo}.json và 4 phiếu cũ data/clinic/history/*.json
 // Chạy: npm run tao-du-lieu-tim-mach (ghi đè đúng các file này); thêm `-- --check` để chỉ so với file trên đĩa (lệch thì thoát mã 1).
 import fs from "node:fs";
@@ -47,6 +47,8 @@ const CONTEXTS: ContextSpec[] = [
   { caseId: "SYN-CARDIO-001", appointment: "LK-GIA-0456", patient: "GIA-000123", name: "Nguyễn Thị Giả", sex: "Nữ", ageMonths: 576, ngay: "20/10/2026", xemLai: "09/11/2026 08:52", mucDau: "Không đau" },
   { caseId: "SYN-CARDIO-013", appointment: "000123", patient: "GIA-000456", name: "Trần Văn Mô Phỏng", sex: "Nam", ageMonths: 420, ngay: "05/10/2026", xemLai: "09/11/2026 08:40", mucDau: "3/10, vùng ngực khi gắng sức" },
   { caseId: "SYN-CARDIO-039", appointment: "LK-GIA-0457", patient: "GIA-000123", name: "Nguyễn Thị Giả", sex: "Nữ", ageMonths: 576, ngay: "02/10/2026", xemLai: "09/11/2026 08:55", mucDau: "Không đau" },
+  // Ca thứ 4 (ngất, kịch bản demo ca-chua-dong-y): bệnh nhân GIA-000789 để luồng /demo-luong tạo được phiếu mới cho bệnh nhân này.
+  { caseId: "SYN-CARDIO-049", appointment: "LK-GIA-0458", patient: "GIA-000789", name: "Lê Văn Mới", sex: "Nam", ageMonths: 306, ngay: "09/11/2026", xemLai: "09/11/2026 08:58", mucDau: "Không đau" },
 ];
 
 function tenDichVu(loai: "lab" | "imaging" | "paraclinical", text: string): string {

@@ -101,3 +101,20 @@ test("transcript not yet attached to the session is refused with 409 and no audi
   await assert.rejects(extractForRecording(f.actor, f.ticket, f.binding, { store: f.store, tickets: f.tickets, runDirectory: f.runDirectory, auditDirectory: f.auditDirectory }), /lưu bản chép lời/);
   assert.equal(f.readAudit().length, 0);
 });
+
+test("luong_that_doi_chieu_sinh_hieu_luot_kham: huyết áp đọc khác sinh hiệu lượt khám thì có cờ mau_thuan, sinh hiệu encounter không đổi", async () => {
+  const f = setup("LK-GIA-0456", true, "BN: Tôi hồi hộp từng lúc.\nBS: Huyết áp 150 trên 90. Chỉ định điện tim thường, số lượng 1.");
+  const before = f.store.read(f.binding.encounter_id);
+  assert.equal(before.sinh_hieu.ha_tam_thu?.value, 148);
+  const run = await extractForRecording(f.actor, f.ticket, f.binding, { store: f.store, tickets: f.tickets, runDirectory: f.runDirectory, auditDirectory: f.auditDirectory });
+  const flags = run.draft.can_xem_lai.filter(item => item.loai === "mau_thuan");
+  assert.ok(flags.some(item => item.field_path === "/sinh_hieu/ha_tam_thu"), JSON.stringify(run.draft.can_xem_lai));
+  assert.ok(flags.some(item => item.field_path === "/sinh_hieu/ha_tam_truong"));
+  assert.deepEqual(f.store.read(f.binding.encounter_id).sinh_hieu, before.sinh_hieu);
+});
+
+test("luong_that_cung_huyet_ap_khong_co_co_mau_thuan", async () => {
+  const f = setup("LK-GIA-0456", true, "BN: Tôi hồi hộp từng lúc.\nBS: Huyết áp 148 trên 88.");
+  const run = await extractForRecording(f.actor, f.ticket, f.binding, { store: f.store, tickets: f.tickets, runDirectory: f.runDirectory, auditDirectory: f.auditDirectory });
+  assert.equal(run.draft.can_xem_lai.some(item => item.loai === "mau_thuan"), false);
+});

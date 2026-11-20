@@ -151,6 +151,11 @@ export interface MockContext {
   sinh_hieu?: { ha_tam_thu?: number | null; ha_tam_truong?: number | null };
 }
 
+/** Sinh hiệu huyết áp của lượt khám, để mock đối chiếu lời nói (chỉ đọc, không ghi đè). */
+export function contextFromVitals(vitals: { ha_tam_thu?: { value: number | null } | null; ha_tam_truong?: { value: number | null } | null }): MockContext {
+  return { sinh_hieu: { ha_tam_thu: vitals.ha_tam_thu?.value ?? null, ha_tam_truong: vitals.ha_tam_truong?.value ?? null } };
+}
+
 const TIM_PHOI = /(?:\btim\b|\bT1\b|\bT2\b|âm thổi|phổi|\bran\b|tĩnh mạch cổ|mỏm tim|mạch quay|lồng ngực|rung miu)/iu;
 const KHONG_PHAI_KHAM_TIM = /(?:điện tim|điện tâm đồ|siêu âm|holter|chỉ định|chẩn đoán|kết quả|tái khám|theo dõi|lời dặn|dặn|hướng điều trị|nhịp tim theo)/iu;
 const NHOM_KHAM: [RegExp, string][] = [[/^(?:bụng|gan\b|lách)/iu, "Khám bụng"], [/^(?:thần kinh|phản xạ|liệt)/iu, "Khám thần kinh"]];

@@ -25,7 +25,7 @@ test("server contexts replace complete patient data and preserve leading zero ap
   b.data.ca.ho_ten = "changed";
   assert.equal(resolveEncounterContext(actor, "000123").data.ca.ho_ten, "Trần Văn Mô Phỏng");
   assert.deepEqual(loadEformData().ca, a.data.ca);
-  assert.equal(listEncounterContexts(actor).length, 3); // SYN-CARDIO-001, 013, 039
+  assert.deepEqual(listEncounterContexts(actor).map(item => item.appointmentId), ["LK-GIA-0456", "000123", "LK-GIA-0457", "LK-GIA-0458"]); // SYN-CARDIO-001, 013, 039, 049
 });
 
 test("ngu_canh_tim_mach_mac_dinh", () => {

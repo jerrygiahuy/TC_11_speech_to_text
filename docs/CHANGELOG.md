@@ -4,6 +4,13 @@ Mỗi thay đổi, dù nhỏ, đều có một mục ở đây. Mục mới nh�
 
 ## 2026-11-20
 
+### Ghim phụ thuộc Python của clinical:check, sửa phiên bản schema trong tài liệu
+- **Loại:** Tài liệu, Phụ thuộc
+- **Thay đổi:** ghim `jsonschema==4.26.0` trong `stt/requirements-dev.txt` (đã xác minh trên PyPI: dự án `python-jsonschema`, phát hành 07/01/2026). README hướng dẫn cài vào `.venv-stt` bằng `uv`, không cài vào Python của máy. `docs/CLINICAL-WORKFLOW.md` sửa phiên bản schema `1.1.0` → `2.0.0`.
+- **Lý do:** `clinical:check` trước đây không chạy trọn vì thiếu gói và không có file khai báo; nguyên tắc ghim phiên bản cho mọi phụ thuộc.
+- **File:** `stt/requirements-dev.txt`, `README.md`, `docs/CLINICAL-WORKFLOW.md`, `docs/CHANGELOG.md`
+- **Kiểm tra:** `.venv-stt/bin/python docs/task-2/verify.py` PASS (5 schema, 9 ví dụ, 9 ca từ chối); pytest `stt/tests` 131 pass, 1 skip (đã có `scipy==1.18.1` theo `stt/requirements-community-lock.txt`).
+
 ### Sửa review: bộ trích không nhãn không cắt ngang lời người bệnh
 - **Loại:** Sửa lỗi, Kiểm thử
 - **Thay đổi:** `tachCauTran` (`extraction.ts`) chỉ cắt ở cụm của bác sĩ (toàn thân, khám tim phổi, kết quả, hướng điều trị, lời dặn, chẩn đoán, hẹn tái khám, sinh hiệu) khi đoạn là lời bác sĩ; lời người bệnh chỉ cắt ở dị ứng, tiền sử, gia đình có, tôi uống/dùng, khám vì. Không cắt khi phần đứng trước kết thúc bằng từ nối (có, nên, và, là...) để không để mẩu cụt. Câu người bệnh có triệu chứng và chứa "chẩn đoán/tái khám" giữa câu không còn bị gắn cờ thay cho bệnh sử. `laTienSuThuoc` nhánh không phải bác sĩ nay cũng loại câu có `DAU_HIEU_KE_DON`. Thêm `extraction-khong-nhan.test.ts` (3 probe của review + ca bác sĩ vẫn cắt đúng); expected ca-tu-che ghi chú `icd_ban_dau` để trống là cố ý.

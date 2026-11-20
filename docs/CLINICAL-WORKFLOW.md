@@ -32,7 +32,7 @@ Các ứng viên đã tra cứu để đánh giá thêm: [Gemini 3.8 Flash](http
 
 ## Hợp đồng và nơi lưu
 
-- Nguồn chuẩn: `config/clinical/*.schema.json`, schema version `1.1.0`. Sinh kiểu bằng `npm run clinical:types`; kiểm tra bằng `npm run clinical:check`. `clinical:check` cần gói Python `jsonschema` (cài bằng `python3 -m pip install jsonschema` hoặc trong `.venv-stt`; không tự cài).
+- Nguồn chuẩn: `config/clinical/*.schema.json`, schema version `2.0.0`. Sinh kiểu bằng `npm run clinical:types`; kiểm tra bằng `npm run clinical:check`. `clinical:check` cần gói Python `jsonschema`, ghim `jsonschema==4.26.0` trong `stt/requirements-dev.txt` (cài vào `.venv-stt`, xem README; không tự cài).
 - `src/shared/clinical/`: kiểu sinh tự động, validator, adapter hai màn, merge nháp AI và bộ lọc cục bộ.
 - `src/server/clinical/`: ticket riêng tư, gọi model/kiểm chứng, kho artifact, repository JSON, duyệt.
 - `data/clinical/encounters/<uuid>.json`: bản hiện tại; `revisions/<uuid>-rN.json`: lịch sử bất biến.

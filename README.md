@@ -169,7 +169,7 @@ Kết quả trên giọng máy ngày 2026-11-11: WER 21,4% thành 10,5%, Mã 7/4
 
 **Luồng mới:** sửa `config/clinical/*.schema.json`, chạy `npm run clinical:types` và `npm run clinical:check`. Các config/forms và eval bên dưới là bộ thử pipeline cũ, không còn là hợp đồng endpoint trích xuất hiện tại.
 
-`clinical:check` phần thứ hai gọi `python3 docs/task-2/verify.py` và cần gói Python `jsonschema`. Nếu thiếu, lệnh báo `ModuleNotFoundError: jsonschema`. Cài bằng `python3 -m pip install jsonschema` (hoặc dùng môi trường Python đã có sẵn gói này, ví dụ kích hoạt `.venv-stt` rồi `python -m pip install jsonschema` trong đó). Repo chưa có file khai báo phụ thuộc Python cho lệnh này, nên mỗi máy tự cài một lần; lệnh không tự cài gói.
+`clinical:check` phần thứ hai gọi `python3 docs/task-2/verify.py` và cần gói Python `jsonschema`. Nếu thiếu, lệnh báo `ModuleNotFoundError: jsonschema`. Phiên bản được ghim trong `stt/requirements-dev.txt` (`jsonschema==4.26.0`). Cài vào môi trường của dự án, không cài vào Python của máy: `uv pip install --python .venv-stt/bin/python -r stt/requirements-dev.txt`, rồi chạy `.venv-stt/bin/python docs/task-2/verify.py` (hoặc kích hoạt `.venv-stt` để `python3` trỏ vào đó rồi chạy `npm run clinical:check`). Lệnh không tự cài gói.
 
 Các trường AI tách ra nằm trong JSON ở `config/forms/`. Schema gửi cho LLM, prompt, chế độ `mock` và eval đều sinh từ các file này.
 

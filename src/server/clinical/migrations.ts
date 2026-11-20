@@ -1,7 +1,7 @@
 import { parseEncounter } from "@/shared/clinical/schema";
 import type { Encounter } from "@/shared/clinical/types";
 
-/** Đọc hồ sơ: chỉ nhận schema 2.0.0 (CardioNote). Hồ sơ TMH 1.x bị từ chối, không chuyển đổi, không ghi lại. */
+/** Đọc hồ sơ: chỉ nhận schema 2.0.0 (CardioNote). Hồ sơ schema 1.x (bản cũ) bị từ chối, không chuyển đổi, không ghi lại. */
 export function migrateEncounter(value: unknown): Encounter {
   if (!value || typeof value !== "object" || Array.isArray(value)) throw new Error("Hồ sơ không hợp lệ.");
   const version = (value as Record<string, unknown>).schema_version;

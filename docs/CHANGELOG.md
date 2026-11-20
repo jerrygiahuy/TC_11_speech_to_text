@@ -4,6 +4,14 @@ Mỗi thay đổi, dù nhỏ, đều có một mục ở đây. Mục mới nh�
 
 ## 2026-11-20
 
+### Ghi nền test cho plan CardioNote
+- **Loại:** Tài liệu
+- **Thay đổi:** Thêm `docs/testing/2026-11-20-nen-test.txt`: số test, tên 13 test lỗi sẵn có, kết quả lint tại commit nền `4c2aa10`. Tạo nhánh `dev` (cục bộ, chưa push) và nhánh làm việc `feature/cardionote-tim-mach` từ `dev`.
+- **Lý do:** Task 0 của plan: mỗi task sau so với danh sách này để biết có test lỗi mới hay không.
+- **File:** `docs/testing/2026-11-20-nen-test.txt`, `docs/CHANGELOG.md`
+- **Kiểm tra:** `npm test` 422 test, 409 đạt, 13 lỗi; `npm run lint` 3 lỗi (file " 2" chưa commit), 6 cảnh báo.
+- **Ảnh hưởng:** Không đổi hành vi ứng dụng.
+
 ### Xóa 105 file bản sao " 2" giống hệt bản gốc
 - **Loại:** Dọn dẹp
 - **Thay đổi:** Xóa 105 file tên có " 2" (bản sao do đồng bộ thư mục) có nội dung giống hệt bản gốc (kiểm bằng `cmp`), trong đó có 11 ca `data/cases/* 2.json` bị `loadCases()` nạp trùng. Còn 56 file " 2" khác bản gốc: 54 file trùng đúng bản ở commit `6a09af2`, `README 2.md` chỉ có một dòng ghi chú cũ, `docs/CHANGELOG 2.md` không có dòng riêng. 56 file này chờ chủ repo xác nhận rồi mới xóa, và không đưa vào commit.

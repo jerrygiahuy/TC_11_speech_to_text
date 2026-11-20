@@ -1,0 +1,23 @@
+# Nền test trước khi làm CardioNote (commit 4c2aa10, 2026-11-20)
+
+ℹ tests 422
+ℹ pass 409
+ℹ fail 13
+
+## Test lỗi sẵn có
+✖ approval requires explicit review and complete clinical fields; editing revokes approval
+✖ bác sĩ tự đọc (10 ca mẫu, một giọng) được gán BS
+✖ clinical allowlist contains catalog drug names and clinical terms
+✖ có ít nhất 30 mẫu, id không trùng
+✖ mock thay chỗ trống theo chi tiết và vẫn khớp mã
+✖ opening A, B and A2 restores separate complete contexts, exact appointment and saved drafts
+✖ phân vai đúng: trình diễn eForm (viêm tai giữa mạn)
+✖ projection_has_every_saved_clinical_part_and_no_ai_or_transcript
+✖ projection_maps_waiting_status
+✖ projection_reports_missing_sections_and_draft_without_inventing_data
+✖ real form fixture saves clinical data and restores fields, results, vitals without prescriptions
+✖ server contexts replace complete patient data and preserve leading zero appointment
+✖ tìm mẫu gốc theo id
+
+## Lint
+✖ 9 problems (3 errors, 6 warnings)

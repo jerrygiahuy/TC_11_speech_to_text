@@ -17,15 +17,19 @@ import type { ClinicalExtraction } from "@/shared/clinical/api";
 test("real form fixture saves clinical data and restores fields, results, vitals without prescriptions", () => {
   const store = new ClinicalRepository(fs.mkdtempSync(path.join(os.tmpdir(), "clinical-service-")));
   const data = loadEformData();
+  // Ca giả Tim mạch chỉ có thời gian khám trong gia_tri: lý do và dị ứng do bác sĩ nhập trên phiếu.
   const fields = Object.fromEntries(Object.entries(data.ca.gia_tri).map(([key, value]) => [key, { value, nguon: "cu" }]));
+  fields.ly_do = { value: "tái khám tăng huyết áp", nguon: "bs" };
+  fields.di_ung = { value: "Có", nguon: "bs" };
+  fields.di_ung_mo_ta = { value: "Penicillin", nguon: "bs" };
   const first = saveClinical({ snapshot: { fields, chiDinh: [], trangThai: "Đang khám" } }, store);
-  assert.equal(first.record.phieu_kham.ly_do_kham, data.ca.gia_tri.ly_do);
+  assert.equal(first.record.phieu_kham.ly_do_kham, "tái khám tăng huyết áp");
   assert.equal(first.record.sinh_hieu.can_nang.value, data.ca.sinh_hieu.can_nang);
-  assert.equal(first.record.ket_qua[0].ngay, "2026-08-14");
+  assert.equal(first.record.ket_qua[0].ngay, "2026-10-20");
   assert.ok(first.record.lich_su.length > 0);
   assert.equal("don_thuoc" in first.record, false);
   const restored = readClinical(first.record.id, store);
-  assert.equal(restored.snapshot.fields.di_ung_mo_ta.value, data.ca.gia_tri.di_ung_mo_ta);
+  assert.equal(restored.snapshot.fields.di_ung_mo_ta.value, "Penicillin");
   restored.snapshot.fields.loi_dan.value = "Tái khám khi cần";
   restored.snapshot.fields.loi_dan.nguon = "bs";
   const second = saveClinical({ id: first.record.id, expected_revision: 1, snapshot: restored.snapshot }, store);
@@ -48,24 +52,29 @@ test("approval requires explicit review and complete clinical fields; editing re
   const data = loadEformData();
   const fields = Object.fromEntries(Object.entries(data.ca.gia_tri).map(([key, value]) => [key, { value, nguon: "bs" }]));
   const first = saveClinical({ snapshot: { fields, chiDinh: [], trangThai: "Đang khám" } }, store);
-  assert.throws(() => approveClinical({ id: first.record.id, expected_revision: 1, acknowledged_issues: true }, store), /chẩn đoán/i);
-  const snapshot = first.snapshot;
-  snapshot.fields.mo_ta_ban_dau = { value: "Viêm tai giữa mạn tính", nguon: "bs" };
-  snapshot.fields.icd_ban_dau = { value: "H66.1", nguon: "bs" };
-  snapshot.fields.icd_kem_theo = { value: data.icd10.find(item => item.ma !== "H66.1")!.ma, nguon: "bs" };
-  snapshot.fields.giai_doan_kem_theo = { value: "Ban đầu", nguon: "bs" };
+  // Ca giả Tim mạch chưa có lý do và bệnh sử: bác sĩ nhập trước, khi đó mới tới bước chẩn đoán.
+  assert.throws(() => approveClinical({ id: first.record.id, expected_revision: 1, acknowledged_issues: true }, store), /lý do khám và bệnh sử/i);
+  first.snapshot.fields.ly_do = { value: "tái khám tăng huyết áp", nguon: "bs" };
+  first.snapshot.fields.benh_su = { value: "Theo dõi huyết áp tại nhà, thỉnh thoảng đau đầu nhẹ", nguon: "bs" };
+  const withHistory = saveClinical({ id: first.record.id, expected_revision: 1, snapshot: first.snapshot }, store);
+  assert.throws(() => approveClinical({ id: first.record.id, expected_revision: 2, acknowledged_issues: true }, store), /chẩn đoán/i);
+  assert.equal(withHistory.record.revision, 2);
+  const snapshot = withHistory.snapshot;
+  snapshot.fields.mo_ta_ban_dau = { value: "Tăng huyết áp vô căn", nguon: "bs" };
+  snapshot.fields.icd_ban_dau = { value: "I10", nguon: "bs" };
+  snapshot.fields.icd_kem_theo = { value: data.icd10.find(item => item.ma !== "I10")!.ma, nguon: "bs" };
   snapshot.chiDinhDeCap = "khong_chi_dinh";
-  const second = saveClinical({ id: first.record.id, expected_revision: 1, snapshot }, store);
-  assert.equal(second.record.revision, 2);
-  assert.equal(second.record.chan_doan.find(item => item.noi_dung.vai_tro === "kem_theo")?.noi_dung.giai_doan, "ban_dau");
-  assert.throws(() => approveClinical({ id: first.record.id, expected_revision: 2, acknowledged_issues: false }, store));
-  const approved = approveClinical({ id: first.record.id, expected_revision: 2, acknowledged_issues: true }, store);
-  assert.equal(approved.record.revision, 3);
+  const second = saveClinical({ id: first.record.id, expected_revision: 2, snapshot }, store);
+  assert.equal(second.record.revision, 3);
+  assert.equal(second.record.chan_doan.find(item => item.noi_dung.vai_tro === "kem_theo")?.noi_dung.giai_doan, "chua_ro"); // chẩn đoán kèm theo không có giai đoạn (02: giai_doan_kem_theo đã bỏ), duyệt không đòi giai đoạn cho nó
+  assert.throws(() => approveClinical({ id: first.record.id, expected_revision: 3, acknowledged_issues: false }, store));
+  const approved = approveClinical({ id: first.record.id, expected_revision: 3, acknowledged_issues: true }, store);
+  assert.equal(approved.record.revision, 4);
   assert.equal(approved.record.audit.approved_by, data.ca.dang_nhap);
   assert.ok(approved.record.audit.approved_at);
-  const edited = saveClinical({ id: first.record.id, expected_revision: 3, snapshot: approved.snapshot }, store);
+  const edited = saveClinical({ id: first.record.id, expected_revision: 4, snapshot: approved.snapshot }, store);
   assert.equal(edited.record.audit.approved_at, null);
-  assert.equal(edited.record.revision, 4);
+  assert.equal(edited.record.revision, 5);
 });
 
 test("AI changes are proposed from a bound run, applied only when accepted, retried safely and never cross encounters", () => {
@@ -107,9 +116,10 @@ test("opening A, B and A2 restores separate complete contexts, exact appointment
   assert.equal(b.record.sinh_hieu.source_record_id, "000123");
   assert.equal(b.context.patientId, "GIA-000456");
   assert.equal(b.data.ca.ho_ten, "Trần Văn Mô Phỏng");
-  assert.deepEqual(b.record.ket_qua, []);
-  assert.deepEqual(b.record.lich_su, []);
-  assert.match(b.snapshot.fields.ly_do.value, /họng/);
+  // Ca 013 (khám mới) chỉ có điện tim đã có kết quả, chưa có lịch sử khám cũ.
+  assert.deepEqual(b.record.ket_qua.map(row => [row.ten, row.ngay]), [["Điện tim thường", "2026-10-05"]]);
+  assert.ok(b.record.lich_su.length > 0);
+  assert.equal(b.snapshot.fields.ly_do?.value ?? "", "");
   assert.equal(b.snapshot.fields.di_ung_mo_ta?.value ?? "", "");
   assert.equal(a2.snapshot.fields.benh_su?.value ?? "", "");
   const revised = structuredClone(b.snapshot); revised.fields.loi_dan = { value: "Uống nước ấm", nguon: "bs" };
@@ -168,4 +178,29 @@ test("lưu phiếu không đổi trạng thái vòng đời: chờ/hoàn tất c
     assert.equal(saved.record.status, "dang_kham");
     assert.equal(saved.snapshot.trangThai, "Đang khám");
   }
+});
+
+test("duyet_chan_chinh_chua_ro_giai_doan_van_bi_chan: chỉ chẩn đoán kèm theo được miễn giai đoạn", () => {
+  const store = new ClinicalRepository(fs.mkdtempSync(path.join(os.tmpdir(), "clinical-approve-chua-ro-")));
+  const data = loadEformData();
+  const fields = Object.fromEntries(Object.entries(data.ca.gia_tri).map(([key, value]) => [key, { value, nguon: "bs" }]));
+  fields.ly_do = { value: "tái khám tăng huyết áp", nguon: "bs" };
+  fields.benh_su = { value: "Theo dõi huyết áp tại nhà", nguon: "bs" };
+  fields.mo_ta_ban_dau = { value: "Tăng huyết áp vô căn", nguon: "bs" };
+  fields.icd_ban_dau = { value: "I10", nguon: "bs" };
+  fields.icd_kem_theo = { value: data.icd10.find(item => item.ma !== "I10")!.ma, nguon: "bs" };
+  const saved = saveClinical({ snapshot: { fields, chiDinh: [], trangThai: "Đang khám", chiDinhDeCap: "khong_chi_dinh" } }, store);
+  // Chẩn đoán chính chưa rõ giai đoạn phải bị chặn; sau khi đặt giai đoạn, chẩn đoán kèm theo (vẫn chua_ro) không cản duyệt.
+  const dich = store.update(saved.record.id, saved.record.revision, draft => {
+    const chinh = draft.chan_doan.find(item => item.noi_dung.vai_tro === "chinh")!;
+    chinh.noi_dung.giai_doan = "chua_ro";
+    return draft;
+  }, saved.record.examiner_id, new Date().toISOString());
+  assert.throws(() => approveClinical({ id: saved.record.id, expected_revision: dich.revision, acknowledged_issues: true }, store), /giai đoạn/u);
+  const sua = store.update(saved.record.id, dich.revision, draft => {
+    draft.chan_doan.find(item => item.noi_dung.vai_tro === "chinh")!.noi_dung.giai_doan = "ban_dau";
+    return draft;
+  }, saved.record.examiner_id, new Date().toISOString());
+  assert.equal(sua.chan_doan.find(item => item.noi_dung.vai_tro === "kem_theo")?.noi_dung.giai_doan, "chua_ro");
+  assert.ok(approveClinical({ id: saved.record.id, expected_revision: sua.revision, acknowledged_issues: true }, store).record.audit.approved_at);
 });

@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import fs from "node:fs";
 import { test } from "node:test";
 import { checkResidualPii, foldVietnamese, maskResidualPii, redactPii } from "@/shared/clinical/pii";
 import { ClinicalError } from "@/server/clinical/repository";
@@ -76,5 +77,14 @@ test("ca chuẩn có phiên 1 và 2, mỗi phần riêng đều qua chốt chặ
     assert.ok(part.length > 0, `phiên ${phien}`);
     const r = redactPii(part.map((d) => d.text).join(" "), known);
     assert.equal(checkResidualPii(r.clean, known, demoAllowlist()).passed, true, `phiên ${phien}`);
+  }
+});
+
+test("bệnh nhân của kịch bản mang đúng context của hội thoại kịch bản đó (context mới nhất của bệnh nhân)", () => {
+  const contexts = JSON.parse(fs.readFileSync("data/eform/encounter-contexts.json", "utf8")).contexts as { patient_id: string; ca: { _ghi_chu: string } }[];
+  const hoiThoai: Record<string, string> = { "ca-chuan": "SYN-CARDIO-001", "ca-tu-che": "SYN-CARDIO-013", "ca-chua-dong-y": "SYN-CARDIO-049" };
+  for (const [id, ca] of Object.entries(hoiThoai)) {
+    const moiNhat = [...contexts].reverse().find((c) => c.patient_id === loadKichBan(id).benh_nhan_id);
+    assert.ok(moiNhat?.ca._ghi_chu.includes(ca), `${id}: context mới nhất không phải ${ca}`);
   }
 });

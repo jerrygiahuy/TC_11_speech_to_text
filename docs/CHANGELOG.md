@@ -4,6 +4,107 @@ Mỗi thay đổi, dù nhỏ, đều có một mục ở đây. Mục mới nh�
 
 ## 2026-11-20
 
+### Ghim phụ thuộc Python của clinical:check, sửa phiên bản schema trong tài liệu
+- **Loại:** Tài liệu, Phụ thuộc
+- **Thay đổi:** ghim `jsonschema==4.26.0` trong `stt/requirements-dev.txt` (đã xác minh trên PyPI: dự án `python-jsonschema`, phát hành 07/01/2026). README hướng dẫn cài vào `.venv-stt` bằng `uv`, không cài vào Python của máy. `docs/CLINICAL-WORKFLOW.md` sửa phiên bản schema `1.1.0` → `2.0.0`.
+- **Lý do:** `clinical:check` trước đây không chạy trọn vì thiếu gói và không có file khai báo; nguyên tắc ghim phiên bản cho mọi phụ thuộc.
+- **File:** `stt/requirements-dev.txt`, `README.md`, `docs/CLINICAL-WORKFLOW.md`, `docs/CHANGELOG.md`
+- **Kiểm tra:** `.venv-stt/bin/python docs/task-2/verify.py` PASS (5 schema, 9 ví dụ, 9 ca từ chối); pytest `stt/tests` 131 pass, 1 skip (đã có `scipy==1.18.1` theo `stt/requirements-community-lock.txt`).
+
+### Sửa review: bộ trích không nhãn không cắt ngang lời người bệnh
+- **Loại:** Sửa lỗi, Kiểm thử
+- **Thay đổi:** `tachCauTran` (`extraction.ts`) chỉ cắt ở cụm của bác sĩ (toàn thân, khám tim phổi, kết quả, hướng điều trị, lời dặn, chẩn đoán, hẹn tái khám, sinh hiệu) khi đoạn là lời bác sĩ; lời người bệnh chỉ cắt ở dị ứng, tiền sử, gia đình có, tôi uống/dùng, khám vì. Không cắt khi phần đứng trước kết thúc bằng từ nối (có, nên, và, là...) để không để mẩu cụt. Câu người bệnh có triệu chứng và chứa "chẩn đoán/tái khám" giữa câu không còn bị gắn cờ thay cho bệnh sử. `laTienSuThuoc` nhánh không phải bác sĩ nay cũng loại câu có `DAU_HIEU_KE_DON`. Thêm `extraction-khong-nhan.test.ts` (3 probe của review + ca bác sĩ vẫn cắt đúng); expected ca-tu-che ghi chú `icd_ban_dau` để trống là cố ý.
+- **Lý do:** review bộ trích mock không nhãn.
+- **File:** `src/server/clinical/extraction.ts`, `src/server/clinical/extraction-khong-nhan.test.ts`, `data/demo-luong/kich-ban/expected/ca-tu-che.expected.json`, `docs/CHANGELOG.md`
+- **Kiểm tra:** `npm test` 486/486, lint 0 lỗi, tsc sạch `src/`; eval giọng nói 86,1%, gõ tắt 85,1%, eval-mau 76,0% (không đổi), eval-pii che nhầm 0/84.
+
+### Sửa: bộ trích mock đọc hội thoại không nhãn của kịch bản demo
+- **Loại:** Sửa lỗi, Kiểm thử, Tài liệu
+- **Thay đổi:** kịch bản demo là chữ kiểu STT thật (viết thường, không dấu hai chấm) nên mock cũ chỉ bắt được phần có nhãn: ca chuẩn ra `ly_do` là câu bệnh sử, còn tiền tố "khám tim phổi", "lời dặn", thiếu dị ứng, thuốc đang dùng, tiền sử, kết quả cận lâm sàng, hướng điều trị, mã ICD. `extraction.ts`: đoạn không có nhãn được tách ở từng cụm mở đầu mục (lý do khám/khám vì, tiền sử, gia đình có, dị ứng, tôi/đang uống|dùng, toàn thân, khám tim phổi, kết quả, chẩn đoán, hướng điều trị, lời dặn, hẹn tái khám), bỏ cụm khỏi giá trị; câu hỏi (gì, sao, nào, ạ, không/chưa ở cuối) không thành mục; lời đáp của người bệnh sau câu bác sĩ hỏi lý do khám là `ly_do`, câu kể sau đó là `benh_su`; "đã được theo dõi/chẩn đoán", "từng bị" là tiền sử bản thân; cụm "tôi tên [che] bị ..." bỏ phần đã che. Tách thuốc nhận "amlodipine 5 mg mỗi ngày một lần" không dấu phẩy. Validator: `laTienSuThuoc` nhận thêm "tôi uống/dùng" của người bệnh; `khaiBenhKhongPhaiDon` cho lời khai (dị ứng, tiền sử, bệnh sử, lý do) không bị coi là đơn thuốc chỉ vì nằm cạnh câu có liều thuốc; guard kê đơn (`DAU_HIEU_KE_DON`, `isPrescription`), `laTienSuThuoc` cho bác sĩ, kiểm ngày hẹn, "không chỉ định" giữ nguyên. `apply-ai.ts`: `context.icd` tùy chọn, chẩn đoán AI được gán mã qua `matchCatalog` chỉ khi khớp chắc một mã (ca chuẩn ra I10, "đau ngực cần đánh giá..." để trống); `flow.ts` truyền danh mục ICD. Thêm `data/demo-luong/kich-ban/expected/{ca-chuan,ca-tu-che,ca-chua-dong-y}.expected.json` (dựng từ nội dung hội thoại, theo `02-bang-anh-xa.md`) và `src/server/demo-luong/kich-ban-phieu.test.ts` chạy từng kịch bản qua `runDemoFlow` với kho tạm. `flow.test.ts`: `ly_do` của ca chuẩn nay là "tái khám tăng huyết áp" (bản cũ khẳng định câu bệnh sử, là lỗi).
+- **Lý do:** demo `/demo-luong` phải điền phiếu đúng với kịch bản trông như STT thật (việc thêm sau review cuối, anh đồng ý 20/11).
+- **File:** `src/server/clinical/extraction.ts`, `src/shared/clinical/apply-ai.ts`, `src/server/demo-luong/{flow,flow.test,kich-ban-phieu.test}.ts`, `data/demo-luong/kich-ban/expected/*.json`, `docs/CLINICAL-WORKFLOW.md`, `docs/CHANGELOG.md`
+- **Kiểm tra:** test viết trước, RED (ca chuẩn lệch 11 ô, ca tự che 9 ô, ca chưa đồng ý 5 ô), sau sửa `npm test` 482/482 pass (3 test nghiệm thu Task 9 giữ nguyên), lint 0 lỗi, tsc sạch phần `src/`. `eval --rule-only`: giọng nói 86,1% và gõ tắt 85,1% (trước 86,1% và 85,1%, không đổi); `eval-mau` 76,0% (trước 76,0%); `eval-pii` che nhầm 0/84.
+- **Ảnh hưởng:** ca chưa đồng ý vẫn chạy mock cục bộ (`ai_route = local_only`, không gọi AI ngoài) như trước, nên có nháp từ mock; test chỉ khẳng định route, nhà cung cấp và vài ô chắc chắn.
+
+### Sửa review cuối CardioNote (I1, I2, m1 đến m8)
+- **Loại:** Sửa lỗi, Kiểm thử, Tài liệu, Dọn dẹp
+- **Thay đổi:**
+  - I1: mục có nhãn "Thuốc đang dùng:" (hoặc cụm "đang dùng/đang uống") là tiền sử thuốc bất kể người nói, ở cả mock (`extraction.ts`) lẫn validator (`laTienSuThuoc`). Guard kê đơn giữ nguyên ("kê", "cho uống", "tăng liều", "giảm liều", "đổi thuốc", "ngừng thuốc", "đơn thuốc"): lời bác sĩ "kê Bisoprolol 2,5 mg" vẫn bị coi là kê đơn. Lời đọc bổ sung ở chế độ "Bác sĩ đọc" nay ra 2 thuốc, giữ "2,5 mg".
+  - I2: hồ sơ schema 1.x ném `ClinicalError` 409 với thông báo nguyên văn, đến được API/UI; `list()` bỏ qua hồ sơ 1.x (ghi cảnh báo, đếm ở `skippedLegacy`) thay vì làm hỏng cả danh sách và mở lượt khám.
+  - m1: validator `ngay_cu_the` nhận `thoi_gian_kham` và so với ngày khám + N ngày/tuần/tháng của trích dẫn; lệch thì bác bản nháp. m2: "không/chưa chỉ định" không còn sinh cờ nhắc chỉ định. m5: thông báo lỗi chung bỏ chữ "nội soi".
+  - m3: test chặn TMH không nuốt lỗi `readdirSync`, có ngưỡng số file quét mỗi gốc (src, config, data, stt), test ngoại lệ mồ côi tự quét lại. m4: guard âm khóa VTG/VTN/VMX/TMH (`sua-chu.test.ts`) và hotword Tai Mũi Họng (`stt/tests/test_terminology.py`); đổi "tai T", "sổ mũi" ở `phieu-mau.test.ts`, `prompt.test.ts` sang "chân T", "sổ khám".
+  - m6: `CLAUDE.md` ghi ngoại lệ `dien-phieu.ts` gán ICD qua `goiYIcd` (có từ trước nhánh). m7: ESLint bỏ quét `temp-1/`. m8: README và `docs/CLINICAL-WORKFLOW.md` ghi phụ thuộc `jsonschema` của `clinical:check`.
+- **Lý do:** review cuối nhánh (`.superpowers/sdd/2026-11-20-cardionote-tim-mach/review-cuoi.md`), trước khi merge.
+- **File:** `src/server/clinical/{extraction,migrations,repository,service}.ts`, `src/server/clinical/{nghiem-thu-tim-mach,extraction,migrations}.test.ts`, `src/shared/khong-con-tmh.test.ts`, `src/shared/giong-noi/sua-chu.test.ts`, `src/shared/eform/phieu-mau.test.ts`, `src/server/ai/prompt.test.ts`, `stt/tests/test_terminology.py`, `eslint.config.mjs`, `CLAUDE.md`, `README.md`, `docs/CLINICAL-WORKFLOW.md`, `docs/CHANGELOG.md`
+- **Kiểm tra:** `npm test` 479/479 pass, `npm run lint` 0 lỗi, `tsc --noEmit` sạch, `npm run build` PASS, `eval --rule-only` và `eval-pii` chạy được; pytest `test_terminology.py` 9 pass.
+- **Ảnh hưởng:** máy còn hồ sơ 1.x trong `data/clinical/` mở được lượt khám khác bình thường; mở đúng hồ sơ cũ báo 409. Không đụng `data/clinical/`.
+
+### Chốt 100% Tim mạch: test chặn TMH và tài liệu (Task 11 CardioNote)
+- **Loại:** Kiểm thử, Dọn dẹp, Tài liệu, Giao diện
+- **Thay đổi:** thêm `src/shared/khong-con-tmh.test.ts` (`khong_con_tmh_trong_san_pham`) quét `src/`, `config/`, `data/` (trừ `data/cardiology/`) và `stt/*.py`, tìm TMH, tai mũi họng, viêm tai, amidan, màng nhĩ, viêm xoang, họng, nhỏ tai, xịt mũi, mã H6x, khóa `"tai"`, `"mui"`, `"vom"`, `"hong"`. Sửa các chỗ sót: câu mẫu trong test PII, ghi âm, phiếu mẫu, ICD đổi sang câu và mã Tim mạch; bỏ các test "không còn TMH" cũ (test mới thay thế). Tiêu đề tab các trang phụ (`/demo-luong`, `/giong-bac-si`, `/benh-nhan/[id]`, `/stt`) thêm " – CardioNote". `config/viet-tat.json` bỏ NS, KD, NMSL (chỉ có nghĩa TMH; không còn nơi dùng); giữ KS, XQ, P, T vì dùng chung. Xóa 4 type chết `GiaTri`, `DuLieuPhieu`, `BanGhiPhieu`, `TomTatPhieu` ở `src/shared/phieu-kham-ngoai-tru/types.ts` (grep không còn nơi dùng). Tài liệu: README mô tả CardioNote, luồng, cách chạy macOS, danh mục mock, sinh lại fixture; `CLAUDE.md` bỏ tham chiếu `docs/tham-khao/`; `docs/CLINICAL-WORKFLOW.md` đổi tiêu đề; `docs/cau-truc-du-an.md` ghi test chặn; `scripts/cao-du-lieu.ts` ghi chú bộ lọc TMH "chưa dùng".
+- **Lý do:** chốt chuyển 100% Tim mạch (plan CardioNote, Task 11), không để dấu vết TMH quay lại.
+- **File:** `src/shared/khong-con-tmh.test.ts`, các `*.test.ts` trong `src/server/clinical/`, `src/shared/{clinical,eform,giong-noi}/`, `stt/tests/*.py`, `src/app/*/page.tsx`, `config/viet-tat.json`, `src/shared/eform/types.ts`, `src/shared/phieu-kham-ngoai-tru/types.ts`, `README.md`, `CLAUDE.md`, `docs/CLINICAL-WORKFLOW.md`, `docs/cau-truc-du-an.md`, `scripts/cao-du-lieu.ts`, `docs/CHANGELOG.md`
+- **Kiểm tra:** `npm test` 472/472 pass, `npm run lint` 0 lỗi, `npx tsc --noEmit -p .` sạch, `npm run build` PASS. Test chặn có 3 ngoại lệ hẹp (thông báo hồ sơ TMH cũ ở `migrations.ts` và `migrations.test.ts`, tên riêng `"tai"` ở `pii/redact.ts`), khớp đúng file và đúng chuỗi, ngoại lệ mồ côi thì fail. pytest còn 11 fail `test_denoise` (nền đã biết, thiếu scipy).
+- **Ảnh hưởng:** không đổi hành vi chạy ngoài tiêu đề tab và 3 viết tắt bị bỏ.
+
+### Bỏ trang riêng `/phieu-kham-ngoai-tru` (Task 10 CardioNote)
+- **Loại:** Dọn dẹp, Giao diện, Tài liệu
+- **Thay đổi:** xóa trang `/phieu-kham-ngoai-tru`, API `/api/phieu-kham-ngoai-tru`, form động phía client, store lưu JSON phía server và thư mục `data/phieu-kham-ngoai-tru/` (cùng `du-lieu.ts`, `schema.ts` và test của chúng). Header bỏ link "Phiếu khám Tim mạch", tên "CardioNote" giữ nguyên. Giữ `config/forms/phieu-kham-ngoai-tru.json`, `scripts/nhap-excel-phieu-kham.py` và `src/shared/phieu-kham-ngoai-tru/{types,config}.ts` (dùng cho `excelKeys` / `EXCEL_MAP`). Test config còn lại 1 ca (đủ 49 trường gốc).
+- **Lý do:** phiếu khám đã gộp vào eForm chính `/` (plan CardioNote, Task 10). Trang riêng còn sót, route và form không còn ai dùng.
+- **File:** `src/app/phieu-kham-ngoai-tru/` (đã xóa), `src/app/api/phieu-kham-ngoai-tru/` (đã xóa), `src/client/phieu-kham-ngoai-tru/` (đã xóa), `src/server/phieu-kham-ngoai-tru/` (đã xóa), `src/shared/phieu-kham-ngoai-tru/du-lieu.ts` (đã xóa), `src/shared/phieu-kham-ngoai-tru/schema.ts` (đã xóa), `src/shared/phieu-kham-ngoai-tru/phieu-kham-ngoai-tru.test.ts`, `data/phieu-kham-ngoai-tru/` (đã xóa), `src/client/chung/Header.tsx`, `.gitignore`, `README.md`, `docs/cau-truc-du-an.md`, `docs/CHANGELOG.md`
+- **Kiểm tra:** `npm test` 471/471 pass (482 trước; 11 test của store, du-lieu, schema bị xóa cùng code). `npm run lint` 0 lỗi (8 cảnh báo có sẵn ở file khác). `tsc` sạch khi loại trừ `.next/` (xem Ảnh hưởng). Chưa chạy trình duyệt.
+- **Ảnh hưởng:** thư mục `.next/` còn cache types cũ trỏ tới route đã xóa, nên `npx tsc --noEmit -p .` báo 4 lỗi trong `.next/dev/types/validator.ts` cho đến khi `.next/` được tạo lại (`next dev` hoặc `next build`). Không liên quan source. Ai đang giữ `.next/` thì xóa thư mục đó rồi chạy lại.
+
+### Mock cờ "nhắc chỉ định nhưng chưa nêu dịch vụ" (sửa Task 9)
+- **Loại:** Sửa lỗi, Kiểm thử
+- **Thay đổi:** `extraction.ts`: khi Hướng điều trị của bác sĩ nhắc chỉ định cận lâm sàng mà không có dòng dịch vụ, mock thêm `can_xem_lai` (`/chi_dinh`, `thieu_thong_tin`, "Bác sĩ nhắc chỉ định cận lâm sàng nhưng chưa nêu dịch vụ."). Test `nghiem_thu_013_kham_moi` kiểm mục này, `items` rỗng và `de_cap = chua_de_cap`.
+- **Lý do:** `04` ca 013 yêu cầu mục cần xem lại này; `de_cap = co_chi_dinh` với `items = []` trái schema nên giữ `chua_de_cap`, chờ anh quyết.
+- **File:** `src/server/clinical/extraction.ts`, `src/server/clinical/nghiem-thu-tim-mach.test.ts`, `docs/tc11-nghiem-thu-phieu-ngoai-tru.md`
+- **Kiểm tra:** `npm test` 482/482, `tsc` sạch, lint 0 lỗi.
+
+### Nghiệm thu tự động 3 ca Tim mạch và sửa bộ trích mock (Task 9 CardioNote)
+- **Loại:** Kiểm thử, Sửa lỗi, Dữ liệu
+- **Thay đổi:** thêm `src/server/clinical/nghiem-thu-tim-mach.test.ts` (3 test `nghiem_thu_013_kham_moi`, `nghiem_thu_001_tai_kham`, `nghiem_thu_039_doc_bo_sung`) và `data/cardiology/nghiem-thu/*.expected.json` (bảng "Mong đợi" của `04` theo khóa eForm). Bộ trích mock `extraction.ts` nay lấy mục có nhãn ("Người bệnh đến khám vì", Bệnh sử, Tiền sử bản thân/gia đình, Dị ứng, Thuốc đang dùng, Toàn thân, Khám tim phổi, Kết quả chính, Hướng điều trị, Lời dặn) trọn đoạn đến nhãn kế tiếp. Sửa M6: bỏ tiền tố "Khám tim phổi:" và giữ cả câu "Phù mắt cá chân" dưới nhãn đó; "Lời dặn: ..., tái khám sau N ngày" không còn rơi vào nhánh tái khám nên `loi_dan` không trống; `hen_tai_kham.sau_bao_lau` và `ngay_cu_the` = giờ khám + N ngày/tuần/tháng (`MockContext.thoi_gian_kham`, `contextFromVitals(sinh_hieu, encounter_at)`). Bộ kiểm tra bằng chứng chấp nhận ngày hẹn tính từ "sau N ngày", coi `co_thuoc_dang_dung` như `thuoc_dang_dung`, và "dùng thuốc theo đơn hiện tại" không phải đơn mới. Sửa `phieu-mau.json` theo `02`: khám tim phổi sang `kham_tim_mach_ho_hap`, bỏ chỉ định và chẩn đoán kèm theo, lời dặn ca 001 có "tái khám sau 30 ngày"; test `phieu-mau.test.ts` đổi theo. Thêm test `duyet_chan_chinh_chua_ro_giai_doan_van_bi_chan` (service) và test số điện thoại không bị coi là triệu chứng.
+- **Lý do:** nghiệm thu `04`; mock trước đó thiếu dị ứng, thuốc, khám toàn thân, hướng điều trị, ngày tái khám; phiếu mẫu đặt sai ô.
+- **File:** `src/server/clinical/{extraction,extract-recording,nghiem-thu-tim-mach.test,service.test}.ts`, `src/server/demo-luong/flow.ts`, `src/server/du-lieu/phieu-mau.test.ts`, `data/eform/phieu-mau.json`, `data/cardiology/nghiem-thu/`, `docs/tc11-nghiem-thu-phieu-ngoai-tru.md`
+- **Kiểm tra:** `npm test` 482/482 pass, `tsc` sạch, lint 0 lỗi. `eval-mau` 39,4% lên 76,0% (còn lệch: tiền sử không điền do bác sĩ Copy, 4 mô tả chẩn đoán chính khác tên ICD). `eval --rule-only` giữ 86,1% (nói) và 85,1% (gõ tắt); `eval-pii` che nhầm 0/84.
+- **Ảnh hưởng:** `04` ghi `de_cap = co_chi_dinh` với `items = []` cho ca 013, trái ràng buộc schema (`co_chi_dinh` khi và chỉ khi có dòng dịch vụ): test chỉ kiểm không có dòng dịch vụ. Hội thoại ca được tách đoạn theo nhãn: phần khai bệnh là người bệnh, phần còn lại là bác sĩ (kiểm tra bằng chứng không nhận liều thuốc do bác sĩ nói).
+
+### ca-chuan chạy trên context SYN-CARDIO-001 (sửa Task 8, lần 2)
+- **Loại:** Dữ liệu, Kiểm thử
+- **Thay đổi:** `scripts/tao-du-lieu-tim-mach.ts` thêm context thứ 6 (SYN-CARDIO-001, GIA-000123) gắn lịch mới LK-GIA-0463 "Tái khám tăng huyết áp, lượt bổ sung cho kịch bản demo", đặt cuối danh sách để là context mới nhất của GIA-000123 (039 ở LK-GIA-0457 giữ nguyên cho test A2). Test thứ tự context trong `encounter-context.test.ts` thêm LK-GIA-0463; test cặp kịch bản/context trong `kich-ban.test.ts` nay phủ cả 3 kịch bản.
+- **Lý do:** ca-chuan (hội thoại 001) chạy trên GIA-000123 nhưng context mới nhất của bệnh nhân này là 039, sinh hiệu lệch.
+- **File:** `scripts/tao-du-lieu-tim-mach.ts`, `data/eform/encounter-contexts.json`, `data/clinic/appointments.json`, `src/server/clinical/encounter-context.test.ts`, `src/server/demo-luong/kich-ban.test.ts`
+- **Kiểm tra:** `npm test` 477/477 pass, `tsc` sạch, lint 0 lỗi, `tao-du-lieu-tim-mach --check` khớp 9 file.
+- **Ảnh hưởng:** lịch hẹn thành 11 (spec 05 nói 10, lượt thêm phục vụ demo).
+
+### Bệnh nhân của kịch bản demo mang đúng context của hội thoại (sửa Task 8)
+- **Loại:** Dữ liệu, Kiểm thử
+- **Thay đổi:** `scripts/tao-du-lieu-tim-mach.ts` sinh 5 context thay vì 4: LK-GIA-0458 (GIA-000789) nay mang SYN-CARDIO-013, thêm context SYN-CARDIO-049 cho GIA-000456 gắn lịch LK-GIA-0461 (đặt cuối danh sách vì demo lấy context mới nhất của bệnh nhân). Lịch LK-GIA-0458 thành "khó chịu vùng ngực khi gắng sức, khám lần đầu", LK-GIA-0461 trở lại "một lần ngất thoáng qua". Thêm test `bệnh nhân của kịch bản mang đúng context...`; sửa danh sách context trong `encounter-context.test.ts`. Cờ đồng ý và `benh_nhan_id` của kịch bản giữ nguyên.
+- **Lý do:** ca-tu-che (hội thoại 013) chạy trên GIA-000789 và ca-chua-dong-y (hội thoại 049) trên GIA-000456, nhưng context mới nhất của hai bệnh nhân là của ca khác nên demo lệch sinh hiệu và dị ứng.
+- **File:** `scripts/tao-du-lieu-tim-mach.ts`, `data/eform/encounter-contexts.json`, `data/clinic/appointments.json`, `src/server/clinical/encounter-context.test.ts`, `src/server/demo-luong/kich-ban.test.ts`
+- **Kiểm tra:** `npm test` 476/476 pass (kèm test mới), `tsc` sạch, lint 0 lỗi, `tao-du-lieu-tim-mach --check` khớp 9 file.
+- **Ảnh hưởng:** lý do khám "đánh trống ngực" không còn lịch riêng (còn 9 lý do trong 10 lịch). GIA-000123 vẫn lấy context 039 làm mới nhất nên ca-chuan (001) còn lệch sinh hiệu.
+
+### Chuyển fixture, kịch bản demo, ca eval sang Tim mạch; `npm test` về 0 fail (Task 8 CardioNote)
+- **Loại:** Dữ liệu, Kiểm thử, Sửa lỗi
+- **Thay đổi:**
+  - `data/cases/`: xóa `ca-11-tim-mach.json`, thêm 10 ca `ca-01-tang-huyet-ap` … `ca-10-kham-truoc-thu-thuat` (SYN-CARDIO-001, 007, 013, 019, 025, 031, 037, 043, 049, 055; mỗi chẩn đoán chính một ca, bản `COMPLETE`). `expected` lấy theo từng mục hội thoại và `02`: chỉ định, đơn thuốc để rỗng; "Không rõ tiền sử gia đình" giữ nguyên câu. Mỗi ca có `mau_id` (10 phiếu mẫu) và `input_mau`. `CA_MAU` trong `src/server/du-lieu/eform.ts` trỏ `ca-01-tang-huyet-ap`.
+  - `data/demo-luong/kich-ban/`: ca-chuan dùng hội thoại SYN-CARDIO-001 (phiên 1 hỏi bệnh và thông tin định danh, phiên 2 khám và kết luận), ca-tu-che dùng SYN-CARDIO-013, ca-chua-dong-y dùng SYN-CARDIO-049. Giữ nguyên bệnh nhân gắn kịch bản (GIA-000123, GIA-000789, GIA-000456) vì đồng ý xử lý AI của từng người được nhiều test dựa vào.
+  - `data/clinic-test/*.json`: nội dung lịch hẹn, tóm tắt lượt khám, tên cơ sở chuyển sang Tim mạch (id, giờ, trạng thái giữ nguyên).
+  - `data/pii-eval/cau-stt.json`: thay phần lâm sàng của 45 trong 71 câu bằng câu Tim mạch. Giữ 71 câu, 44 chuỗi phải che, 84 chuỗi không được che.
+  - `scripts/tao-du-lieu-tim-mach.ts`: lịch LK-GIA-0458 đổi nội dung thành "một lần ngất thoáng qua" cho khớp context SYN-CARDIO-049 của chính nó; lịch LK-GIA-0461 đổi thành "đánh trống ngực từng cơn" để vẫn đủ 10 lý do khám. Lượt LK-GIA-0458 đã có context từ Task 7 nên mở phiếu được; chỉ nội dung lịch lệch với context.
+  - Sửa lỗi code tìm thấy khi sửa test: (a) `approveClinicalForActor` đòi giai đoạn cho cả chẩn đoán kèm theo, nên phiếu có `icd_kem_theo` không duyệt được từ khi `giai_doan_kem_theo` bị bỏ (02: không thấy trên ảnh); nay chỉ chẩn đoán chính phải có giai đoạn. (b) Mock trích xuất dùng `\bho\b` và `\bphù\b` nên "thoại", "phù" dính chữ có dấu bị nhận nhầm là triệu chứng (lý do khám thành câu "tôi tên là ... số điện thoại"); đổi sang `(?<!\p{L})…(?!\p{L})`.
+  - Test: `pipeline.test.ts`, `known-identifiers.test.ts`, `service.test.ts`, `flow.test.ts`, `projection.test.ts`, `clinic/service.test.ts` đổi dữ liệu và kỳ vọng sang Tim mạch (phù chân thay đau tai, Amlodipine thay Paracetamol, I10 thay H66.1, điện tim thay nội soi). `stt/tests/test_ner.py` thay câu "đau họng" bằng "đau ngực khi gắng sức". Test `real form fixture` nay tự nhập lý do khám và dị ứng vì ca giả Tim mạch chỉ có thời gian khám; test duyệt phiếu kiểm thêm bước thiếu lý do và bệnh sử.
+  - Không xóa test nào: không còn test kiểm hành vi TMH nào tồn tại.
+  - README mục "Thêm ca mẫu" cập nhật theo bộ 10 ca.
+- **Lý do:** Task 8 plan CardioNote: đưa dữ liệu demo, eval, fixture sang Tim mạch và đưa `npm test` về 0 fail. 7 test đang đỏ đều do fixture hoặc kỳ vọng còn TMH, riêng hai lỗi code ở trên là lỗi thật.
+- **File:** `data/cases/*`, `data/demo-luong/kich-ban/*`, `data/clinic-test/*`, `data/clinic/appointments.json`, `data/pii-eval/cau-stt.json`, `scripts/tao-du-lieu-tim-mach.ts`, `src/server/du-lieu/eform.ts`, `src/shared/eform/types.ts` (chú thích), `src/server/clinical/{service,extraction}.ts`, các test kể trên, `stt/tests/test_ner.py`, `README.md`
+- **Kiểm tra:** `npm test` 476/476 pass, 0 fail (trước: 469 pass, 7 fail). `npx tsc --noEmit -p .` sạch. `npm run lint` 0 lỗi (8 cảnh báo cũ). `npm run tao-du-lieu-tim-mach -- --check` khớp 9 file. `npm run eval-pii`: câu STT bắt được 18/44, che nhầm 0/84 (không đổi so với trước), kịch bản 13/13, che nhầm 0/8. `.venv-stt/bin/python -m pytest stt/tests/test_ner.py` pass.
+  - `npm run eval -- --rule-only` (10 ca x 2 kiểu nhập): Phiếu khám nói 86,1%, gõ tắt 85,1% (trước, 1 ca: nói 80,0%, gõ tắt 0,0%). Chỉ định và đơn thuốc "Thừa" vì bộ tách quy tắc cũ đọc "Thuốc đang dùng", "chỉ định cận lâm sàng" thành dòng.
+  - `npm run eval-mau`: 10/10 ca có mẫu; mức 1 và mức 2 chính xác chung 39,4% (trước: 0/1 ca có mẫu, chưa có điểm).
+- **Ảnh hưởng:** `eval-mau` thấp vì phiếu mẫu (`data/eform/phieu-mau.json`) đặt khám tim phổi ở `kham_chuyen_khoa`, có chỉ định mà `expected` (theo 02) để rỗng, và chưa có `tien_su`. Chưa sửa vì ngoài phạm vi Task 8. `npm run clinical:check` chưa chạy được trên máy này (thiếu gói Python `jsonschema`); không đổi schema trong task này.
+
 ### Sửa logic sau review giữa kỳ (nhóm A CardioNote)
 - **Loại:** Sửa lỗi, Cấu hình, Dữ liệu, Kiểm thử
 - **Thay đổi:**

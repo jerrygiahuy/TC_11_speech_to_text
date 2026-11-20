@@ -1,4 +1,4 @@
-# Luồng khám TMH — prototype ngày 12/11/2026
+# Luồng khám Tim mạch — prototype ngày 12/11/2026
 
 Đã nối các task 2–5 vào trang `/`: **phiếu khám và chỉ định dịch vụ**. Kê đơn do bác sĩ làm riêng. Trang `/stt` vẫn là nơi thử STT độc lập; thuật toán phân tách người nói không thay đổi trong đợt này.
 
@@ -22,7 +22,7 @@ Mở `http://localhost:3000`. Mặc định dùng `mock`; đây là bộ trích 
 
 ## Demo luồng dữ liệu (`/demo-luong`)
 
-Trang riêng, tách khỏi eForm `/`. eForm và `/demo-luong` cùng dùng bộ che `pii-auto-2` (rule cộng lớp NER tùy chọn); `/demo-luong` trình diễn từng bước: ghi âm (micro, file WAV hoặc kịch bản mẫu) → bản thô → che PII tự động (bộ rule R1–R8, R10, cộng lớp NER nếu bật, `pii-auto-2`) → chốt chặn R11 (còn sót thì tự che phần đó rồi kiểm lại, giống eForm; tự che xong vẫn sót mới không gửi AI; kịch bản `ca-tu-che` minh họa) → AI mock → lưu → phiếu đọc lại từ kho để bác sĩ sửa và duyệt. Cờ đồng ý xử lý AI lấy từ hồ sơ tiếp đón (R14): chưa đồng ý thì chỉ chạy bộ tách local. Một phiếu có nhiều phiên ghi âm; ô bác sĩ đã sửa không bị phiên sau ghi đè (phiên sau nói khác thì hiện cờ xung đột); ghi phiên mới vào phiếu đã duyệt thì phiếu về nháp. Bản thô không ghi đĩa, không log; dữ liệu chạy nằm ở `data/demo-luong/` (gitignore). Chính sách dữ liệu: `docs/DATA-USE-POLICY.md` (cấp `deidentified`, áp dụng cho cả eForm và luồng này).
+Trang riêng, tách khỏi eForm `/`. eForm và `/demo-luong` cùng dùng bộ che `pii-auto-2` (rule cộng lớp NER tùy chọn); `/demo-luong` trình diễn từng bước: ghi âm (micro, file WAV hoặc kịch bản mẫu) → bản thô → che PII tự động (bộ rule R1–R8, R10, cộng lớp NER nếu bật, `pii-auto-2`) → chốt chặn R11 (còn sót thì tự che phần đó rồi kiểm lại, giống eForm; tự che xong vẫn sót mới không gửi AI; kịch bản `ca-tu-che` minh họa) → AI mock → lưu → phiếu đọc lại từ kho để bác sĩ sửa và duyệt. Bộ trích mock đọc cả lời nói kiểu STT thật (viết thường, không nhãn, không dấu hai chấm): nhận mục theo cụm mở đầu (lý do khám, tiền sử, gia đình có, dị ứng, đang uống/dùng, toàn thân, khám tim phổi, kết quả, chẩn đoán, hướng điều trị, lời dặn, hẹn tái khám), bỏ cụm khỏi giá trị; lời đáp câu bác sĩ hỏi lý do khám là lý do khám; mã ICD gán qua `match.ts` chỉ khi khớp chắc một mã (trạng thái xem). Kết quả mong đợi của 3 kịch bản: `data/demo-luong/kich-ban/expected/*.expected.json`, chấm bằng `src/server/demo-luong/kich-ban-phieu.test.ts`. Cờ đồng ý xử lý AI lấy từ hồ sơ tiếp đón (R14): chưa đồng ý thì chỉ chạy bộ tách local. Một phiếu có nhiều phiên ghi âm; ô bác sĩ đã sửa không bị phiên sau ghi đè (phiên sau nói khác thì hiện cờ xung đột); ghi phiên mới vào phiếu đã duyệt thì phiếu về nháp. Bản thô không ghi đĩa, không log; dữ liệu chạy nằm ở `data/demo-luong/` (gitignore). Chính sách dữ liệu: `docs/DATA-USE-POLICY.md` (cấp `deidentified`, áp dụng cho cả eForm và luồng này).
 
 ## Cấu hình model
 
@@ -32,7 +32,7 @@ Các ứng viên đã tra cứu để đánh giá thêm: [Gemini 3.8 Flash](http
 
 ## Hợp đồng và nơi lưu
 
-- Nguồn chuẩn: `config/clinical/*.schema.json`, schema version `1.1.0`. Sinh kiểu bằng `npm run clinical:types`; kiểm tra bằng `npm run clinical:check`.
+- Nguồn chuẩn: `config/clinical/*.schema.json`, schema version `2.0.0`. Sinh kiểu bằng `npm run clinical:types`; kiểm tra bằng `npm run clinical:check`. `clinical:check` cần gói Python `jsonschema`, ghim `jsonschema==4.26.0` trong `stt/requirements-dev.txt` (cài vào `.venv-stt`, xem README; không tự cài).
 - `src/shared/clinical/`: kiểu sinh tự động, validator, adapter hai màn, merge nháp AI và bộ lọc cục bộ.
 - `src/server/clinical/`: ticket riêng tư, gọi model/kiểm chứng, kho artifact, repository JSON, duyệt.
 - `data/clinical/encounters/<uuid>.json`: bản hiện tại; `revisions/<uuid>-rN.json`: lịch sử bất biến.

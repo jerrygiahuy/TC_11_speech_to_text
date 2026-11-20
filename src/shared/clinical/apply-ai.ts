@@ -7,7 +7,8 @@ import { matchCatalog } from "../match";
 import type { DongChiDinh } from "../eform/dien-phieu";
 import type { Truong } from "../eform/types";
 
-interface Context { newId: () => string; now: string; services: CatalogItem[] }
+/** `icd`: danh mục ICD để gán mã cho chẩn đoán AI qua `matchCatalog` (không truyền thì chẩn đoán AI không có mã). */
+interface Context { newId: () => string; now: string; services: CatalogItem[]; icd?: { ma: string; ten: string; manh?: string[] }[] }
 const normalized = (value: string | null) => (value ?? "").trim().normalize("NFC").toLocaleLowerCase("vi");
 
 /** Null/absent mentions never erase already collected data. */
@@ -38,6 +39,11 @@ export function applyAiDraft(base: Encounter, run: ClinicalExtraction, context: 
     if (index < 0) {
       const row = emptyDefinition<Diagnosis>("diagnosis");
       row.id = context.newId(); row.noi_dung = structuredClone(mention);
+      // Mã ICD chỉ do code khớp danh mục gán (quy tắc 3), chỉ khi khớp chắc một mã; mơ hồ hoặc không khớp thì để trống, bác sĩ chọn.
+      if (context.icd?.length && mention.mo_ta) {
+        const match = matchCatalog(mention.mo_ta, null, context.icd.map(item => ({ ma: item.ma, ten: item.ten, ten_khac: item.manh })), {});
+        if (match.status === "khop" && match.item) row.icd = { catalog_id: match.item.ma, code_system: "prototype-icd10", code: match.item.ma, display: match.item.ten, catalog_version: null, trang_thai: "khop_mot", ung_vien_ids: [] };
+      }
       result.chan_doan.push(row); index = result.chan_doan.length - 1;
     }
     diagnosisPaths.push(`/chan_doan/${index}/noi_dung`);

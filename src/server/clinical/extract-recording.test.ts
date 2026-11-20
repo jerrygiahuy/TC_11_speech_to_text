@@ -14,7 +14,7 @@ import { checkRecordingPrivacy } from "./bound-privacy";
 import { extractForRecording } from "./extract-recording";
 import { createRecordingTicketValidator } from "./reviewed-transcripts";
 
-function setup(appointment = "LK-GIA-0456", attach = true, text = "BN: Đau họng 3 ngày.\nBS: Khám thấy họng đỏ. Chỉ định nội soi họng, số lượng 1.") {
+function setup(appointment = "LK-GIA-0456", attach = true, text = "BN: Đau ngực 3 ngày.\nBS: Khám thấy phù chân. Chỉ định điện tâm đồ, số lượng 1.") {
   const tmp = (name: string) => fs.mkdtempSync(path.join(os.tmpdir(), `${name}-`));
   const store = new ClinicalRepository(tmp("extract-recording"));
   const actor = getDemoClinicalActor();
@@ -48,7 +48,7 @@ function setup(appointment = "LK-GIA-0456", attach = true, text = "BN: Đau họ
 }
 
 test("auto-masked residue reaches the extractor already masked and the audit line lists only reason codes", async () => {
-  const f = setup("LK-GIA-0456", true, "BN: Đau họng 3 ngày.\nBN: hôm qua đỗ quốc việt mua thuốc giúp.\nBS: Khám thấy họng đỏ.");
+  const f = setup("LK-GIA-0456", true, "BN: Đau ngực 3 ngày.\nBN: hôm qua đỗ quốc việt mua thuốc giúp.\nBS: Khám thấy phù chân.");
   const run = await extractForRecording(f.actor, f.ticket, f.binding, { store: f.store, tickets: f.tickets, runDirectory: f.runDirectory, auditDirectory: f.auditDirectory });
   assert.ok(!JSON.stringify(run.transcript).includes("quốc việt"));
   assert.ok(run.transcript.segments.some(s => s.text.includes("[NGƯỜI_KHÁC]")));
@@ -76,7 +76,7 @@ test("extraction records provider mock and one passed audit line; env provider c
     assert.equal(lines[0].ai_route, "external_allowed");
     assert.equal(lines[0].session_sequence, 1);
     assert.equal(lines[0].clean_sha256, f.tickets.pii(f.ticket, f.binding).clean_sha256);
-    assert.ok(!JSON.stringify(lines[0]).includes("họng đỏ"));
+    assert.ok(!JSON.stringify(lines[0]).includes("phù chân"));
   } finally {
     if (before === undefined) delete process.env.CLINICAL_LLM_PROVIDER; else process.env.CLINICAL_LLM_PROVIDER = before;
   }

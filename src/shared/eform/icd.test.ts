@@ -17,15 +17,15 @@ test("mỗi mã có từ khóa mạnh và từ khóa vừa", () => {
   assert.deepEqual(ICD10.filter((item) => item.manh.length === 0 || item.vua.length === 0).map((item) => item.ma), []);
 });
 test("tăng huyết áp: I10 đứng đầu gợi ý", () => assert.equal(goiYIcd("tái khám tăng huyết áp", ICD10, QUY_TAC)[0]?.item.ma, "I10"));
-test("đau họng không có gợi ý trong bộ Tim mạch", () => assert.deepEqual(goiYIcd("đau họng 2 ngày, sốt", ICD10, QUY_TAC), []));
+test("triệu chứng ngoài Tim mạch không có gợi ý", () => assert.deepEqual(goiYIcd("ngứa da 2 ngày, sốt", ICD10, QUY_TAC), []));
 test("tra mã I10 theo tên đầy đủ trong danh mục mock", () =>
   assert.equal(maIcdTheoTen("Bệnh tăng huyết áp vô căn (nguyên phát)", ICD10), "I10"));
 
 const ICD = [
-  { ma: "H66.0", ten: "Viêm tai giữa có mủ cấp tính", manh: [], vua: [] },
-  { ma: "J02.9", ten: "Viêm họng cấp tính, không xác định", manh: [], vua: [] },
+  { ma: "I10", ten: "Bệnh tăng huyết áp vô căn (nguyên phát)", manh: [], vua: [] },
+  { ma: "I48.9", ten: "Rung nhĩ, không xác định", manh: [], vua: [] },
 ];
 
-test("tra mã theo đúng tên ICD", () => assert.equal(maIcdTheoTen("Viêm tai giữa có mủ cấp tính", ICD), "H66.0"));
-test("không dấu, khác hoa thường vẫn tra được", () => assert.equal(maIcdTheoTen("viem hong cap tinh, khong xac dinh", ICD), "J02.9"));
-test("tên không có trong danh mục thì trả rỗng", () => assert.equal(maIcdTheoTen("Viêm tai giữa", ICD), ""));
+test("tra mã theo đúng tên ICD", () => assert.equal(maIcdTheoTen("Bệnh tăng huyết áp vô căn (nguyên phát)", ICD), "I10"));
+test("không dấu, khác hoa thường vẫn tra được", () => assert.equal(maIcdTheoTen("rung nhi, khong xac dinh", ICD), "I48.9"));
+test("tên không có trong danh mục thì trả rỗng", () => assert.equal(maIcdTheoTen("Suy tim", ICD), ""));

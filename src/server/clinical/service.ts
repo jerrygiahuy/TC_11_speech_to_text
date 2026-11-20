@@ -204,7 +204,7 @@ export function approveClinicalForActor(actor: ClinicalActor, value: unknown, st
     resolveEncounterContextForRecord(actor, draft);
     if (!draft.phieu_kham.ly_do_kham?.trim() || !draft.phieu_kham.benh_su?.trim()) throw new ClinicalError("Cần lý do khám và bệnh sử trước khi duyệt.", 422);
     const diagnoses = draft.chan_doan.filter(item => item.noi_dung.mo_ta && !["loai_tru", "phu_dinh"].includes(item.noi_dung.muc_do_khang_dinh ?? ""));
-    if (!diagnoses.length || diagnoses.some(item => item.noi_dung.giai_doan === "chua_ro" || !item.icd.code)) throw new ClinicalError("Cần bác sĩ xác định giai đoạn và chọn mã ICD cho chẩn đoán trước khi duyệt.", 422);
+    if (!diagnoses.length || diagnoses.some(item => (item.noi_dung.vai_tro !== "kem_theo" && item.noi_dung.giai_doan === "chua_ro") || !item.icd.code)) throw new ClinicalError("Cần bác sĩ xác định giai đoạn và chọn mã ICD cho chẩn đoán trước khi duyệt.", 422);
     if (draft.chi_dinh.de_cap === "chua_de_cap") throw new ClinicalError("Hãy xác nhận có hoặc không chỉ định dịch vụ.", 422);
     for (const item of draft.chi_dinh.items) {
       if (!draft.chi_dinh.groups.find(group => group.id === item.group_id)?.chan_doan_lich_su_lam_sang?.trim()) throw new ClinicalError("Cần chẩn đoán hoặc lịch sử lâm sàng chung cho chỉ định trước khi duyệt.", 422);
@@ -224,5 +224,5 @@ export function clinicalResponse(error: unknown): Response {
   if (error instanceof ClinicalError) return Response.json({ error: error.message }, { status: error.status });
   if (error instanceof z.ZodError) return Response.json({ error: "Dữ liệu không đúng cấu trúc phiếu khám/chỉ định. Hãy kiểm tra các trường nhập." }, { status: 400 });
   // Never return/log patient content or full filesystem paths in validation/provider errors.
-  return Response.json({ error: "Không lưu hoặc đọc được hồ sơ. Kiểm tra dữ liệu, số lượng, danh mục và trạng thái nội soi rồi thử lại." }, { status: 422 });
+  return Response.json({ error: "Không lưu hoặc đọc được hồ sơ. Kiểm tra dữ liệu, số lượng, danh mục rồi thử lại." }, { status: 422 });
 }

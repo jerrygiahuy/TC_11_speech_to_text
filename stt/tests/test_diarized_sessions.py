@@ -12,7 +12,7 @@ from stt.tests.test_audio import decode, wav_bytes
 
 class Engine:
     def transcribe(self, audio):
-        text = [' TÔI', ' BỊ', ' ĐAU'] if audio.duration_ms <= 5000 else [' TÔI', ' BỊ', ' ĐAU', ' HỌNG', ' BA', ' NGÀY']
+        text = [' TÔI', ' BỊ', ' ĐAU'] if audio.duration_ms <= 5000 else [' TÔI', ' BỊ', ' ĐAU', ' NGỰC', ' BA', ' NGÀY']
         return SimpleNamespace(tokens=text, timestamps=[i * 0.8 for i in range(len(text))], inference_ms=2)
 
 
@@ -69,7 +69,7 @@ def test_5_plus_3_seconds_is_redecoded_as_one_8_second_turn():
     first = subject.process(session_id, 1, 0, decode(wav_bytes(seconds=5)))
     second = subject.process(session_id, 2, 80000, decode(wav_bytes(seconds=3)))
     assert first['replace_from_ms'] == second['replace_from_ms'] == 0
-    assert ' '.join(word['text'] for word in second['words']) == 'tôi bị đau họng ba ngày'
+    assert ' '.join(word['text'] for word in second['words']) == 'tôi bị đau ngực ba ngày'
     assert {word['speaker'] for word in second['words']} == {1}
     assert second['audio_ms'] == 8000
     assert subject.finalize(session_id)['final'] is True

@@ -1,0 +1,43 @@
+{
+  "_nguon": "handoff/claude/04-ca-kiem-thu.md, Ca 2.",
+  "ca": "SYN-CARDIO-001",
+  "thoi_gian_kham": "2026-11-19T09:00",
+  "sinh_hieu_fixture": {
+    "mach": 72,
+    "ha_tam_thu": 148,
+    "ha_tam_truong": 88,
+    "spo2": 98
+  },
+  "fields": {
+    "kham_chuyen_khoa": "",
+    "kham_khac": "",
+    "mo_ta_ra_vien": "",
+    "icd_ra_vien": "",
+    "da_xu_ly": "",
+    "tinh_trang_ra_vien": "",
+    "ly_do": "tái khám tăng huyết áp",
+    "benh_su": "Theo dõi huyết áp tại nhà, thỉnh thoảng đau đầu nhẹ, không đau ngực, không khó thở",
+    "tien_su_ban_than": "Tăng huyết áp đã được theo dõi",
+    "tien_su_gia_dinh": "Gia đình có người tăng huyết áp",
+    "di_ung": "Có",
+    "di_ung_mo_ta": "Penicillin",
+    "thuoc_dang_dung": "NB có",
+    "kham_toan_than": "Tỉnh táo, tiếp xúc tốt",
+    "kham_tim_mach_ho_hap": "Mạch quay đều, rõ. Tiếng T1, T2 đều rõ, không âm thổi. Phổi trong, không ran",
+    "mo_ta_ban_dau": "Tăng huyết áp vô căn",
+    "icd_kem_theo": "",
+    "ghi_chu_kq": "Chức năng thận trong giới hạn được ghi nhận; Điện tâm đồ nhịp xoang",
+    "huong_dieu_tri": "Tiếp tục theo dõi huyết áp và dùng thuốc theo đơn hiện tại",
+    "loi_dan": "Ghi nhật ký huyết áp, tái khám sau 30 ngày",
+    "hen_tai_kham": "Có",
+    "ngay_tai_kham": "2026-12-19"
+  },
+  "thuocDangDung": [
+    {
+      "ten": "Amlodipine",
+      "ham_luong": "5 mg",
+      "cach_dung": "mỗi ngày một lần"
+    }
+  ],
+  "chiDinh": []
+}

@@ -1,0 +1,25 @@
+{
+  "id": "ca-08-roi-loan-nhip",
+  "ten": "Tái khám rối loạn nhịp (rung nhĩ) (SYN-CARDIO-043, giả lập)",
+  "hanh_chinh": {},
+  "input_noi": "Người bệnh đến khám vì tái khám rối loạn nhịp. Bệnh sử: Thỉnh thoảng hồi hộp ngắn, không ngất, không khó thở khi nghỉ. Tiền sử bản thân: Rối loạn nhịp đang theo dõi. Tiền sử gia đình: Không rõ tiền sử gia đình. Dị ứng: chưa ghi nhận. Thuốc đang dùng: Apixaban 5 mg, ngày hai lần. Sinh hiệu: mạch 89 lần mỗi phút, huyết áp 132 trên 80 mi li mét thủy ngân, SpO2 98 phần trăm. Toàn thân tỉnh táo, tiếp xúc tốt. Khám tim phổi: Mạch không đều. Tiếng tim nghe không đều, phổi trong, không ran. Kết quả chính: Điện tâm đồ có dữ liệu để bác sĩ đối chiếu. Chẩn đoán: Rung nhĩ và cuồng nhĩ, không đặc hiệu. Hướng điều trị: Tiếp tục theo dõi nhịp và dùng thuốc theo đơn đã xác nhận. Lời dặn: Theo dõi chảy máu bất thường và tái khám đúng hẹn. Hẹn tái khám sau 30 ngày.",
+  "input_go_tat": "ld: tái khám rối loạn nhịp. bs: Thỉnh thoảng hồi hộp ngắn, không ngất, không khó thở khi nghỉ. ts: Rối loạn nhịp đang theo dõi. tiền sử gia đình: Không rõ tiền sử gia đình. khám tim phổi: Mạch không đều. Tiếng tim nghe không đều, phổi trong, không ran. chẩn đoán: Rung nhĩ và cuồng nhĩ, không đặc hiệu. hướng điều trị: Tiếp tục theo dõi nhịp và dùng thuốc theo đơn đã xác nhận. lời dặn: Theo dõi chảy máu bất thường và tái khám đúng hẹn. hẹn tái khám: 30 ngày.",
+  "mau_id": "rung-nhi",
+  "input_mau": "rn, tái khám sau 30 ngày",
+  "expected": {
+    "phieu_kham": {
+      "ly_do_kham": "tái khám rối loạn nhịp",
+      "benh_su": "Thỉnh thoảng hồi hộp ngắn, không ngất, không khó thở khi nghỉ",
+      "tien_su": "Rối loạn nhịp đang theo dõi",
+      "tien_su_gia_dinh": "Không rõ tiền sử gia đình",
+      "kham_toan_than": "Tỉnh táo, tiếp xúc tốt",
+      "kham_tim_mach_ho_hap": "Mạch không đều. Tiếng tim nghe không đều, phổi trong, không ran",
+      "chan_doan_chinh": "Rung nhĩ và cuồng nhĩ, không đặc hiệu",
+      "huong_dieu_tri": "Tiếp tục theo dõi nhịp và dùng thuốc theo đơn đã xác nhận",
+      "loi_dan": "Theo dõi chảy máu bất thường và tái khám đúng hẹn",
+      "hen_tai_kham": "30 ngày"
+    },
+    "chi_dinh": [],
+    "ke_don": []
+  }
+}

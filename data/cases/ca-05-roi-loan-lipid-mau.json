@@ -1,0 +1,25 @@
+{
+  "id": "ca-05-roi-loan-lipid-mau",
+  "ten": "Tái khám rối loạn lipid máu (SYN-CARDIO-025, giả lập)",
+  "hanh_chinh": {},
+  "input_noi": "Người bệnh đến khám vì tái khám rối loạn lipid máu. Bệnh sử: Dùng thuốc đều, chưa ghi nhận triệu chứng mới. Tiền sử bản thân: Rối loạn lipid máu. Tiền sử gia đình: Không rõ tiền sử gia đình. Dị ứng: Penicillin. Thuốc đang dùng: Rosuvastatin 10 mg, buổi tối. Sinh hiệu: mạch 71 lần mỗi phút, huyết áp 122 trên 74 mi li mét thủy ngân, SpO2 99 phần trăm. Toàn thân tỉnh táo, tiếp xúc tốt. Khám tim phổi: Mạch đều. Tiếng tim rõ, không âm thổi. Phổi trong, không ran. Kết quả chính: Có kết quả lipid máu để bác sĩ đối chiếu. Chẩn đoán: Rối loạn lipid máu, không đặc hiệu. Hướng điều trị: Duy trì điều trị theo đơn hiện tại và theo dõi xét nghiệm. Lời dặn: Tái khám mang theo kết quả xét nghiệm. Hẹn tái khám sau 90 ngày.",
+  "input_go_tat": "ld: tái khám RLLM. bs: Dùng thuốc đều, chưa ghi nhận triệu chứng mới. ts: RLLM. tiền sử gia đình: Không rõ tiền sử gia đình. khám tim phổi: Mạch đều. Tiếng tim rõ, không âm thổi. Phổi trong, không ran. chẩn đoán: RLLM, không đặc hiệu. hướng điều trị: Duy trì điều trị theo đơn hiện tại và theo dõi xét nghiệm. lời dặn: Tái khám mang theo kết quả xét nghiệm. hẹn tái khám: 90 ngày.",
+  "mau_id": "roi-loan-lipid-mau",
+  "input_mau": "rllm, tái khám sau 90 ngày",
+  "expected": {
+    "phieu_kham": {
+      "ly_do_kham": "tái khám rối loạn lipid máu",
+      "benh_su": "Dùng thuốc đều, chưa ghi nhận triệu chứng mới",
+      "tien_su": "Rối loạn lipid máu",
+      "tien_su_gia_dinh": "Không rõ tiền sử gia đình",
+      "kham_toan_than": "Tỉnh táo, tiếp xúc tốt",
+      "kham_tim_mach_ho_hap": "Mạch đều. Tiếng tim rõ, không âm thổi. Phổi trong, không ran",
+      "chan_doan_chinh": "Rối loạn lipid máu, không đặc hiệu",
+      "huong_dieu_tri": "Duy trì điều trị theo đơn hiện tại và theo dõi xét nghiệm",
+      "loi_dan": "Tái khám mang theo kết quả xét nghiệm",
+      "hen_tai_kham": "90 ngày"
+    },
+    "chi_dinh": [],
+    "ke_don": []
+  }
+}

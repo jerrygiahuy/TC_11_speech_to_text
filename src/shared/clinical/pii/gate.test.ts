@@ -48,7 +48,7 @@ test("R11c: chữ STT có dấu, đọc liền không dấu câu không bị coi
 });
 
 test("R11c: câu lâm sàng thường qua; nhãn không bị coi là tên", () => {
-  assert.equal(checkResidualPii("thủng màng nhĩ, suy tim", none, noAllow).passed, true);
+  assert.equal(checkResidualPii("rung nhĩ, suy tim", none, noAllow).passed, true);
   assert.equal(reasons("[BỆNH_NHÂN] đau ngực [NGƯỜI_1] đưa đến").includes("R11c_ten_rieng_con_sot"), false);
 });
 
@@ -99,15 +99,15 @@ test("R13: nhật ký không mang bản thô", () => {
 });
 
 const CAU_SACH = [
-  "ho khan về đêm", "đau cổ họng tăng khi nuốt", "niêm mạc mũi phù nề chảy dịch", "màng nhĩ đục lõm không thủng",
-  "đau đầu do viêm xoang", "khám lại sau một tuần", "chẩn đoán suy tim", "xét nghiệm dương tính", "vì ù tai",
-  "nói là nghẹt mũi", "amidan sưng to có mủ", "sốt 38 độ", "không có tiền sử dị ứng", "tiền sử cao huyết áp",
-  "đau ngực ba ngày nay", "uống amlodipine 5 mg", "tái khám ngày mai", "thủng màng nhĩ, suy tim",
-  "nghẹt mũi hai bên chảy dịch mủ", "soi họng thấy phù nề niêm mạc", "bị cao huyết áp đang uống thuốc",
+  "ho khan về đêm", "đau ngực lan ra cánh tay", "phù nề hai chân", "tim đập nhanh khi gắng sức",
+  "đau đầu do tăng huyết áp", "khám lại sau một tuần", "chẩn đoán suy tim", "xét nghiệm dương tính", "vì khó thở",
+  "nói là hồi hộp", "chân sưng to hai bên", "sốt 38 độ", "không có tiền sử dị ứng", "tiền sử cao huyết áp",
+  "đau ngực ba ngày nay", "uống amlodipine 5 mg", "tái khám ngày mai", "rung nhĩ, suy tim",
+  "sưng hai bên cổ chân", "nghe tim thấy tiếng thổi tâm thu", "bị cao huyết áp đang uống thuốc",
   "ngực trái đau ba ngày kèm sốt nhẹ", "chóng mặt khi đứng dậy", "hẹn tái khám sau hai tuần",
 ];
 
-test("hồi quy: 20+ câu ENT sạch viết thường đều qua, không cần allowlist của người gọi", () => {
+test("hồi quy: 20+ câu lâm sàng sạch viết thường đều qua, không cần allowlist của người gọi", () => {
   assert.ok(CAU_SACH.length >= 20);
   for (const c of CAU_SACH) assert.equal(checkResidualPii(c, none, noAllow).passed, true, c);
 });
@@ -124,10 +124,10 @@ test("allowlist: họ nằm giữa cụm allowlist vẫn được bỏ qua", () 
 });
 
 test("tự che phần sót R11c: tên người lạ thay bằng nhãn, nội dung lâm sàng giữ nguyên, che xong qua chốt chặn", () => {
-  const m = maskResidualPii("hôm qua đỗ quốc việt mua thuốc giúp\nđau họng uống paracetamol 500 mg", none, noAllow);
+  const m = maskResidualPii("hôm qua đỗ quốc việt mua thuốc giúp\nđau ngực uống paracetamol 500 mg", none, noAllow);
   assert.equal(m.clean.includes("quốc việt"), false);
   assert.ok(m.clean.includes("[NGƯỜI_KHÁC]"));
-  for (const keep of ["hôm qua", "thuốc giúp", "đau họng", "paracetamol 500 mg", "\n"]) assert.ok(m.clean.includes(keep), keep);
+  for (const keep of ["hôm qua", "thuốc giúp", "đau ngực", "paracetamol 500 mg", "\n"]) assert.ok(m.clean.includes(keep), keep);
   assert.ok(m.masked.some((x) => x.reason === "R11c_ten_rieng_con_sot"));
   assert.equal(checkResidualPii(m.clean, none, noAllow).passed, true);
 });

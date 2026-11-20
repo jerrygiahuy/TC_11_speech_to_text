@@ -20,11 +20,11 @@ const load = (n: number) =>
 test("projection_has_every_saved_clinical_part_and_no_ai_or_transcript", () => {
   const vm = projectHistoricalEncounter(load(1), ctx);
   const byId = Object.fromEntries(vm.sections.map((s) => [s.id, s.rows]));
-  assert.deepEqual(byId["ly-do"].map((r) => r.value), ["Ngạt mũi, hắt hơi buổi sáng", "Ngạt mũi từng đợt 2 tuần, hắt hơi nhiều, không sốt."]);
-  assert.match(byId["chan-doan"][0].value, /J30\.4 Viêm mũi dị ứng \(Xác định\)/);
-  assert.equal(byId["chi-dinh"][0].label, "Nội soi mũi");
+  assert.deepEqual(byId["ly-do"].map((r) => r.value), ["tái khám tăng huyết áp", "Theo dõi huyết áp tại nhà, thỉnh thoảng đau đầu nhẹ, không đau ngực, không khó thở"]);
+  assert.match(byId["chan-doan"][0].value, /I10 Tăng huyết áp vô căn \(Xác định\)/);
+  assert.equal(byId["chi-dinh"][0].label, "Điện tim thường");
   assert.match(byId["chi-dinh"][0].value, /SL 1/);
-  assert.match(byId["ket-luan"].map((r) => r.value).join("|"), /tái khám sau 4 tuần/);
+  assert.match(byId["ket-luan"].map((r) => r.value).join("|"), /tái khám sau 30 ngày/);
   assert.equal(vm.identity_source, "current_profile");
   assert.equal(vm.status, "completed");
   const text = JSON.stringify(vm);

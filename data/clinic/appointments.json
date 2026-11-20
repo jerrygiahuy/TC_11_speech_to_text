@@ -56,7 +56,7 @@
     "doctor_id": "user_bs01",
     "starts_at": "2026-11-16T14:00:00+07:00",
     "ends_at": null,
-    "content": "Bệnh nhân mới, đánh trống ngực từng cơn, khám lần đầu (dữ liệu giả)",
+    "content": "Bệnh nhân mới, khó chịu vùng ngực khi gắng sức, khám lần đầu (dữ liệu giả)",
     "scheduling_status": "scheduled"
   },
   {
@@ -97,6 +97,16 @@
     "starts_at": "2026-11-17T10:30:00+07:00",
     "ends_at": null,
     "content": "Đánh giá tim mạch trước thủ thuật (dữ liệu giả)",
+    "scheduling_status": "scheduled"
+  },
+  {
+    "id": "LK-GIA-0463",
+    "facility_id": "facility-prototype",
+    "patient_id": "GIA-000123",
+    "doctor_id": "user_bs01",
+    "starts_at": "2026-11-17T14:00:00+07:00",
+    "ends_at": null,
+    "content": "Tái khám tăng huyết áp, lượt bổ sung cho kịch bản demo (dữ liệu giả)",
     "scheduling_status": "scheduled"
   }
 ]

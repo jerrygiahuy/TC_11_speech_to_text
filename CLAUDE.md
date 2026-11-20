@@ -2,13 +2,13 @@
 
 # Trợ lý điền bệnh án Tim mạch – hướng dẫn cho Claude
 
-Prototype Next.js 16 (App Router) + React 19 + Tailwind 4. Bác sĩ nói hoặc gõ tắt, AI tách và điền nháp Phiếu khám, Chỉ định, Đơn thuốc. Chi tiết cách chạy và cấu hình xem `README.md`; quan sát thực địa xem `docs/` (tóm tắt và cấu trúc màn hình EMR) và `docs/tham-khao/` (nhật ký, báo cáo tuần, mục lục ở `docs/tham-khao/README.md`). Cần biết bác sĩ thực sự nhập gì, mất bao lâu thì tra ở đó trước khi đoán.
+Prototype Next.js 16 (App Router) + React 19 + Tailwind 4. Bác sĩ nói hoặc gõ tắt, AI tách và điền nháp Phiếu khám, Chỉ định, Đơn thuốc. Chi tiết cách chạy và cấu hình xem `README.md`; quan sát thực địa xem `docs/` (tóm tắt và cấu trúc màn hình EMR) và `handoff/claude/` (spec CardioNote `01`–`06`). Thư mục `docs/tham-khao/` (nhật ký thực địa TMH cũ) đã xóa. App là 100% Tim mạch: `src/shared/khong-con-tmh.test.ts` chặn mọi dấu vết Tai Mũi Họng trong `src/`, `config/`, `data/`, `stt/`.
 
 ## Quy tắc bắt buộc
 
 1. **Mọi thay đổi đều phải ghi tài liệu, kể cả thay đổi nhỏ nhất** (một dòng code, một khóa JSON, một màu, một dependency). Sau khi sửa, dùng skill `ghi-tai-lieu`: thêm mục vào `docs/CHANGELOG.md` và cập nhật `README.md` / `docs/` liên quan. Hook `Stop` sẽ chặn nếu quên.
 2. **Chỉ dùng dữ liệu giả.** Không thêm tên, PID, CCCD, tài khoản bác sĩ hay nội dung lâm sàng thật vào code, dữ liệu mẫu, tài liệu hay commit. **Thông tin nhạy cảm** (tên người thật, quốc tịch bệnh nhân, hồ sơ cá nhân, ảnh chụp màn hình EMR, bản gốc chưa làm sạch) **chỉ để trong `temp-1/`** (đã gitignore). Đưa vào `docs/` thì phải làm sạch trước.
-3. **Mã danh mục chỉ được gán bởi code khớp danh mục** (`src/shared/match.ts`), không bao giờ để LLM tự điền mã. Không đặt `ai_fill: true` cho trường mã.
+3. **Mã danh mục chỉ được gán bởi code khớp danh mục** (`src/shared/match.ts`), không bao giờ để LLM tự điền mã. Không đặt `ai_fill: true` cho trường mã. Ngoại lệ đã biết, có từ trước nhánh CardioNote: `src/shared/eform/dien-phieu.ts` gán ICD qua `goiYIcd` cho thư viện câu mẫu (đánh dấu `xem`, bác sĩ phải xác nhận), không đi qua `match.ts`.
 4. **Next.js 16 khác dữ liệu huấn luyện.** Trước khi viết code dùng API Next, đọc `node_modules/next/dist/docs/` hoặc tra context7.
 5. Viết tài liệu, nhãn giao diện, thông báo lỗi bằng tiếng Việt, giữ giọng văn hiện có.
 6. **Quy trình nhánh: `dev` là nhánh gốc để phát triển, `main` là nhánh production.** Mọi nhánh mới (tính năng, sửa lỗi, worktree của Claude) **chỉ được tạo từ `dev`**, không bao giờ tạo từ `main`. Nhánh con tạo PR vào `dev`. `main` chỉ nhận merge từ `dev`: không merge nhánh con thẳng vào `main`, không commit/push trực tiếp lên `main`. Trước khi tạo nhánh hoặc worktree, chạy `git fetch origin` và kiểm tra gốc là `origin/dev` (ví dụ `git checkout -b <tên> origin/dev`; `git merge-base HEAD origin/dev` phải là commit mới của `dev`). Nếu phát hiện nhánh đang làm được tạo từ `main`, dừng lại báo người dùng, không tự rebase hay merge để "sửa" khi chưa được đồng ý.

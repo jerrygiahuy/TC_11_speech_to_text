@@ -25,7 +25,7 @@ test("server contexts replace complete patient data and preserve leading zero ap
   b.data.ca.ho_ten = "changed";
   assert.equal(resolveEncounterContext(actor, "000123").data.ca.ho_ten, "Trần Văn Mô Phỏng");
   assert.deepEqual(loadEformData().ca, a.data.ca);
-  assert.deepEqual(listEncounterContexts(actor).map(item => item.appointmentId), ["LK-GIA-0456", "000123", "LK-GIA-0457", "LK-GIA-0458"]); // SYN-CARDIO-001, 013, 039, 049
+  assert.deepEqual(listEncounterContexts(actor).map(item => item.appointmentId), ["LK-GIA-0456", "000123", "LK-GIA-0457", "LK-GIA-0458", "LK-GIA-0461", "LK-GIA-0463"]); // SYN-CARDIO-001, 013, 039, rồi 013 (GIA-000789), 049 (GIA-000456), 001 (GIA-000123)
 });
 
 test("ngu_canh_tim_mach_mac_dinh", () => {
@@ -36,8 +36,6 @@ test("ngu_canh_tim_mach_mac_dinh", () => {
     assert.equal(context.data.ca.co_so, "OPD - Trung tâm Tim mạch");
     assert.equal(context.data.ca.phong_kham, "PK Nội tim mạch");
   }
-  const text = JSON.stringify(contexts);
-  for (const word of ["tai phải", "họng", "TMH"]) assert.ok(!text.includes(word), `còn "${word}"`);
   const ca = contexts[0].data.ca;
   assert.equal(ca.sinh_hieu.ha_tam_thu, 148);
   assert.equal(ca.lich_su.di_ung.some(row => row.thong_tin.includes("Penicillin") && row.loai_phieu === "Phiếu Đánh giá ban đầu ngoại trú"), true);

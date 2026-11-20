@@ -14,13 +14,13 @@ const ok = (store: PrivacyTickets, text: string, mode: "conversation" | "dictati
   store.check(text, mode, { known, allowlist: ALLOW, consent: true });
 
 test("check masks known names, keeps clinical content and speaker labels, issues a passed ticket", () => {
-  const r = new PrivacyTickets().check("BN: Trần Văn Mô Phỏng đau ngực 3 ngày, tay trái tê.\nBS: Khám thấy họng đỏ. Paracetamol 500mg.", "conversation", { known: K, allowlist: ALLOW, consent: true });
+  const r = new PrivacyTickets().check("BN: Trần Văn Mô Phỏng đau ngực 3 ngày, tay trái tê.\nBS: Khám thấy phù chân. Paracetamol 500mg.", "conversation", { known: K, allowlist: ALLOW, consent: true });
   assert.equal(r.status, "passed"); assert.ok(r.ticket);
   assert.ok(!r.preview.includes("Trần Văn Mô Phỏng")); assert.ok(r.preview.includes("[BỆNH_NHÂN]"));
   for (const keep of ["3 ngày", "tay trái", "Paracetamol 500mg"]) assert.ok(r.preview.includes(keep), keep);
   assert.equal(r.counts.R1, 1); assert.equal(r.ai_route, "external_allowed"); assert.ok(r.expires_at);
   const t = new PrivacyTickets();
-  const p = ok(t, "bs: khám thấy họng đỏ.\nbn: đau họng.");
+  const p = ok(t, "bs: khám thấy phù chân.\nbn: đau ngực.");
   const transcript = t.approved(p.ticket!);
   assert.deepEqual(transcript.segments.map(s => s.vai_tro), ["bac_si", "benh_nhan"]);
   assert.equal(transcript.privacy.policy_version, "pii-auto-2");
@@ -29,7 +29,7 @@ test("check masks known names, keeps clinical content and speaker labels, issues
 
 test("residual name is masked automatically: ticket issued, reason listed, clean text has no residue", () => {
   const store = new PrivacyTickets();
-  const r = ok(store, "tôi tên lê văn mới bị đau họng hai ngày nay\nhôm qua đỗ quốc việt mua thuốc giúp nhưng tôi vẫn đau họng uống paracetamol 500 mg");
+  const r = ok(store, "tôi tên lê văn mới bị đau ngực hai ngày nay\nhôm qua đỗ quốc việt mua thuốc giúp nhưng tôi vẫn đau ngực uống paracetamol 500 mg");
   assert.equal(r.status, "passed"); assert.ok(r.ticket); assert.ok(r.expires_at);
   assert.equal(r.gate.passed, true); assert.deepEqual(r.gate.reasons, []);
   assert.ok(r.auto_masked.some(x => x.reason === "R11c_ten_rieng_con_sot"));
@@ -48,7 +48,7 @@ test("text that cannot be masked automatically is still blocked", () => {
 test("no consent routes local only; ticket expires after 10 minutes; restricted content is refused", () => {
   let time = Date.parse("2026-11-17T10:00:00+07:00");
   const t = new PrivacyTickets(() => time);
-  const r = t.check("BS: Khám thấy họng đỏ.", "dictation", { known: [], allowlist: ALLOW, consent: false });
+  const r = t.check("BS: Khám thấy phù chân.", "dictation", { known: [], allowlist: ALLOW, consent: false });
   assert.equal(r.status, "passed"); assert.equal(r.ai_route, "local_only"); assert.equal(t.pii(r.ticket!).consent, false);
   assert.match(t.pii(r.ticket!).clean_sha256, /^[a-f0-9]{64}$/);
   time += 11 * 60_000;
@@ -60,7 +60,7 @@ test("no consent routes local only; ticket expires after 10 minutes; restricted 
 test("unlabelled conversation stays unknown while manually selected dictation attributes the doctor", () => {
   const store = new PrivacyTickets();
   for (const mode of ["conversation", "dictation"] as const) {
-    const checked = ok(store, "Khám thấy họng đỏ, hẹn khám lại sau 7 ngày.", mode);
+    const checked = ok(store, "Khám thấy phù chân, hẹn khám lại sau 7 ngày.", mode);
     const first = parseTranscript(store.approved(checked.ticket!));
     assert.equal(first.segments[0].vai_tro, mode === "dictation" ? "bac_si" : "chua_ro");
     assert.equal(first.segments[0].nguon_vai_tro, mode === "dictation" ? "bac_si_gan" : "chua_ro");
@@ -73,7 +73,7 @@ test("unlabelled conversation stays unknown while manually selected dictation at
 test("ticket store is bounded and rejects empty or oversized text", () => {
   const store = new PrivacyTickets(() => 1_000, 2);
   const old = ok(store, "Đau tai.");
-  ok(store, "Đau họng."); ok(store, "Nghẹt mũi.");
+  ok(store, "Đau ngực."); ok(store, "Hồi hộp.");
   assert.throws(() => store.approved(old.ticket!));
   assert.throws(() => ok(store, " "));
   assert.throws(() => ok(store, "a".repeat(50_001)));

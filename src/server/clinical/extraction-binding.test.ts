@@ -11,7 +11,7 @@ test("bound extraction persists its source and rejects a mismatched source befor
   const directory = fs.mkdtempSync(path.join(os.tmpdir(), "bound-extraction-"));
   const binding = { encounter_id: "enc-a", recording_session_id: "session-a", generation: 1, content_revision: 1 };
   const tickets = new PrivacyTickets();
-  const preview = tickets.check("BS: Khám thấy họng đỏ.", "dictation", { known: [], allowlist: new Set(), consent: true, binding });
+  const preview = tickets.check("BS: Khám thấy phù chân.", "dictation", { known: [], allowlist: new Set(), consent: true, binding });
   const options = { directory, provider: "mock", binding, approvedTranscript: (ticket: string) => tickets.approved(ticket, binding) };
   const result = await extractClinical(preview.ticket!, options);
   assert.deepEqual(result.binding, binding);

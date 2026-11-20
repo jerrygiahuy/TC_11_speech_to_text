@@ -11,7 +11,7 @@ import { docThuVienTimMach } from "@/shared/eform/mau-cau";
 import type { CaGia, EformData, QuyTacAi, TuyChon } from "@/shared/eform/types";
 
 /** Ca mẫu trùng bệnh nhân giả của trang eForm; ở chế độ mock câu này trả kết quả soạn sẵn */
-const CA_MAU = "ca-11";
+const CA_MAU = "ca-01-tang-huyet-ap";
 
 /** Thư viện câu khám Tim mạch nằm ở data/cardiology/, dùng chung với các bước khác của dự án */
 function docThuVienKham() {

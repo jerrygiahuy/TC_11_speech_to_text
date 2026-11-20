@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-> **Trạng thái 20/11:** ✅ Task 0–7 và review giữa kỳ (kèm hai nhóm sửa) xong. ⏸ Tạm dừng trước Task 8 theo yêu cầu anh. `npm test` 476 test, 7 fail đã biết (Task 8 sửa); lint 0 lỗi; tsc 0 lỗi. Tổng kết: `Knowledge/2026-11-20 CardioNote - công việc đã làm.md`.
+> **Trạng thái 20/11:** ✅ Task 0–11, review giữa kỳ và review cuối (kèm sửa) xong. `npm test` 479 test, 0 fail; build PASS; chờ anh quyết push/PR vào `dev`; lint 0 lỗi; tsc 0 lỗi. Tổng kết: `Knowledge/2026-11-20 CardioNote - công việc đã làm.md`.
 
 **Goal:** Biến `TC_11_speech_to_text` thành CardioNote, sản phẩm riêng của Trung tâm Tim mạch. Bác sĩ khám, máy ghi âm và chuyển giọng nói thành chữ, che PII, rồi AI điền nháp **đúng Phiếu khám ngoại trú Tim mạch theo Excel**. Bác sĩ sửa, duyệt, in. Không còn dữ liệu, nhãn, schema, từ điển hay test TMH.
 
@@ -59,11 +59,11 @@ Nguồn sự thật danh sách trường là `config/forms/phieu-kham-ngoai-tru.
 | ✅ 6. Từ điển ngôn ngữ trong code + bộ trích mock | Sonnet, medium | 1 | 2, 3, 5, 7 |
 | ✅ 7. Từ vựng STT | Haiku, medium | 0 | 1–6 |
 | ✅ **Review giữa kỳ** sau Task 1–7 | Opus | 1–7 | – |
-| 8. Kịch bản demo, ca eval, fixture test; về 0 test fail | Sonnet, medium | review giữa kỳ | – |
-| 9. Nghiệm thu tự động 3 ca của `04` | Sonnet, medium | 8 | 10 |
-| 10. Bỏ trang riêng `/phieu-kham-ngoai-tru` | Haiku, medium | 4 | 9 |
-| 11. Chốt 100% Tim mạch: test chặn TMH + tài liệu | Haiku, medium | 9, 10 | – |
-| **Review cuối** toàn nhánh | Opus | 11 | – |
+| ✅ 8. Kịch bản demo, ca eval, fixture test; về 0 test fail | Sonnet, medium | review giữa kỳ | – |
+| ✅ 9. Nghiệm thu tự động 3 ca của `04` | Sonnet, medium | 8 | 10 |
+| ✅ 10. Bỏ trang riêng `/phieu-kham-ngoai-tru` | Haiku, medium | 4 | 9 |
+| ✅ 11. Chốt 100% Tim mạch: test chặn TMH + tài liệu | Haiku, medium | 9, 10 | – |
+| ✅ **Review cuối** toàn nhánh | Opus | 11 | – |
 
 Session chính chỉ điều phối:
 - viết brief tự đủ ngữ cảnh: dán phần task, Global Constraints, Review Focus và đường dẫn plan;
@@ -386,13 +386,13 @@ Session chính chỉ điều phối:
 - Consumes: mọi thứ ở Task 1–7.
 - Produces: `npm test` → **0 fail**.
 
-- [ ] **Bước 1:** `npm test 2>&1 | grep '^✖' | sort -u` liệt kê các test fail hiện tại.
-- [ ] **Bước 2: Thay dữ liệu.** Với mỗi test fail, sửa dữ liệu hoặc kỳ vọng sang Tim mạch. **Không xóa test để cho qua.** Test kiểm hành vi không còn tồn tại, ví dụ 4 vùng TMH, thì xóa và ghi lý do vào CHANGELOG.
-- [ ] **Bước 3: Chạy kiểm tra.**
+- [x] **Bước 1:** `npm test 2>&1 | grep '^✖' | sort -u` liệt kê các test fail hiện tại. *(Xong 20/11: 7 test fail đã biết.)*
+- [x] **Bước 2: Thay dữ liệu.** Với mỗi test fail, sửa dữ liệu hoặc kỳ vọng sang Tim mạch. **Không xóa test để cho qua.** Test kiểm hành vi không còn tồn tại, ví dụ 4 vùng TMH, thì xóa và ghi lý do vào CHANGELOG. *(Xong 20/11: không xóa test nào. Sửa thêm 2 lỗi code: duyệt phiếu bị chặn khi có chẩn đoán kèm theo; regex mock `ho`/`phù` khớp nhầm "thoại". Khác plan: mỗi kịch bản demo chạy trên bệnh nhân có context mới nhất khớp hội thoại (001→GIA-000123, 013→GIA-000789, 049→GIA-000456), nên có 6 context và 11 lịch hẹn, thay vì 10 lịch như `05`.)*
+- [x] **Bước 3: Chạy kiểm tra.** *(Xong 20/11: 477/477 PASS. Eval rule-only: đọc bằng giọng nói 86,1%, gõ tắt 85,1%. `eval-mau` đạt 39,4% vì `phieu-mau.json` lệch `02`, dời sang Task 9. eval-pii che nhầm 0/84. Lint 0 lỗi.)*
   - `npm test` → `ℹ fail 0`.
   - `npm run eval -- --rule-only` và `npm run eval-mau` chạy được; ghi điểm.
   - `npm run lint` sạch lỗi.
-- [ ] **Bước 4:** ghi CHANGELOG, commit `test: chuyển fixture và kịch bản sang Tim mạch`.
+- [x] **Bước 4:** ghi CHANGELOG, commit `test: chuyển fixture và kịch bản sang Tim mạch`. *(Xong 20/11: `f16132d`, `ab25835`, `37a7f31`; review đạt, 0 Critical/Important.)*
 
 ---
 
@@ -410,13 +410,14 @@ Session chính chỉ điều phối:
   - Trường mong đợi "trống" phải bằng `""`.
   - Mã ICD phải ở trạng thái `xem`.
 
-- [ ] **Bước 1:** viết 3 test:
+- [x] **Bước 1:** viết 3 test:
   - `nghiem_thu_013_kham_moi`: `icd_kem_theo === ""` (Review Focus 3), `mo_ta_ra_vien === ""`, `kham_tim_mach_ho_hap` chứa `"Tiếng T1, T2 rõ"`.
   - `nghiem_thu_001_tai_kham`: `di_ung === "Có"`, `hen_tai_kham === "Có"`, `ngay_tai_kham` = `thoi_gian_kham` + 30 ngày.
   - `nghiem_thu_039_doc_bo_sung`: `thuocDangDung` có 2 dòng, một dòng `ham_luong === "2,5 mg"`; `tien_su_gia_dinh` giữ cụm "không rõ".
-- [ ] **Bước 2:** chạy → ghi lại kết quả. Trường nào lệch do mock trích thiếu thì sửa mock ở `extraction.ts`. **Không sửa expected** trừ khi expected trái `04`.
-- [ ] **Bước 3:** cả 3 test PASS, `npm test` vẫn 0 fail.
-- [ ] **Bước 4:** cập nhật `docs/tc11-nghiem-thu-phieu-ngoai-tru.md` (cách chạy, kết quả). Ghi CHANGELOG, commit `test: nghiệm thu tự động 3 ca Tim mạch`.
+- [x] **Bước 2:** chạy → ghi lại kết quả. Trường nào lệch do mock trích thiếu thì sửa mock ở `extraction.ts`. **Không sửa expected** trừ khi expected trái `04`.
+- [x] **Bước 3:** cả 3 test PASS, `npm test` vẫn 0 fail. *(Xong 20/11: 482/482. Sửa mock theo M6. `phieu-mau.json` theo `02`: `eval-mau` 39,4% → 76,0%. Rule-only giữ 86,1% / 85,1%. Che nhầm PII 0/84. Thêm 2 test bảo vệ: "số điện thoại" và chẩn đoán chính `chua_ro`.)*
+- [x] **Bước 4:** cập nhật `docs/tc11-nghiem-thu-phieu-ngoai-tru.md` (cách chạy, kết quả). Ghi CHANGELOG, commit `test: nghiệm thu tự động 3 ca Tim mạch`.
+  *(Xong 20/11: `1988a27`, `b7efb3f`; review đạt. Khác `04`: ca 013 giữ `de_cap = chua_de_cap`, thêm mục `can_xem_lai` "bác sĩ nhắc chỉ định CLS nhưng chưa nêu dịch vụ", vì schema buộc `co_chi_dinh` phải có dịch vụ. Chờ anh quyết. `di_ung` "chưa ghi nhận" ra "Không" (xem), chờ Q6.)*
 
 ---
 
@@ -430,9 +431,9 @@ Session chính chỉ điều phối:
   - `src/shared/phieu-kham-ngoai-tru/{types,config}.ts`, mà Task 1 dùng cho `excelKeys`. Xóa `du-lieu.ts`, `schema.ts` và test của chúng nếu không còn nơi import (kiểm bằng grep).
 - Sửa: `src/client/chung/Header.tsx` (bỏ link "Phiếu khám Tim mạch"), `.gitignore` (bỏ dòng `/data/phieu-kham-ngoai-tru/*.json`), `README.md`, `docs/cau-truc-du-an.md`
 
-- [ ] **Bước 1:** `grep -rn "phieu-kham-ngoai-tru" src` chỉ còn import tới `src/shared/phieu-kham-ngoai-tru/{types,config}`.
-- [ ] **Bước 2:** `npm test` 0 fail, `npm run lint` sạch, `npx tsc --noEmit -p .` sạch.
-- [ ] **Bước 3:** ghi CHANGELOG, commit `refactor: gộp trang phiếu khám riêng vào eForm chính`.
+- [x] **Bước 1:** `grep -rn "phieu-kham-ngoai-tru" src` chỉ còn import tới `src/shared/phieu-kham-ngoai-tru/{types,config}`.
+- [x] **Bước 2:** `npm test` 0 fail, `npm run lint` sạch, `npx tsc --noEmit -p .` sạch.
+- [x] **Bước 3:** ghi CHANGELOG, commit `refactor: gộp trang phiếu khám riêng vào eForm chính`. *(Xong 20/11: `c5c8763`; review đạt. `npm test` 471/471: bớt 11 test của các file đã xóa. Chạy `tsc` cần sinh lại type route bằng `npx next typegen`, vì `.next/` còn type cũ.)*
 
 ---
 
@@ -443,15 +444,15 @@ Session chính chỉ điều phối:
 - Sửa: `README.md`, `CLAUDE.md` (đoạn mô tả dự án; `docs/tham-khao/` đã xóa thì sửa câu tham chiếu), `docs/CLINICAL-WORKFLOW.md` (tiêu đề "Luồng khám TMH" → "Luồng khám Tim mạch"), `docs/cau-truc-du-an.md`, `docs/superpowers/plans/pending/README.md` (trạng thái plan này)
 - Sửa: `scripts/cao-du-lieu.ts`: đổi chú thích; bộ lọc TMH giữ nguyên nhưng ghi "chưa dùng". Việc cào lại để task tùy chọn.
 
-- [ ] **Bước 1: Viết test** `khong_con_tmh_trong_san_pham`:
+- [x] **Bước 1: Viết test** `khong_con_tmh_trong_san_pham`:
   - Quét `src/`, `config/`, `data/` (trừ `data/cardiology/`, file test này, `node_modules`), các đuôi `.ts`, `.tsx`, `.json`, `.py`.
   - Tìm regex `/TMH|[Tt]ai [Mm]ũi [Hh]ọng|viêm tai|amidan|màng nhĩ|viêm xoang|họng|nhỏ tai|xịt mũi|\bH6[0-9]\.|"tai"|"mui"|"vom"|"hong"/`. *(Mở rộng 20/11 sau review giữa kỳ I6: thêm "họng", "nhỏ tai", "xịt mũi", mã H6x.)*
   - Quét thêm `stt/` (đuôi `.py`), vì `stt/tests/test_ner.py` từng còn câu "đau họng".
   - Kỳ vọng mảng `file:line` khớp **rỗng**. Cụm "nhịp xoang" không khớp regex.
-- [ ] **Bước 2:** chạy → FAIL nếu còn sót. Sửa từng chỗ sót, ghi vào báo cáo.
-- [ ] **Bước 3:** cập nhật tài liệu theo Files. README mô tả sản phẩm CardioNote, luồng, cách chạy trên macOS (`.venv-stt` Python 3.12, `uv`), danh mục mock, cách sinh lại config từ Excel và fixture từ 60 ca.
-- [ ] **Bước 4:** `npm test` 0 fail, `npm run lint` sạch, `npm run build` PASS.
-- [ ] **Bước 5:** commit `docs: CardioNote 100% Tim mạch`.
+- [x] **Bước 2:** chạy → FAIL nếu còn sót. Sửa từng chỗ sót, ghi vào báo cáo.
+- [x] **Bước 3:** cập nhật tài liệu theo Files. README mô tả sản phẩm CardioNote, luồng, cách chạy trên macOS (`.venv-stt` Python 3.12, `uv`), danh mục mock, cách sinh lại config từ Excel và fixture từ 60 ca.
+- [x] **Bước 4:** `npm test` 0 fail, `npm run lint` sạch, `npm run build` PASS.
+- [x] **Bước 5:** commit `docs: CardioNote 100% Tim mạch`. *(Xong 20/11: `5c39bd9`, `a234bc9`; review đạt. 472/472 PASS, lint 0 lỗi, tsc sạch, build PASS. Sửa khoảng 60 chỗ còn sót TMH. Tiêu đề tab của 4 trang phụ có "CardioNote". `viet-tat.json` bỏ NS, KD, NMSL, giữ P, T, KS, XQ. Khác plan: test có danh sách ngoại lệ hẹp 3 mục (file + đúng chuỗi + lý do) cho thông báo "Hồ sơ TMH cũ…" bắt buộc nguyên văn và tên riêng "Tài" trong bộ che PII; ngoại lệ không còn khớp thì test fail.)*
 
 ---
 
@@ -463,6 +464,8 @@ So sánh toàn nhánh với `dev`:
 - đối chiếu 5 dòng Review Focus.
 
 Báo cáo PASS/FAIL thật. Sửa xong thì session chính hỏi anh có tạo PR vào `dev` không.
+
+*(Xong 20/11: 0 Critical, 2 Important, 9 Minor. I1: khi bác sĩ đọc bổ sung, phiếu không ra thuốc đang dùng. I2: hồ sơ 1.x còn trên đĩa làm hỏng danh sách lượt khám và nuốt thông báo bắt buộc. Một đợt sửa `924505d`–`c109f54` xử lý I1, I2 và m1–m8; review lại đạt. Để sau: m9, cảnh báo lệch sinh hiệu cho provider LLM thật. Kết quả: test 479/479, lint 0 lỗi, tsc sạch, build PASS. Luồng mock SYN-CARDIO-001 chạy qua API đạt. `clinical:check` FAIL vì máy thiếu `jsonschema`.)*
 
 ### Task tùy chọn (sau khi anh đồng ý, cần mạng): danh mục thật
 

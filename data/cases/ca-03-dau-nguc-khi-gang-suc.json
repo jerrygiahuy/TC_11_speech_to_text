@@ -1,0 +1,25 @@
+{
+  "id": "ca-03-dau-nguc-khi-gang-suc",
+  "ten": "Khó chịu vùng ngực khi gắng sức, đau ngực cần đánh giá (SYN-CARDIO-013, giả lập)",
+  "hanh_chinh": {},
+  "input_noi": "Người bệnh đến khám vì khó chịu vùng ngực khi gắng sức. Bệnh sử: Cảm giác nặng ngực khi đi nhanh, giảm khi nghỉ, không ngất. Tiền sử bản thân: Rối loạn lipid máu. Tiền sử gia đình: Gia đình có người bệnh mạch vành. Dị ứng: chưa ghi nhận. Thuốc đang dùng: Atorvastatin 20 mg, buổi tối. Sinh hiệu: mạch 80 lần mỗi phút, huyết áp 132 trên 82 mi li mét thủy ngân, SpO2 98 phần trăm. Toàn thân tỉnh táo, tiếp xúc tốt. Khám tim phổi: Lồng ngực cân đối. Tiếng T1, T2 rõ, không rung miu. Phổi trong, không ran. Kết quả chính: Chưa có kết quả xét nghiệm mới; Điện tâm đồ cần bác sĩ đối chiếu. Chẩn đoán: Đau ngực cần đánh giá nguyên nhân tim mạch. Hướng điều trị: Đánh giá thêm theo chỉ định cận lâm sàng của bác sĩ. Lời dặn: Hạn chế gắng sức cho đến khi hoàn tất đánh giá. Hẹn tái khám sau 7 ngày.",
+  "input_go_tat": "ld: khó chịu vùng ngực khi gắng sức. bs: Cảm giác nặng ngực khi đi nhanh, giảm khi nghỉ, không ngất. ts: RLLM. tiền sử gia đình: Gia đình có người bệnh mạch vành. khám tim phổi: Lồng ngực cân đối. Tiếng T1, T2 rõ, không rung miu. Phổi trong, không ran. chẩn đoán: Đau ngực cần đánh giá nguyên nhân tim mạch. hướng điều trị: Đánh giá thêm theo chỉ định cận lâm sàng của bác sĩ. lời dặn: Hạn chế gắng sức cho đến khi hoàn tất đánh giá. hẹn tái khám: 7 ngày.",
+  "mau_id": "dau-nguc",
+  "input_mau": "dn, tái khám sau 7 ngày",
+  "expected": {
+    "phieu_kham": {
+      "ly_do_kham": "khó chịu vùng ngực khi gắng sức",
+      "benh_su": "Cảm giác nặng ngực khi đi nhanh, giảm khi nghỉ, không ngất",
+      "tien_su": "Rối loạn lipid máu",
+      "tien_su_gia_dinh": "Gia đình có người bệnh mạch vành",
+      "kham_toan_than": "Tỉnh táo, tiếp xúc tốt",
+      "kham_tim_mach_ho_hap": "Lồng ngực cân đối. Tiếng T1, T2 rõ, không rung miu. Phổi trong, không ran",
+      "chan_doan_chinh": "Đau ngực cần đánh giá nguyên nhân tim mạch",
+      "huong_dieu_tri": "Đánh giá thêm theo chỉ định cận lâm sàng của bác sĩ",
+      "loi_dan": "Hạn chế gắng sức cho đến khi hoàn tất đánh giá",
+      "hen_tai_kham": "7 ngày"
+    },
+    "chi_dinh": [],
+    "ke_don": []
+  }
+}

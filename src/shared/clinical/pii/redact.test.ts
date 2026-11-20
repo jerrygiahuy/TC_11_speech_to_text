@@ -144,8 +144,8 @@ test("vòng 1: span chồng nhau không để lọt mảnh", () => {
 });
 
 test("vòng 1: tên người thân không cần từ 'tên', giữ tiền sử", () => {
-  const r = redactPii("mẹ là phạm thị mai bị viêm xoang", none);
-  assert.equal(r.clean, "mẹ là [NGƯỜI_1] bị viêm xoang");
+  const r = redactPii("mẹ là phạm thị mai bị suy tim", none);
+  assert.equal(r.clean, "mẹ là [NGƯỜI_1] bị suy tim");
   assert.equal(redactPii("mẹ tôi bị ung thư phổi", none).clean, "mẹ tôi bị ung thư phổi");
 });
 

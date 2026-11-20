@@ -20,8 +20,7 @@ test("sua-chu: có tên chuẩn của thuốc trong bộ ca Tim mạch", () => {
   for (const ten of THUOC_BO_CA) assert.ok(dung.includes(ten), ten);
 });
 
-test("sua-chu: không còn dấu hiệu kê đơn kiểu TMH (nhỏ tai, nhỏ mũi, xịt mũi)", () => {
-  for (const cum of ["nhỏ tai", "nhỏ mũi", "xịt mũi"]) assert.ok(!bang.dau_hieu_thuoc.includes(cum), cum);
+test("sua-chu: dấu hiệu kê đơn có chữ uống", () => {
   assert.ok(bang.dau_hieu_thuoc.includes("uống"));
 });
 
@@ -29,10 +28,13 @@ test("sua-chu: sửa đúng tên thuốc Bisoprolol khi bác sĩ đọc", () => 
   assert.equal(suaChu("bệnh nhân đang dùng bi sô prô lôl hai phẩy năm mi li gam", bang), "bệnh nhân đang dùng Bisoprolol 2,5 mg");
 });
 
-test("viet-tat: ĐTĐ là đái tháo đường, ECG là điện tâm đồ, không còn viết tắt TMH", () => {
+test("viet-tat: ĐTĐ là đái tháo đường, ECG là điện tâm đồ", () => {
   assert.equal(expandAbbreviations("ĐTĐ", vietTat), "đái tháo đường");
   assert.equal(expandAbbreviations("ECG", vietTat), "điện tâm đồ");
   assert.equal(expandAbbreviations("THA", vietTat), "tăng huyết áp");
   assert.equal(expandAbbreviations("HA", vietTat), "huyết áp");
-  for (const key of ["VTG", "VTN", "VMX", "VMDU", "NSTMH", "TMH", "ĐNL", "ĐTL"]) assert.ok(!(key in vietTat), key);
+});
+
+test("viet-tat: khóa viết tắt của Tai Mũi Họng không còn trong config", () => {
+  for (const khoa of ["VTG", "VTN", "VMX", "TMH"]) assert.ok(!(khoa in vietTat), khoa);
 });

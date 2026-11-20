@@ -131,7 +131,7 @@ export async function* runDemoFlow(store: DemoStore, input: DemoFlowInput, now: 
   let run: ClinicalExtraction;
   try {
     run = await extractClinical("demo", {
-      approvedTranscript: () => transcript, binding, directory: store.root, noCache: true, provider: "mock", context: contextFromVitals(record.sinh_hieu),
+      approvedTranscript: () => transcript, binding, directory: store.root, noCache: true, provider: "mock", context: contextFromVitals(record.sinh_hieu, record.encounter_at),
       deidentification: { policy_version: PII_POLICY_VERSION, gate_passed: true, consent: dong_y.trang_thai },
     });
   } catch (error) {
@@ -158,7 +158,7 @@ export async function* runDemoFlow(store: DemoStore, input: DemoFlowInput, now: 
         reviewed_transcripts: [{ content_revision: 1, digest: cleanDigest, transcript_id: transcript.transcript_id, transcript_revision: transcript.revision, artifact_id: `${run.run_id}.json`, reviewed_at: savedAt, reviewed_by: PII_POLICY_VERSION }],
         requests: [], discarded_at: null, discarded_by: null,
       };
-      const drafted = applyAiDraft(current, run, { newId: randomUUID, now: savedAt, services: demoCatalog().services });
+      const drafted = applyAiDraft(current, run, { newId: randomUUID, now: savedAt, services: demoCatalog().services, icd: demoCatalog().icd });
       drafted.recording_sessions.push(session);
       const beforeSnap = projectEform(current), afterSnap = projectEform(drafted);
       merged = mergeSession(before, beforeSnap, afterSnap, sequence);

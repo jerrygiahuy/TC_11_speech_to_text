@@ -1,6 +1,6 @@
 {
   "id": "ca-chuan",
-  "ten": "Ca chuẩn: đủ loại thông tin định danh, qua chốt chặn",
+  "ten": "Ca chuẩn (SYN-CARDIO-001, tái khám tăng huyết áp): đủ loại thông tin định danh, qua chốt chặn",
   "benh_nhan_id": "GIA-000123",
   "mode": "conversation",
   "doan": [
@@ -11,7 +11,7 @@
     },
     {
       "vai_tro": "benh_nhan",
-      "text": "tôi bị đau ngực và hồi hộp từng lúc 3 ngày nay",
+      "text": "tôi đến tái khám tăng huyết áp",
       "phien": 1
     },
     {
@@ -35,33 +35,68 @@
       "phien": 1
     },
     {
-      "vai_tro": "benh_nhan",
-      "text": "mẹ tôi có tiền sử tăng huyết áp",
-      "phien": 1
-    },
-    {
       "vai_tro": "bac_si",
-      "text": "đã dùng thuốc gì chưa",
+      "text": "dạo này huyết áp ở nhà thế nào",
       "phien": 1
     },
     {
       "vai_tro": "benh_nhan",
-      "text": "tôi đã uống amlodipine 5 mg ngày 1 lần",
+      "text": "tôi theo dõi huyết áp tại nhà thỉnh thoảng đau đầu nhẹ không đau ngực không khó thở",
+      "phien": 1
+    },
+    {
+      "vai_tro": "benh_nhan",
+      "text": "tăng huyết áp đã được theo dõi, gia đình có người tăng huyết áp",
       "phien": 1
     },
     {
       "vai_tro": "bac_si",
-      "text": "khám tim thấy nhịp đều",
+      "text": "có dị ứng thuốc gì không, đã dùng thuốc gì chưa",
+      "phien": 1
+    },
+    {
+      "vai_tro": "benh_nhan",
+      "text": "tôi dị ứng penicillin, đang uống amlodipine 5 mg mỗi ngày một lần",
+      "phien": 1
+    },
+    {
+      "vai_tro": "bac_si",
+      "text": "sinh hiệu mạch 72 lần mỗi phút huyết áp 148 trên 88 mi li mét thủy ngân SpO2 98 phần trăm",
       "phien": 2
     },
     {
       "vai_tro": "bac_si",
-      "text": "chỉ định điện tâm đồ",
+      "text": "toàn thân tỉnh táo tiếp xúc tốt",
       "phien": 2
     },
     {
       "vai_tro": "bac_si",
-      "text": "dặn theo dõi huyết áp tại nhà",
+      "text": "khám tim phổi mạch quay đều rõ tiếng T1 T2 đều rõ không âm thổi phổi trong không ran",
+      "phien": 2
+    },
+    {
+      "vai_tro": "bac_si",
+      "text": "kết quả chức năng thận trong giới hạn được ghi nhận điện tâm đồ nhịp xoang",
+      "phien": 2
+    },
+    {
+      "vai_tro": "bac_si",
+      "text": "chẩn đoán tăng huyết áp vô căn",
+      "phien": 2
+    },
+    {
+      "vai_tro": "bac_si",
+      "text": "hướng điều trị tiếp tục theo dõi huyết áp và dùng thuốc theo đơn hiện tại",
+      "phien": 2
+    },
+    {
+      "vai_tro": "bac_si",
+      "text": "lời dặn ghi nhật ký huyết áp",
+      "phien": 2
+    },
+    {
+      "vai_tro": "bac_si",
+      "text": "hẹn tái khám sau 30 ngày",
       "phien": 2
     }
   ],
@@ -78,10 +113,10 @@
       "quận thử"
     ],
     "phai_giu": [
-      "amlodipine 5 mg ngày 1 lần",
-      "hồi hộp",
-      "3 ngày nay",
-      "tiền sử tăng huyết áp"
+      "amlodipine 5 mg mỗi ngày một lần",
+      "tái khám tăng huyết áp",
+      "148 trên 88",
+      "tăng huyết áp đã được theo dõi"
     ],
     "bi_chan": false
   }

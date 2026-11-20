@@ -22,7 +22,7 @@ META = {'model_sha256': 'x' * 64, 'nguong': 0.5}
 def test_ner_endpoint_returns_utf16_offsets(caplog):
     ner = LocalNer(fake_segment, FakeTagger(), META)
     with TestClient(create_app(Engine(), vad=AllSpeech(), ner=ner)) as c:
-        r = c.post('/ner', json={'texts': ['😀 chị nguyễn thị lan đau họng']})
+        r = c.post('/ner', json={'texts': ['😀 chị nguyễn thị lan đau ngực khi gắng sức']})
     assert r.status_code == 200
     assert r.json() == {'model_sha256': 'x' * 64, 'nguong': 0.5,
                         'ket_qua': [[{'start': 7, 'end': 21, 'nhan': 'NAME', 'diem': 0.9}]]}

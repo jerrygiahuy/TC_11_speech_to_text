@@ -6,7 +6,6 @@ import { usePathname } from "next/navigation";
 // `cungNhom`: các đường dẫn con coi như đang ở mục này (hồ sơ bệnh nhân luôn đi từ lịch khám).
 const LINKS: { href: string; label: string; cungNhom?: string[] }[] = [
   { href: "/", label: "eForm ngoại trú" },
-  { href: "/phieu-kham-ngoai-tru", label: "Phiếu khám Tim mạch" },
   { href: "/dashboard", label: "Lịch khám", cungNhom: ["/benh-nhan"] },
   { href: "/ket-qua", label: "Kết quả thử nghiệm" },
   { href: "/stt", label: "Thử nghiệm STT" },

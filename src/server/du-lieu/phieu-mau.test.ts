@@ -11,7 +11,7 @@ const O_PHIEU = [
   "ly_do_kham",
   "benh_su",
   "kham_toan_than",
-  "kham_chuyen_khoa",
+  "kham_tim_mach_ho_hap",
   "chan_doan_chinh",
   "huong_dieu_tri",
   "loi_dan",
@@ -60,13 +60,15 @@ test("mỗi chỉ định và thuốc khớp chắc danh mục", () => {
   assert.deepEqual(loi, []);
 });
 
-test("đủ 8 ô phiếu khám, khám bộ phận khác và ít nhất 1 chỉ định", () => {
+test("đủ 8 ô phiếu khám, khám bộ phận khác; khám tim phổi không nằm ở khám chuyên khoa; không kèm chỉ định (02)", () => {
   const loi: string[] = [];
   for (const mau of goc) {
     const pk = (mau.nhap.phieu_kham ?? {}) as Values;
     for (const o of O_PHIEU) if (!String(pk[o] ?? "").trim()) loi.push(`${mau.id} thiếu ${o}`);
     if (!mau.kham_khac.trim()) loi.push(`${mau.id} thiếu kham_khac`);
-    if (((mau.nhap.chi_dinh as Values[] | undefined) ?? []).length === 0) loi.push(`${mau.id} chưa có chỉ định`);
+    // 02: khám tim phổi thuộc ô Khám tim mạch, hô hấp; ca mẫu không có chỉ định nên phiếu mẫu cũng không điền chỉ định.
+    if (String(pk.kham_chuyen_khoa ?? "").trim()) loi.push(`${mau.id} đặt khám tim phổi vào kham_chuyen_khoa`);
+    if (((mau.nhap.chi_dinh as Values[] | undefined) ?? []).length > 0) loi.push(`${mau.id} có chỉ định, expected theo 02 để rỗng`);
   }
   assert.deepEqual(loi, []);
 });

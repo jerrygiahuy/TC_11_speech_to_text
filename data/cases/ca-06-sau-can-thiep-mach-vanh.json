@@ -1,0 +1,25 @@
+{
+  "id": "ca-06-sau-can-thiep-mach-vanh",
+  "ten": "Tái khám sau can thiệp mạch vành (SYN-CARDIO-031, giả lập)",
+  "hanh_chinh": {},
+  "input_noi": "Người bệnh đến khám vì tái khám sau can thiệp mạch vành. Bệnh sử: Hiện không đau ngực, không khó thở khi sinh hoạt thông thường. Tiền sử bản thân: Đã can thiệp động mạch vành. Tiền sử gia đình: Không rõ tiền sử gia đình. Dị ứng: chưa ghi nhận. Thuốc đang dùng: Aspirin 81 mg, mỗi ngày một lần; Atorvastatin 40 mg, buổi tối. Sinh hiệu: mạch 70 lần mỗi phút, huyết áp 130 trên 76 mi li mét thủy ngân, SpO2 98 phần trăm. Toàn thân tỉnh táo, tiếp xúc tốt. Khám tim phổi: Mạch đều, rõ. Tiếng T1, T2 rõ. Không phù. Phổi trong, không ran. Kết quả chính: Xét nghiệm theo dõi được ghi nhận; Điện tâm đồ nhịp xoang. Chẩn đoán: Có nong mạch vành và bộ phận cấy ghép. Hướng điều trị: Duy trì thuốc theo đơn đã được bác sĩ xác nhận. Lời dặn: Theo dõi đau ngực và tái khám đúng hẹn. Hẹn tái khám sau 30 ngày.",
+  "input_go_tat": "ld: tái khám sau can thiệp mạch vành. bs: Hiện không đau ngực, không khó thở khi sinh hoạt thông thường. ts: Đã can thiệp động mạch vành. tiền sử gia đình: Không rõ tiền sử gia đình. khám tim phổi: Mạch đều, rõ. Tiếng T1, T2 rõ. Không phù. Phổi trong, không ran. chẩn đoán: Có nong mạch vành và bộ phận cấy ghép. hướng điều trị: Duy trì thuốc theo đơn đã được bác sĩ xác nhận. lời dặn: Theo dõi đau ngực và tái khám đúng hẹn. hẹn tái khám: 30 ngày.",
+  "mau_id": "sau-nong-vanh",
+  "input_mau": "sau nong vanh, tái khám sau 30 ngày",
+  "expected": {
+    "phieu_kham": {
+      "ly_do_kham": "tái khám sau can thiệp mạch vành",
+      "benh_su": "Hiện không đau ngực, không khó thở khi sinh hoạt thông thường",
+      "tien_su": "Đã can thiệp động mạch vành",
+      "tien_su_gia_dinh": "Không rõ tiền sử gia đình",
+      "kham_toan_than": "Tỉnh táo, tiếp xúc tốt",
+      "kham_tim_mach_ho_hap": "Mạch đều, rõ. Tiếng T1, T2 rõ. Không phù. Phổi trong, không ran",
+      "chan_doan_chinh": "Có nong mạch vành và bộ phận cấy ghép",
+      "huong_dieu_tri": "Duy trì thuốc theo đơn đã được bác sĩ xác nhận",
+      "loi_dan": "Theo dõi đau ngực và tái khám đúng hẹn",
+      "hen_tai_kham": "30 ngày"
+    },
+    "chi_dinh": [],
+    "ke_don": []
+  }
+}

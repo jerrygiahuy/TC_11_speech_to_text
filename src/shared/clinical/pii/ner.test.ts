@@ -6,7 +6,7 @@ import { nhanNer } from "./nhan";
 const ALLOW = new Set(["tăng huyết áp"]);
 
 test("không có NER thì kết quả giống hệt bản cũ", () => {
-  const t = "chị Nguyễn Thị Lan đau họng 3 ngày";
+  const t = "chị Nguyễn Thị Lan đau ngực 3 ngày";
   assert.deepEqual(chePii(t, [], ALLOW), chePii(t, [], ALLOW, { spans: [[]], nguong: 0.5 }));
   assert.equal(chePii(t, [], ALLOW).ner_chap_nhan, 0);
 });
@@ -47,13 +47,13 @@ test("bỏ đoạn dưới ngưỡng, nhãn lâm sàng, trong allowlist, vị tr
 });
 
 test("số mảng NER khác số đoạn văn thì bỏ qua NER", () => {
-  const r = chePii(["lan đau", "họng đỏ"], [], ALLOW, { spans: [[{ start: 0, end: 3, nhan: "NAME", diem: 0.9 }]], nguong: 0.5 });
+  const r = chePii(["lan đau", "phù chân"], [], ALLOW, { spans: [[{ start: 0, end: 3, nhan: "NAME", diem: 0.9 }]], nguong: 0.5 });
   assert.equal(r.ner_chap_nhan, 0);
 });
 
 test("đoạn NER của từng phần văn bản tính trên chính phần đó", () => {
-  const r = chePii(["đau họng", "lan đưa đi khám"], [], ALLOW, { spans: [[], [{ start: 0, end: 3, nhan: "NAME", diem: 0.9 }]], nguong: 0.5 });
-  assert.equal(r.clean, "đau họng\n[NGƯỜI_1] đưa đi khám");
+  const r = chePii(["đau ngực", "lan đưa đi khám"], [], ALLOW, { spans: [[], [{ start: 0, end: 3, nhan: "NAME", diem: 0.9 }]], nguong: 0.5 });
+  assert.equal(r.clean, "đau ngực\n[NGƯỜI_1] đưa đi khám");
 });
 
 test("locNer ánh xạ nhãn PhoNER sang rule và loại nhãn", () => {

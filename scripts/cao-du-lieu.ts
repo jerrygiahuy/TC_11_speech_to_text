@@ -1,4 +1,4 @@
-// Cào danh mục công khai về data/tham-khao/ để tra cứu: ICD-10 nhóm TMH, kỹ thuật TMH, hoạt chất và thuốc lưu hành.
+// Cào danh mục công khai về data/tham-khao/ để tra cứu: ICD-10 nhóm TMH (bộ lọc cũ, CHƯA DÙNG cho Tim mạch; cào lại là việc để sau), kỹ thuật TMH, hoạt chất và thuốc lưu hành.
 //   npm run cao-du-lieu                 cào tất cả
 //   npm run cao-du-lieu -- --bo-thuoc   bỏ phần biệt dược (bước chậm nhất, gọi API Cục Quản lý Dược)
 // Dữ liệu ghi ra KHÔNG được ứng dụng nạp (ứng dụng chỉ đọc data/catalog/), xem data/tham-khao/README.md.
@@ -10,7 +10,7 @@ const HL7_VN_IG = "https://vncore-ig.pages.dev";
 const DAV_API = "https://dichvucong.dav.gov.vn/api/services/app/soDangKy/GetAllPublicServerPaging";
 const OUT_DIR = path.join(process.cwd(), "data", "tham-khao");
 
-/** Khoảng mã ICD-10 liên quan TMH. Mã 3 ký tự, so theo thứ tự chữ cái. */
+/** (Chưa dùng cho CardioNote) Khoảng mã ICD-10 liên quan TMH. Mã 3 ký tự, so theo thứ tự chữ cái. */
 const ICD_KHOANG: [string, string, string][] = [
   ["H60", "H95", "Bệnh tai và xương chũm (chương VIII)"],
   ["J00", "J06", "Nhiễm trùng hô hấp trên cấp"],

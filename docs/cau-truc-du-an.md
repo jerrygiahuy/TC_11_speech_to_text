@@ -59,6 +59,8 @@ src/
     eform/                logic trang eForm, gồm cả "AI" bằng rule (xem dưới) và đếm số đo lượt thử (do-luong.ts)
 
 config/  data/  scripts/  models/  docs/   giữ nguyên ở gốc (dữ liệu, script, tài liệu)
+
+`src/shared/khong-con-tmh.test.ts` quét `src/`, `config/`, `data/` (trừ `data/cardiology/`) và `stt/*.py` để bảo đảm app 100% Tim mạch, không còn từ khóa Tai Mũi Họng.
 ```
 
 ## Chiều import

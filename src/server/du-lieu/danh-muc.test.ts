@@ -13,7 +13,7 @@ test("dịch vụ: đúng 10 mục DV-TM-001 đến DV-TM-010, đều mock", () 
   assert.deepEqual(dv.filter((item) => !coMock(item)).map((item) => item.ma), []);
 });
 
-test("thuốc: đúng 9 thuốc đang dùng của bộ ca, đều mock, không còn thuốc TMH", () => {
+test("thuốc: đúng 9 thuốc đang dùng của bộ ca, đều mock", () => {
   const thuoc = loadCatalogs()["thuoc"] ?? [];
   assert.equal(thuoc.length, 9);
   assert.deepEqual(thuoc.filter((item) => !coMock(item)).map((item) => item.ma), []);

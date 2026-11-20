@@ -16,7 +16,7 @@ def test_word_offsets_maps_underscored_words_back():
 
 def test_word_offsets_raises_on_mismatch():
     with pytest.raises(ValueError):
-        word_offsets('đau họng', ['đau', 'tai'])
+        word_offsets('đau ngực', ['đau', 'tim'])
 
 
 def test_word_offsets_accepts_moved_tone_mark():
@@ -58,7 +58,7 @@ def test_resegment_projects_labels_onto_new_words():
 
 
 def test_resegment_returns_none_when_syllables_differ():
-    assert resegment(['đau', 'họng'], ['O', 'O'], lambda text: ['đau_họng_x']) is None
+    assert resegment(['đau', 'ngực'], ['O', 'O'], lambda text: ['đau_ngực_x']) is None
 
 
 def test_load_ho_viet_reads_project_list():

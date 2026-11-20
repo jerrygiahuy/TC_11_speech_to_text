@@ -51,24 +51,3 @@ export interface CauHinhPhieu {
   phien_ban: number;
   phan: Phan[];
 }
-
-/** Giá trị một ô: số, chuỗi, mảng chuỗi, bảng lặp hoặc null */
-export type GiaTri = number | string | string[] | Record<string, unknown>[] | null;
-/** Dữ liệu phiếu: object lồng theo đường dẫn chấm của khóa */
-export type DuLieuPhieu = Record<string, unknown>;
-
-export interface BanGhiPhieu {
-  id: string;
-  tao_luc: string;
-  cap_nhat_luc: string;
-  phien_ban_config: number;
-  du_lieu: DuLieuPhieu;
-}
-
-/** Một dòng trong danh sách phiếu đã lưu */
-export interface TomTatPhieu {
-  id: string;
-  cap_nhat_luc: string;
-  ly_do_kham: string;
-  chan_doan_ban_dau_mo_ta: string;
-}

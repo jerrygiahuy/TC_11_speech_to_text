@@ -36,8 +36,6 @@ test("ngu_canh_tim_mach_mac_dinh", () => {
     assert.equal(context.data.ca.co_so, "OPD - Trung tâm Tim mạch");
     assert.equal(context.data.ca.phong_kham, "PK Nội tim mạch");
   }
-  const text = JSON.stringify(contexts);
-  for (const word of ["tai phải", "họng", "TMH"]) assert.ok(!text.includes(word), `còn "${word}"`);
   const ca = contexts[0].data.ca;
   assert.equal(ca.sinh_hieu.ha_tam_thu, 148);
   assert.equal(ca.lich_su.di_ung.some(row => row.thong_tin.includes("Penicillin") && row.loai_phieu === "Phiếu Đánh giá ban đầu ngoại trú"), true);

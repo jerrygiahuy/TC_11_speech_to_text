@@ -13,12 +13,12 @@ test("reviewed transcript persists without extraction and retry does not overwri
   const validator = createRecordingTicketValidator(tickets, directory);
   assert.throws(() => validator.validate("missing-ticket", binding));
   assert.equal(fs.readdirSync(directory).length, 0);
-  const preview = tickets.check("BS: Khám họng đỏ.", "dictation", { known: [], allowlist: new Set(), consent: true, binding });
+  const preview = tickets.check("BS: Khám phù chân.", "dictation", { known: [], allowlist: new Set(), consent: true, binding });
   const receipt = validator.validate(preview.ticket!, binding);
   assert.equal(receipt.binding.encounter_id, "enc-a");
   assert.deepEqual(validator.validate(preview.ticket!, binding), receipt);
   const transcript = readReviewedTranscript(receipt.artifact_id, binding, directory);
-  assert.equal(transcript.segments[0].text, "Khám họng đỏ.");
+  assert.equal(transcript.segments[0].text, "Khám phù chân.");
   assert.throws(() => readReviewedTranscript(receipt.artifact_id, { ...binding, encounter_id: "enc-b" }, directory));
   assert.throws(() => readReviewedTranscript("../../escape", binding, directory));
   assert.equal(fs.readdirSync(directory).length, 1);

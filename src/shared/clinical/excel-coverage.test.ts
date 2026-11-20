@@ -41,7 +41,7 @@ test("duong_encounter_ton_tai", () => {
 
 test("khong_con_vung_tmh", () => {
   const text = JSON.stringify(emptyEncounter(ctx).phieu_kham);
-  for (const word of ["tai", "mui", "vom", "hong", "co_pttt"]) assert.ok(!text.includes(`"${word}"`), `còn "${word}"`);
+  for (const word of ["co_pttt"]) assert.ok(!text.includes(`"${word}"`), `còn "${word}"`);
   assert.ok(!("xn_me" in emptyEncounter(ctx).thong_tin_khac));
 });
 

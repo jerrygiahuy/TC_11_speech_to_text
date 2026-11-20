@@ -13,11 +13,11 @@ function setup() {
   const actor = getDemoClinicalActor(); const context = resolveEncounterContext(actor, "LK-GIA-0456");
   const record: Encounter = JSON.parse(fs.readFileSync("docs/task-2/examples/encounter-service.example.json", "utf8"));
   Object.assign(record, { patient_id: context.patientId, appointment_id: context.appointmentId, facility_id: context.facilityId, examiner_id: actor.doctorId, primary_doctor_id: actor.doctorId, ai_runs: [], tom_tat: null });
-  record.phieu_kham.ly_do_kham = "Đau tai"; record.phieu_kham.benh_su = "Đau tai ba ngày";
+  record.phieu_kham.ly_do_kham = "Đau ngực"; record.phieu_kham.benh_su = "Đau ngực ba ngày";
   const dx = emptyDefinition<Diagnosis>("diagnosis");
-  Object.assign(dx, { id: "dx-initial", noi_dung: { giai_doan: "ban_dau", vai_tro: "chinh", mo_ta: "Viêm tai", muc_do_khang_dinh: "nghi_ngo" } });
-  dx.icd.code = "H66.1"; record.chan_doan = [dx];
-  record.chi_dinh.groups[0].chan_doan_lich_su_lam_sang = "Đau tai";
+  Object.assign(dx, { id: "dx-initial", noi_dung: { giai_doan: "ban_dau", vai_tro: "chinh", mo_ta: "Đau ngực nghi do tim", muc_do_khang_dinh: "nghi_ngo" } });
+  dx.icd.code = "R07.4"; record.chan_doan = [dx];
+  record.chi_dinh.groups[0].chan_doan_lich_su_lam_sang = "Đau ngực";
   record.chi_dinh.items[0].danh_muc.code = "service-demo";
   return { actor, store, record: store.create(record) };
 }

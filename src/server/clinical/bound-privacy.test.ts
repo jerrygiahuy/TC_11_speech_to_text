@@ -30,7 +30,7 @@ const readPatients = () => PatientsFixtureSchema.parse(JSON.parse(readFileSync(p
 test("check uses the patient's family names from the fixture and the record's consent", () => {
   const { store, actor, binding, tickets, audit } = setup(); // mã khám 000123 → GIA-000456, chưa đồng ý
   const relative = readPatients().find(p => p.id === "GIA-000456")!.nguoi_nha![0].ho_ten;
-  const r = checkRecordingPrivacy(actor, { binding, text: `BN: Con là ${relative} đưa tôi đi khám, đau họng.`, mode: "conversation" }, { store, tickets, auditDirectory: audit });
+  const r = checkRecordingPrivacy(actor, { binding, text: `BN: Con là ${relative} đưa tôi đi khám, đau ngực.`, mode: "conversation" }, { store, tickets, auditDirectory: audit });
   assert.equal(r.status, "passed"); assert.ok(r.ticket);
   assert.ok(!r.preview.includes(relative));
   assert.equal(r.dong_y.trang_thai, false); assert.equal(r.ai_route, "local_only");

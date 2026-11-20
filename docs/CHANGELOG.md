@@ -4,6 +4,14 @@ Mỗi thay đổi, dù nhỏ, đều có một mục ở đây. Mục mới nh�
 
 ## 2026-11-20
 
+### Chốt 100% Tim mạch: test chặn TMH và tài liệu (Task 11 CardioNote)
+- **Loại:** Kiểm thử, Dọn dẹp, Tài liệu, Giao diện
+- **Thay đổi:** thêm `src/shared/khong-con-tmh.test.ts` (`khong_con_tmh_trong_san_pham`) quét `src/`, `config/`, `data/` (trừ `data/cardiology/`) và `stt/*.py`, tìm TMH, tai mũi họng, viêm tai, amidan, màng nhĩ, viêm xoang, họng, nhỏ tai, xịt mũi, mã H6x, khóa `"tai"`, `"mui"`, `"vom"`, `"hong"`. Sửa các chỗ sót: câu mẫu trong test PII, ghi âm, phiếu mẫu, ICD đổi sang câu và mã Tim mạch; bỏ các test "không còn TMH" cũ (test mới thay thế). Tiêu đề tab các trang phụ (`/demo-luong`, `/giong-bac-si`, `/benh-nhan/[id]`, `/stt`) thêm " – CardioNote". `config/viet-tat.json` bỏ NS, KD, NMSL (chỉ có nghĩa TMH; không còn nơi dùng); giữ KS, XQ, P, T vì dùng chung. Xóa 4 type chết `GiaTri`, `DuLieuPhieu`, `BanGhiPhieu`, `TomTatPhieu` ở `src/shared/phieu-kham-ngoai-tru/types.ts` (grep không còn nơi dùng). Tài liệu: README mô tả CardioNote, luồng, cách chạy macOS, danh mục mock, sinh lại fixture; `CLAUDE.md` bỏ tham chiếu `docs/tham-khao/`; `docs/CLINICAL-WORKFLOW.md` đổi tiêu đề; `docs/cau-truc-du-an.md` ghi test chặn; `scripts/cao-du-lieu.ts` ghi chú bộ lọc TMH "chưa dùng".
+- **Lý do:** chốt chuyển 100% Tim mạch (plan CardioNote, Task 11), không để dấu vết TMH quay lại.
+- **File:** `src/shared/khong-con-tmh.test.ts`, các `*.test.ts` trong `src/server/clinical/`, `src/shared/{clinical,eform,giong-noi}/`, `stt/tests/*.py`, `src/app/*/page.tsx`, `config/viet-tat.json`, `src/shared/eform/types.ts`, `src/shared/phieu-kham-ngoai-tru/types.ts`, `README.md`, `CLAUDE.md`, `docs/CLINICAL-WORKFLOW.md`, `docs/cau-truc-du-an.md`, `scripts/cao-du-lieu.ts`, `docs/CHANGELOG.md`
+- **Kiểm tra:** xem báo cáo Task 11.
+- **Ảnh hưởng:** không đổi hành vi chạy ngoài tiêu đề tab và 3 viết tắt bị bỏ.
+
 ### Bỏ trang riêng `/phieu-kham-ngoai-tru` (Task 10 CardioNote)
 - **Loại:** Dọn dẹp, Giao diện, Tài liệu
 - **Thay đổi:** xóa trang `/phieu-kham-ngoai-tru`, API `/api/phieu-kham-ngoai-tru`, form động phía client, store lưu JSON phía server và thư mục `data/phieu-kham-ngoai-tru/` (cùng `du-lieu.ts`, `schema.ts` và test của chúng). Header bỏ link "Phiếu khám Tim mạch", tên "CardioNote" giữ nguyên. Giữ `config/forms/phieu-kham-ngoai-tru.json`, `scripts/nhap-excel-phieu-kham.py` và `src/shared/phieu-kham-ngoai-tru/{types,config}.ts` (dùng cho `excelKeys` / `EXCEL_MAP`). Test config còn lại 1 ca (đủ 49 trường gốc).

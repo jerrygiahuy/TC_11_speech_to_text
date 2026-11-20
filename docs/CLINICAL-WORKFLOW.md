@@ -1,4 +1,4 @@
-# Luồng khám TMH — prototype ngày 12/11/2026
+# Luồng khám Tim mạch — prototype ngày 12/11/2026
 
 Đã nối các task 2–5 vào trang `/`: **phiếu khám và chỉ định dịch vụ**. Kê đơn do bác sĩ làm riêng. Trang `/stt` vẫn là nơi thử STT độc lập; thuật toán phân tách người nói không thay đổi trong đợt này.
 

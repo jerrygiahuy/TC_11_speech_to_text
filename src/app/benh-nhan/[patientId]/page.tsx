@@ -11,7 +11,7 @@ import { loadPatientPage } from "@/server/clinic/service";
 
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = { title: "Hồ sơ bệnh nhân" };
+export const metadata: Metadata = { title: "Hồ sơ bệnh nhân – CardioNote" };
 
 type Query = Record<string, string | string[] | undefined>;
 

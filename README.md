@@ -1,6 +1,12 @@
 # CardioNote – Prototype phiếu khám ngoại trú
 
-> **Dữ liệu TC-11:** bộ 60 ca giả lập nằm tại [data/cardiology](data/cardiology/README.md). Màn hình thử dùng một ca Tim mạch mẫu và cấu hình ngoại trú chung. Danh mục chính thức của Trung tâm Tim mạch chưa được nạp. Các hướng dẫn TMH bên dưới mô tả nền kỹ thuật kế thừa.
+> **CardioNote** là prototype trợ lý điền Phiếu khám ngoại trú và Chỉ định dịch vụ cho **Trung tâm Tim mạch** (100% Tim mạch, không còn nội dung Tai Mũi Họng; test `src/shared/khong-con-tmh.test.ts` chặn lại). Bác sĩ nói hoặc gõ tắt, máy che thông tin cá nhân, AI (mặc định `mock`) điền nháp, bác sĩ sửa, lưu, duyệt và in. Hồ sơ dùng schema `2.0.0`; hồ sơ schema `1.x` (bản Tai Mũi Họng cũ) bị từ chối.
+>
+> **Dữ liệu TC-11:** bộ 60 ca giả lập nằm tại [data/cardiology](data/cardiology/README.md). Danh mục chính thức của Trung tâm Tim mạch chưa được nạp: ICD-10, dịch vụ, thuốc đều là danh mục mock (xem mục "Cấu hình khác" ở phần Thêm hoặc sửa trường form).
+
+**Luồng CardioNote:** chọn lượt khám (hoặc từ `/dashboard`) → gõ hội thoại hoặc ghi âm → bộ che PII → AI mock điền nháp → bác sĩ **Áp dụng**, sửa → **Lưu** → **Duyệt** → **In**. Thiếu thông tin thì để trống, không nút nào được chọn.
+
+**Chạy trên macOS (không có PowerShell):** `npm run stt:setup` và `stt:start` là PowerShell nên làm tay: `uv venv --python 3.12 .venv-stt`, `uv pip install --python .venv-stt/bin/python -r stt/requirements-lock.txt`, tải model bằng `.venv-stt/bin/python -m stt.download_model` (cùng `download_diarization`, `download_vad`), rồi `PYTHONUTF8=1 HF_HUB_OFFLINE=1 .venv-stt/bin/python -m uvicorn stt.api:app --host 127.0.0.1 --port 8765` và `npm run dev`. Mô hình NER PhoBERT chưa có nếu chưa huấn luyện, khi đó bộ che PII chạy bằng rule.
 
 **Luồng hiện tại (17/11/2026):** STT → máy chủ che PII tự động (R1–R14, chốt chặn R11) → AI tạo JSON phiếu khám và chỉ định → bác sĩ sửa, lưu, duyệt và in. **Kê đơn ngoài scope**, do bác sĩ làm riêng. Hướng dẫn đầy đủ: [docs/CLINICAL-WORKFLOW.md](docs/CLINICAL-WORKFLOW.md). Sơ đồ draw.io hai luồng chính (nói → phiếu khám, gõ tắt) và bước lọc dữ liệu nhạy cảm R1–R14: [docs/so-do/luong-chinh.drawio](docs/so-do/luong-chinh.drawio). Mở bằng app.diagrams.net hoặc draw.io desktop. eForm và `/demo-luong` cùng gọi một hàm che `chePii` (`src/shared/clinical/pii/pipeline.ts`); `/stt` chỉ nhận dạng giọng nói, không che. Thử nhanh một câu hay một file transcript qua đúng hàm đó: `npm run thu-che-pii -- "câu cần thử"` hoặc `npm run thu-che-pii -- --file temp-1/x.txt`.
 
@@ -195,14 +201,14 @@ Trường mã có thêm `catalog` (tên danh mục), `name_field` (trường tê
 
 Các cấu hình khác:
 
-- `config/viet-tat.json`: bảng từ viết tắt. Khóa một chữ cái phân biệt hoa thường và phải đứng riêng thành từ.
+- `config/viet-tat.json`: bảng từ viết tắt (đã bỏ các viết tắt TMH như NS, KD, NMSL; có THA, HA, ĐTĐ, ECG, RLLM, NMCT, BTTMCB, SAT). Khóa một chữ cái phân biệt hoa thường và phải đứng riêng thành từ.
 - `config/canh-bao.json`: cách tính tổng số lượng thuốc (`tinh_tong`). Các khóa tuổi trẻ em, cân nặng là của cảnh báo trên trang cũ đã bỏ, hiện không dùng.
 - `config/theme.json`: màu giao diện. Các khóa `ef_*` là màu của trang eForm (nền, viền, chữ, xanh thao tác chính, đỏ dị ứng), `ai_tim` là màu tím đánh dấu phần AI điền, `xem` là màu vàng đất "cần xem lại".
 - Danh mục ứng dụng nạp từ `src/server/du-lieu/danh-muc.ts`, hiện chỉ có danh mục Tim mạch soạn tay (mock, mỗi mục có `"mock": true`):
   - `data/catalog/dich-vu.json`: 10 dịch vụ cận lâm sàng `DV-TM-001` đến `DV-TM-010`, có `ten_khac`.
   - `data/catalog/thuoc.json`: 9 thuốc đang dùng của bộ ca (mã `TH-TM-*`).
   - `data/eform/icd10.json`: 11 mã ICD-10 Tim mạch, mỗi mã có từ khóa `manh` và `vua` để gợi ý.
-  - Chưa có danh mục thật Tim mạch. `data/tham-khao/` (cào bằng `npm run cao-du-lieu`) không còn được nạp.
+  - Danh mục Tim mạch hiện đều là mock (mỗi mục có `"mock": true`, không dùng trong lâm sàng); bộ lọc cào `scripts/cao-du-lieu.ts` vẫn là bộ lọc TMH cũ nên chưa dùng, việc cào lại danh mục Tim mạch thật để sau. Chưa có danh mục thật Tim mạch. `data/tham-khao/` (cào bằng `npm run cao-du-lieu`) không còn được nạp.
   - Mục soạn tay được đánh dấu `uu_tien` và khớp trước. Thứ tự khớp (`matchCatalog`): trùng tên hoặc tên khác → tìm mờ.
 
 Lưu ý với file `ca-*.json` đã có: thêm trường mới thì nên bổ sung giá trị vào `expected` để điểm eval không bị tính là "Thừa".
@@ -298,6 +304,7 @@ Chi tiết endpoint, data model, riêng tư, nguồn dẫn, model và các giớ
 
 Trang riêng `/phieu-kham-ngoai-tru` (lưu JSON, API `/api/phieu-kham-ngoai-tru`) đã bỏ ngày 2026-11-20: phiếu khám đã gộp vào eForm chính `/`. Còn lại `config/forms/phieu-kham-ngoai-tru.json` là nguồn danh sách 49 trường gốc, dùng cho `excelKeys` / `EXCEL_MAP` (`src/shared/clinical/excel-coverage.ts`) qua `src/shared/phieu-kham-ngoai-tru/{types,config}.ts`.
 
+- **Sinh lại fixture từ bộ 60 ca:** `npm run tao-du-lieu-tim-mach` sinh lại ngữ cảnh lượt khám (`data/eform/encounter-contexts.json`), lịch hẹn và 4 phiếu cũ giả từ `data/cardiology/synthetic-cases.jsonl`; thêm `-- --check` để chỉ so với file trên đĩa.
 - **Sinh lại config từ Excel:** `python3 scripts/nhap-excel-phieu-kham.py "<file.xlsx>" config/forms/phieu-kham-ngoai-tru.json` (cần `pip install openpyxl`; đọc sheet `PhieuKhamNgoaiTru` của Excel "Danh sách field – Phiếu khám ngoại trú (Tim mạch)"). Thêm/sửa trường thì sinh lại JSON rồi cập nhật `excel-coverage.ts` nếu cần.
 
 ## Cấu trúc thư mục
@@ -323,7 +330,7 @@ scripts/eval.ts chấm điểm
 scripts/eval-giong-noi.ts đo nhận dạng giọng nói trên data/giong-noi/
 scripts/thu-che-pii.ts thử bộ che PII dùng chung chePii trên một câu hoặc file, chỉ in ra màn hình
 scripts/tao-am-thanh-mau.ts (+ tts-windows.ps1) giọng máy Windows đọc các ca thành file âm thanh mẫu
-scripts/cao-du-lieu.ts cào danh mục công khai về data/tham-khao/
+scripts/cao-du-lieu.ts cào danh mục công khai về data/tham-khao/ (bộ lọc TMH cũ, chưa dùng)
 scripts/tai-model-giong-noi.ts tải model Zipformer và Silero VAD về models/
 models/         model nhận dạng giọng nói (tự tải, không đưa lên git)
 docs/           quan sát thực địa, cấu trúc màn hình EMR, kịch bản thử với bác sĩ, CHANGELOG.md

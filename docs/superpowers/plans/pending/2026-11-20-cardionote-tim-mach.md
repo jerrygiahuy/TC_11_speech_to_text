@@ -56,7 +56,7 @@ Nguồn sự thật danh sách trường là `config/forms/phieu-kham-ngoai-tru.
 | ✅ 5. Danh mục và thư viện câu Tim mạch (dữ liệu mock) | Haiku, medium | 1 | 2, 3, 6, 7 |
 | ✅ 6. Từ điển ngôn ngữ trong code + bộ trích mock | Sonnet, medium | 1 | 2, 3, 5, 7 |
 | ✅ 7. Từ vựng STT | Haiku, medium | 0 | 1–6 |
-| **Review giữa kỳ** sau Task 1–7 | Opus | 1–7 | – |
+| ✅ **Review giữa kỳ** sau Task 1–7 | Opus | 1–7 | – |
 | 8. Kịch bản demo, ca eval, fixture test; về 0 test fail | Sonnet, medium | review giữa kỳ | – |
 | 9. Nghiệm thu tự động 3 ca của `04` | Sonnet, medium | 8 | 10 |
 | 10. Bỏ trang riêng `/phieu-kham-ngoai-tru` | Haiku, medium | 4 | 9 |
@@ -364,6 +364,8 @@ Session chính chỉ điều phối:
 
 Đối chiếu với `02` mục B1–B12 và 5 dòng Review Focus. Báo lỗi theo mức nghiêm trọng. Session chính giao Sonnet sửa trước khi sang Task 8.
 
+*(Xong 20/11: 0 Critical, 6 Important, 11 Minor; báo cáo ở `.superpowers/sdd/2026-11-20-cardionote-tim-mach/review-giua-ky.md`. Sửa song song hai nhóm: nhóm A (Sonnet) làm I1–I5, M1, M3, M7, M8; nhóm B (Haiku) làm I6, M2, M4, M5, M9, M11. Quyết định I5: thêm context thứ 4 từ SYN-CARDIO-049 cho kịch bản `ca-chua-dong-y`, theo `05` mục 1. M6 dời sang Task 9.)*
+
 ---
 
 ### Task 8: Kịch bản demo, ca eval, fixture test; về 0 test fail
@@ -376,6 +378,7 @@ Session chính chỉ điều phối:
 - Sửa: `src/server/du-lieu/eform.ts` (hằng `CA_MAU` trỏ `ca-01-tang-huyet-ap`)
 - Thay: `data/clinic-test/*.json`, `data/pii-eval/cau-stt.json` (câu STT Tim mạch giả; giữ số câu và phân bố nhãn che)
 - Sửa: mọi test đang fail trong danh sách nền ở Task 0 và mọi test vỡ ghi trong báo cáo Task 1–7
+- Sửa thêm *(20/11, mang sang từ Task 1–7)*: `stt/tests/test_ner.py` còn câu "đau họng"; lượt LK-GIA-0458 mất context (lịch hẹn còn, mở phiếu không được); tiêu đề tab các trang phụ chưa có "CardioNote" (để Task 11).
 
 **Interfaces:**
 - Consumes: mọi thứ ở Task 1–7.
@@ -440,7 +443,8 @@ Session chính chỉ điều phối:
 
 - [ ] **Bước 1: Viết test** `khong_con_tmh_trong_san_pham`:
   - Quét `src/`, `config/`, `data/` (trừ `data/cardiology/`, file test này, `node_modules`), các đuôi `.ts`, `.tsx`, `.json`, `.py`.
-  - Tìm regex `/TMH|[Tt]ai [Mm]ũi [Hh]ọng|viêm tai|amidan|màng nhĩ|viêm xoang|"tai"|"mui"|"vom"|"hong"/`.
+  - Tìm regex `/TMH|[Tt]ai [Mm]ũi [Hh]ọng|viêm tai|amidan|màng nhĩ|viêm xoang|họng|nhỏ tai|xịt mũi|\bH6[0-9]\.|"tai"|"mui"|"vom"|"hong"/`. *(Mở rộng 20/11 sau review giữa kỳ I6: thêm "họng", "nhỏ tai", "xịt mũi", mã H6x.)*
+  - Quét thêm `stt/` (đuôi `.py`), vì `stt/tests/test_ner.py` từng còn câu "đau họng".
   - Kỳ vọng mảng `file:line` khớp **rỗng**. Cụm "nhịp xoang" không khớp regex.
 - [ ] **Bước 2:** chạy → FAIL nếu còn sót. Sửa từng chỗ sót, ghi vào báo cáo.
 - [ ] **Bước 3:** cập nhật tài liệu theo Files. README mô tả sản phẩm CardioNote, luồng, cách chạy trên macOS (`.venv-stt` Python 3.12, `uv`), danh mục mock, cách sinh lại config từ Excel và fixture từ 60 ca.

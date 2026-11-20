@@ -193,4 +193,4 @@ Tra cứu ngày 12/11/2026, dùng để thiết kế trường dữ liệu; chư
 - [FHIR R4 ServiceRequest](https://hl7.org/fhir/R4/servicerequest.html): tham khảo quan hệ chỉ định–lượt khám–kết quả và một dòng cho một dịch vụ.
 - [FHIR R4 Provenance](https://hl7.org/fhir/R4/provenance.html): tham khảo nguồn và tác nhân tạo/sửa dữ liệu.
 
-Nguồn nghiệp vụ trong scope là `docs/cau-truc-phieu-kham-ngoai-tru.md`, `docs/cau-truc-man-chi-dinh-dich-vu.md` và bác sĩ xác minh. Tài liệu màn kê đơn được giữ làm tư liệu lịch sử ngoài scope. Các ghi chép BHYT cũ trong repo là giả thuyết nghiên cứu, không được dùng làm luật thanh toán tự động.
+Nguồn nghiệp vụ trong scope là mẫu phiếu Excel và bảng ánh xạ `docs/task-2/field-mapping.md`, `config/forms/phieu-kham-ngoai-tru.json` và bác sĩ xác minh. Tài liệu màn kê đơn được giữ làm tư liệu lịch sử ngoài scope. Các ghi chép BHYT cũ trong repo là giả thuyết nghiên cứu, không được dùng làm luật thanh toán tự động.

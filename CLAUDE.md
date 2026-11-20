@@ -2,7 +2,7 @@
 
 # Trợ lý điền bệnh án Tim mạch – hướng dẫn cho Claude
 
-Prototype Next.js 16 (App Router) + React 19 + Tailwind 4. Bác sĩ nói hoặc gõ tắt, AI tách và điền nháp Phiếu khám, Chỉ định, Đơn thuốc. Chi tiết cách chạy và cấu hình xem `README.md`; quan sát thực địa xem `docs/` (tóm tắt và cấu trúc màn hình EMR) và `handoff/claude/` (spec CardioNote `01`–`06`). Thư mục `docs/tham-khao/` (nhật ký thực địa TMH cũ) đã xóa. App là 100% Tim mạch: `src/shared/khong-con-tmh.test.ts` chặn mọi dấu vết Tai Mũi Họng trong `src/`, `config/`, `data/`, `stt/`.
+Prototype Next.js 16 (App Router) + React 19 + Tailwind 4. Bác sĩ nói hoặc gõ tắt, AI tách và điền nháp Phiếu khám, Chỉ định, Đơn thuốc. Chi tiết cách chạy và cấu hình xem `README.md`; quan sát thực địa xem `docs/` (tóm tắt quan sát) và `handoff/claude/` (spec CardioNote `01`–`06`). Thư mục `docs/tham-khao/` (nhật ký thực địa TMH cũ) đã xóa. App là 100% Tim mạch: `src/shared/khong-con-tmh.test.ts` chặn mọi dấu vết Tai Mũi Họng trong `src/`, `config/`, `data/`, `stt/`.
 
 ## Quy tắc bắt buộc
 

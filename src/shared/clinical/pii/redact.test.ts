@@ -94,8 +94,8 @@ test("R8: nội dung ngoài khám, giữ tiền sử gia đình", () => {
   assert.equal(redactPii(keep, none).clean, keep);
 });
 
-test("giữ nguyên thuốc, liều, bên tai, thời gian bệnh", () => {
-  const raw = "amlodipine 5 mg ngày 2 lần, tai phải, sốt 38,5 độ, đau 3 ngày nay";
+test("giữ nguyên thuốc, liều, vị trí phù, thời gian bệnh", () => {
+  const raw = "amlodipine 5 mg ngày 2 lần, phù chân phải, sốt 38,5 độ, đau 3 ngày nay";
   const r = redactPii(raw, none);
   assert.equal(r.clean, raw);
   assert.equal(r.spans.length, 0);

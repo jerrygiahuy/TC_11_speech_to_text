@@ -28,7 +28,7 @@ Trang riêng, tách khỏi eForm `/`. eForm và `/demo-luong` cùng dùng bộ c
 
 Trong `.env.local` đặt `CLINICAL_LLM_PROVIDER=mock|gemini|anthropic|openai`; bỏ trống để dùng `LLM_PROVIDER`. Provider thực cần API key và `<PROVIDER>_MODEL` tương ứng theo `.env.example`. Không đổi model chỉ vì thay database.
 
-Các ứng viên đã tra cứu để đánh giá thêm: [Gemini 3.8 Flash](https://aistudio.google.com/docs/models/gemini-3.8-flash), [Claude Sonnet 5.5](https://platform.claude.com/docs/en/models/overview), [GPT-6.1 Sol](https://developers.openai.com/api/docs/models). Khả năng tiếng Việt y khoa phải đo trên bộ hội thoại có nhãn của bác sĩ; không coi tài liệu nhà cung cấp là kết quả kiểm thử TMH. Đợt này chỉ kiểm thử inference bằng mock/call giả lập, chưa gọi API trả phí hoặc so sánh chất lượng model thật.
+Các ứng viên đã tra cứu để đánh giá thêm: [Gemini 3.8 Flash](https://aistudio.google.com/docs/models/gemini-3.8-flash), [Claude Sonnet 5.5](https://platform.claude.com/docs/en/models/overview), [GPT-6.1 Sol](https://developers.openai.com/api/docs/models). Khả năng tiếng Việt y khoa phải đo trên bộ hội thoại có nhãn của bác sĩ; không coi tài liệu nhà cung cấp là kết quả kiểm thử Tim mạch. Đợt này chỉ kiểm thử inference bằng mock/call giả lập, chưa gọi API trả phí hoặc so sánh chất lượng model thật.
 
 ## Hợp đồng và nơi lưu
 

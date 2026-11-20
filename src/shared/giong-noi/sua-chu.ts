@@ -1,6 +1,6 @@
 // Sửa chữ nhận dạng giọng nói trước khi đưa vào ô nhập, theo bảng config/sua-chu-giong-noi.json.
 // Chạy ở trình duyệt cho cả hai chế độ (Zipformer và Web Speech), và trong npm run eval-giong-noi. Ba bước:
-// 1. Thay cụm model hay nghe nhầm ("thai phải" → "tai phải"), có từ đứng trước/sau để loại trừ ("có thai" giữ nguyên).
+// 1. Thay cụm model hay nghe nhầm ("lời dạng" → "lời dặn"), có từ đứng trước/sau để loại trừ ("chẩn" không thay khi từ sau là "đoán"/"trị").
 // 2. Tên thuốc, từ chuyên khoa: so gần đúng (bỏ dấu, gộp âm gần nhau) với cách bác sĩ đọc, thay bằng tên chuẩn.
 // 3. Số đọc thành chữ đổi sang chữ số khi đứng trước đơn vị hoặc là số nhiều chữ: "năm trăm mi li gam" → "500 mg".
 import { stripDiacritics } from "../normalize";

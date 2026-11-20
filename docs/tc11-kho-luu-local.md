@@ -11,7 +11,7 @@ Khởi chạy ứng dụng từ Git root của worktree TC_11. Các đường d�
 | Hồ sơ giọng nói | `data/giong-bac-si/` mặc định. Kiểm tra `VOICE_PROFILE_DIR` khi chạy STT |
 | Dữ liệu mẫu | `data/clinic/`, `data/eform/`, `data/demo-luong/kich-ban/` và `data/cardiology/` |
 
-Chạy kiểm thử lưu trữ với dữ liệu mock. Mở một lượt khám, lưu phiếu, ghi lại mã lượt, khởi động lại ứng dụng từ cùng worktree rồi mở lại phiếu. Kiểm tra tệp đầu ra nằm trong worktree và đối chiếu nội dung vừa lưu. Dùng cổng riêng nếu bản TMH đang chạy cùng lúc.
+Chạy kiểm thử lưu trữ với dữ liệu mock. Mở một lượt khám, lưu phiếu, ghi lại mã lượt, khởi động lại ứng dụng từ cùng worktree rồi mở lại phiếu. Kiểm tra tệp đầu ra nằm trong worktree và đối chiếu nội dung vừa lưu. Dùng cổng riêng nếu một bản ứng dụng khác đang chạy cùng lúc.
 
 ## Điểm nối Phiếu khám ngoại trú
 

@@ -224,5 +224,5 @@ export function clinicalResponse(error: unknown): Response {
   if (error instanceof ClinicalError) return Response.json({ error: error.message }, { status: error.status });
   if (error instanceof z.ZodError) return Response.json({ error: "Dữ liệu không đúng cấu trúc phiếu khám/chỉ định. Hãy kiểm tra các trường nhập." }, { status: 400 });
   // Never return/log patient content or full filesystem paths in validation/provider errors.
-  return Response.json({ error: "Không lưu hoặc đọc được hồ sơ. Kiểm tra dữ liệu, số lượng, danh mục và trạng thái nội soi rồi thử lại." }, { status: 422 });
+  return Response.json({ error: "Không lưu hoặc đọc được hồ sơ. Kiểm tra dữ liệu, số lượng, danh mục rồi thử lại." }, { status: 422 });
 }

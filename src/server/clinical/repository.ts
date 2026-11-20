@@ -7,7 +7,7 @@ import { parseEncounter } from "@/shared/clinical/schema";
 import { migrateEncounter } from "./migrations";
 
 export class ClinicalError extends Error {
-  constructor(message: string, public readonly status: number) { super(message); }
+  constructor(message: string, public readonly status: number, public readonly legacy = false) { super(message); }
 }
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
@@ -35,11 +35,24 @@ export class ClinicalRepository {
     return migrateEncounter(JSON.parse(fs.readFileSync(file, "utf8")));
   }
 
+  /** Số hồ sơ schema 1.x (bản cũ) bị bỏ qua ở lần `list()` gần nhất. */
+  skippedLegacy = 0;
+
+  /** Hồ sơ schema 1.x còn trên đĩa không dùng được cho CardioNote: bỏ qua và đếm, không làm hỏng cả danh sách. */
   list(): Encounter[] {
+    this.skippedLegacy = 0;
     if (!fs.existsSync(this.directory)) return [];
-    return fs.readdirSync(this.directory, { withFileTypes: true })
-      .filter(entry => entry.isFile() && entry.name.endsWith(".json") && UUID.test(entry.name.slice(0, -5)))
-      .map(entry => this.read(entry.name.slice(0, -5)));
+    const result: Encounter[] = [];
+    for (const entry of fs.readdirSync(this.directory, { withFileTypes: true })) {
+      if (!entry.isFile() || !entry.name.endsWith(".json") || !UUID.test(entry.name.slice(0, -5))) continue;
+      try { result.push(this.read(entry.name.slice(0, -5))); }
+      catch (error) {
+        if (error instanceof ClinicalError && error.legacy) { this.skippedLegacy++; continue; }
+        throw error;
+      }
+    }
+    if (this.skippedLegacy) console.warn(`Bỏ qua ${this.skippedLegacy} hồ sơ cũ (schema 1.x) trong ${path.basename(this.directory)}.`);
+    return result;
   }
 
   findByAppointment(facilityId: string, appointmentId: string): Encounter | null {

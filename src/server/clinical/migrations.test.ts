@@ -43,3 +43,32 @@ test("repository từ chối hồ sơ schema 1.2.0 trên đĩa và không ghi đ
   assert.throws(() => new ClinicalRepository(directory).read(id), { message: THONG_BAO_CU });
   assert.equal(fs.readFileSync(file, "utf8"), serialized);
 });
+
+test("list() bỏ qua hồ sơ 1.x còn hồ sơ 2.0.0; đọc trực tiếp hồ sơ 1.x ra 409 kèm thông báo nguyên văn", async () => {
+  const { ClinicalRepository, ClinicalError } = await import("./repository");
+  const directory = fs.mkdtempSync(path.join(os.tmpdir(), "clinical-legacy-list-"));
+  const idMoi = "a55423b5-1782-4e2f-98fc-3474aec69ace", idCu = "d55423b5-1782-4e2f-98fc-3474aec69ace";
+  const record = JSON.parse(fs.readFileSync("docs/task-2/examples/encounter.example.json", "utf8"));
+  fs.writeFileSync(path.join(directory, `${idMoi}.json`), JSON.stringify({ ...record, id: idMoi, schema_version: "2.0.0" }));
+  const cu = JSON.stringify({ ...record, id: idCu, schema_version: "1.2.0" });
+  fs.writeFileSync(path.join(directory, `${idCu}.json`), cu);
+  const repository = new ClinicalRepository(directory);
+  const dong = console.warn;
+  console.warn = () => {};
+  try { assert.deepEqual(repository.list().map(item => item.id), [idMoi]); } finally { console.warn = dong; }
+  assert.equal(repository.skippedLegacy, 1);
+  assert.throws(() => repository.read(idCu), (error: unknown) => error instanceof ClinicalError && error.status === 409 && error.message === THONG_BAO_CU);
+  assert.equal(fs.readFileSync(path.join(directory, `${idCu}.json`), "utf8"), cu, "không ghi đè hồ sơ cũ");
+  // Đến được API: clinicalResponse giữ nguyên thông báo và mã 409.
+  const { clinicalResponse } = await import("./service");
+  const response = clinicalResponse(new ClinicalError(THONG_BAO_CU, 409, true));
+  assert.equal(response.status, 409);
+  assert.deepEqual(await response.json(), { error: THONG_BAO_CU });
+});
+
+test("thông báo lỗi chung không nhắc nội soi", async () => {
+  const { clinicalResponse } = await import("./service");
+  const response = clinicalResponse(new Error("x"));
+  assert.equal(response.status, 422);
+  assert.ok(!/nội soi/iu.test((await response.json() as { error: string }).error));
+});

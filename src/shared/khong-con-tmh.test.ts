@@ -8,6 +8,7 @@ const BO_QUA_THU_MUC = new Set(["node_modules", "__pycache__", ".venv-stt", ".ne
 const BO_QUA_DUONG_DAN = [join("data", "cardiology")];
 const DUOI_CHUNG = [".ts", ".tsx", ".json", ".py"];
 const DUOI_STT = [".py"];
+const DUOI_README = [".md"];
 const FILE_NAY = relative(GOC, resolve(__dirname, "khong-con-tmh.test.ts"));
 
 const MAU_TMH =
@@ -19,6 +20,12 @@ const MAU_TMH =
  */
 const THONG_BAO_CU = "Hồ sơ TMH cũ (schema 1.x) không dùng được cho CardioNote.";
 const NGOAI_LE: { file: string; chuoi: string; lyDo: string }[] = [
+  { file: "README.md", chuoi: "không còn nội dung Tai Mũi Họng", lyDo: "Câu mở đầu nói app đã bỏ nội dung TMH và test chặn lại." },
+  { file: "README.md", chuoi: "(bản Tai Mũi Họng cũ)", lyDo: "Giải thích hồ sơ schema 1.x là bản TMH cũ nên bị từ chối." },
+  { file: "README.md", chuoi: "đã bỏ các viết tắt TMH", lyDo: "Ghi chú viet-tat.json đã bỏ các viết tắt TMH." },
+  { file: "README.md", chuoi: "vẫn là bộ lọc TMH cũ", lyDo: "Ghi chú bộ lọc cào danh mục chưa chuyển Tim mạch." },
+  { file: "README.md", chuoi: "(bộ lọc TMH cũ, chưa dùng)", lyDo: "Chú thích cây thư mục cho scripts/cao-du-lieu.ts." },
+  { file: "README.md", chuoi: "đo **thời Tai Mũi Họng**", lyDo: "Số đo STT 2026-11-11 là lịch sử từ thời TMH, ghi rõ để không nhầm với số Tim mạch." },
   { file: join("src", "server", "clinical", "migrations.ts"), chuoi: THONG_BAO_CU, lyDo: "Thông báo từ chối hồ sơ TMH cũ, nguyên văn theo ràng buộc chung." },
   { file: join("src", "server", "clinical", "migrations.test.ts"), chuoi: THONG_BAO_CU, lyDo: "Test kiểm đúng thông báo từ chối hồ sơ TMH cũ." },
   { file: join("src", "shared", "clinical", "pii", "redact.ts"), chuoi: '"tai"', lyDo: "Tên riêng Tài (dạng không dấu) trong danh sách tên của bộ che PII." },
@@ -40,6 +47,16 @@ function laNgoaiLe(rel: string, dong: string): boolean {
 const soFileQuet = new Map<string, number>();
 function duyet(thuMuc: string, duoi: string[], ketQua: string[], goc = thuMuc) {
   // Không nuốt lỗi: thư mục gốc không đọc được thì test phải fail, không được xanh vì quét không ra gì.
+  if (statSync(join(GOC, thuMuc)).isFile()) {
+    // Gốc là một file lẻ (README.md): quét thẳng file đó.
+    soFileQuet.set(goc, 1);
+    readFileSync(join(GOC, thuMuc), "utf8")
+      .split("\n")
+      .forEach((dong, i) => {
+        if (MAU_TMH.test(dong) && !laNgoaiLe(thuMuc, dong)) ketQua.push(`${thuMuc}:${i + 1}`);
+      });
+    return;
+  }
   const ds = readdirSync(join(GOC, thuMuc));
   for (const ten of ds) {
     const rel = join(thuMuc, ten);
@@ -64,7 +81,7 @@ const DUOI_TS = [".ts", ".tsx"];
 const DUOI_JSON = [".json"];
 const GOC_QUET: [string, string[], number][] = [
   ["src", DUOI_CHUNG, 200], ["config", DUOI_CHUNG, 10], ["data", DUOI_CHUNG, 5], ["stt", DUOI_STT, 20],
-  ["lib", DUOI_TS, 3], [join("docs", "task-2", "examples"), DUOI_JSON, 5],
+  ["lib", DUOI_TS, 3], ["README.md", DUOI_README, 1], [join("docs", "task-2", "examples"), DUOI_JSON, 5],
 ];
 function quetTatCa(): string[] {
   const khop: string[] = [];

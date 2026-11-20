@@ -161,7 +161,13 @@ npm run thu-che-pii -- "câu" # thử bộ che PII dùng chung (eForm, /demo-luo
 
 Mỗi file `.wav` trong `data/giong-noi/` đi qua đúng luồng VAD của ứng dụng rồi được so với câu `input_noi` của ca cùng id. Script in cho chữ thô và chữ sau khi sửa: **WER** (tỉ lệ từ sai, so cả dấu, số đổi thành chữ ở hai phía), **Mã** (số mã dịch vụ, mã thuốc bộ tách quy tắc vẫn ra đúng so với khi tách câu gốc), **Liều** (số dòng thuốc có liều, số lần/ngày, số ngày trùng câu gốc), và **Sửa nhầm trên câu gốc** (bộ sửa chạy trên câu đúng mà đổi mất bao nhiêu từ, nên bằng 0). Chữ thô được lưu cạnh file âm thanh nên chỉnh bảng sửa rồi chạy lại chỉ mất vài giây. Cách tự ghi âm để đo bằng giọng thật: `data/giong-noi/README.md`.
 
-Kết quả trên giọng máy ngày 2026-11-11: WER 21,4% thành 10,5%, Mã 7/42 thành 22/42, Liều 0/24 thành 11/24, sửa nhầm 0. **Giọng máy khác người thật**, nên các số này chỉ để so trước và sau một lần sửa. Hotword của sherpa-onnx (ưu tiên cụm từ ngay lúc giải mã) đã thử với `modified_beam_search` nhưng không thấy tác dụng trên model này, nên chưa dùng.
+Số đo ngày 2026-11-11 (WER 21,4% thành 10,5%, Mã 7/42 thành 22/42, Liều 0/24 thành 11/24, sửa nhầm 0) đo **thời Tai Mũi Họng**, trước khi chuyển sang CardioNote; giữ làm lịch sử.
+
+Đo ngày 2026-11-21 (Tim mạch): STT Zipformer chạy cục bộ, giọng máy đọc (macOS Linh, Microsoft HoaiMy), chép lời khoảng 40 giây âm thanh trong khoảng 1 giây. Trên 6 câu Tim mạch **không dùng để viết quy tắc** (lấy từ kịch bản `ca-tu-che` và `ca-chua-dong-y`, bỏ câu có tên), WER sau sửa chữ từ 15,5% và 14,1% (bảng cũ) còn 8,5% và 9,9% (bảng mới, PR #5). Trên bộ câu Ca chuẩn dùng để viết quy tắc, WER từ 14,6% còn 2,1% (số này lạc quan, vì quy tắc rút ra từ chính các câu đó). Còn sai: lipid, atorvastatin, rung miu, SpO2 dạng "sporpol hai", và một số chữ bị bỏ.
+
+Hotword (`config/stt-hotwords.json`) **có dùng**: danh sách được truyền vào mỗi lượt nhận dạng (`stt/engine.py`, `hotwords_score=1.5`). Đo ngày 21/11 thấy có tác dụng một phần ("không ran", "lời dặn" được nhận đúng hơn); tên thuốc tiếng Anh ít tác dụng nên sửa ở bảng sửa chữ.
+
+**Giọng máy khác người thật**, nên các số này chỉ để so trước và sau, chưa phải độ chính xác với bác sĩ.
 
 **Dù dùng chế độ nào, chỉ dùng với dữ liệu giả.**
 
@@ -274,7 +280,7 @@ npm run eval-mau                       # mock: không tốn lượt gọi
 npm run eval-mau -- --provider=gemini  # mức 2 gọi LLM thật, mỗi ca có mẫu 1 lượt
 ```
 
-Chấm phiếu mẫu (`data/eform/phieu-mau.json`) so với `expected` của các ca có `mau_id` trong `data/cases/`, cùng cách chấm với `npm run eval` (phần chấm dùng chung ở `scripts/cham-diem.ts`). **Mức 1** là chỉ có mẫu, tức bác sĩ chỉ gõ tên mẫu. **Mức 2** là mẫu kèm câu chi tiết ngắn `input_mau` của ca (ví dụ `"vtg cấp trẻ em, tai P, 3n, sốt 38"`). Script in thêm số "không tính tiền sử", vì mẫu không điền tiền sử, ô đó bác sĩ Copy từ lần khám trước. Đây chỉ là **ước tính**: mẫu và đáp án đều do nhóm soạn, số thật phải đo khi bác sĩ thử.
+Chấm phiếu mẫu (`data/eform/phieu-mau.json`) so với `expected` của các ca có `mau_id` trong `data/cases/`, cùng cách chấm với `npm run eval` (phần chấm dùng chung ở `scripts/cham-diem.ts`). **Mức 1** là chỉ có mẫu, tức bác sĩ chỉ gõ tên mẫu. **Mức 2** là mẫu kèm câu chi tiết ngắn `input_mau` của ca (ví dụ `"sau nong vanh, tái khám sau 30 ngày"`). Script in thêm số "không tính tiền sử", vì mẫu không điền tiền sử, ô đó bác sĩ Copy từ lần khám trước. Đây chỉ là **ước tính**: mẫu và đáp án đều do nhóm soạn, số thật phải đo khi bác sĩ thử.
 
 ### Chấm bộ che PII (`npm run eval-pii`)
 

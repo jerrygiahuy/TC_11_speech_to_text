@@ -4,6 +4,14 @@ Mỗi thay đổi, dù nhỏ, đều có một mục ở đây. Mục mới nh�
 
 ## 2026-11-21
 
+### README: sửa chỗ còn sót và chặn TMH trong README
+- **Loại:** Tài liệu
+- **Thay đổi:** `README.md`: ví dụ chấm phiếu mẫu đổi sang `input_mau` thật `"sau nong vanh, tái khám sau 30 ngày"`; mục eval-giong-noi ghi số 2026-11-11 là thời Tai Mũi Họng (giữ làm lịch sử), thêm số đo 2026-11-21 Tim mạch (WER 15,5% và 14,1% còn 8,5% và 9,9% trên 6 câu không dùng viết quy tắc; Ca chuẩn 14,6% còn 2,1%, lạc quan), sửa câu hotword: có dùng (`hotwords_score=1.5`), tác dụng một phần. `khong-con-tmh.test.ts` quét thêm `README.md` gốc, 6 dòng cố ý nhắc TMH thành ngoại lệ hẹp trong `NGOAI_LE`. `docs/STT.md` đã khớp, không sửa.
+- **Lý do:** README còn ví dụ TMH, số đo cũ và câu nói hotword không có tác dụng (sai).
+- **File:** `README.md`, `src/shared/khong-con-tmh.test.ts`, `docs/CHANGELOG.md`
+- **Kiểm tra:** `npm test` 493 pass, 0 fail; lint 0 lỗi; tsc sạch; thử tạm dòng "viêm tai" ở README thì test bắt; dòng "vtg ..., tai P" thì regex không bắt (không có `tai` trần).
+- **Ảnh hưởng:** chỉ tài liệu và test.
+
 ### Giảm lỗi thuật ngữ Tim mạch sau STT: từ ưu tiên và bảng sửa chữ
 - **Loại:** Cấu hình
 - **Thay đổi:** `config/stt-hotwords.json` thêm 6 cụm ưu tiên ("phổi trong không ran", "không ran", "lời dặn", "penicillin", "dị ứng penicillin", "mi li mét thủy ngân"). `config/sua-chu-giong-noi.json`: thêm 6 quy tắc `thay` vào đầu mảng (SpO2, mmHg, tiếng T1 T2, "phổi trong không ran", "lời dặn"; quy tắc SpO2 có "thủy ngân" đứng trước mmHg), thêm "amlodi" cho Amlodipine và mục Penicillin. `sua-chu.ts`: hai từ ngay trước cụm là "dị ứng" cũng tính là ngữ cảnh thuốc ("tôi dị ứng pen xi lin" thành "tôi dị ứng Penicillin"; "phản ứng pen xi lin" giữ nguyên). Thêm test với bảng thật.

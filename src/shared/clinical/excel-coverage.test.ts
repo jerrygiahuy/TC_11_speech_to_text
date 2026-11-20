@@ -1,0 +1,56 @@
+import assert from "node:assert/strict";
+import { test } from "node:test";
+import { CAU_HINH_PHIEU } from "../phieu-kham-ngoai-tru/config";
+import { EXCEL_MAP, excelKeys } from "./excel-coverage";
+import { emptyEncounter } from "./schema";
+
+const ctx = { id: "enc-1", patientId: "patient-demo", doctorId: "doctor-demo", now: "2026-11-20T10:00:00+07:00" };
+
+function docPointer(root: unknown, pointer: string): unknown {
+  let value = root;
+  for (const part of pointer.split("/").slice(1)) {
+    if (value === null || typeof value !== "object") return undefined;
+    value = (value as Record<string, unknown>)[part.replace(/~1/g, "/").replace(/~0/g, "~")];
+  }
+  return value;
+}
+
+test("moi_truong_excel_co_trong_map", () => {
+  const keys = excelKeys(CAU_HINH_PHIEU);
+  assert.ok(keys.length > 0);
+  assert.equal(new Set(keys).size, keys.length, "khóa Excel không trùng");
+  const missing = keys.filter(key => !(key in EXCEL_MAP));
+  assert.deepEqual(missing, [], "mọi trường/cột Excel phải có trong EXCEL_MAP");
+  const extra = Object.keys(EXCEL_MAP).filter(key => !keys.includes(key));
+  assert.deepEqual(extra, [], "EXCEL_MAP không có khóa thừa so với Excel");
+});
+
+test("excel_dem_dung_49_truong_41_cot", () => {
+  const keys = excelKeys(CAU_HINH_PHIEU);
+  assert.equal(keys.filter(key => !key.includes("[].")).length, 49);
+  assert.equal(keys.filter(key => key.includes("[].")).length, 41);
+});
+
+test("duong_encounter_ton_tai", () => {
+  const encounter = emptyEncounter(ctx);
+  const entries = Object.entries(EXCEL_MAP).filter(([, item]) => item.noi === "encounter");
+  assert.ok(entries.length > 0);
+  for (const [key, item] of entries) assert.notEqual(docPointer(encounter, item.duong), undefined, `${key} -> ${item.duong}`);
+});
+
+test("khong_con_vung_tmh", () => {
+  const text = JSON.stringify(emptyEncounter(ctx).phieu_kham);
+  for (const word of ["tai", "mui", "vom", "hong", "co_pttt"]) assert.ok(!text.includes(`"${word}"`), `còn "${word}"`);
+  assert.ok(!("xn_me" in emptyEncounter(ctx).thong_tin_khac));
+});
+
+test("phieu_kham_2_0_co_dung_cac_khoa_tim_mach", () => {
+  const note = emptyEncounter(ctx).phieu_kham;
+  assert.deepEqual(Object.keys(note).sort(), [
+    "benh_su", "co_thuoc_dang_dung", "da_xu_ly", "di_ung", "ghi_chu_ket_qua", "hen_tai_kham", "huong_dieu_tri",
+    "kham_chuyen_khoa", "kham_khac", "kham_tim_mach_ho_hap", "kham_toan_than", "loi_dan", "ly_do_kham",
+    "thuoc_dang_dung", "tien_su_ban_than", "tien_su_gia_dinh", "tinh_trang_ra_vien",
+  ]);
+  assert.equal(note.kham_tim_mach_ho_hap, null);
+  assert.equal(note.kham_chuyen_khoa, null);
+});

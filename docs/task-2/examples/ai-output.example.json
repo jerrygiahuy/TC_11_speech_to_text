@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.1.0",
+  "schema_version": "2.0.0",
   "tom_tat": "Đau họng ba ngày, không sốt. Bác sĩ ghi nhận họng đỏ, chẩn đoán ban đầu viêm họng cấp; chưa chỉ định dịch vụ và hẹn tái khám sau ba ngày. Dữ liệu giả lập.",
   "phieu_kham": {
     "ly_do_kham": "Đau họng",
@@ -13,16 +13,10 @@
     },
     "co_thuoc_dang_dung": null,
     "thuoc_dang_dung": [],
-    "co_pttt": null,
     "kham_toan_than": null,
-    "kham_chuyen_khoa": {
-      "mo_ta": null,
-      "tai": null,
-      "mui": null,
-      "vom": null,
-      "hong": "Họng đỏ."
-    },
-    "kham_khac": null,
+    "kham_chuyen_khoa": null,
+    "kham_tim_mach_ho_hap": null,
+    "kham_khac": "Họng đỏ.",
     "chan_doan": [
       {
         "giai_doan": "ban_dau",
@@ -93,7 +87,7 @@
       "vai_tro": "benh_nhan"
     },
     {
-      "field_path": "/phieu_kham/kham_chuyen_khoa/hong",
+      "field_path": "/phieu_kham/kham_khac",
       "segment_ids": [
         "seg-2"
       ],

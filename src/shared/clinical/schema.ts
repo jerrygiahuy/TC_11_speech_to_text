@@ -5,7 +5,7 @@ import aiOutput from "../../../config/clinical/ai-output.schema.json";
 import transcript from "../../../config/clinical/transcript.schema.json";
 import type { AiOutput, Encounter, Transcript } from "./types";
 
-export const CLINICAL_SCHEMA_VERSION = "1.2.0" as const;
+export const CLINICAL_SCHEMA_VERSION = "2.0.0" as const;
 type JsonSchema = { [key: string]: unknown; properties?: Record<string, JsonSchema>; type?: string | string[]; enum?: unknown[]; anyOf?: JsonSchema[]; items?: JsonSchema; $ref?: string };
 const definitions = common.$defs as unknown as Record<string, JsonSchema>;
 

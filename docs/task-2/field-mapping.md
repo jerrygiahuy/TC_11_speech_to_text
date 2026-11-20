@@ -47,10 +47,9 @@ Ký hiệu: **QS** = thấy trong ghi chép màn thật; **UI** = có trong prot
 | Cảnh báo dị ứng header | Tổng hợp từ dị ứng hiện tại + lịch sử liên quan | View suy ra, không lưu một chuỗi cảnh báo độc lập dễ lệch; QS/UI |
 | Có thuốc đang dùng / `thuoc_dang_dung` | `phieu_kham.co_thuoc_dang_dung` | NB có/không có → true/false; chưa hỏi → null; QS/UI |
 | Chi tiết thuốc đang dùng | `phieu_kham.thuoc_dang_dung[]` | Tên, hàm lượng, cách dùng, trạng thái; **ĐX**, trường con màn thật chưa thấy |
-| Có PTTT / `co_pttt` | `phieu_kham.co_pttt` | Giữ như ghi nhận, không suy từ dịch vụ định làm; QS/UI |
 | Khám toàn thân / `kham_toan_than` | `phieu_kham.kham_toan_than` | Chỉ kết quả bác sĩ nói/nhập; QS/UI |
-| Khám chuyên khoa / `kham_chuyen_khoa` | `phieu_kham.kham_chuyen_khoa.mo_ta` | Chuỗi tổng hợp khi không thể tách vùng; QS/UI |
-| Tai / Mũi / Vòm / Họng | `phieu_kham.kham_chuyen_khoa.tai/mui/vom/hong` | Tách vùng nếu rõ; adapter ghép nhãn khi UI chỉ có một ô; QS/ĐX kiểu lưu |
+| Khám chuyên khoa / `kham_chuyen_khoa` | `phieu_kham.kham_chuyen_khoa` | Chuỗi; chỉ khi bác sĩ khám cơ quan ngoài tim phổi (vd bụng), có tên nhóm ở đầu. Schema 2.0.0 bỏ bốn vùng tai/mũi/vòm/họng; QS/UI |
+| Khám tim mạch, hô hấp / `kham_tim_mach_ho_hap` | `phieu_kham.kham_tim_mach_ho_hap` | Chuỗi (mới ở 2.0.0): câu về tim, mạch ngoại vi, tĩnh mạch cổ, lồng ngực, phổi; QS/UI |
 | Khám khác / `kham_khac` | `phieu_kham.kham_khac` | Không điền “bình thường” mặc định; QS/UI |
 | Chẩn đoán ban đầu / `icd_ban_dau`, `mo_ta_ban_dau` | `chan_doan[i]` có `noi_dung.giai_doan=ban_dau` | Mô tả từ bác sĩ; mã từ danh mục/bác sĩ; QS/UI |
 | Chẩn đoán ra viện / `icd_ra_vien`, `mo_ta_ra_vien` | `chan_doan[i]` có `noi_dung.giai_doan=ra_vien` | Không tự copy ban đầu; config cũ `chan_doan_chinh` không xác định giai đoạn nên cần adapter thận trọng; QS/UI |
@@ -72,7 +71,6 @@ Ký hiệu: **QS** = thấy trong ghi chép màn thật; **UI** = có trong prot
 | Chuyển nội soi / `chuyen_noi_soi` | `thong_tin_khac.chuyen_noi_soi` | Bác sĩ chọn, kiểm trạng thái Chờ KQ CLS; QS/UI |
 | Xác nhận bệnh tật / `xn_benh_tat` | `thong_tin_khac.xn_benh_tat` | Bác sĩ, không AI tự xác nhận; QS/UI |
 | Xác nhận BHXH / `xn_bhxh` | `thong_tin_khac.xn_bhxh` | Bác sĩ; QS/UI |
-| Xác nhận người mẹ / `xn_me` | `thong_tin_khac.xn_me` | Bác sĩ; QS/UI |
 | Bảng tiền sử / bệnh sử / dị ứng cũ | `lich_su[]` | Ngày, bác sĩ ID, khoa ID, loại phiếu/dị ứng, nội dung và source record; QS/UI |
 | Copy dữ liệu cũ | `lich_su[i].copied_to_path`, `nguon_du_lieu[]` | Ghi nguồn lịch sử, không biến thành lời nói hôm nay; QS/UI |
 

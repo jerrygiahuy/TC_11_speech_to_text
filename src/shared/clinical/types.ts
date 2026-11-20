@@ -25,14 +25,6 @@ export type CurrentMedication = {
   "trang_thai": "dang_dung" | "da_ngung" | "chua_ro" | null;
 };
 
-export type Exam = {
-  "mo_ta": string | null;
-  "tai": string | null;
-  "mui": string | null;
-  "vom": string | null;
-  "hong": string | null;
-};
-
 export type FollowUp = {
   "co_hen": boolean | null;
   "nguyen_van": string | null;
@@ -48,9 +40,9 @@ export type PhieuKham = {
   "di_ung": Allergy;
   "co_thuoc_dang_dung": boolean | null;
   "thuoc_dang_dung": Array<CurrentMedication>;
-  "co_pttt": boolean | null;
   "kham_toan_than": string | null;
-  "kham_chuyen_khoa": Exam;
+  "kham_chuyen_khoa": string | null;
+  "kham_tim_mach_ho_hap": string | null;
   "kham_khac": string | null;
   "chan_doan": Array<DiagnosisMention>;
   "ghi_chu_ket_qua": string | null;
@@ -218,9 +210,9 @@ export type PhieuKhamStorage = {
   "di_ung": Allergy;
   "co_thuoc_dang_dung": boolean | null;
   "thuoc_dang_dung": Array<CurrentMedication>;
-  "co_pttt": boolean | null;
   "kham_toan_than": string | null;
-  "kham_chuyen_khoa": Exam;
+  "kham_chuyen_khoa": string | null;
+  "kham_tim_mach_ho_hap": string | null;
   "kham_khac": string | null;
   "ghi_chu_ket_qua": string | null;
   "da_xu_ly": boolean | null;
@@ -311,7 +303,7 @@ export type ChangeDecision = {
 };
 
 export type Encounter = {
-  "schema_version": "1.2.0";
+  "schema_version": "2.0.0";
   "id": string;
   "revision": number;
   "patient_id": string;
@@ -347,7 +339,6 @@ export type Encounter = {
   "chuyen_noi_soi": boolean | null;
   "xn_benh_tat": boolean | null;
   "xn_bhxh": boolean | null;
-  "xn_me": boolean | null;
 };
   "ai_runs": Array<{
   "id": string;
@@ -377,7 +368,7 @@ export type Encounter = {
 };
 
 export type AiOutput = {
-  "schema_version": "1.1.0";
+  "schema_version": "2.0.0";
   "tom_tat": string | null;
   "phieu_kham": PhieuKham;
   "chi_dinh": ServiceGroupMention;

@@ -13,7 +13,7 @@
   ],
   "properties": {
     "schema_version": {
-      "const": "1.1.0"
+      "const": "2.0.0"
     },
     "tom_tat": {
       "type": [

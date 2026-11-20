@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Task 2 - shared design definitions v1",
+  "title": "CardioNote - shared definitions v2",
   "$defs": {
     "quantity": {
       "type": "object",
@@ -135,49 +135,6 @@
         }
       }
     },
-    "exam": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "mo_ta",
-        "tai",
-        "mui",
-        "vom",
-        "hong"
-      ],
-      "properties": {
-        "mo_ta": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "tai": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "mui": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "vom": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "hong": {
-          "type": [
-            "string",
-            "null"
-          ]
-        }
-      }
-    },
     "followUp": {
       "type": "object",
       "additionalProperties": false,
@@ -223,9 +180,9 @@
         "di_ung",
         "co_thuoc_dang_dung",
         "thuoc_dang_dung",
-        "co_pttt",
         "kham_toan_than",
         "kham_chuyen_khoa",
+        "kham_tim_mach_ho_hap",
         "kham_khac",
         "chan_doan",
         "ghi_chu_ket_qua",
@@ -275,12 +232,6 @@
             "$ref": "common.schema.json#/$defs/currentMedication"
           }
         },
-        "co_pttt": {
-          "type": [
-            "boolean",
-            "null"
-          ]
-        },
         "kham_toan_than": {
           "type": [
             "string",
@@ -288,7 +239,16 @@
           ]
         },
         "kham_chuyen_khoa": {
-          "$ref": "common.schema.json#/$defs/exam"
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "kham_tim_mach_ho_hap": {
+          "type": [
+            "string",
+            "null"
+          ]
         },
         "kham_khac": {
           "type": [
@@ -1214,9 +1174,9 @@
         "di_ung",
         "co_thuoc_dang_dung",
         "thuoc_dang_dung",
-        "co_pttt",
         "kham_toan_than",
         "kham_chuyen_khoa",
+        "kham_tim_mach_ho_hap",
         "kham_khac",
         "ghi_chu_ket_qua",
         "da_xu_ly",
@@ -1265,12 +1225,6 @@
             "$ref": "common.schema.json#/$defs/currentMedication"
           }
         },
-        "co_pttt": {
-          "type": [
-            "boolean",
-            "null"
-          ]
-        },
         "kham_toan_than": {
           "type": [
             "string",
@@ -1278,7 +1232,16 @@
           ]
         },
         "kham_chuyen_khoa": {
-          "$ref": "common.schema.json#/$defs/exam"
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "kham_tim_mach_ho_hap": {
+          "type": [
+            "string",
+            "null"
+          ]
         },
         "kham_khac": {
           "type": [

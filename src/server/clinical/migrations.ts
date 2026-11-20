@@ -1,24 +1,11 @@
-import { createHash } from "node:crypto";
 import { parseEncounter } from "@/shared/clinical/schema";
-import type { Encounter, JsonValue } from "@/shared/clinical/types";
+import type { Encounter } from "@/shared/clinical/types";
 
-/** Pure read migration. No fabricated recordings and no write-on-read side effect. */
+/** Đọc hồ sơ: chỉ nhận schema 2.0.0 (CardioNote). Hồ sơ TMH 1.x bị từ chối, không chuyển đổi, không ghi lại. */
 export function migrateEncounter(value: unknown): Encounter {
   if (!value || typeof value !== "object" || Array.isArray(value)) throw new Error("Hồ sơ không hợp lệ.");
-  const record = value as Record<string, unknown>;
-  if (record.schema_version === "1.2.0") return parseEncounter(value);
-  if (record.schema_version !== "1.1.0") throw new Error("Phiên bản hồ sơ không được hỗ trợ.");
-  if (["recording_sessions", "approval_versions", "change_decisions"].some(key => key in record)) throw new Error("Hồ sơ legacy có metadata phiên bản mới.");
-  // Validate all original clinical fields before retaining the immutable legacy snapshot.
-  const migrated = parseEncounter({ ...record, schema_version: "1.2.0", recording_sessions: [], approval_versions: [], change_decisions: [] });
-  if (migrated.audit.approved_at !== null) {
-    const snapshot = structuredClone(value) as JsonValue;
-    const digest = createHash("sha256").update(JSON.stringify(snapshot)).digest("hex");
-    migrated.approval_versions.push({
-      id: `legacy-${migrated.id}-r${migrated.revision}`, scope: "legacy", snapshot, digest,
-      approved_by: migrated.audit.approved_by!, approved_at: migrated.audit.approved_at,
-      sources: structuredClone(migrated.nguon_du_lieu),
-    });
-  }
-  return parseEncounter(migrated);
+  const version = (value as Record<string, unknown>).schema_version;
+  if (version === "2.0.0") return parseEncounter(value);
+  if (typeof version === "string" && version.startsWith("1.")) throw new Error("Hồ sơ TMH cũ (schema 1.x) không dùng được cho CardioNote.");
+  throw new Error("Phiên bản hồ sơ không được hỗ trợ.");
 }

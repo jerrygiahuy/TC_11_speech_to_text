@@ -39,7 +39,7 @@
   ],
   "properties": {
     "schema_version": {
-      "const": "1.2.0"
+      "const": "2.0.0"
     },
     "id": {
       "type": "string",
@@ -227,8 +227,7 @@
       "required": [
         "chuyen_noi_soi",
         "xn_benh_tat",
-        "xn_bhxh",
-        "xn_me"
+        "xn_bhxh"
       ],
       "properties": {
         "chuyen_noi_soi": {
@@ -244,12 +243,6 @@
           ]
         },
         "xn_bhxh": {
-          "type": [
-            "boolean",
-            "null"
-          ]
-        },
-        "xn_me": {
           "type": [
             "boolean",
             "null"

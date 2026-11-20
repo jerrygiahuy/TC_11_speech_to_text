@@ -3,7 +3,7 @@ import "server-only";
 /** Lỗi có mã HTTP; route dịch thẳng sang Response. Thông điệp an toàn để trả cho client. */
 export class ClinicHttpError extends Error {
   constructor(
-    readonly status: 400 | 403 | 404 | 500,
+    readonly status: 400 | 403 | 404 | 409 | 500,
     message: string,
   ) {
     super(message);

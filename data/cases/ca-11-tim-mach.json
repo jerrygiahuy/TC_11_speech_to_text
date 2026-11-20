@@ -1,0 +1,22 @@
+{
+  "id": "ca-11",
+  "ten": "Tái khám tăng huyết áp (giả lập)",
+  "hanh_chinh": {},
+  "input_noi": "Người bệnh đến khám vì tái khám tăng huyết áp. Bệnh sử: Theo dõi huyết áp tại nhà, thỉnh thoảng đau đầu nhẹ, không đau ngực, không khó thở. Tiền sử bản thân: Tăng huyết áp đã được theo dõi. Tiền sử gia đình: Gia đình có người tăng huyết áp. Dị ứng: Penicillin. Thuốc đang dùng: Amlodipine 5 mg, mỗi ngày một lần. Sinh hiệu: mạch 72 lần mỗi phút, huyết áp 148 trên 88 mi li mét thủy ngân, SpO2 98 phần trăm. Toàn thân tỉnh táo, tiếp xúc tốt. Khám tim phổi: Mạch quay đều, rõ. Tiếng T1, T2 đều rõ, không âm thổi. Phổi trong, không ran. Kết quả chính: Chức năng thận trong giới hạn được ghi nhận; Điện tâm đồ nhịp xoang. Chẩn đoán: Tăng huyết áp vô căn. Hướng điều trị: Tiếp tục theo dõi huyết áp và dùng thuốc theo đơn hiện tại. Lời dặn: Ghi nhật ký huyết áp, tái khám sau 30 ngày. Hẹn tái khám sau 30 ngày.",
+  "input_go_tat": "Tái khám THA. Theo dõi HA tại nhà, thỉnh thoảng đau đầu nhẹ, không đau ngực, không khó thở.",
+  "expected": {
+    "phieu_kham": {
+      "ly_do_kham": "tái khám tăng huyết áp",
+      "benh_su": "Theo dõi huyết áp tại nhà, thỉnh thoảng đau đầu nhẹ, không đau ngực, không khó thở",
+      "tien_su": "Tăng huyết áp đã được theo dõi",
+      "kham_toan_than": "Tỉnh táo, tiếp xúc tốt",
+      "kham_chuyen_khoa": "Mạch quay đều, rõ. Tiếng T1, T2 đều rõ, không âm thổi. Phổi trong, không ran",
+      "chan_doan_chinh": "Tăng huyết áp vô căn",
+      "huong_dieu_tri": "Tiếp tục theo dõi huyết áp và dùng thuốc theo đơn hiện tại",
+      "loi_dan": "Ghi nhật ký huyết áp, tái khám sau 30 ngày",
+      "hen_tai_kham": "30 ngày"
+    },
+    "chi_dinh": [],
+    "ke_don": []
+  }
+}

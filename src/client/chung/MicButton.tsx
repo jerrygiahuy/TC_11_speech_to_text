@@ -1,37 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { useEffect, useRef, useState } from "react";
+import { DenoisedMic } from "./DenoisedMic";
+import { GIAO_DIEN_MIC, NoiDungMic } from "./mic-ui";
 import { ASR_MAX_SECONDS, ASR_SAMPLE_RATE, type ApiLoi, type AsrKetQua, type AsrPhienMoi, type AsrTrangThai } from "@/shared/api";
-
-// Web Speech API chưa có trong kiểu DOM mặc định của TypeScript
-interface RecognitionResultEvent {
-  resultIndex: number;
-  results: ArrayLike<ArrayLike<{ transcript: string }> & { isFinal: boolean }>;
-}
-
-interface Recognition {
-  lang: string;
-  continuous: boolean;
-  interimResults: boolean;
-  start: () => void;
-  stop: () => void;
-  abort: () => void;
-  onresult: ((event: RecognitionResultEvent) => void) | null;
-  onerror: ((event: { error: string }) => void) | null;
-  onend: (() => void) | null;
-}
-
-type RecognitionConstructor = new () => Recognition;
-
-function getRecognition(): RecognitionConstructor | null {
-  const speechWindow = window as unknown as {
-    SpeechRecognition?: RecognitionConstructor;
-    webkitSpeechRecognition?: RecognitionConstructor;
-  };
-  return speechWindow.SpeechRecognition ?? speechWindow.webkitSpeechRecognition ?? null;
-}
-
-const subscribe = () => () => {};
+import type { RecordingBinding, RecordingHandle } from "@/shared/clinical/recording";
 
 const ERROR_MESSAGES: Record<string, string> = {
   "not-allowed": "Trình duyệt chưa được cấp quyền dùng micro.",
@@ -48,28 +21,33 @@ export interface GiaoDienMic {
   dangNghe: string;
   /** Thêm vào khi chưa nghe */
   cho: string;
-  /** Nhãn khi chưa nghe */
-  nhan: string;
 }
 
-interface Props {
+export interface MicButtonProps {
   onStart: () => void;
-  onText: (text: string) => void;
+  /** Kèm binding đã chụp lúc bắt đầu thu (nếu có beforeStart): chữ đến muộn vẫn thuộc đúng lượt và phiên đó */
+  onText: (text: string, binding?: RecordingBinding) => void;
   /** Gọi khi dừng nghe (bác sĩ bấm dừng, hết giờ hoặc lỗi) */
   onStop?: () => void;
+  /** Chữ tạm (câu đang nói dở) cập nhật liên tục; chuỗi rỗng khi hết. Có truyền thì nút không tự hiện chữ tạm bên dưới */
+  onInterim?: (text: string) => void;
+  /** Gọi ngay trước onStop: người nói khớp giọng bác sĩ đã đăng ký (null: chưa đăng ký hoặc không khớp rõ) */
+  onGiongBacSi?: (speaker: number | null) => void;
+  /** Giữ chỗ phiên ghi âm trước khi mở micro; lỗi (vd. micro đang dùng ở tab khác) thì không mở micro */
+  beforeStart?: () => Promise<RecordingBinding>;
+  /** Micro đã thu; handle.stop() chỉ xong sau khi chữ cuối đã đưa vào onText */
+  onCaptureReady?: (handle: RecordingHandle, binding: RecordingBinding) => void;
+  /** Đã giữ chỗ nhưng không mở được micro: bên ngoài cần chốt phiên đã giữ */
+  onCaptureFailed?: (binding: RecordingBinding) => void;
+  /** Nút Dừng nhờ bên ngoài điều phối (dừng micro, chốt phiên, lưu). Không truyền thì tự dừng tại chỗ */
+  onStopRequest?: () => void;
   giaoDien?: GiaoDienMic;
 }
 
-const MAC_DINH: GiaoDienMic = {
-  nut: "w-full rounded border py-2 font-medium disabled:cursor-wait disabled:opacity-70",
-  dangNghe: "border-warn bg-warn/10 text-warn-text",
-  cho: "border-primary text-primary hover:bg-soft",
-  nhan: "🎤 Nói",
-};
 
-/** Hỏi server chế độ nhận dạng: zipformer (trên máy) khi ASR_PROVIDER=zipformer và đã có model, còn lại dùng Web Speech */
-export function MicButton(props: Props) {
-  const [mode, setMode] = useState<"dang-kiem" | "zipformer" | "web">("dang-kiem");
+/** Only local Zipformer is allowed for medical audio; fail closed without cloud fallback. */
+export function MicButton(props: MicButtonProps) {
+  const [mode, setMode] = useState<"dang-kiem" | "zipformer" | "blocked">("dang-kiem");
   const [note, setNote] = useState<string | null>(null);
 
   useEffect(() => {
@@ -79,10 +57,18 @@ export function MicButton(props: Props) {
       .then((data: AsrTrangThai) => {
         if (!active) return;
         if (data.provider === "zipformer" && data.sanSang) return setMode("zipformer");
-        setMode("web");
-        if (data.provider === "zipformer") setNote("Chưa có model giọng nói trên máy (npm run tai-model-giong-noi), tạm dùng Web Speech.");
+        setMode("blocked");
+        setNote(data.provider === "zipformer"
+          ? `Máy chủ chưa thấy model giọng nói ở ${data.thuMucModel}`
+            + (data.thieu?.length ? ` (thiếu ${data.thieu.join(", ")})` : "")
+            + ". Chạy npm run tai-model-giong-noi ở thư mục dự án đang chạy server, hoặc gõ tay."
+          : "Chính sách dữ liệu y tế chỉ cho phép nhận dạng trên máy. Đặt ASR_PROVIDER=zipformer hoặc gõ tay.");
       })
-      .catch(() => active && setMode("web"));
+      .catch(() => {
+        if (!active) return;
+        setMode("blocked");
+        setNote("Không kiểm tra được nhận dạng trên máy. Hãy thử lại hoặc gõ tay.");
+      });
     return () => {
       active = false;
     };
@@ -90,12 +76,7 @@ export function MicButton(props: Props) {
 
   if (mode === "dang-kiem") return null;
   if (mode === "zipformer") return <ZipformerMic {...props} />;
-  return (
-    <>
-      <WebSpeechMic {...props} />
-      {note && <p className="mt-1 text-xs text-muted">{note}</p>}
-    </>
-  );
+  return <p role="status" className="mt-1 text-xs text-muted">{note}</p>;
 }
 
 /** Cứ chừng này mili giây gửi một mẩu âm thanh lên server */
@@ -135,6 +116,8 @@ interface Recording {
   timer: ReturnType<typeof setInterval> | undefined;
   /** Các mẩu gửi lần lượt theo thứ tự */
   queue: Promise<void>;
+  binding?: RecordingBinding;
+  stopping?: Promise<void>;
 }
 
 type KetQuaPhien = Partial<AsrKetQua & ApiLoi>;
@@ -144,17 +127,22 @@ type KetQuaPhien = Partial<AsrKetQua & ApiLoi>;
  * Server trả chữ tạm (câu đang nói dở, hiện in nghiêng) và câu đã chốt khi bác sĩ ngắt nghỉ (đưa vào ô nhập).
  * Âm thanh không ra khỏi máy chạy prototype và không được lưu.
  */
-function ZipformerMic({ onStart, onText, onStop, giaoDien = MAC_DINH }: Props) {
+function ZipformerMic({ onStart, onText, onStop, onInterim, onGiongBacSi, beforeStart, onCaptureReady, onCaptureFailed, onStopRequest, giaoDien = GIAO_DIEN_MIC }: MicButtonProps) {
+  // Khử nhiễu luôn bật (không hiện lựa chọn cho bác sĩ); chỉ chạy đường không khử nhiễu khi không có STT backend
+  const denoise = true;
   const [state, setState] = useState<"idle" | "starting" | "recording" | "stopping">("idle");
   const [seconds, setSeconds] = useState(0);
   const [interim, setInterim] = useState("");
   const [error, setError] = useState<string | null>(null);
   const recordingRef = useRef<Recording | null>(null);
+  const stoppingRef = useRef<Recording | null>(null);
   const onTextRef = useRef(onText);
+  const onInterimRef = useRef(onInterim);
 
   useEffect(() => {
     onTextRef.current = onText;
-  }, [onText]);
+    onInterimRef.current = onInterim;
+  }, [onText, onInterim]);
 
   const release = (rec: Recording) => {
     clearInterval(rec.timer);
@@ -174,11 +162,12 @@ function ZipformerMic({ onStart, onText, onStop, giaoDien = MAC_DINH }: Props) {
     [],
   );
 
-  const apply = async (res: Response) => {
+  const apply = async (res: Response, rec: Recording) => {
     const data = (await res.json()) as KetQuaPhien;
     if (!res.ok) throw new Error(data.error ?? "Không nhận dạng được.");
-    for (const cau of data.chot ?? []) onTextRef.current(cau);
+    for (const cau of data.chot ?? []) onTextRef.current(cau, rec.binding);
     setInterim(data.tam ?? "");
+    onInterimRef.current?.(data.tam ?? "");
   };
 
   /** Lấy các khối đã thu, đưa vào hàng đợi gửi lên server */
@@ -191,33 +180,45 @@ function ZipformerMic({ onStart, onText, onStop, giaoDien = MAC_DINH }: Props) {
         headers: { "Content-Type": "application/octet-stream" },
         body: pcm.buffer as ArrayBuffer,
       });
-      await apply(res);
+      await apply(res, rec);
     });
     rec.queue.catch((e: unknown) => {
       if (recordingRef.current !== rec) return;
       setError(e instanceof Error ? e.message : "Không nhận dạng được.");
-      void stop();
+      void stop().catch(() => undefined);
     });
   };
 
-  async function stop() {
-    const rec = recordingRef.current;
-    if (!rec) return;
+  /** Gọi lại khi đang dừng thì trả đúng lần dừng đó, để bên ngoài chỉ tiếp tục sau khi chữ cuối đã được giao. */
+  function stop(): Promise<void> {
+    const rec = recordingRef.current ?? stoppingRef.current;
+    if (!rec) return Promise.resolve();
+    if (rec.stopping) return rec.stopping;
     recordingRef.current = null;
+    stoppingRef.current = rec;
     setState("stopping");
     flush(rec);
     release(rec);
-    try {
-      await rec.queue.catch(() => undefined);
-      await apply(await fetch(`/api/asr/${rec.id}`, { method: "DELETE" }));
-    } catch (e) {
-      setError(e instanceof Error ? e.message : "Không nhận dạng được.");
-    } finally {
-      setInterim("");
-      setState("idle");
-      setSeconds(0);
-      onStop?.();
-    }
+    rec.stopping = (async () => {
+      let failure: unknown = null;
+      try {
+        await rec.queue.catch(() => undefined);
+        await apply(await fetch(`/api/asr/${rec.id}`, { method: "DELETE" }), rec);
+      } catch (e) {
+        failure = e;
+        setError(e instanceof Error ? e.message : "Không nhận dạng được.");
+      } finally {
+        stoppingRef.current = null;
+        setInterim("");
+        onInterimRef.current?.("");
+        setState("idle");
+        setSeconds(0);
+        onStop?.();
+      }
+      // Lỗi chốt câu cuối phải để bên điều phối giữ phiên lại và thử lại, không được coi là đã lưu.
+      if (failure) throw failure;
+    })();
+    return rec.stopping;
   }
 
   async function start() {
@@ -225,11 +226,14 @@ function ZipformerMic({ onStart, onText, onStop, giaoDien = MAC_DINH }: Props) {
     setState("starting");
     let stream: MediaStream | null = null;
     let ctx: AudioContext | null = null;
+    let binding: RecordingBinding | undefined;
     try {
+      // Giữ chỗ phiên trước: tab khác đang dùng micro này thì báo lỗi và không mở micro.
+      binding = await beforeStart?.();
       stream = await navigator.mediaDevices.getUserMedia({
         audio: { channelCount: 1, echoCancellation: true, noiseSuppression: true },
       });
-      const res = await fetch("/api/asr", { method: "POST" });
+      const res = await fetch("/api/asr", { method: "POST", headers: { "X-Clinical-Consent": "true" } });
       const data = (await res.json()) as Partial<AsrPhienMoi & ApiLoi>;
       if (!res.ok || !data.id) throw new Error(data.error ?? "Không mở được nhận dạng giọng nói.");
 
@@ -250,19 +254,21 @@ function ZipformerMic({ onStart, onText, onStop, giaoDien = MAC_DINH }: Props) {
       node.connect(ctx.destination);
 
       const startedAt = Date.now();
-      const rec: Recording = { id: data.id, ctx, stream, chunks, timer: undefined, queue: Promise.resolve() };
+      const rec: Recording = { id: data.id, ctx, stream, chunks, timer: undefined, queue: Promise.resolve(), binding };
       rec.timer = setInterval(() => {
         const elapsed = (Date.now() - startedAt) / 1000;
         setSeconds(Math.floor(elapsed));
-        if (elapsed >= ASR_MAX_SECONDS) void stop();
+        if (elapsed >= ASR_MAX_SECONDS) void (onStopRequest ? Promise.resolve(onStopRequest()) : stop()).catch(() => undefined);
         else flush(rec);
       }, CHUNK_MS);
       recordingRef.current = rec;
       setState("recording");
       onStart();
+      if (binding) onCaptureReady?.({ stop, cancel: () => { void stop().catch(() => undefined); } }, binding);
     } catch (e) {
       stream?.getTracks().forEach((track) => track.stop());
       void ctx?.close();
+      if (binding) onCaptureFailed?.(binding);
       setState("idle");
       setError(
         e instanceof DOMException && e.name === "NotAllowedError"
@@ -274,25 +280,23 @@ function ZipformerMic({ onStart, onText, onStop, giaoDien = MAC_DINH }: Props) {
     }
   }
 
+  if (denoise) return <DenoisedMic onStart={onStart} onText={onText} onStop={onStop} onInterim={onInterim} onGiongBacSi={onGiongBacSi} beforeStart={beforeStart} onCaptureReady={onCaptureReady} onCaptureFailed={onCaptureFailed} onStopRequest={onStopRequest} giaoDien={giaoDien} />;
+
   const clock = `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, "0")}`;
-  const label = {
-    idle: giaoDien.nhan,
-    starting: "Đang mở micro…",
-    recording: `⏹ Dừng nghe · ${clock}`,
-    stopping: "Đang chốt câu cuối…",
-  }[state];
+  const pha = ({ idle: "idle", starting: "opening", recording: "recording", stopping: "processing" } as const)[state];
+  // Đồng ý xử lý âm thanh y tế mặc định đã có (gửi kèm X-Clinical-Consent), không hỏi lại bằng ô đánh dấu.
   return (
     <div>
       <button
         type="button"
-        onClick={state === "recording" ? () => void stop() : () => void start()}
+        onClick={state === "recording" ? () => (onStopRequest ? onStopRequest() : void stop().catch(() => undefined)) : () => void start()}
         disabled={state === "starting" || state === "stopping"}
         aria-pressed={state === "recording"}
         className={`${giaoDien.nut} ${state === "recording" ? giaoDien.dangNghe : giaoDien.cho}`}
       >
-        {label}
+        <NoiDungMic pha={pha} clock={clock} />
       </button>
-      {interim && <p className="mt-1 text-sm text-muted italic">{interim}</p>}
+      {interim && !onInterim && <p className="mt-1 text-sm text-muted italic">{interim}</p>}
       {error && (
         <p role="alert" className="mt-1 text-sm text-warn-text">
           {error}
@@ -302,86 +306,3 @@ function ZipformerMic({ onStart, onText, onStop, giaoDien = MAC_DINH }: Props) {
   );
 }
 
-function WebSpeechMic({ onStart, onText, onStop, giaoDien = MAC_DINH }: Props) {
-  const supported = useSyncExternalStore(subscribe, () => getRecognition() !== null, () => false);
-  const [listening, setListening] = useState(false);
-  const [interim, setInterim] = useState("");
-  const [error, setError] = useState<string | null>(null);
-  const recognitionRef = useRef<Recognition | null>(null);
-  const wantListeningRef = useRef(false);
-
-  useEffect(
-    () => () => {
-      wantListeningRef.current = false;
-      recognitionRef.current?.abort();
-    },
-    [],
-  );
-
-  if (!supported) return null;
-
-  function start() {
-    const Constructor = getRecognition();
-    if (!Constructor) return;
-    const recognition = new Constructor();
-    recognition.lang = "vi-VN";
-    recognition.continuous = true;
-    recognition.interimResults = true;
-    recognition.onresult = (event) => {
-      let pending = "";
-      for (let i = event.resultIndex; i < event.results.length; i++) {
-        const result = event.results[i];
-        if (result.isFinal) onText(result[0].transcript.trim());
-        else pending += result[0].transcript;
-      }
-      setInterim(pending);
-    };
-    recognition.onerror = (event) => {
-      const message = ERROR_MESSAGES[event.error];
-      if (message) {
-        wantListeningRef.current = false;
-        setError(message);
-      }
-    };
-    recognition.onend = () => {
-      // Chrome tự ngắt khi im lặng; bác sĩ chưa bấm dừng thì nghe tiếp
-      if (wantListeningRef.current) {
-        recognition.start();
-      } else {
-        setListening(false);
-        setInterim("");
-        onStop?.();
-      }
-    };
-    recognitionRef.current = recognition;
-    wantListeningRef.current = true;
-    setError(null);
-    setListening(true);
-    onStart();
-    recognition.start();
-  }
-
-  function stop() {
-    wantListeningRef.current = false;
-    recognitionRef.current?.stop();
-  }
-
-  return (
-    <div>
-      <button
-        type="button"
-        onClick={listening ? stop : start}
-        aria-pressed={listening}
-        className={`${giaoDien.nut} ${listening ? giaoDien.dangNghe : giaoDien.cho}`}
-      >
-        {listening ? "⏹ Dừng nghe" : giaoDien.nhan}
-      </button>
-      {interim && <p className="mt-1 text-sm text-muted italic">{interim}</p>}
-      {error && (
-        <p role="alert" className="mt-1 text-sm text-warn-text">
-          {error}
-        </p>
-      )}
-    </div>
-  );
-}

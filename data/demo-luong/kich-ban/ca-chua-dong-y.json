@@ -1,0 +1,28 @@
+{
+  "id": "ca-chua-dong-y",
+  "ten": "Ca chưa đồng ý xử lý AI: chỉ chạy cục bộ",
+  "benh_nhan_id": "GIA-000456",
+  "mode": "dictation",
+  "dong_y_override": false,
+  "doan": [
+    {
+      "vai_tro": "bac_si",
+      "text": "bệnh nhân nam 35 tuổi tên trần văn mô phỏng điện thoại 0900000456 đến khám vì hồi hộp 2 tuần"
+    },
+    {
+      "vai_tro": "bac_si",
+      "text": "khám tim thấy nhịp đều chỉ định điện tâm đồ"
+    }
+  ],
+  "expected": {
+    "phai_che": [
+      "trần văn mô phỏng",
+      "0900000456"
+    ],
+    "phai_giu": [
+      "hồi hộp",
+      "điện tâm đồ"
+    ],
+    "bi_chan": false
+  }
+}

@@ -7,6 +7,10 @@ import { demChoTrong } from "./mau-cau";
 import type { EformData, Nguon, Truong } from "./types";
 
 export interface DongChiDinh {
+  /** Stable clinical ID after the first save. */
+  id?: string;
+  vi_tri?: string;
+  ben?: "phai" | "trai" | "hai_ben" | "khong_ap_dung" | null;
   ma: string;
   ten: string;
   so_luong: string;
@@ -54,7 +58,7 @@ const ANH_XA: { tu: string; den: string; nhan: string }[] = [
   { tu: "benh_su", den: "benh_su", nhan: "Bệnh sử" },
   { tu: "tien_su", den: "tien_su_ban_than", nhan: "Tiền sử bản thân" },
   { tu: "kham_toan_than", den: "kham_toan_than", nhan: "Khám toàn thân" },
-  { tu: "kham_chuyen_khoa", den: "kham_chuyen_khoa", nhan: "Khám chuyên khoa TMH" },
+  { tu: "kham_chuyen_khoa", den: "kham_chuyen_khoa", nhan: "Khám chuyên khoa" },
   { tu: "huong_dieu_tri", den: "huong_dieu_tri", nhan: "Hướng điều trị" },
   { tu: "loi_dan", den: "loi_dan", nhan: "Lời dặn & theo dõi" },
 ];
@@ -83,6 +87,8 @@ function nguonDong(match: MatchResult | undefined): Nguon {
 const O_CHON_MAC_DINH = new Set(["hen_tai_kham"]);
 
 export interface TuyChonDien {
+  /** Current scope: clinical note/services only; do not duplicate an initial diagnosis at discharge. */
+  clinicalOnly?: boolean;
   /** Phiếu mẫu: chỉ điền ô còn trống, ô đã có chữ (kể cả dữ liệu cũ, AI điền trước) giữ nguyên */
   chiOTrong?: boolean;
   /** Mã ICD10 đã tra sẵn (phiếu mẫu), dùng thay cho gợi ý theo từ khóa */
@@ -123,8 +129,10 @@ export function dienPhieu(
     const ma = tuyChon.icd || (goiYIcd(chanDoan, data.icd10, data.quyTac)[0]?.item.ma ?? "");
     dat("mo_ta_ban_dau", "Mô tả chẩn đoán ban đầu", chanDoan, "ai");
     dat("icd_ban_dau", "Chẩn đoán ban đầu (ICD10)", ma, "xem");
-    dat("mo_ta_ra_vien", "Mô tả chẩn đoán ra viện", chanDoan, "ai");
-    dat("icd_ra_vien", "Chẩn đoán ra viện (ICD10)", ma, "xem");
+    if (!tuyChon.clinicalOnly) {
+      dat("mo_ta_ra_vien", "Mô tả chẩn đoán ra viện", chanDoan, "ai");
+      dat("icd_ra_vien", "Chẩn đoán ra viện (ICD10)", ma, "xem");
+    }
   }
 
   const kemTheo = chu(pk.chan_doan_kem);
@@ -147,14 +155,14 @@ export function dienPhieu(
   const chiDinh = ((draft.chi_dinh ?? []) as Values[]).map((row, i) => ({
     ma: chu(row.ma_dich_vu),
     ten: chu(row.ten_dich_vu),
-    so_luong: chu(row.so_luong) || "1",
+    so_luong: chu(row.so_luong),
     ghi_chu: chu(row.ghi_chu),
     nguon: nguonDong(matches.chi_dinh?.[i]),
     ung_vien: matches.chi_dinh?.[i]?.candidates ?? [],
     tu_ai: true,
   }));
 
-  const donThuoc = ((draft.ke_don ?? []) as Values[]).map((row, i) => ({
+  const donThuoc = ((tuyChon.clinicalOnly ? [] : draft.ke_don ?? []) as Values[]).map((row, i) => ({
     ma: chu(row.ma_thuoc),
     ten: chu(row.ten_thuoc),
     ham_luong: chu(row.ham_luong),

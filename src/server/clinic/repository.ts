@@ -4,9 +4,11 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 import { z } from "zod";
 import { AppointmentSchema, PatientsFixtureSchema } from "@/shared/clinic/schema";
+import type { Encounter } from "@/shared/clinical/types";
 import type { Appointment, PatientProfile } from "@/shared/clinic/types";
 import { storeError } from "./errors";
-import { createFixtureEncounterSource, DEFAULT_CLINIC_DATA_DIR } from "./fixture-source";
+import { createClinicalEncounterSource } from "./clinical-source";
+import { DEFAULT_CLINIC_DATA_DIR } from "./fixture-source";
 import type { ClinicActor, EncounterRef, EncounterSource } from "./ports";
 
 const DirectorySchema = z.object({
@@ -26,6 +28,8 @@ export interface ClinicRepository {
   /** Mọi phiếu đã lưu của bệnh nhân ở cơ sở này (gồm phiếu bác sĩ khác). */
   listPatientEncounters(facilityId: string, patientId: string): EncounterRef[];
   listFacilityEncounters(facilityId: string): EncounterRef[];
+  /** Phiếu đầy đủ của đúng bệnh nhân và cơ sở; null nếu không có (kể cả nguồn không hỗ trợ). */
+  readEncounter(facilityId: string, patientId: string, encounterId: string): Encounter | null;
   doctorName(doctorId: string): string;
   facilityName(facilityId: string): string;
 }
@@ -49,7 +53,7 @@ function readValidated<S extends z.ZodType>(dir: string, name: string, schema: S
 
 export function createClinicRepository(options: ClinicRepositoryOptions = {}): ClinicRepository {
   const dir = options.dataDir ?? DEFAULT_CLINIC_DATA_DIR;
-  const source = options.source ?? createFixtureEncounterSource(dir);
+  const source = options.source ?? createClinicalEncounterSource();
   // Đọc lại mỗi lần gọi: dữ liệu demo nhỏ, và màn đọc luôn thấy fixture mới nhất.
   const appointments = () => readValidated(dir, "appointments.json", AppointmentListSchema);
   const patients = () => readValidated(dir, "patients.json", PatientsFixtureSchema);
@@ -75,6 +79,10 @@ export function createClinicRepository(options: ClinicRepositoryOptions = {}): C
         .filter((e) => e.facility_id === facilityId && e.patient_id === patientId),
     listFacilityEncounters: (facilityId) =>
       source.listByFacility(facilityId).filter((e) => e.facility_id === facilityId),
+    readEncounter: (facilityId, patientId, encounterId) => {
+      const record = source.read?.(facilityId, encounterId) ?? null;
+      return record && record.facility_id === facilityId && record.patient_id === patientId ? record : null;
+    },
     doctorName: (doctorId) => directory().doctors.find((d) => d.id === doctorId)?.name ?? doctorId,
     facilityName: (facilityId) =>
       directory().facilities.find((f) => f.id === facilityId)?.name ?? facilityId,
@@ -84,4 +92,9 @@ export function createClinicRepository(options: ClinicRepositoryOptions = {}): C
 let defaultRepository: ClinicRepository | undefined;
 export function getClinicRepository(): ClinicRepository {
   return (defaultRepository ??= createClinicRepository());
+}
+
+/** Chỉ cho test: thay kho mặc định (route và trang dùng kho này); truyền null để trở về kho thật. */
+export function setClinicRepositoryForTest(repo: ClinicRepository | null): void {
+  defaultRepository = repo ?? undefined;
 }

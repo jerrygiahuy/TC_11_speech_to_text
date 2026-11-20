@@ -10,7 +10,7 @@ import { getProviderName, loadTheme } from "@/server/du-lieu/config";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Trợ lý điền bệnh án TMH",
+  title: "Trợ lý điền bệnh án Tim mạch",
   description: "Prototype nhập một lần, điền ba chỗ. Chỉ dùng dữ liệu giả.",
 };
 

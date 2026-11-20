@@ -10,16 +10,24 @@ import fs from "node:fs";
 import path from "node:path";
 import { OfflineRecognizer, Vad } from "sherpa-onnx-node";
 import { ASR_MAX_SECONDS, ASR_SAMPLE_RATE, type AsrKetQua } from "@/shared/api";
+import { MODEL_GIONG_NOI, VAD_GIONG_NOI } from "@/shared/model-giong-noi";
 
-const MODEL = "sherpa-onnx-zipformer-vi-30M-int8-2026-02-09";
-const THU_MUC = path.join(/*turbopackIgnore: true*/ process.cwd(), "models");
+// Model Zipformer ~70 MB, dùng chung thư mục với trang /stt (xem src/shared/model-giong-noi.ts)
+const GOC = /*turbopackIgnore: true*/ process.cwd();
+const tuGoc = (rel: string) => path.join(GOC, ...rel.split("/"));
+const M = MODEL_GIONG_NOI;
 const FILE = {
-  encoder: path.join(THU_MUC, MODEL, "encoder.int8.onnx"),
-  decoder: path.join(THU_MUC, MODEL, "decoder.onnx"),
-  joiner: path.join(THU_MUC, MODEL, "joiner.int8.onnx"),
-  tokens: path.join(THU_MUC, MODEL, "tokens.txt"),
+  encoder: tuGoc(`${M.thuMuc}/${M.file.encoder}`),
+  decoder: tuGoc(`${M.thuMuc}/${M.file.decoder}`),
+  joiner: tuGoc(`${M.thuMuc}/${M.file.joiner}`),
+  tokens: tuGoc(`${M.thuMuc}/${M.file.tokens}`),
 };
-const VAD_FILE = path.join(THU_MUC, "silero_vad.onnx");
+const VAD_FILE = tuGoc(VAD_GIONG_NOI);
+/** Các file cần có, dạng đường dẫn tương đối tính từ gốc dự án (để hiện cho người dùng) */
+const CAN_CO = [
+  ...[M.file.encoder, M.file.decoder, M.file.joiner, M.file.tokens].map((f) => `${M.thuMuc}/${f}`),
+  VAD_GIONG_NOI,
+];
 /** Cửa sổ của Silero VAD ở 16 kHz */
 const VAD_WINDOW = 512;
 /** Một câu dài hơn mức này thì VAD tự cắt, nên chữ tạm cũng chỉ cần nhận dạng tối đa chừng ấy */
@@ -30,17 +38,23 @@ const INTERIM_STEP = 0.4 * ASR_SAMPLE_RATE;
 const IDLE_MS = 60_000;
 
 export function getAsrProvider(): string {
-  return process.env.ASR_PROVIDER?.trim() || "web";
+  return process.env.ASR_PROVIDER?.trim() || "zipformer";
+}
+
+/** File model còn thiếu, đường dẫn tương đối tính từ gốc dự án; rỗng là đủ */
+export function fileModelThieu(): string[] {
+  return CAN_CO.filter((rel) => !fs.existsSync(tuGoc(rel)));
 }
 
 export function modelSanSang(): boolean {
-  return [...Object.values(FILE), VAD_FILE].every((file) => fs.existsSync(file));
+  return fileModelThieu().length === 0;
 }
 
 let recognizer: OfflineRecognizer | null = null;
 
 function getRecognizer(): OfflineRecognizer {
-  if (!modelSanSang()) throw new Error("Chưa có model giọng nói. Chạy: npm run tai-model-giong-noi");
+  const thieu = fileModelThieu();
+  if (thieu.length) throw new Error(`Chưa có model giọng nói (thiếu ${thieu.join(", ")}). Chạy: npm run tai-model-giong-noi`);
   recognizer ??= new OfflineRecognizer({
     featConfig: { sampleRate: ASR_SAMPLE_RATE, featureDim: 80 },
     modelConfig: { transducer: FILE, tokens: FILE.tokens, numThreads: 2, provider: "cpu", debug: 0 },

@@ -51,6 +51,12 @@ export const PatientProfileSchema = z.object({
   date_of_birth: ClinicDateSchema.nullable(),
   gender: z.string().nullable(),
   insurance: z.object({ bhyt: InsuranceInfoSchema, bao_lanh: InsuranceInfoSchema }),
+  /** Trường giả phục vụ demo luồng che PII; tùy chọn để fixture cũ vẫn hợp lệ. */
+  dong_y_xu_ly_ai: z.object({ trang_thai: z.boolean(), luc: z.string() }).optional(),
+  nguoi_nha: z.array(z.object({ ho_ten: z.string(), quan_he: z.string(), dien_thoai: z.string() })).optional(),
+  noi_lam_viec: z.string().optional(),
+  dia_chi: z.string().optional(),
+  dien_thoai: z.string().optional(),
 });
 
 export const AppointmentSchema = z.object({

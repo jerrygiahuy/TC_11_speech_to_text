@@ -1,71 +1,59 @@
 {
-  "_ghi_chu": "DỮ LIỆU GIẢ, tự tạo cho demo. Không phải bệnh nhân hay nhân viên thật.",
+  "_ghi_chu": "Hồ sơ giả mặc định cho môi trường demo.",
   "dang_nhap": "user_bs01",
-  "co_so": "Cơ sở mô phỏng / Khu khám TMH",
+  "co_so": "Cơ sở mô phỏng / Khu khám ngoại trú",
   "pid": "GIA-000123",
   "ma_luot_kham": "LK-GIA-0456",
   "ho_ten": "Nguyễn Thị Giả",
   "gioi_tinh": "Nữ",
-  "canh_bao_di_ung": "Penicillin",
-  "chinh_sua_cuoi": { "nguoi": "user_dd01", "luc": "09/11/2026 08:52" },
+  "canh_bao_di_ung": "",
+  "chinh_sua_cuoi": {
+    "nguoi": "user_dd01",
+    "luc": "09/11/2026 08:52"
+  },
   "danh_gia_ban_dau": [
-    { "nhan": "Điều dưỡng đánh giá", "gia_tri": "ĐD. X (user_dd01)" },
-    { "nhan": "Mức độ đau", "gia_tri": "4/10, tai phải" },
-    { "nhan": "Nguy cơ ngã", "gia_tri": "Thấp" },
-    { "nhan": "Tình trạng dinh dưỡng", "gia_tri": "Bình thường" }
+    {
+      "nhan": "Điều dưỡng đánh giá",
+      "gia_tri": "ĐD. X (user_dd01)"
+    },
+    {
+      "nhan": "Mức độ đau",
+      "gia_tri": "4/10, tai phải"
+    },
+    {
+      "nhan": "Nguy cơ ngã",
+      "gia_tri": "Thấp"
+    },
+    {
+      "nhan": "Tình trạng dinh dưỡng",
+      "gia_tri": "Bình thường"
+    }
   ],
-  "sinh_hieu": { "mach": 82, "nhiet_do": 37.6, "ha_tam_thu": 122, "ha_tam_truong": 78, "spo2": 98, "nhip_tho": 18, "chieu_cao": 160, "can_nang": 56 },
+  "sinh_hieu": {
+    "mach": 82,
+    "nhiet_do": 37.6,
+    "ha_tam_thu": 122,
+    "ha_tam_truong": 78,
+    "spo2": 98,
+    "nhip_tho": 18,
+    "chieu_cao": 160,
+    "can_nang": 56
+  },
   "bac_si_kham": "BS. A",
-  "phong_kham": "Phòng khám TMH 02",
+  "phong_kham": "Phòng khám ngoại trú",
   "bac_si_chinh": "BS. A",
   "trang_thai": "Đang khám",
   "lich_su": {
-    "tien_su_ban_than": [
-      { "ngay": "14/08/2026", "bac_si": "BS. B", "khoa": "Tai Mũi Họng", "noi_dung": "Viêm tai giữa mạn tính tai phải. Viêm mũi dị ứng. Tăng huyết áp độ 1." },
-      { "ngay": "03/03/2026", "bac_si": "BS. C", "khoa": "Tai Mũi Họng", "noi_dung": "Viêm tai giữa mạn tính tai phải. Viêm mũi dị ứng." },
-      { "ngay": "20/11/2025", "bac_si": "BS. D", "khoa": "Nội tổng quát", "noi_dung": "Tăng huyết áp độ 1, phát hiện năm 2023. Mổ ruột thừa năm 2015." },
-      { "ngay": "11/06/2025", "bac_si": "BS. B", "khoa": "Tai Mũi Họng", "noi_dung": "Viêm mũi dị ứng từ năm 2020. Không có gì đặc biệt khác." }
-    ],
-    "tien_su_gia_dinh": [
-      { "ngay": "14/08/2026", "bac_si": "BS. B", "khoa": "Tai Mũi Họng", "noi_dung": "Mẹ viêm mũi dị ứng." },
-      { "ngay": "20/11/2025", "bac_si": "BS. D", "khoa": "Nội tổng quát", "noi_dung": "Bố tăng huyết áp. Mẹ viêm mũi dị ứng." }
-    ],
-    "benh_su": [
-      { "ngay": "14/08/2026", "bac_si": "BS. B", "khoa": "Tai Mũi Họng", "noi_dung": "Chảy dịch tai phải 1 tuần. Nghe kém tai phải. Nội soi: màng nhĩ phải thủng trung tâm. Điều trị nhỏ tai, hẹn tái khám sau 10 ngày." },
-      { "ngay": "03/03/2026", "bac_si": "BS. C", "khoa": "Tai Mũi Họng", "noi_dung": "Chảy dịch tai phải 5 ngày. Nghe kém tai phải. Không sốt. Đỡ sau 1 đợt điều trị." },
-      { "ngay": "20/11/2025", "bac_si": "BS. D", "khoa": "Nội tổng quát", "noi_dung": "Khám định kỳ huyết áp. Không có triệu chứng tai mũi họng." },
-      { "ngay": "11/06/2025", "bac_si": "BS. B", "khoa": "Tai Mũi Họng", "noi_dung": "Hắt hơi, ngạt mũi 2 tuần theo mùa. Đỡ sau xịt mũi." }
-    ],
-    "di_ung": [
-      { "ngay": "20/11/2025", "loai_phieu": "Phiếu khám ngoại trú", "loai": "Thuốc", "thong_tin": "Penicillin: nổi mẩn toàn thân", "nguoi": "user_bs04" },
-      { "ngay": "11/06/2025", "loai_phieu": "Đánh giá điều dưỡng", "loai": "Thuốc", "thong_tin": "Penicillin: nổi mẩn", "nguoi": "user_dd02" }
-    ]
+    "tien_su_ban_than": [],
+    "tien_su_gia_dinh": [],
+    "benh_su": [],
+    "di_ung": []
   },
-  "xet_nghiem": [
-    { "ngay": "14/08/2026", "muc": [{ "ten": "Bạch cầu", "ket_qua": "8,2 G/L (giả)" }, { "ten": "CRP", "ket_qua": "4 mg/L (giả)" }] }
-  ],
-  "chan_doan_hinh_anh": [
-    { "ngay": "14/08/2026", "muc": [{ "ten": "CT xương thái dương", "ket_qua": "Mờ hòm nhĩ phải (giả)" }] }
-  ],
-  "can_lam_sang": [
-    { "ngay": "14/08/2026", "muc": [{ "ten": "Đo thính lực đơn âm", "ket_qua": "Nghe kém dẫn truyền tai phải, PTA 38 dB (giả)" }] },
-    { "ngay": "03/03/2026", "muc": [{ "ten": "Nội soi tai", "ket_qua": "Màng nhĩ phải thủng trung tâm (giả)" }] }
-  ],
+  "xet_nghiem": [],
+  "chan_doan_hinh_anh": [],
+  "can_lam_sang": [],
   "dong_bo_cls": "09/11/2026 08:40",
   "gia_tri": {
-    "thoi_gian_kham": "2026-11-09T09:15",
-    "noi_gioi_thieu": "Tự đến",
-    "ly_do": "Đau tai phải, chảy mủ tai phải 4 ngày",
-    "di_ung": "Có",
-    "di_ung_loai": "Thuốc",
-    "di_ung_mo_ta": "Penicillin: nổi mẩn toàn thân",
-    "benh_su": "Đau tai phải 4 ngày. Chảy mủ vàng tai phải từ 2 ngày nay, nghe kém tai phải. Sốt nhẹ. Không chóng mặt. Đã tự nhỏ thuốc tai không rõ loại, không đỡ.",
-    "thuoc_dang_dung": "NB có",
-    "co_pttt": "Không",
-    "da_xu_ly": "Không",
-    "hen_tai_kham": "Không",
-    "xn_benh_tat": "Không",
-    "xn_bhxh": "Không",
-    "xn_me": "Không"
+    "thoi_gian_kham": "2026-11-09T09:15"
   }
 }

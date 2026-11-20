@@ -1,0 +1,1051 @@
+{
+  "_nguon": "Form Ngoại trú/Phiếu khám ngoại trú/Danh sách field – Phiếu khám ngoại trú (Tim mạch) 1.xlsx, sheet PhieuKhamNgoaiTru",
+  "_ghi_chu": "Sinh một lần từ Excel. Ví dụ giá trị là dữ liệu tự bịa trong Excel.",
+  "phien_ban": 1,
+  "phan": [
+    {
+      "tieu_de": "1. Đánh giá chung",
+      "muc": [
+        {
+          "tieu_de": "Đánh giá chung",
+          "truong": [
+            {
+              "nhan": "Mạch (nhịp/phút)",
+              "khoa": "mach",
+              "kieu": "so",
+              "vi_du": "80",
+              "dinh_dang": "nhịp/phút",
+              "cach_nhap": "tu_dong",
+              "bat_buoc": "khong",
+              "ai_dien": "khong"
+            },
+            {
+              "nhan": "Nhiệt độ (độ C)",
+              "khoa": "nhiet_do",
+              "kieu": "so",
+              "vi_du": "36.8",
+              "dinh_dang": "độ C, dấu chấm thập phân",
+              "cach_nhap": "tu_dong",
+              "bat_buoc": "khong",
+              "ai_dien": "khong"
+            },
+            {
+              "nhan": "Huyết áp (mmHg)",
+              "khoa": "huyet_ap",
+              "kieu": "chu_ngan",
+              "vi_du": "135/80",
+              "dinh_dang": "mmHg, 1 ô dạng tâm thu/tâm trương",
+              "cach_nhap": "tu_dong",
+              "bat_buoc": "khong",
+              "ai_dien": "khong",
+              "khoa_con": [
+                "huyet_ap_tam_thu",
+                "huyet_ap_tam_truong"
+              ]
+            },
+            {
+              "nhan": "SpO2 (%)",
+              "khoa": "spo2",
+              "kieu": "so",
+              "vi_du": "98",
+              "dinh_dang": "%",
+              "cach_nhap": "tu_dong",
+              "bat_buoc": "khong",
+              "ai_dien": "khong"
+            },
+            {
+              "nhan": "Nhịp thở (lần/phút)",
+              "khoa": "nhip_tho",
+              "kieu": "so",
+              "vi_du": "18",
+              "dinh_dang": "lần/phút",
+              "cach_nhap": "tu_dong",
+              "bat_buoc": "khong",
+              "ai_dien": "khong"
+            },
+            {
+              "nhan": "Chiều cao (cm)",
+              "khoa": "chieu_cao",
+              "kieu": "so",
+              "vi_du": "158",
+              "dinh_dang": "cm",
+              "cach_nhap": "tu_dong",
+              "bat_buoc": "khong",
+              "ai_dien": "khong"
+            },
+            {
+              "nhan": "Cân nặng (kg)",
+              "khoa": "can_nang",
+              "kieu": "so",
+              "vi_du": "58.5",
+              "dinh_dang": "kg, dấu chấm thập phân",
+              "cach_nhap": "tu_dong",
+              "bat_buoc": "khong",
+              "ai_dien": "khong"
+            },
+            {
+              "nhan": "BMI",
+              "khoa": "bmi",
+              "kieu": "so",
+              "vi_du": "23.43",
+              "dinh_dang": "2 chữ số thập phân",
+              "cach_nhap": "tu_dong",
+              "bat_buoc": "khong",
+              "ai_dien": "khong"
+            },
+            {
+              "nhan": "Phòng khám",
+              "khoa": "phong_kham",
+              "kieu": "chu_ngan",
+              "vi_du": "PK Nội tim mạch",
+              "cach_nhap": "tu_dong",
+              "bat_buoc": "khong",
+              "ai_dien": "khong"
+            },
+            {
+              "nhan": "Bác sĩ khám",
+              "khoa": "bac_si_kham",
+              "kieu": "chu_ngan",
+              "vi_du": "(tên đăng nhập)",
+              "dinh_dang": "Tên đăng nhập",
+              "cach_nhap": "tu_dong",
+              "bat_buoc": "khong",
+              "ai_dien": "khong"
+            },
+            {
+              "nhan": "Thời gian khám",
+              "khoa": "thoi_gian_kham",
+              "kieu": "ngay_gio",
+              "vi_du": "09:20 19/11/2025",
+              "dinh_dang": "HH:mm dd/mm/yyyy (giờ trước ngày)",
+              "cach_nhap": "tu_dong",
+              "bat_buoc": "chua_ro",
+              "ai_dien": "khong",
+              "bien_doi": "Đổi từ dạng chuẩn sang HH:mm dd/mm/yyyy"
+            }
+          ]
+        },
+        {
+          "tieu_de": "Nơi giới thiệu",
+          "truong": [
+            {
+              "nhan": "Nơi giới thiệu",
+              "khoa": "noi_gioi_thieu",
+              "kieu": "chon_1",
+              "vi_du": "Tự đến",
+              "cach_nhap": "chon",
+              "bat_buoc": "chua_ro",
+              "ai_dien": "chua_ro",
+              "gia_tri_cho_phep": [
+                "Cơ quan y tế",
+                "Tự đến"
+              ]
+            }
+          ]
+        },
+        {
+          "tieu_de": "Lý do khám",
+          "truong": [
+            {
+              "nhan": "Lý do đến khám (Hiển thị trên báo cáo y tế)",
+              "khoa": "ly_do_kham",
+              "kieu": "chu_dai",
+              "vi_du": "Đau ngực khi gắng sức 2 tuần nay",
+              "cach_nhap": "go_tay",
+              "bat_buoc": "chua_ro",
+              "ai_dien": "co"
+            }
+          ]
+        },
+        {
+          "tieu_de": "Tiền sử bệnh",
+          "truong": [
+            {
+              "nhan": "Bản thân",
+              "khoa": "tien_su_ban_than",
+              "kieu": "chu_dai",
+              "vi_du": "THA 5 năm, ĐTĐ type 2. Rối loạn lipid máu.",
+              "dinh_dang": "Văn bản tự do, hay viết tắt",
+              "cach_nhap": "go_tay",
+              "bat_buoc": "chua_ro",
+              "ai_dien": "co"
+            },
+            {
+              "nhan": "Gia đình",
+              "khoa": "tien_su_gia_dinh",
+              "kieu": "chu_dai",
+              "vi_du": "- Mẹ: THA\n- Bố: ĐTĐ type 2",
+              "dinh_dang": "Văn bản tự do, mỗi người một dòng, hay có gạch đầu dòng",
+              "cach_nhap": "go_tay",
+              "bat_buoc": "chua_ro",
+              "ai_dien": "co"
+            },
+            {
+              "nhan": "Thông tin khai thác tiền sử bệnh",
+              "khoa": "lich_su_tien_su",
+              "kieu": "bang_lap",
+              "vi_du": "(mỗi dòng là một lần khám trước)",
+              "cach_nhap": "chi_doc",
+              "bat_buoc": "khong",
+              "ai_dien": "khong",
+              "cot": [
+                {
+                  "nhan": "Ngày khám",
+                  "khoa": "ngay_kham",
+                  "kieu": "ngay_gio",
+                  "vi_du": "08:40 02/10/2026",
+                  "dinh_dang": "HH:mm dd/mm/yyyy",
+                  "cach_nhap": "chi_doc",
+                  "bat_buoc": "khong",
+                  "ai_dien": "khong"
+                },
+                {
+                  "nhan": "Bác sĩ khám",
+                  "khoa": "bac_si_kham",
+                  "kieu": "chu_ngan",
+                  "vi_du": "(tên đăng nhập)",
+                  "cach_nhap": "chi_doc",
+                  "bat_buoc": "khong",
+                  "ai_dien": "khong"
+                },
+                {
+                  "nhan": "Khoa Phòng",
+                  "khoa": "khoa_phong",
+                  "kieu": "chu_ngan",
+                  "vi_du": "PK Tim mạch",
+                  "cach_nhap": "chi_doc",
+                  "bat_buoc": "khong",
+                  "ai_dien": "khong"
+                },
+                {
+                  "nhan": "Tiền sử bệnh",
+                  "khoa": "tien_su",
+                  "kieu": "chu_dai",
+                  "vi_du": "THA. Rối loạn lipid máu. HP âm tính (2025).",
+                  "dinh_dang": "Văn bản tự do",
+                  "cach_nhap": "chi_doc",
+                  "bat_buoc": "khong",
+                  "ai_dien": "khong"
+                }
+              ],
+              "nut": [
+                "Copy"
+              ]
+            },
+            {
+              "nhan": "Thông tin khai thác tiền sử bệnh của người thân",
+              "khoa": "lich_su_tien_su_gia_dinh",
+              "kieu": "bang_lap",
+              "vi_du": "(mỗi dòng là một lần khám trước)",
+              "cach_nhap": "chi_doc",
+              "bat_buoc": "khong",
+              "ai_dien": "khong",
+              "cot": [
+                {
+                  "nhan": "Ngày khám",
+                  "khoa": "ngay_kham",
+                  "kieu": "ngay_gio",
+                  "vi_du": "10:05 05/09/2026",
+                  "dinh_dang": "HH:mm dd/mm/yyyy",
+                  "cach_nhap": "chi_doc",
+                  "bat_buoc": "khong",
+                  "ai_dien": "khong"
+                },
+                {
+                  "nhan": "Bác sĩ khám",
+                  "khoa": "bac_si_kham",
+                  "kieu": "chu_ngan",
+                  "vi_du": "(tên đăng nhập)",
+                  "cach_nhap": "chi_doc",
+                  "bat_buoc": "khong",
+                  "ai_dien": "khong"
+                },
+                {
+                  "nhan": "Khoa Phòng",
+                  "khoa": "khoa_phong",
+                  "kieu": "chu_ngan",
+                  "vi_du": "Liên chuyên khoa",
+                  "cach_nhap": "chi_doc",
+                  "bat_buoc": "khong",
+                  "ai_dien": "khong"
+                },
+                {
+                  "nhan": "Tiền sử bệnh",
+                  "khoa": "tien_su",
+                  "kieu": "chu_dai",
+                  "vi_du": "Mẹ: THA. Bố: ĐTĐ type 2",
+                  "dinh_dang": "Văn bản tự do",
+                  "cach_nhap": "chi_doc",
+                  "bat_buoc": "khong",
+                  "ai_dien": "khong"
+                }
+              ],
+              "nut": [
+                "Copy"
+              ]
+            }
+          ]
+        },
+        {
+          "tieu_de": "Dị ứng",
+          "truong": [
+            {
+              "nhan": "Tiền sử dị ứng",
+              "khoa": "co_di_ung",
+              "kieu": "chon_1",
+              "vi_du": "Không",
+              "cach_nhap": "chon",
+              "bat_buoc": "chua_ro",
+              "ai_dien": "chua_ro",
+              "gia_tri_cho_phep": [
+                "Có",
+                "Không",
+                "Không xác định"
+              ]
+            },
+            {
+              "nhan": "Thông tin khai thác tiền sử dị ứng",
+              "khoa": "lich_su_di_ung",
+              "kieu": "bang_lap",
+              "vi_du": "(mỗi dòng là một lần cập nhật)",
+              "cach_nhap": "chi_doc",
+              "bat_buoc": "khong",
+              "ai_dien": "khong",
+              "cot": [
+                {
+                  "nhan": "Ngày cập nhật",
+                  "khoa": "ngay_cap_nhat",
+                  "kieu": "ngay_gio",
+                  "vi_du": "10:20 05/09/2026",
+                  "dinh_dang": "HH:mm dd/mm/yyyy",
+                  "cach_nhap": "chi_doc",
+                  "bat_buoc": "khong",
+                  "ai_dien": "khong"
+                },
+                {
+                  "nhan": "Loại phiếu",
+                  "khoa": "loai_phieu",
+                  "kieu": "chu_ngan",
+                  "vi_du": "Phiếu đánh giá ban đầu ngoại trú",
+                  "cach_nhap": "chi_doc",
+                  "bat_buoc": "khong",
+                  "ai_dien": "khong"
+                },
+                {
+                  "nhan": "Loại dị ứng",
+                  "khoa": "loai_di_ung",
+                  "kieu": "chon_1",
+                  "vi_du": "Thuốc",
+                  "cach_nhap": "chi_doc",
+                  "bat_buoc": "khong",
+                  "ai_dien": "khong",
+                  "ghi_chu_gia_tri": "Chưa rõ (thuốc, thức ăn...?)"
+                },
+                {
+                  "nhan": "Thông tin dị ứng",
+                  "khoa": "thong_tin_di_ung",
+                  "kieu": "chu_dai",
+                  "vi_du": "Penicillin: nổi mẩn",
+                  "dinh_dang": "Văn bản tự do",
+                  "cach_nhap": "chi_doc",
+                  "bat_buoc": "khong",
+                  "ai_dien": "khong"
+                },
+                {
+                  "nhan": "Người cập nhật",
+                  "khoa": "nguoi_cap_nhat",
+                  "kieu": "chu_ngan",
+                  "vi_du": "(tên đăng nhập)",
+                  "cach_nhap": "chi_doc",
+                  "bat_buoc": "khong",
+                  "ai_dien": "khong"
+                }
+              ],
+              "nut": [
+                "Copy",
+                "Lấy LS dị ứng từ..."
+              ]
+            }
+          ]
+        },
+        {
+          "tieu_de": "Bệnh sử",
+          "truong": [
+            {
+              "nhan": "Bệnh sử (Hiển thị trên báo cáo y tế)",
+              "khoa": "benh_su",
+              "kieu": "chu_dai",
+              "vi_du": "Phát hiện THA 6 năm, đang dùng Amlodipin 5mg x1v/ngày. HA ở nhà 130-140/80-90 mmHg. 1 tuần nay đau ngực trái khi leo cầu thang, nghỉ đỡ. Không khó thở, không phù.",
+              "dinh_dang": "Văn bản tự do, dài, nhiều viết tắt",
+              "cach_nhap": "go_tay",
+              "bat_buoc": "chua_ro",
+              "ai_dien": "co"
+            },
+            {
+              "nhan": "Thông tin khai thác bệnh sử",
+              "khoa": "lich_su_benh_su",
+              "kieu": "bang_lap",
+              "vi_du": "(mỗi dòng là một lần khám trước)",
+              "cach_nhap": "chi_doc",
+              "bat_buoc": "khong",
+              "ai_dien": "khong",
+              "cot": [
+                {
+                  "nhan": "Ngày khám",
+                  "khoa": "ngay_kham",
+                  "kieu": "ngay_gio",
+                  "vi_du": "14:10 20/08/2026",
+                  "dinh_dang": "HH:mm dd/mm/yyyy",
+                  "cach_nhap": "chi_doc",
+                  "bat_buoc": "khong",
+                  "ai_dien": "khong"
+                },
+                {
+                  "nhan": "Bác sĩ khám",
+                  "khoa": "bac_si_kham",
+                  "kieu": "chu_ngan",
+                  "vi_du": "(tên đăng nhập)",
+                  "cach_nhap": "chi_doc",
+                  "bat_buoc": "khong",
+                  "ai_dien": "khong"
+                },
+                {
+                  "nhan": "Khoa",
+                  "khoa": "khoa",
+                  "kieu": "chu_ngan",
+                  "vi_du": "PK Tim mạch",
+                  "cach_nhap": "chi_doc",
+                  "bat_buoc": "khong",
+                  "ai_dien": "khong"
+                },
+                {
+                  "nhan": "Bệnh sử",
+                  "khoa": "benh_su",
+                  "kieu": "chu_dai",
+                  "vi_du": "THA 6 năm, đang uống Amlodipin. Khám định kỳ.",
+                  "dinh_dang": "Văn bản tự do",
+                  "cach_nhap": "chi_doc",
+                  "bat_buoc": "khong",
+                  "ai_dien": "khong"
+                }
+              ],
+              "nut": [
+                "Copy"
+              ]
+            }
+          ]
+        },
+        {
+          "tieu_de": "Thuốc đang dùng",
+          "truong": [
+            {
+              "nhan": "Thuốc hiện đang dùng (Bao gồm cả thuốc kê đơn và không kê đơn)",
+              "khoa": "co_thuoc_dang_dung",
+              "kieu": "chon_1",
+              "vi_du": "NB có thuốc đang dùng",
+              "cach_nhap": "chon",
+              "bat_buoc": "chua_ro",
+              "ai_dien": "co",
+              "gia_tri_cho_phep": [
+                "NB không có thuốc đang dùng",
+                "NB có thuốc đang dùng"
+              ]
+            },
+            {
+              "nhan": "Danh sách thuốc đang dùng (nút \"+ Thêm thuốc\")",
+              "khoa": "thuoc_dang_dung",
+              "kieu": "bang_lap",
+              "vi_du": "(bác sĩ thêm từng thuốc)",
+              "cach_nhap": "bam",
+              "bat_buoc": "chua_ro",
+              "ai_dien": "co",
+              "cot": [
+                {
+                  "nhan": "Tên thuốc, hàm lượng, dạng",
+                  "khoa": "ten_thuoc",
+                  "kieu": "chu_ngan"
+                },
+                {
+                  "nhan": "Liều dùng",
+                  "khoa": "lieu",
+                  "kieu": "chu_ngan"
+                },
+                {
+                  "nhan": "Đường dùng",
+                  "khoa": "duong_dung",
+                  "kieu": "chu_ngan"
+                },
+                {
+                  "nhan": "Ghi chú",
+                  "khoa": "ghi_chu",
+                  "kieu": "chu_ngan"
+                }
+              ],
+              "ghi_chu_cot": "Excel không liệt kê cột; tạm suy ra từ bảng lich_su_thuoc, cần xác nhận"
+            },
+            {
+              "nhan": "Thông tin khai thác các thuốc đã dùng trên hệ thống",
+              "khoa": "lich_su_thuoc",
+              "kieu": "bang_lap",
+              "vi_du": "(mỗi dòng là một thuốc đã kê)",
+              "cach_nhap": "chi_doc",
+              "bat_buoc": "khong",
+              "ai_dien": "khong",
+              "cot": [
+                {
+                  "nhan": "Tên thuốc, hàm lượng, dạng, hãng/nước",
+                  "khoa": "ten_thuoc",
+                  "kieu": "chu_ngan",
+                  "vi_du": "Concor, 5mg,Viên (Merck,Đức)",
+                  "dinh_dang": "\"Tên , hàm lượng,Dạng (Hãng,Nước)\" trong 1 ô",
+                  "cach_nhap": "chi_doc",
+                  "bat_buoc": "khong",
+                  "ai_dien": "khong",
+                  "bien_doi": "Tách thành: ten, ham_luong, dang, hang, nuoc"
+                },
+                {
+                  "nhan": "Số lượng / liều",
+                  "khoa": "lieu",
+                  "kieu": "chu_ngan",
+                  "vi_du": "1v",
+                  "dinh_dang": "Số + \"v\" (viên)",
+                  "cach_nhap": "chi_doc",
+                  "bat_buoc": "khong",
+                  "ai_dien": "khong"
+                },
+                {
+                  "nhan": "Đường dùng",
+                  "khoa": "duong_dung",
+                  "kieu": "chon_1",
+                  "vi_du": "Uống",
+                  "cach_nhap": "chi_doc",
+                  "bat_buoc": "khong",
+                  "ai_dien": "khong",
+                  "ghi_chu_gia_tri": "Uống; ... (cần hỏi)"
+                },
+                {
+                  "nhan": "Ngày",
+                  "khoa": "ngay",
+                  "kieu": "ngay_gio",
+                  "vi_du": "02/09/2026",
+                  "dinh_dang": "dd/mm/yyyy (không có giờ)",
+                  "cach_nhap": "chi_doc",
+                  "bat_buoc": "khong",
+                  "ai_dien": "khong"
+                }
+              ],
+              "nut": [
+                "Copy"
+              ]
+            }
+          ]
+        },
+        {
+          "tieu_de": "Khám lâm sàng",
+          "truong": [
+            {
+              "nhan": "Khám toàn thân",
+              "khoa": "kham_toan_than",
+              "kieu": "chu_dai",
+              "vi_du": "- Tỉnh táo, tiếp xúc tốt\n- Niêm mạc hồng\n- Phù nhẹ hai cẳng chân",
+              "dinh_dang": "Mỗi ý một dòng, bắt đầu bằng \"- \". Câu mẫu chọn từ thư viện được chèn thành dòng",
+              "cach_nhap": "go_tay",
+              "bat_buoc": "chua_ro",
+              "ai_dien": "co",
+              "bien_doi": "AI trả về danh sách ý; ưu tiên đúng câu trong thư viện cho phần bình thường; ghép thành các dòng \"- ...\""
+            },
+            {
+              "nhan": "Khám chuyên khoa",
+              "khoa": "kham_chuyen_khoa",
+              "kieu": "chu_dai",
+              "vi_du": "Khám bụng:\n- Bụng mềm, không u cục\n- Murphy (-)",
+              "dinh_dang": "Có thể có tiêu đề nhỏ (vd \"Khám bụng:\") + các dòng \"- \"",
+              "cach_nhap": "go_tay",
+              "bat_buoc": "chua_ro",
+              "ai_dien": "co",
+              "bien_doi": "Giữ tiêu đề nhỏ và các dòng \"- \""
+            },
+            {
+              "nhan": "nút: Mở thư viện tham khảo (hộp chọn mẫu câu)",
+              "khoa": "mau_cau_da_chon",
+              "kieu": "chon_nhieu",
+              "vi_du": "Tỉnh táo, tiếp xúc tốt; Niêm mạc hồng",
+              "dinh_dang": "Danh sách ô tick + \"Chọn tất cả\", nút Chọn / Hủy",
+              "cach_nhap": "bam",
+              "bat_buoc": "khong",
+              "ai_dien": "khong",
+              "gia_tri_cho_phep": [
+                "Tỉnh táo, tiếp xúc tốt",
+                "Thể trạng trung bình",
+                "Da và tổ chức dưới da: màu sắc bình thường, không phù, không dấu xuất huyết",
+                "Niêm mạc hồng",
+                "Lông, tóc, móng bình thường",
+                "Hạch ngoại vi không sưng đau, không sờ thấy tuyến giáp",
+                "Nhiệt độ, mạch, Huyết áp bình thường"
+              ],
+              "bien_doi": "Câu đã tick hiện thành thẻ trong hộp chọn; bấm Chọn thì được chèn vào ô khám thành các dòng \"- ...\""
+            },
+            {
+              "nhan": "Khám tim mạch, hô hấp",
+              "khoa": "kham_tim_mach_ho_hap",
+              "kieu": "chu_dai",
+              "vi_du": "- Tiếng T1, T2 đều rõ, không âm thổi\n- Phổi trong, không ran",
+              "dinh_dang": "Mỗi ý một dòng, bắt đầu bằng \"- \"",
+              "cach_nhap": "go_tay",
+              "bat_buoc": "chua_ro",
+              "ai_dien": "co",
+              "bien_doi": "Ghép thành các dòng \"- ...\""
+            },
+            {
+              "nhan": "Khám các bộ phận khác",
+              "khoa": "kham_bo_phan_khac",
+              "kieu": "chu_dai",
+              "vi_du": "- Chưa ghi nhận bất thường",
+              "dinh_dang": "Mỗi ý một dòng, bắt đầu bằng \"- \"",
+              "cach_nhap": "go_tay",
+              "bat_buoc": "chua_ro",
+              "ai_dien": "co",
+              "bien_doi": "Ghép thành các dòng \"- ...\""
+            }
+          ]
+        },
+        {
+          "tieu_de": "Chẩn đoán",
+          "truong": [
+            {
+              "nhan": "Chẩn đoán ban đầu – ICD10",
+              "khoa": "chan_doan_ban_dau.ma_icd10",
+              "kieu": "chon_1",
+              "vi_du": "I10 - Tăng huyết áp vô căn",
+              "dinh_dang": "Mã ICD-10, ô chọn có nút × (xóa) và ⌄ (mở danh sách)",
+              "cach_nhap": "chon",
+              "bat_buoc": "chua_ro",
+              "ai_dien": "co",
+              "bien_doi": "AI chỉ GỢI Ý mã, bác sĩ chọn",
+              "ghi_chu_gia_tri": "Danh mục ICD-10"
+            },
+            {
+              "nhan": "Chẩn đoán ban đầu (văn bản)",
+              "khoa": "chan_doan_ban_dau.mo_ta",
+              "kieu": "chu_dai",
+              "vi_du": "Tăng huyết áp độ II / Rối loạn lipid máu",
+              "cach_nhap": "go_tay",
+              "bat_buoc": "chua_ro",
+              "ai_dien": "co"
+            }
+          ]
+        },
+        {
+          "tieu_de": "Xét nghiệm, thăm dò",
+          "truong": [
+            {
+              "nhan": "Các xét nghiệm, thăm dò chính (Hiển thị trên báo cáo y tế)",
+              "khoa": "xet_nghiem_tham_do_chinh",
+              "kieu": "chu_dai",
+              "vi_du": "LDL-C 3.9 mmol/L, HbA1c 7.1%. Điện tim: nhịp xoang 78 l/p.",
+              "cach_nhap": "go_tay",
+              "bat_buoc": "chua_ro",
+              "ai_dien": "co",
+              "nut": [
+                "LẤY KẾT QUẢ MỚI NHẤT"
+              ]
+            },
+            {
+              "nhan": "Kết quả xét nghiệm",
+              "khoa": "ket_qua_xet_nghiem",
+              "kieu": "bang_lap",
+              "vi_du": "(nhóm theo ngày, bấm từng ngày để mở)",
+              "cach_nhap": "chi_doc",
+              "bat_buoc": "khong",
+              "ai_dien": "khong",
+              "cot": [
+                {
+                  "nhan": "Ngày xét nghiệm (tiêu đề nhóm)",
+                  "khoa": "ngay",
+                  "kieu": "ngay_gio",
+                  "vi_du": "05/09/2026",
+                  "dinh_dang": "dd/mm/yyyy (không có giờ)",
+                  "cach_nhap": "chi_doc",
+                  "bat_buoc": "khong",
+                  "ai_dien": "khong"
+                },
+                {
+                  "nhan": "Nhóm xét nghiệm (dòng tiêu đề)",
+                  "khoa": "nhom",
+                  "kieu": "chu_ngan",
+                  "vi_du": "HUYẾT HỌC/HEMATOLOGY",
+                  "dinh_dang": "Chữ in hoa, tiếng Việt/tiếng Anh",
+                  "cach_nhap": "chi_doc",
+                  "bat_buoc": "khong",
+                  "ai_dien": "khong"
+                },
+                {
+                  "nhan": "Tên bộ xét nghiệm (dòng tiêu đề con)",
+                  "khoa": "bo_xet_nghiem",
+                  "kieu": "chu_ngan",
+                  "vi_du": "Tổng phân tích tế bào máu ngoại vi",
+                  "cach_nhap": "chi_doc",
+                  "bat_buoc": "khong",
+                  "ai_dien": "khong"
+                },
+                {
+                  "nhan": "Tên xét nghiệm",
+                  "khoa": "ten_xet_nghiem",
+                  "kieu": "chu_ngan",
+                  "vi_du": "Số lượng bạch cầu-WBC",
+                  "dinh_dang": "Tên tiếng Việt + \"-\" + viết tắt tiếng Anh",
+                  "cach_nhap": "chi_doc",
+                  "bat_buoc": "khong",
+                  "ai_dien": "khong"
+                },
+                {
+                  "nhan": "Kết quả",
+                  "khoa": "ket_qua",
+                  "kieu": "so",
+                  "vi_du": "7.2",
+                  "dinh_dang": "Dấu chấm thập phân",
+                  "cach_nhap": "chi_doc",
+                  "bat_buoc": "khong",
+                  "ai_dien": "khong"
+                },
+                {
+                  "nhan": "Tham chiếu",
+                  "khoa": "tham_chieu",
+                  "kieu": "chu_ngan",
+                  "vi_du": "4.0 - 10.0",
+                  "dinh_dang": "\"thấp - cao\" trong 1 ô",
+                  "cach_nhap": "chi_doc",
+                  "bat_buoc": "khong",
+                  "ai_dien": "khong"
+                },
+                {
+                  "nhan": "Đơn vị",
+                  "khoa": "don_vi",
+                  "kieu": "chu_ngan",
+                  "vi_du": "G/L",
+                  "cach_nhap": "chi_doc",
+                  "bat_buoc": "khong",
+                  "ai_dien": "khong"
+                },
+                {
+                  "nhan": "Thời gian",
+                  "khoa": "thoi_gian",
+                  "kieu": "ngay_gio",
+                  "vi_du": "07:15:02 05/09/2026",
+                  "dinh_dang": "HH:mm:ss dd/mm/yyyy (có GIÂY)",
+                  "cach_nhap": "chi_doc",
+                  "bat_buoc": "khong",
+                  "ai_dien": "khong"
+                }
+              ],
+              "nut": [
+                "Copy"
+              ]
+            },
+            {
+              "nhan": "Kết quả chẩn đoán hình ảnh",
+              "khoa": "ket_qua_cdha",
+              "kieu": "bang_lap",
+              "vi_du": "(nhóm theo ngày, bấm từng ngày để mở)",
+              "cach_nhap": "chi_doc",
+              "bat_buoc": "khong",
+              "ai_dien": "khong",
+              "cot": [
+                {
+                  "nhan": "Ngày (tiêu đề nhóm)",
+                  "khoa": "ngay",
+                  "kieu": "ngay_gio",
+                  "vi_du": "12/03/2026",
+                  "dinh_dang": "dd/mm/yyyy (không có giờ)",
+                  "cach_nhap": "chi_doc",
+                  "bat_buoc": "khong",
+                  "ai_dien": "khong"
+                },
+                {
+                  "nhan": "Tên dịch vụ",
+                  "khoa": "ten_dich_vu",
+                  "kieu": "chu_ngan",
+                  "vi_du": "Siêu âm Doppler động mạch cảnh",
+                  "cach_nhap": "chi_doc",
+                  "bat_buoc": "khong",
+                  "ai_dien": "khong"
+                },
+                {
+                  "nhan": "Người trả kết quả",
+                  "khoa": "nguoi_tra_ket_qua",
+                  "kieu": "chu_ngan",
+                  "vi_du": "(tên đăng nhập)",
+                  "cach_nhap": "chi_doc",
+                  "bat_buoc": "khong",
+                  "ai_dien": "khong"
+                },
+                {
+                  "nhan": "Kết luận",
+                  "khoa": "ket_luan",
+                  "kieu": "chu_dai",
+                  "vi_du": "- Không thấy mảng xơ vữa động mạch cảnh hai bên",
+                  "dinh_dang": "Thường bắt đầu bằng \"- \"",
+                  "cach_nhap": "chi_doc",
+                  "bat_buoc": "khong",
+                  "ai_dien": "khong"
+                }
+              ],
+              "nut": [
+                "Xem mô tả chi tiết",
+                "Xem hình ảnh",
+                "Copy",
+                "Xem tất cả hình ảnh"
+              ]
+            },
+            {
+              "nhan": "Kết quả cận lâm sàng",
+              "khoa": "ket_qua_cls",
+              "kieu": "bang_lap",
+              "vi_du": "(nhóm theo ngày, bấm từng ngày để mở)",
+              "cach_nhap": "chi_doc",
+              "bat_buoc": "khong",
+              "ai_dien": "khong",
+              "cot": [
+                {
+                  "nhan": "Ngày (tiêu đề nhóm)",
+                  "khoa": "ngay",
+                  "kieu": "ngay_gio",
+                  "vi_du": "20/06/2026",
+                  "dinh_dang": "dd/mm/yyyy (không có giờ)",
+                  "cach_nhap": "chi_doc",
+                  "bat_buoc": "khong",
+                  "ai_dien": "khong"
+                },
+                {
+                  "nhan": "Tên dịch vụ",
+                  "khoa": "ten_dich_vu",
+                  "kieu": "chu_ngan",
+                  "vi_du": "Điện tim thường 12 đạo trình",
+                  "cach_nhap": "chi_doc",
+                  "bat_buoc": "khong",
+                  "ai_dien": "khong"
+                },
+                {
+                  "nhan": "Người trả kết quả",
+                  "khoa": "nguoi_tra_ket_qua",
+                  "kieu": "chu_ngan",
+                  "vi_du": "(tên đăng nhập)",
+                  "cach_nhap": "chi_doc",
+                  "bat_buoc": "khong",
+                  "ai_dien": "khong"
+                },
+                {
+                  "nhan": "Kết luận",
+                  "khoa": "ket_luan",
+                  "kieu": "chu_dai",
+                  "vi_du": "- Nhịp xoang đều, tần số 75 ck/ph\n- Trục trung gian\n- Không thấy biến đổi ST-T",
+                  "dinh_dang": "Không thống nhất: có lúc mỗi ý bắt đầu bằng \"- \", có lúc chỉ xuống dòng",
+                  "cach_nhap": "chi_doc",
+                  "bat_buoc": "khong",
+                  "ai_dien": "khong"
+                }
+              ],
+              "nut": [
+                "Xem mô tả chi tiết",
+                "Copy"
+              ]
+            }
+          ]
+        },
+        {
+          "tieu_de": "Chẩn đoán",
+          "truong": [
+            {
+              "nhan": "Thông tin chẩn đoán xác định từ OH",
+              "khoa": "chan_doan_xac_dinh_oh",
+              "kieu": "chu_dai",
+              "vi_du": "(Không có kết quả)",
+              "cach_nhap": "chi_doc",
+              "bat_buoc": "khong",
+              "ai_dien": "khong",
+              "nut": [
+                "LẤY KẾT QUẢ MỚI NHẤT"
+              ]
+            },
+            {
+              "nhan": "Chẩn đoán ra viện – ICD10",
+              "khoa": "chan_doan_ra_vien.ma_icd10",
+              "kieu": "chon_1",
+              "vi_du": "I25.1 - Bệnh tim do xơ vữa động mạch",
+              "dinh_dang": "Mã ICD-10, ô chọn có nút ×",
+              "cach_nhap": "chon",
+              "bat_buoc": "chua_ro",
+              "ai_dien": "co",
+              "bien_doi": "AI chỉ GỢI Ý mã, bác sĩ chọn",
+              "ghi_chu_gia_tri": "Danh mục ICD-10"
+            },
+            {
+              "nhan": "Chẩn đoán ra viện (văn bản)",
+              "khoa": "chan_doan_ra_vien.mo_ta",
+              "kieu": "chu_dai",
+              "vi_du": "Bệnh tim thiếu máu cục bộ mạn / Tăng huyết áp",
+              "cach_nhap": "go_tay",
+              "bat_buoc": "chua_ro",
+              "ai_dien": "co"
+            },
+            {
+              "nhan": "Chẩn đoán kèm theo (Hiển thị trên báo cáo y tế) – ICD10",
+              "khoa": "chan_doan_kem_theo",
+              "kieu": "chon_nhieu",
+              "vi_du": "E78.5 - Tăng lipid máu; E11 - ĐTĐ type 2",
+              "dinh_dang": "Mã ICD-10, ô chọn có ⌄",
+              "cach_nhap": "chon",
+              "bat_buoc": "chua_ro",
+              "ai_dien": "co",
+              "bien_doi": "AI chỉ GỢI Ý mã, bác sĩ chọn",
+              "ghi_chu_gia_tri": "Danh mục ICD-10"
+            },
+            {
+              "nhan": "Đã xử lý (thuốc, chăm sóc)",
+              "khoa": "da_xu_ly",
+              "kieu": "chon_1",
+              "vi_du": "Có",
+              "cach_nhap": "chon",
+              "bat_buoc": "chua_ro",
+              "ai_dien": "chua_ro",
+              "gia_tri_cho_phep": [
+                "Không",
+                "Có"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tieu_de": "2. Điều trị",
+      "muc": [
+        {
+          "tieu_de": "Điều trị",
+          "truong": [
+            {
+              "nhan": "Hướng điều trị (Hiển thị trên báo cáo y tế)",
+              "khoa": "huong_dieu_tri",
+              "kieu": "chu_dai",
+              "vi_du": "- Tiếp tục Amlodipin 5mg x 1v/ngày\n- Thêm Atorvastatin 20mg uống tối\n- Tái khám sau 1 tháng",
+              "dinh_dang": "Văn bản tự do, có thư viện mẫu",
+              "cach_nhap": "go_tay",
+              "bat_buoc": "chua_ro",
+              "ai_dien": "co"
+            },
+            {
+              "nhan": "Lời dặn & theo dõi (Hiển thị trên báo cáo y tế)",
+              "khoa": "loi_dan_theo_doi",
+              "kieu": "chu_dai",
+              "vi_du": "- Ăn nhạt, hạn chế mỡ\n- Đo HA tại nhà hằng ngày\n- Đến viện ngay nếu đau ngực kéo dài",
+              "dinh_dang": "Văn bản tự do, có thư viện mẫu",
+              "cach_nhap": "go_tay",
+              "bat_buoc": "chua_ro",
+              "ai_dien": "co"
+            },
+            {
+              "nhan": "Hẹn tái khám",
+              "khoa": "hen_tai_kham",
+              "kieu": "chon_1",
+              "vi_du": "Có",
+              "cach_nhap": "chon",
+              "bat_buoc": "chua_ro",
+              "ai_dien": "co",
+              "gia_tri_cho_phep": [
+                "Có",
+                "Không"
+              ]
+            },
+            {
+              "nhan": "Tình trạng người bệnh ra viện",
+              "khoa": "tinh_trang_ra_vien",
+              "kieu": "chon_1",
+              "vi_du": "Đỡ, giảm",
+              "cach_nhap": "chon",
+              "bat_buoc": "chua_ro",
+              "ai_dien": "chua_ro",
+              "gia_tri_cho_phep": [
+                "Khỏi",
+                "Đỡ, giảm",
+                "Chưa thay đổi",
+                "Nặng hơn",
+                "Khác"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tieu_de": "3. Thông tin khác",
+      "muc": [
+        {
+          "tieu_de": "Thông tin khác",
+          "truong": [
+            {
+              "nhan": "Bác sĩ chính",
+              "khoa": "thong_tin_khac.bac_si_chinh",
+              "kieu": "chu_ngan",
+              "vi_du": "(tên đăng nhập)",
+              "cach_nhap": "tu_dong",
+              "bat_buoc": "khong",
+              "ai_dien": "khong"
+            },
+            {
+              "nhan": "Bác sĩ được ủy quyền khám",
+              "khoa": "thong_tin_khac.bac_si_uy_quyen",
+              "kieu": "chu_ngan",
+              "vi_du": "N/A",
+              "cach_nhap": "tu_dong",
+              "bat_buoc": "khong",
+              "ai_dien": "khong",
+              "nut": [
+                "CHỈNH SỬA ỦY QUYỀN KHÁM"
+              ]
+            },
+            {
+              "nhan": "Chuyển Nội Soi",
+              "khoa": "thong_tin_khac.chuyen_noi_soi",
+              "kieu": "chon_1",
+              "vi_du": "Không tick",
+              "dinh_dang": "Ô tick (checkbox)",
+              "cach_nhap": "chon",
+              "bat_buoc": "khong",
+              "ai_dien": "khong",
+              "gia_tri_cho_phep": [
+                "Tick",
+                "Không tick"
+              ]
+            },
+            {
+              "nhan": "Xác nhận bệnh tật",
+              "khoa": "thong_tin_khac.xac_nhan_benh_tat",
+              "kieu": "chon_1",
+              "vi_du": "Không",
+              "cach_nhap": "chon",
+              "bat_buoc": "chua_ro",
+              "ai_dien": "khong",
+              "gia_tri_cho_phep": [
+                "Có",
+                "Không"
+              ]
+            },
+            {
+              "nhan": "Xác nhận nghỉ việc hưởng BHXH",
+              "khoa": "thong_tin_khac.nghi_viec_bhxh",
+              "kieu": "chon_1",
+              "vi_du": "Không",
+              "cach_nhap": "chon",
+              "bat_buoc": "chua_ro",
+              "ai_dien": "khong",
+              "gia_tri_cho_phep": [
+                "Có",
+                "Không"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

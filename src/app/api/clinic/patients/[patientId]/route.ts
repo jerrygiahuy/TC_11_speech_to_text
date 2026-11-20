@@ -1,5 +1,5 @@
 // GET /api/clinic/patients/[patientId]?appointment_id=: hồ sơ, lịch còn khám được và lịch sử khám của bệnh nhân.
-import { demoActor } from "@/server/clinic/demo-actor";
+import { getClinicActor } from "@/server/clinic/demo-actor";
 import { ClinicHttpError } from "@/server/clinic/errors";
 import { handleClinicRequest } from "@/server/clinic/http";
 import { loadPatientPage } from "@/server/clinic/service";
@@ -14,6 +14,6 @@ export async function GET(request: Request, ctx: { params: Promise<{ patientId: 
     if (selected !== null && (selected.length === 0 || selected.length > 100)) {
       throw new ClinicHttpError(400, "appointment_id không hợp lệ.");
     }
-    return loadPatientPage(demoActor, patientId, selected ?? undefined);
+    return loadPatientPage(getClinicActor(), patientId, selected ?? undefined);
   });
 }

@@ -10,7 +10,7 @@ import type { CatalogItem } from "@/shared/types";
 const CELL = "w-full rounded-md border border-ef-vien bg-white px-2 py-1 text-[13px] outline-none focus:border-ef-xanh focus:ring-2 focus:ring-ef-xanh/20";
 
 /** Màn chỉ định dịch vụ theo EMR: tìm dịch vụ, danh sách đã chọn, tổng số. Dòng AI khớp chưa chắc có ô chọn lại. */
-export function ChiDinhTab({ rows, onChange }: { rows: DongChiDinh[]; onChange: (rows: DongChiDinh[]) => void }) {
+export function ChiDinhTab({ rows, onChange, onSave, saving, noServices, onNoServices, clinicalInfo = "", onClinicalInfo }: { rows: DongChiDinh[]; onChange: (rows: DongChiDinh[]) => void; onSave?: () => void; saving?: boolean; noServices?: boolean; onNoServices?: (checked: boolean) => void; clinicalInfo?: string; onClinicalInfo?: (value: string) => void }) {
   const { data, notify } = useEform();
   const dichVu = data.danhMuc.dichVu;
 
@@ -38,6 +38,8 @@ export function ChiDinhTab({ rows, onChange }: { rows: DongChiDinh[]; onChange: 
       </div>
 
       <div className="space-y-4 p-5">
+        {rows.length === 0 && onNoServices && <label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={noServices ?? false} onChange={event => onNoServices(event.target.checked)} />Bác sĩ xác nhận không chỉ định dịch vụ</label>}
+        {rows.length > 0 && onClinicalInfo && <label className="block text-sm font-medium">Chẩn đoán / lịch sử lâm sàng chỉ định<textarea aria-label="Chẩn đoán / lịch sử lâm sàng chỉ định" className={`${CELL} mt-1`} rows={2} value={clinicalInfo} onChange={event => onClinicalInfo(event.target.value)} /></label>}
         <GoiYTheoChanDoan rows={rows} lay={(mau) => mau.chiDinh} onAdd={(moi) => onChange([...rows, ...moi])} />
 
         <div>
@@ -75,6 +77,12 @@ export function ChiDinhTab({ rows, onChange }: { rows: DongChiDinh[]; onChange: 
                           <span className="font-semibold">{row.ma || "Chưa có mã"}</span>
                           <span>– {row.ten}</span>
                           <SourceBadge nguon={row.nguon} />
+                        </div>
+                        <div className="mt-1 flex flex-wrap gap-2">
+                          <input aria-label={`Vị trí ${row.ten}`} className={`${CELL} max-w-48`} placeholder="Vị trí" value={row.vi_tri ?? ""} onChange={event => update(index, { vi_tri: event.target.value })} />
+                          <select aria-label={`Bên ${row.ten}`} className={`${CELL} max-w-32`} value={row.ben ?? ""} onChange={event => update(index, { ben: (event.target.value || null) as DongChiDinh["ben"] })}>
+                            <option value="">Chưa rõ bên</option><option value="phai">Phải</option><option value="trai">Trái</option><option value="hai_ben">Hai bên</option><option value="khong_ap_dung">Không áp dụng</option>
+                          </select>
                         </div>
                         {row.nguon === "xem" && (
                           <div className="mt-1.5">
@@ -129,8 +137,8 @@ export function ChiDinhTab({ rows, onChange }: { rows: DongChiDinh[]; onChange: 
           <button type="button" className={`${BTN_OUTLINE} ml-auto`} onClick={() => onChange([])} disabled={rows.length === 0}>
             Hủy toàn bộ dịch vụ
           </button>
-          <button type="button" className={BTN_OUTLINE} onClick={() => notify("Đã lưu nháp chỉ định.")}>
-            Lưu nháp
+          <button type="button" className={BTN_OUTLINE} onClick={onSave} disabled={!onSave || saving}>
+            {saving ? "Đang lưu…" : "Lưu nháp"}
           </button>
         </div>
       </div>

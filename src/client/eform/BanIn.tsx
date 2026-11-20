@@ -38,7 +38,7 @@ const TD_IN = "border border-black/60 px-1.5 py-0.5 align-top";
  * Bản in của "In ngay": phiếu khám, chỉ định và đơn thuốc trên khổ A4.
  * Trên màn hình bị ẩn; khi in thì chỉ khối này hiện (phần còn lại của trang có print:hidden).
  */
-export function BanIn({ chiDinh, donThuoc, trangThai }: { chiDinh: DongChiDinh[]; donThuoc: DongThuoc[]; trangThai: string }) {
+export function BanIn({ chiDinh, donThuoc, trangThai, summary, followUpText, duyet }: { chiDinh: DongChiDinh[]; donThuoc: DongThuoc[]; trangThai: string; summary?: string; followUpText?: string; duyet?: string }) {
   const { data, get } = useEform();
   const { ca } = data;
   const sh = ca.sinh_hieu;
@@ -47,20 +47,21 @@ export function BanIn({ chiDinh, donThuoc, trangThai }: { chiDinh: DongChiDinh[]
   const diUng = v("di_ung") === "Có" ? [v("di_ung_loai"), v("di_ung_mo_ta")].filter(Boolean).join(": ") || "Có" : v("di_ung");
 
   const truong: { nhan: string; noiDung: string }[] = [
+    { nhan: "Tóm tắt buổi khám", noiDung: summary ?? "" },
     { nhan: "Lý do đến khám", noiDung: v("ly_do") },
     { nhan: "Bệnh sử", noiDung: v("benh_su") },
     { nhan: "Tiền sử bản thân", noiDung: v("tien_su_ban_than") },
     { nhan: "Tiền sử gia đình", noiDung: v("tien_su_gia_dinh") },
     { nhan: "Tiền sử dị ứng", noiDung: diUng },
     { nhan: "Khám toàn thân", noiDung: v("kham_toan_than") },
-    { nhan: "Khám chuyên khoa TMH", noiDung: v("kham_chuyen_khoa") },
+    { nhan: "Khám chuyên khoa", noiDung: v("kham_chuyen_khoa") },
     { nhan: "Khám các bộ phận khác", noiDung: v("kham_khac") },
     { nhan: "Xét nghiệm, thăm dò chính", noiDung: v("ghi_chu_kq") },
     { nhan: chanDoan.nhan, noiDung: [nhanIcd(chanDoan.ma, data.icd10), chanDoan.moTa].filter(Boolean).join(". ") },
     { nhan: "Chẩn đoán kèm theo", noiDung: nhanIcd(v("icd_kem_theo"), data.icd10) },
     { nhan: "Hướng điều trị", noiDung: v("huong_dieu_tri") },
     { nhan: "Lời dặn & theo dõi", noiDung: v("loi_dan") },
-    { nhan: "Hẹn tái khám", noiDung: v("hen_tai_kham") === "Có" ? ngayGio(v("ngay_tai_kham")) || "Có" : v("hen_tai_kham") },
+    { nhan: "Hẹn tái khám", noiDung: v("hen_tai_kham") === "Có" ? ngayGio(v("ngay_tai_kham")) || followUpText || "Có" : v("hen_tai_kham") },
     { nhan: "Tình trạng ra viện", noiDung: v("tinh_trang_ra_vien") },
   ].filter((item) => item.noiDung);
 
@@ -80,6 +81,7 @@ export function BanIn({ chiDinh, donThuoc, trangThai }: { chiDinh: DongChiDinh[]
       </div>
 
       <h1 className="my-3 text-center text-[15pt] font-bold">PHIẾU KHÁM NGOẠI TRÚ</h1>
+      {duyet && <p className="mb-2 text-center text-[9pt]">{duyet}</p>}
 
       <div className="grid grid-cols-2 gap-x-6 gap-y-0.5">
         <Muc nhan="Họ tên">{ca.ho_ten}</Muc>
@@ -124,7 +126,7 @@ export function BanIn({ chiDinh, donThuoc, trangThai }: { chiDinh: DongChiDinh[]
                   <td className={`${TD_IN} whitespace-nowrap`}>{row.ma}</td>
                   <td className={TD_IN}>{row.ten}</td>
                   <td className={TD_IN}>{row.so_luong}</td>
-                  <td className={TD_IN}>{row.ghi_chu}</td>
+                  <td className={TD_IN}>{[row.vi_tri, row.ben ? ({ phai: "Phải", trai: "Trái", hai_ben: "Hai bên", khong_ap_dung: "" })[row.ben] : "", row.ghi_chu].filter(Boolean).join(" · ")}</td>
                 </tr>
               ))}
             </tbody>

@@ -43,3 +43,11 @@ export function loadEformData(taiKhoan?: string): EformData {
     phieuMau: loadPhieuMau(),
   };
 }
+
+/** Replace all patient data when opening another server-resolved appointment. */
+export function loadEncounterEformData(ca: CaGia, doctorId: string): EformData {
+  const data = structuredClone(loadEformData(doctorId));
+  data.ca = structuredClone(ca);
+  data.ca.dang_nhap = doctorId;
+  return data;
+}

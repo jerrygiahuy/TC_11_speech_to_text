@@ -1,13 +1,5 @@
 {
-  "VTG": "viêm tai giữa",
-  "VTN": "viêm tai ngoài",
-  "VMX": "viêm mũi xoang",
-  "VMDU": "viêm mũi dị ứng",
   "NS": "nội soi",
-  "NSTMH": "nội soi tai mũi họng",
-  "TMH": "tai mũi họng",
-  "ĐTL": "đo thính lực",
-  "ĐNL": "đo nhĩ lượng",
   "KD": "khí dung",
   "KS": "kháng sinh",
   "NMSL": "nước muối sinh lý",
@@ -18,5 +10,8 @@
   "T": "trái",
   "n": "ngày",
   "v": "viên",
-  "l": "lần"
+  "l": "lần",
+  "THA": "tăng huyết áp",
+  "HA": "huyết áp",
+  "ĐTĐ": "điện tâm đồ"
 }

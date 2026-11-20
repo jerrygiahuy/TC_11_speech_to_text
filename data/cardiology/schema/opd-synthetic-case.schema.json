@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tc11.local/schemas/cardiology-opd-synthetic-case-1.0.0.json",
+  "title": "TC11 Cardiology OPD synthetic case",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["dataset_version", "synthetic", "scenario_id", "care_setting", "visit_type", "doctor_template_id", "recording_status", "conversation_text", "recovery_dictation", "reference_note", "missing_fields", "draft_note", "reviewed_note", "review_time_seconds", "error_tags"],
+  "properties": {
+    "dataset_version": { "const": "1.0.0" },
+    "synthetic": { "const": true },
+    "scenario_id": { "type": "string", "pattern": "^SYN-CARDIO-[0-9]{3}$" },
+    "care_setting": { "const": "OPD" },
+    "visit_type": { "enum": ["NEW", "FOLLOW_UP"] },
+    "doctor_template_id": { "type": "string", "pattern": "^CARDIO-OPD-[A-Z]$" },
+    "recording_status": { "enum": ["COMPLETE", "MISSING", "RECOVERED"] },
+    "conversation_text": { "type": "string", "minLength": 20 },
+    "recovery_dictation": { "type": ["string", "null"] },
+    "reference_note": { "$ref": "#/$defs/referenceNote" },
+    "missing_fields": { "type": "array", "uniqueItems": true, "items": { "type": "string" } },
+    "draft_note": { "type": ["object", "null"] },
+    "reviewed_note": { "type": ["object", "null"] },
+    "review_time_seconds": { "type": ["number", "null"], "minimum": 0 },
+    "error_tags": { "type": "array", "uniqueItems": true, "items": { "type": "string" } }
+  },
+  "$defs": {
+    "medication": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "strength", "frequency"],
+      "properties": {
+        "name": { "type": "string" },
+        "strength": { "type": ["string", "null"] },
+        "frequency": { "type": ["string", "null"] }
+      }
+    },
+    "diagnosis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "display"],
+      "properties": {
+        "code": { "type": ["string", "null"] },
+        "display": { "type": "string", "minLength": 1 }
+      }
+    },
+    "referenceNote": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["chief_complaint", "history_present_illness", "past_history", "family_history", "allergies", "current_medications", "vital_signs", "exam", "diagnoses", "result_summaries", "treatment", "reference_text"],
+      "properties": {
+        "chief_complaint": { "type": "string" },
+        "history_present_illness": { "type": ["string", "null"] },
+        "past_history": { "type": ["string", "null"] },
+        "family_history": { "type": ["string", "null"] },
+        "allergies": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "items"],
+          "properties": { "status": { "enum": ["NONE", "PRESENT", "UNKNOWN"] }, "items": { "type": "array", "items": { "type": "string" } } }
+        },
+        "current_medications": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "items"],
+          "properties": { "status": { "enum": ["NONE", "PRESENT", "UNKNOWN"] }, "items": { "type": "array", "items": { "$ref": "#/$defs/medication" } } }
+        },
+        "vital_signs": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["pulse_bpm", "sbp_mmhg", "dbp_mmhg", "temperature_c", "resp_rate", "spo2_pct", "weight_kg", "height_cm", "source"],
+          "properties": {
+            "pulse_bpm": { "type": "integer", "minimum": 20, "maximum": 250 },
+            "sbp_mmhg": { "type": "integer", "minimum": 50, "maximum": 300 },
+            "dbp_mmhg": { "type": "integer", "minimum": 20, "maximum": 200 },
+            "temperature_c": { "type": "number", "minimum": 30, "maximum": 45 },
+            "resp_rate": { "type": "integer", "minimum": 5, "maximum": 60 },
+            "spo2_pct": { "type": "integer", "minimum": 50, "maximum": 100 },
+            "weight_kg": { "type": "number", "minimum": 1, "maximum": 400 },
+            "height_cm": { "type": "number", "minimum": 30, "maximum": 250 },
+            "source": { "enum": ["MANUAL", "OMRON"] }
+          }
+        },
+        "exam": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["general", "specialty", "cardio_respiratory", "other_organs"],
+          "properties": { "general": { "type": "string" }, "specialty": { "type": ["string", "null"] }, "cardio_respiratory": { "type": "string" }, "other_organs": { "type": ["string", "null"] } }
+        },
+        "diagnoses": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["initial", "discharge", "secondary"],
+          "properties": { "initial": { "$ref": "#/$defs/diagnosis" }, "discharge": { "$ref": "#/$defs/diagnosis" }, "secondary": { "type": "array", "items": { "$ref": "#/$defs/diagnosis" } } }
+        },
+        "result_summaries": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["lab", "imaging", "paraclinical"],
+          "properties": { "lab": { "type": ["string", "null"] }, "imaging": { "type": ["string", "null"] }, "paraclinical": { "type": ["string", "null"] } }
+        },
+        "treatment": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["treated_at_visit", "plan", "advice_followup", "followup_scheduled", "followup_interval_days"],
+          "properties": {
+            "treated_at_visit": { "type": "boolean" },
+            "plan": { "type": "string" },
+            "advice_followup": { "type": ["string", "null"] },
+            "followup_scheduled": { "type": "boolean" },
+            "followup_interval_days": { "type": ["integer", "null"], "minimum": 1 }
+          }
+        },
+        "reference_text": { "type": "string", "minLength": 20 }
+      }
+    }
+  }
+}

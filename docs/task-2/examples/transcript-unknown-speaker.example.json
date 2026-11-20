@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.1.0",
+  "request_id": "req-unknown-001",
+  "transcript_id": "tr-unknown-001",
+  "revision": 1,
+  "language": "vi",
+  "privacy": {
+    "trang_thai": "passed",
+    "policy_version": "synthetic-demo-v1",
+    "processed_at": "2026-11-12T09:00:00+07:00"
+  },
+  "context": {
+    "tuoi_thang": null,
+    "gioi_tinh": null,
+    "can_nang_kg": null
+  },
+  "segments": [
+    {
+      "id": "seg-1",
+      "sequence": 0,
+      "utterance_ref": "u-1",
+      "speaker_id": null,
+      "vai_tro": "chua_ro",
+      "nguon_vai_tro": "chua_ro",
+      "start_ms": null,
+      "end_ms": null,
+      "text": "Tôi đau tai. Cho tôi thuốc mẫu A.",
+      "is_final": true
+    }
+  ]
+}

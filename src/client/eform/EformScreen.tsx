@@ -1,28 +1,32 @@
 "use client";
 
-import { useCallback, useMemo, useRef, useState, type CSSProperties } from "react";
-import { luuLuotThu, luuThoiQuen } from "@/client/api";
+import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
+import { luuLuotThu } from "@/client/api";
+import { approveScopes, docHoSo, luuHoSo, transitionEncounter, type ClinicalResponse } from "@/client/clinical-api";
 import { BanIn } from "@/client/eform/BanIn";
 import { BaoCaoDialog } from "@/client/eform/BaoCaoDialog";
 import { ChiDinhTab } from "@/client/eform/ChiDinhTab";
-import { DonThuocTab } from "@/client/eform/DonThuocTab";
+import type { EncounterBridge } from "@/client/eform/encounter-bridge";
 import { EformContext, MO_PHONG, type EformApi } from "@/client/eform/EformContext";
 import { EformForm } from "@/client/eform/EformForm";
 import { EformHeader } from "@/client/eform/EformHeader";
 import { BTN_CHINH, BTN_OUTLINE, BcytTag, SourceBadge, anchorId } from "@/client/eform/fields";
 import { splitCodes } from "@/client/eform/IcdField";
+import { RecordingSessions } from "@/client/eform/RecordingSessions";
 import { TroLyAi, type TabId } from "@/client/eform/TroLyAi";
-import { dienPhieu, gopTruongMoi, type DongChiDinh, type DongThuoc, type KetQuaDien } from "@/shared/eform/dien-phieu";
+import type { DongChiDinh, DongThuoc, KetQuaDien } from "@/shared/eform/dien-phieu";
 import { demLuot } from "@/shared/eform/do-luong";
-import { demChoTrong } from "@/shared/eform/mau-cau";
-import { icdTheoMau, type PhieuMau } from "@/shared/eform/phieu-mau";
-import { chiGiuCot, COT_CHI_DINH, COT_THUOC, ghepGoiY, goiYThoiQuen, hayKe, nhuMoiKhi } from "@/shared/eform/thoi-quen";
+import { ghepGoiY } from "@/shared/eform/thoi-quen";
 import type { EformData, KichBan, Nguon, Truong } from "@/shared/eform/types";
-import type { PipelineResult } from "@/shared/api";
+import { approvalState, requiredApprovalScopes, type ApprovalScope } from "@/shared/clinical/approvals";
+import { projectEform } from "@/shared/clinical/eform";
+import type { Encounter } from "@/shared/clinical/types";
+import type { ClinicalExtraction } from "@/shared/clinical/api";
 import type { InputMode } from "@/shared/metrics";
 
 const TRANG_THAI_NOI_SOI = "Chờ KQ CLS";
-/** Trạng thái này khóa phiếu (chỉ đọc); chọn lại trạng thái khác để sửa tiếp */
+const TRANG_THAI_DANG_KHAM = "Đang khám";
+/** Trạng thái này khóa phiếu (chỉ đọc). Chỉ vào được qua nút Hoàn tất lượt khám, sau khi các phần cần duyệt đều đã duyệt */
 const TRANG_THAI_HOAN_THANH = "Hoàn thành khám";
 const KHONG_CHI_DINH: DongChiDinh[] = [];
 const KHONG_THUOC: DongThuoc[] = [];
@@ -33,21 +37,23 @@ const KHUNG = { "--cao-dau": "5.75rem", "--cao-day": "5.75rem" } as CSSPropertie
 const TABS: { id: TabId; nhan: string }[] = [
   { id: "phieu", nhan: "Phiếu khám" },
   { id: "chi_dinh", nhan: "Chỉ định dịch vụ" },
-  { id: "don_thuoc", nhan: "Đơn thuốc" },
 ];
 
-/** Số dòng chỉ định, thuốc AI đã thêm (cộng dồn qua các lần điền) và số dòng khớp chắc danh mục lúc thêm */
+type TrangThai = ReturnType<typeof projectEform>["trangThai"];
+const NHAN_DUYET: Record<"unapproved" | "current" | "changed", string> = { unapproved: "Chưa duyệt", current: "Đã duyệt", changed: "Đã sửa sau khi duyệt" };
+
+function scopeLabel(record: Encounter, scope: ApprovalScope): string {
+  if (scope === "initial_note") return "Phiếu khám ban đầu";
+  if (scope === "conclusion") return "Kết luận";
+  if (scope === "summary") return "Tóm tắt buổi khám";
+  const item = record.chi_dinh.items.find((row) => `service_order:${row.id}` === scope);
+  return `Chỉ định: ${item?.danh_muc.display || item?.noi_dung.ten_dich_vu || "dịch vụ"}`;
+}
+
+/** Số dòng chỉ định, thuốc AI đã thêm và số dòng khớp chắc danh mục lúc thêm (chỉ còn dùng cho trang trình diễn) */
 interface DongAi {
   tong: number;
   khop: number;
-}
-
-interface BanChup {
-  fields: Record<string, Truong>;
-  chiDinh: DongChiDinh[];
-  donThuoc: DongThuoc[];
-  ketQua: KetQuaDien | null;
-  dongAi: DongAi;
 }
 
 /** Một lượt thử: từ lúc bắt đầu nói, gõ hoặc nạp câu mẫu đến lần bấm Lưu đầu tiên sau khi AI điền */
@@ -73,20 +79,6 @@ function afterEdit(nguon: Nguon | null | undefined): Nguon {
   return nguon === "cu" || nguon === "ai" || nguon === "xem" || nguon === "sua" ? "sua" : "bs";
 }
 
-/** Bác sĩ có thể nói nhiều lần: chỉ lấy dòng mới chưa trùng mã (hoặc tên khi chưa có mã) với các dòng đã có */
-function dongMoi<T extends { ma: string; ten: string }>(cu: T[], moi: T[]): T[] {
-  const khoa = (row: T) => row.ma || row.ten.toLowerCase();
-  const daCo = new Set(cu.map(khoa));
-  return moi.filter((row) => !daCo.has(khoa(row)));
-}
-
-/** Gộp danh sách trường AI đã điền qua các lần; lần mới ghi đè lần cũ */
-function gopKetQua(cu: KetQuaDien | null, moi: KetQuaDien): KetQuaDien {
-  if (!cu) return moi;
-  const idMoi = new Set(moi.daDien.map((item) => item.id));
-  return { ...moi, daDien: [...moi.daDien, ...cu.daDien.filter((item) => !idMoi.has(item.id))] };
-}
-
 function nowText(): string {
   const now = new Date();
   const pad = (n: number) => String(n).padStart(2, "0");
@@ -106,7 +98,7 @@ function trangThaiDau(data: EformData, kichBan?: KichBan) {
     fields.mo_ta_ra_vien = { value: ten, nguon: "bs" };
   }
   if (td && kichBan === 1) {
-    const kq = td.phieuMau;
+    const kq = { ...td.phieuMau, donThuoc: [] };
     const them = [...kq.chiDinh, ...kq.donThuoc];
     return {
       fields: { ...fields, ...kq.truong },
@@ -117,18 +109,33 @@ function trangThaiDau(data: EformData, kichBan?: KichBan) {
       tab: "phieu" as TabId,
     };
   }
-  return { fields, chiDinh: KHONG_CHI_DINH, donThuoc: KHONG_THUOC, ketQua: null, dongAi: { tong: 0, khop: 0 }, tab: (kichBan === 2 ? "don_thuoc" : "phieu") as TabId };
+  return { fields, chiDinh: KHONG_CHI_DINH, donThuoc: KHONG_THUOC, ketQua: null, dongAi: { tong: 0, khop: 0 }, tab: "phieu" as TabId };
 }
 
-export function EformScreen({ data, kichBan }: { data: EformData; kichBan?: KichBan }) {
+/**
+ * Màn phiếu khám. Trong một lượt khám thật, `bridge` do EncounterWorkspace cấp: hồ sơ, phiên bản và điều phối ghi âm đều ở đó.
+ * Không có `bridge` (trang /trinh-dien) thì màn chỉ để trình diễn, không ghi hồ sơ.
+ */
+export function EformScreen({ data, kichBan, bridge }: { data: EformData; kichBan?: KichBan; bridge?: EncounterBridge }) {
   const [dau] = useState(() => trangThaiDau(data, kichBan));
+  const record = bridge?.response.record ?? null;
+  const clinical = record ? { id: record.id, revision: record.revision } : null;
+  const [clinicalError, setClinicalError] = useState("");
+  const [saving, setSaving] = useState(false);
+  const [loadingRecord, setLoadingRecord] = useState(false);
+  const saveLock = useRef(false);
+  const [summary, setSummary] = useState("");
+  const [lastExtraction, setLastExtraction] = useState<ClinicalExtraction | null>(null);
+  const [reviewConfirmed, setReviewConfirmed] = useState(false);
+  const [scopesChosen, setScopesChosen] = useState<ApprovalScope[]>([]);
+  const [clinicalInfo, setClinicalInfo] = useState("");
+  const [noServices, setNoServices] = useState(false);
   const [fields, setFields] = useState(dau.fields);
   const [chiDinh, setChiDinh] = useState(dau.chiDinh);
-  const [donThuoc, setDonThuoc] = useState(dau.donThuoc);
+  const [donThuoc] = useState(dau.donThuoc);
   // Dữ liệu lúc Lưu gần nhất (ban đầu là lúc mở phiếu); khác tham chiếu nghĩa là có thay đổi chưa Lưu
-  const [banLuu, setBanLuu] = useState(() => ({ fields, chiDinh, donThuoc }));
+  const [banLuu, setBanLuu] = useState(() => ({ fields, chiDinh, donThuoc, trangThai: data.ca.trang_thai, summary: "", noServices: false, clinicalInfo: "" }));
   const [ketQua, setKetQua] = useState<KetQuaDien | null>(dau.ketQua);
-  const [banChup, setBanChup] = useState<BanChup | null>(null);
   const [dongAi, setDongAi] = useState<DongAi>(dau.dongAi);
   const [luot, setLuot] = useState<Luot>({
     batDau: null,
@@ -139,20 +146,57 @@ export function EformScreen({ data, kichBan }: { data: EformData; kichBan?: Kich
     daGhi: false,
   });
   const [tab, setTab] = useState<TabId>(dau.tab);
-  // Một lượt mở phiếu là một lần kê: Lưu lại nhiều lần thì server ghi đè, không đếm thêm vào thói quen
-  const [idLuotKham] = useState(() => crypto.randomUUID());
   const [trangThai, setTrangThai] = useState(data.ca.trang_thai);
   const [lastEdit, setLastEdit] = useState(data.ca.chinh_sua_cuoi);
   const [expanded, setExpanded] = useState(false);
   const [showReport, setShowReport] = useState(false);
   const [toast, setToast] = useState("");
   const toastTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
+  const hydrated = useRef(false);
 
   const notify = useCallback((message: string) => {
     setToast(message);
     clearTimeout(toastTimer.current);
     toastTimer.current = setTimeout(() => setToast(""), 3500);
   }, []);
+
+  /** Đặt lại toàn bộ phiếu theo bản hồ sơ từ server (lúc mở, sau khi duyệt, đổi trạng thái hoặc quyết định đề xuất AI). */
+  const applyLoaded = useCallback((response: ClinicalResponse) => {
+    setFields(response.snapshot.fields);
+    setSummary(response.record.tom_tat ?? "");
+    setLastExtraction(response.latest_ai ?? null);
+    setReviewConfirmed(false);
+    setScopesChosen([]);
+    setNoServices(response.record.chi_dinh.de_cap === "khong_chi_dinh");
+    setClinicalInfo(response.snapshot.chiDinhLyDo ?? "");
+    setChiDinh(response.snapshot.chiDinh);
+    setTrangThai(response.snapshot.trangThai);
+    setBanLuu({ fields: response.snapshot.fields, chiDinh: response.snapshot.chiDinh, donThuoc: [], trangThai: response.snapshot.trangThai, summary: response.record.tom_tat ?? "", noServices: response.record.chi_dinh.de_cap === "khong_chi_dinh", clinicalInfo: response.snapshot.chiDinhLyDo ?? "" });
+    setKetQua(null);
+    setDongAi({ tong: 0, khop: 0 });
+    setLastEdit({ nguoi: response.record.audit.updated_by, luc: new Date(response.record.audit.updated_at).toLocaleString("vi-VN", { timeZone: "Asia/Ho_Chi_Minh" }) });
+    setClinicalError("");
+  }, []);
+
+  // Lúc mở lượt khám: đổ hồ sơ server vào phiếu một lần. Sau đó phiếu là của bác sĩ; ghi âm làm đổi phiên bản hồ sơ nhưng không đè các ô đang sửa.
+  useEffect(() => {
+    if (!bridge || hydrated.current) return;
+    hydrated.current = true;
+    applyLoaded(bridge.response);
+  }, [bridge, applyLoaded]);
+
+  const finish = (response: ClinicalResponse) => {
+    bridge?.publish(response);
+    applyLoaded(response);
+  };
+
+  const reloadSaved = async () => {
+    if (!clinical || loadingRecord || saving) return;
+    setLoadingRecord(true);
+    try { finish(await docHoSo(clinical.id)); }
+    catch (error) { setClinicalError(error instanceof Error ? error.message : "Không đọc được hồ sơ."); }
+    finally { setLoadingRecord(false); }
+  };
 
   const api = useMemo<EformApi>(
     () => ({
@@ -174,77 +218,6 @@ export function EformScreen({ data, kichBan }: { data: EformData; kichBan?: Kich
     [data, fields, notify],
   );
 
-  /** "Kê như mọi khi": các dòng bác sĩ hay kê cho chẩn đoán chính (trên phiếu, chưa có thì mã AI vừa gán) */
-  const dongQuen = (kq: KetQuaDien) => {
-    const icd =
-      splitCodes(api.get("icd_ra_vien").value)[0] ??
-      splitCodes(api.get("icd_ban_dau").value)[0] ??
-      splitCodes(kq.truong.icd_ra_vien?.value ?? "")[0];
-    const quen = icd ? goiYThoiQuen([icd], data.thoiQuen, data.danhMuc)[0] : undefined;
-    if (!quen) return { icd, chiDinh: [], donThuoc: [] };
-    const lay = <T extends { ma: string; ten: string }>(rows: T[]) => rows.filter((row) => hayKe(quen, row)).map((row) => ({ ...row, tu_ai: true }));
-    return { icd, chiDinh: lay(quen.chiDinh), donThuoc: lay(quen.donThuoc) };
-  };
-
-  const aiDien = (result: PipelineResult, text: string, mau?: PhieuMau) => {
-    const kq = mau
-      ? dienPhieu(result.draft, result.matches, data, api.get, { chiOTrong: true, icd: icdTheoMau(mau, result.draft) })
-      : dienPhieu(result.draft, result.matches, data, api.get);
-    if (mau?.khamKhac) {
-      // Ô Khám các bộ phận khác không có trong schema LLM: lấy thẳng từ mẫu, chỉ khi ô đang trống
-      const nhan = "Khám các bộ phận khác";
-      if (api.get("kham_khac").value.trim()) kq.boQua.push(nhan);
-      else {
-        const nguon = demChoTrong(mau.khamKhac) > 0 ? "xem" : "ai";
-        kq.truong.kham_khac = { value: mau.khamKhac, nguon };
-        kq.daDien.push({ id: "kham_khac", nhan, nguon });
-      }
-    }
-    const quen = nhuMoiKhi(text) ? dongQuen(kq) : null;
-    // Dòng quen đứng trước, dòng AI tách từ câu nói thêm vào sau; trùng mã hay tên thì bỏ
-    const quenChiDinh = dongMoi(chiDinh, quen?.chiDinh ?? []);
-    const quenThuoc = dongMoi(donThuoc, quen?.donThuoc ?? []);
-    const themChiDinh = [...quenChiDinh, ...dongMoi([...chiDinh, ...quenChiDinh], kq.chiDinh)];
-    const themThuoc = [...quenThuoc, ...dongMoi([...donThuoc, ...quenThuoc], kq.donThuoc)];
-    const them = [...themChiDinh, ...themThuoc];
-    setBanChup({ fields, chiDinh, donThuoc, ketQua, dongAi });
-    // fields, chiDinh, donThuoc ở đây là lúc gửi; bác sĩ sửa gì trong lúc chờ AI thì giữ phần đó
-    setFields((prev) => gopTruongMoi(prev, fields, kq.truong));
-    setChiDinh((prev) => [...prev, ...dongMoi(prev, themChiDinh)]);
-    setDonThuoc((prev) => [...prev, ...dongMoi(prev, themThuoc)]);
-    setKetQua((prev) => gopKetQua(prev, kq));
-    setDongAi({ tong: dongAi.tong + them.length, khop: dongAi.khop + them.filter((row) => row.nguon === "ai").length });
-    setLuot((prev) => ({ ...prev, provider: result.provider, mauId: mau?.id ?? prev.mauId }));
-    setTab("phieu");
-    const ghiChuQuen = !quen
-      ? ""
-      : quenChiDinh.length + quenThuoc.length > 0
-        ? ` Đã lấy ${quenThuoc.length} thuốc, ${quenChiDinh.length} chỉ định anh/chị hay kê cho ${quen.icd}.`
-        : ` Chưa có đơn anh/chị đã kê cho ${quen.icd ?? "chẩn đoán này"} nên chưa lấy được bộ quen.`;
-    if (mau) {
-      const choTrong = Object.values(kq.truong).reduce((tong, o) => tong + demChoTrong(o.value), 0);
-      notify(
-        `Đã điền theo mẫu ${mau.ten}: ${kq.daDien.length} ô, ${themChiDinh.length} chỉ định, ${themThuoc.length} thuốc.` +
-          (kq.boQua.length > 0 ? ` Bỏ qua ${kq.boQua.length} ô đã có chữ.` : "") +
-          (choTrong > 0 ? ` Còn ${choTrong} chỗ cần điền (tô vàng).` : "") +
-          ghiChuQuen,
-      );
-      return;
-    }
-    notify(`AI đã điền ${kq.daDien.length} trường, ${themChiDinh.length} chỉ định, ${themThuoc.length} thuốc.${ghiChuQuen}`);
-  };
-
-  const hoanTac = () => {
-    if (!banChup) return;
-    setFields(banChup.fields);
-    setChiDinh(banChup.chiDinh);
-    setDonThuoc(banChup.donThuoc);
-    setKetQua(banChup.ketQua);
-    setDongAi(banChup.dongAi);
-    setBanChup(null);
-    notify("Đã hoàn tác lần AI điền.");
-  };
-
   const goTo = (id: string) => {
     setTab("phieu");
     // Đợi tab phiếu khám hiện ra rồi mới cuộn và đặt con trỏ vào ô
@@ -255,16 +228,52 @@ export function EformScreen({ data, kichBan }: { data: EformData; kichBan?: Kich
     }, 50);
   };
 
-  const chuaLuu = fields !== banLuu.fields || chiDinh !== banLuu.chiDinh || donThuoc !== banLuu.donThuoc;
-  const khoa = trangThai === TRANG_THAI_HOAN_THANH;
+  const chuaLuu = fields !== banLuu.fields || chiDinh !== banLuu.chiDinh || trangThai !== banLuu.trangThai || summary !== banLuu.summary || noServices !== banLuu.noServices || clinicalInfo !== banLuu.clinicalInfo;
+  const bridgeSetDirty = bridge?.setDirty;
+  useEffect(() => { bridgeSetDirty?.(chuaLuu); }, [chuaLuu, bridgeSetDirty]);
+  const khoa = trangThai === TRANG_THAI_HOAN_THANH || record?.status === "hoan_thanh_kham";
 
-  const changeStatus = (next: string) => {
-    if (next === TRANG_THAI_HOAN_THANH && chuaLuu) {
-      notify("Phiếu còn thay đổi chưa Lưu. Bấm Lưu trước khi chọn Hoàn thành khám.");
+  const required = record ? requiredApprovalScopes(record) : [];
+  const duyet = record ? required.map((scope) => ({ scope, state: approvalState(record, scope) })) : [];
+  const duyetDu = duyet.length > 0 && duyet.every((item) => item.state === "current");
+  const printable = record && duyetDu && !chuaLuu ? record : null;
+  const banInSnapshot = useMemo(() => (printable ? projectEform(printable) : null), [printable]);
+  const printApi = useMemo<EformApi>(() => (banInSnapshot ? { ...api, get: (id) => banInSnapshot.fields[id] ?? EMPTY } : api), [api, banInSnapshot]);
+
+  /** Thao tác ghi lên server: chạy một lần, cập nhật phiên bản hồ sơ và đổ lại phiếu theo kết quả. */
+  const runAction = async (fallback: string, action: (current: Encounter) => Promise<ClinicalResponse>, done: string) => {
+    if (!bridge || saving || loadingRecord) return;
+    setSaving(true); setClinicalError("");
+    try {
+      finish(await action(bridge.latest().record));
+      notify(done);
+    } catch (error) { setClinicalError(error instanceof Error ? error.message : fallback); }
+    finally { setSaving(false); }
+  };
+
+  const approveChosen = () => {
+    if (chuaLuu || !reviewConfirmed || scopesChosen.length === 0) return;
+    void runAction("Không duyệt được hồ sơ.", (current) => approveScopes({ id: current.id, expected_revision: current.revision, scopes: scopesChosen, acknowledged_issues: true }), "Bác sĩ đã duyệt các phần đã chọn. Các phần chưa chọn vẫn là bản nháp.");
+  };
+
+  const transition = (action: "wait" | "resume" | "complete") => {
+    if (chuaLuu) { notify("Phiếu còn thay đổi chưa Lưu. Bấm Lưu trước khi đổi trạng thái lượt khám."); return; }
+    if (bridge?.recordingActive) { notify("Hãy dừng ghi âm trước khi đổi trạng thái lượt khám."); return; }
+    if (action === "resume" && fields.chuyen_noi_soi?.value) {
+      api.put("chuyen_noi_soi", "", null);
+      notify("Đã xóa mục chuyển nội soi vì lượt khám không còn chờ kết quả. Bấm Lưu rồi chọn Tiếp tục khám.");
       return;
     }
+    const done = { wait: "Lượt khám chuyển sang chờ kết quả. Có thể chuyển sang bệnh nhân khác.", resume: "Đã tiếp tục khám.", complete: "Đã hoàn tất lượt khám." }[action];
+    void runAction("Không đổi được trạng thái lượt khám.", (current) => transitionEncounter({ id: current.id, expected_revision: current.revision, action }), done);
+  };
+
+  const changeStatus = (next: string) => {
+    if (next === TRANG_THAI_HOAN_THANH) { if (bridge) transition("complete"); return; }
+    if (next === TRANG_THAI_NOI_SOI) { if (bridge) transition("wait"); return; }
+    if (next === TRANG_THAI_DANG_KHAM && bridge && (record?.status === "cho_kq_cls" || record?.status === "hoan_thanh_kham")) { transition("resume"); return; }
     setTrangThai(next);
-    if (next !== TRANG_THAI_NOI_SOI && fields.chuyen_noi_soi?.value) api.put("chuyen_noi_soi", "", null);
+    if (fields.chuyen_noi_soi?.value) api.put("chuyen_noi_soi", "", null);
   };
 
   const conXem =
@@ -307,36 +316,37 @@ export function EformScreen({ data, kichBan }: { data: EformData; kichBan?: Kich
     }
   };
 
-  /** Ghi đơn và chỉ định theo chẩn đoán chính vào thói quen của tài khoản đang đăng nhập. Trả câu báo thêm */
-  const ghiThoiQuen = async (): Promise<string> => {
-    const icdChinh = splitCodes(api.get("icd_ra_vien").value)[0] ?? splitCodes(api.get("icd_ban_dau").value)[0];
-    if (!icdChinh || chiDinh.length + donThuoc.length === 0) return "";
-    try {
-      await luuThoiQuen({
-        tai_khoan: data.ca.dang_nhap,
-        don: {
-          id: idLuotKham,
-          icd_chinh: icdChinh,
-          chi_dinh: chiDinh.map((row) => chiGiuCot(row, COT_CHI_DINH)),
-          don_thuoc: donThuoc.map((row) => chiGiuCot(row, COT_THUOC)),
-          loi_dan: api.get("loi_dan").value,
-        },
-      });
-      return "";
-    } catch {
-      return " Chưa ghi được đơn vào gợi ý theo thói quen.";
-    }
-  };
-
   const save = async () => {
-    setLastEdit({ nguoi: data.ca.dang_nhap, luc: nowText() });
-    setBanLuu({ fields, chiDinh, donThuoc });
+    if (saveLock.current || loadingRecord) return;
     if (data.trinhDien) {
-      notify("Đã lưu (trình diễn: không ghi số đo hay đơn đã kê).");
+      notify("Trang trình diễn không ghi hồ sơ. Mở trang chính để lưu phiếu và chỉ định.");
       return;
     }
-    const ghiChu = (await ghiLuot()) + (await ghiThoiQuen());
-    notify("Đã lưu." + ghiChu);
+    if (!bridge || !clinical) {
+      setClinicalError("Chưa mở lượt khám để lưu phiếu.");
+      return;
+    }
+    saveLock.current = true;
+    setSaving(true);
+    setClinicalError("");
+    const snapshot = { fields, chiDinh, chiDinhLyDo: clinicalInfo, chiDinhDeCap: noServices ? "khong_chi_dinh" as const : "chua_de_cap" as const, trangThai: trangThai as TrangThai };
+    try {
+      const current = bridge.latest().record;
+      const response = await luuHoSo(snapshot, { id: current.id, revision: current.revision }, summary || null);
+      bridge.publish(response);
+      const savedRows = response.snapshot.chiDinh;
+      setChiDinh(rows => rows === snapshot.chiDinh ? savedRows : rows);
+      setBanLuu({ fields: snapshot.fields, chiDinh: savedRows, donThuoc, trangThai: snapshot.trangThai, summary, noServices, clinicalInfo });
+      setReviewConfirmed(false); setScopesChosen([]);
+      setLastEdit({ nguoi: response.record.audit.updated_by, luc: nowText() });
+      const ghiChu = await ghiLuot();
+      notify(`Đã lưu phiếu và chỉ định, phiên bản ${response.record.revision}.` + ghiChu);
+    } catch (error) {
+      setClinicalError(error instanceof Error ? error.message : "Không lưu được hồ sơ.");
+    } finally {
+      saveLock.current = false;
+      setSaving(false);
+    }
   };
 
   const soDong = { chi_dinh: chiDinh.length, don_thuoc: donThuoc.length, phieu: 0 };
@@ -348,8 +358,10 @@ export function EformScreen({ data, kichBan }: { data: EformData; kichBan?: Kich
   const coGoiY = {
     phieu: false,
     chi_dinh: boMau.some((mau) => mau.chiDinh.length > 0),
-    don_thuoc: boMau.some((mau) => mau.donThuoc.length > 0),
+    don_thuoc: false,
   };
+  const khoaThaoTac = saving || loadingRecord || chuaLuu;
+  const duyetMoiNhat = record?.approval_versions.at(-1)?.approved_at;
 
   return (
     <EformContext.Provider value={api}>
@@ -397,30 +409,75 @@ export function EformScreen({ data, kichBan }: { data: EformData; kichBan?: Kich
               )}
             </div>
 
+            <div className="rounded-lg border border-ef-vien bg-white px-4 py-3 text-[13px] text-ef-phu">
+              <p>Phiếu khám và chỉ định dịch vụ · {clinical ? `Bản lưu ${clinical.revision}` : "Chưa có bản lưu"}</p>
+              <p>Bác sĩ kê đơn thuốc bằng quy trình riêng.</p>
+              {clinical && <button type="button" className={`${BTN_OUTLINE} mt-2`} onClick={reloadSaved} disabled={saving || loadingRecord}>{loadingRecord ? "Đang tải…" : chuaLuu ? "Tải bản lưu (bỏ thay đổi trên màn)" : "Tải bản lưu"}</button>}
+            </div>
+            {bridge && record && <RecordingSessions sessions={record.recording_sessions} busy={saving || bridge.busy} onDiscard={(session) => { void bridge.discardSession(session).catch((error) => setClinicalError(error instanceof Error ? error.message : "Không bỏ được phần chưa duyệt.")); }} />}
+            <div className="space-y-2 rounded-lg border border-ef-vien bg-white px-4 py-3">
+              <label className="block text-sm font-semibold" htmlFor="clinical-summary">Tóm tắt buổi khám</label>
+              <textarea id="clinical-summary" aria-label="Tóm tắt buổi khám" className="w-full rounded border border-ef-vien p-2" rows={3} value={summary} onChange={event => { setSummary(event.target.value); setReviewConfirmed(false); }} disabled={saving || loadingRecord} />
+              {lastExtraction && <details className="text-xs"><summary>Nguồn và điểm cần kiểm tra của lượt AI gần nhất</summary>
+                <ul className="list-disc pl-5">{lastExtraction.draft.can_xem_lai.map((issue, i) => <li key={i}>{issue.mo_ta}</li>)}</ul>
+                <ul className="mt-2 list-disc pl-5">{lastExtraction.draft.bang_chung.map((item, i) => <li key={i}>{item.field_path}: “{item.trich_doan}”</li>)}</ul>
+              </details>}
+            </div>
+            {bridge && record && (
+              <section aria-label="Duyệt và trạng thái lượt khám" className="space-y-2 rounded-lg border border-ef-vien bg-white px-4 py-3">
+                <h2 className="text-sm font-semibold">Duyệt theo từng phần</h2>
+                <p className="text-xs text-ef-phu">Duyệt không kết thúc lượt khám. Sửa phần nào thì chỉ phần đó cần duyệt lại; các bản đã duyệt trước đó vẫn được lưu.</p>
+                <ul className="space-y-1">
+                  {duyet.map(({ scope, state }) => (
+                    <li key={scope} className="flex items-center gap-2 text-[13px]">
+                      <input
+                        id={`duyet-${scope}`}
+                        type="checkbox"
+                        disabled={khoaThaoTac || state === "current" || khoa}
+                        checked={scopesChosen.includes(scope)}
+                        onChange={(event) => setScopesChosen((current) => event.target.checked ? [...current, scope] : current.filter((item) => item !== scope))}
+                      />
+                      <label htmlFor={`duyet-${scope}`}>{scopeLabel(record, scope)}</label>
+                      <span className={`rounded-full px-2 text-[11px] ${state === "current" ? "bg-ef-xanh/10 text-ef-xanh" : "bg-ef-nen text-ef-phu"}`}>{NHAN_DUYET[state]}</span>
+                    </li>
+                  ))}
+                </ul>
+                <label className="flex items-start gap-2 text-xs"><input type="checkbox" checked={reviewConfirmed} onChange={event => setReviewConfirmed(event.target.checked)} disabled={khoaThaoTac || khoa} />Tôi đã kiểm tra nội dung các phần đã chọn và các điểm AI đánh dấu.</label>
+                <div className="flex flex-wrap items-center gap-2">
+                  <button type="button" className={BTN_OUTLINE} onClick={approveChosen} disabled={khoaThaoTac || khoa || !reviewConfirmed || scopesChosen.length === 0}>Duyệt các phần đã chọn</button>
+                  <span className="text-xs">{duyetDu && !chuaLuu ? "Đã duyệt đủ các phần" : chuaLuu ? "Còn thay đổi chưa lưu — lưu rồi mới duyệt" : "Bản nháp — lưu rồi duyệt trước khi in"}</span>
+                </div>
+                <div className="flex flex-wrap gap-2 border-t border-ef-vien/70 pt-2">
+                  <button type="button" className={BTN_OUTLINE} disabled={khoaThaoTac || record.status !== "dang_kham"} onClick={() => transition("wait")}>Chờ kết quả</button>
+                  <button type="button" className={BTN_OUTLINE} disabled={khoaThaoTac || record.status !== "cho_kq_cls"} onClick={() => transition("resume")}>Tiếp tục khám</button>
+                  <button type="button" className={BTN_OUTLINE} disabled={khoaThaoTac || khoa || !["dang_kham", "cho_kq_cls"].includes(record.status)} onClick={() => transition("complete")}>Hoàn tất lượt khám</button>
+                </div>
+              </section>
+            )}
+            {clinicalError && <p role="alert" className="rounded-lg border border-ef-do bg-ef-do-nhat px-4 py-3 text-ef-do">{clinicalError}</p>}
+
             {khoa && (
               <p role="status" className="rounded-lg border border-ef-vien bg-white px-4 py-2.5 text-[13px] text-ef-chu">
-                🔒 Lượt khám đã <strong>Hoàn thành khám</strong>, phiếu chỉ đọc. Muốn sửa, chọn lại trạng thái <strong>Đang khám</strong>.
+                🔒 Lượt khám đã <strong>Hoàn tất</strong>, phiếu chỉ đọc.
               </p>
             )}
 
             {/* fieldset disabled khóa mọi ô nhập và nút bên trong khi phiếu đã hoàn thành */}
-            <fieldset disabled={khoa} className="contents">
+            <fieldset disabled={khoa || saving || loadingRecord} className="contents">
               {tab === "phieu" && <EformForm noiSoiEnabled={trangThai === TRANG_THAI_NOI_SOI} />}
-              {tab === "chi_dinh" && <ChiDinhTab rows={chiDinh} onChange={setChiDinh} />}
-              {tab === "don_thuoc" && <DonThuocTab rows={donThuoc} onChange={setDonThuoc} />}
+              {tab === "chi_dinh" && <ChiDinhTab rows={chiDinh} onChange={setChiDinh} onSave={save} saving={saving} noServices={noServices} onNoServices={setNoServices} clinicalInfo={clinicalInfo} onClinicalInfo={setClinicalInfo} />}
             </fieldset>
           </main>
 
-          <fieldset disabled={khoa} className="contents">
+          <fieldset disabled={khoa || saving || loadingRecord} className="contents">
             <TroLyAi
-              ketQua={ketQua}
-              onDien={aiDien}
+              bridge={bridge ?? null}
+              dirty={chuaLuu}
+              onDecided={(response) => { finish(response); notify("Đã lưu quyết định về các đề xuất AI. Hãy xem lại phiếu trước khi duyệt."); }}
               onBatDau={batDauNhap}
-              onHoanTac={banChup ? hoanTac : null}
               onGoTo={goTo}
               onOpenTab={setTab}
               soChiDinh={chiDinh.length}
-              soThuoc={donThuoc.length}
               vanBanDau={kichBan === 3 ? data.trinhDien?.lenh : undefined}
               hoiThoai={kichBan === 4 ? data.trinhDien?.hoiThoai : undefined}
             />
@@ -472,11 +529,11 @@ export function EformScreen({ data, kichBan }: { data: EformData; kichBan?: Kich
             <button type="button" className={`${BTN_OUTLINE} whitespace-nowrap`} onClick={() => setShowReport(true)}>
               Báo cáo y tế
             </button>
-            <button type="button" className={`${BTN_OUTLINE} whitespace-nowrap`} onClick={() => window.print()} title="In phiếu khám, chỉ định và đơn thuốc">
+            <button type="button" className={`${BTN_OUTLINE} whitespace-nowrap`} onClick={() => { if (printable) window.print(); }} disabled={!printable || saving} title="Chỉ in bản đã lưu và đã được bác sĩ duyệt đủ các phần">
               In ngay
             </button>
-            <button type="button" className={`${BTN_CHINH} ml-auto inline-flex flex-1 items-center justify-center gap-2 whitespace-nowrap sm:max-w-sm`} onClick={save}>
-              Lưu
+            <button type="button" className={`${BTN_CHINH} ml-auto inline-flex flex-1 items-center justify-center gap-2 whitespace-nowrap sm:max-w-sm`} onClick={save} disabled={saving || loadingRecord || khoa}>
+              {saving ? "Đang lưu…" : "Lưu phiếu & chỉ định"}
               {conXem > 0 && (
                 <span className="rounded-full bg-xem-nhat px-2 py-px text-[11px] font-semibold text-xem" title="Số chỗ AI chưa chắc, bác sĩ nên xem lại trước khi Lưu">
                   {conXem} cần xem lại
@@ -497,7 +554,11 @@ export function EformScreen({ data, kichBan }: { data: EformData; kichBan?: Kich
         {showReport && <BaoCaoDialog onClose={() => setShowReport(false)} />}
       </div>
 
-      <BanIn chiDinh={chiDinh} donThuoc={donThuoc} trangThai={trangThai} />
+      {printable && banInSnapshot ? (
+        <EformContext.Provider value={printApi}>
+          <BanIn chiDinh={banInSnapshot.chiDinh} donThuoc={[]} trangThai={banInSnapshot.trangThai} summary={printable.tom_tat ?? ""} followUpText={printable.phieu_kham.hen_tai_kham.nguyen_van ?? undefined} duyet={`Bản đã duyệt đủ các phần · phiên bản hồ sơ ${printable.revision}${duyetMoiNhat ? ` · duyệt lúc ${new Date(duyetMoiNhat).toLocaleString("vi-VN", { timeZone: "Asia/Ho_Chi_Minh" })}` : ""}`} />
+        </EformContext.Provider>
+      ) : <p className="hidden print:block">Hồ sơ đang là bản nháp hoặc còn phần chưa duyệt. Hãy lưu và duyệt đủ các phần trước khi in.</p>}
     </EformContext.Provider>
   );
 }

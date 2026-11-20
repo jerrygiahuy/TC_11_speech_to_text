@@ -1,0 +1,88 @@
+{
+  "id": "ca-chuan",
+  "ten": "Ca chuẩn: đủ loại thông tin định danh, qua chốt chặn",
+  "benh_nhan_id": "GIA-000123",
+  "mode": "conversation",
+  "doan": [
+    {
+      "vai_tro": "bac_si",
+      "text": "chào chị hôm nay chị khám vì sao",
+      "phien": 1
+    },
+    {
+      "vai_tro": "benh_nhan",
+      "text": "tôi bị đau ngực và hồi hộp từng lúc 3 ngày nay",
+      "phien": 1
+    },
+    {
+      "vai_tro": "bac_si",
+      "text": "cho tôi hỏi tên đầy đủ và số điện thoại ạ",
+      "phien": 1
+    },
+    {
+      "vai_tro": "benh_nhan",
+      "text": "tôi tên là nguyễn thị giả số điện thoại 0900000123 nhà ở số 12 đường mẫu phường giả quận thử",
+      "phien": 1
+    },
+    {
+      "vai_tro": "nguoi_nha",
+      "text": "tôi là chồng chị ấy tên trần văn phụ đưa chị đi khám",
+      "phien": 1
+    },
+    {
+      "vai_tro": "benh_nhan",
+      "text": "ngày sinh 10/03/1978 căn cước 000000123456 quốc tịch việt nam",
+      "phien": 1
+    },
+    {
+      "vai_tro": "benh_nhan",
+      "text": "mẹ tôi có tiền sử tăng huyết áp",
+      "phien": 1
+    },
+    {
+      "vai_tro": "bac_si",
+      "text": "đã dùng thuốc gì chưa",
+      "phien": 1
+    },
+    {
+      "vai_tro": "benh_nhan",
+      "text": "tôi đã uống amlodipine 5 mg ngày 1 lần",
+      "phien": 1
+    },
+    {
+      "vai_tro": "bac_si",
+      "text": "khám tim thấy nhịp đều",
+      "phien": 2
+    },
+    {
+      "vai_tro": "bac_si",
+      "text": "chỉ định điện tâm đồ",
+      "phien": 2
+    },
+    {
+      "vai_tro": "bac_si",
+      "text": "dặn theo dõi huyết áp tại nhà",
+      "phien": 2
+    }
+  ],
+  "expected": {
+    "phai_che": [
+      "nguyễn thị giả",
+      "0900000123",
+      "số 12 đường mẫu",
+      "trần văn phụ",
+      "10/03/1978",
+      "000000123456",
+      "việt nam",
+      "phường giả",
+      "quận thử"
+    ],
+    "phai_giu": [
+      "amlodipine 5 mg ngày 1 lần",
+      "hồi hộp",
+      "3 ngày nay",
+      "tiền sử tăng huyết áp"
+    ],
+    "bi_chan": false
+  }
+}

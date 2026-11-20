@@ -1,10 +1,16 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import { ClinicHttpError } from "@/server/clinic/errors";
+import { setClinicActorForTest } from "@/server/clinic/demo-actor";
 import { handleClinicRequest } from "@/server/clinic/http";
+import { setClinicRepositoryForTest } from "@/server/clinic/repository";
+import { createTestClinicRepository, TEST_ACTOR } from "@/server/clinic/testing";
 import { GET as getAppointment } from "./appointments/[appointmentId]/route";
 import { GET as getDashboard } from "./dashboard/route";
 import { GET as getPatient } from "./patients/[patientId]/route";
+
+setClinicRepositoryForTest(createTestClinicRepository());
+setClinicActorForTest(TEST_ACTOR);
 
 const BASE = "http://localhost:3000";
 // Next dựng request.url từ hostname cấu hình của server, nên guard chỉ tin header Host/Origin/Sec-Fetch-Site.
@@ -85,4 +91,25 @@ test("store_error_is_500_without_fake_totals", async () => {
     throw new ClinicHttpError(404, "Không tìm thấy.");
   });
   await check(e, 404);
+});
+
+test("history_detail_is_404_for_unknown_or_other_scope_and_403_remote", async () => {
+  const { GET: getHistory } = await import("./patients/[patientId]/encounters/[encounterId]/route");
+  const ctx = (patientId: string, encounterId: string) => ({ params: Promise.resolve({ patientId, encounterId }) });
+  assert.equal((await getHistory(req("/api/clinic/patients/000123/encounters/xxx"), ctx("000123", "xxx"))).status, 404);
+  assert.equal((await getHistory(req("/api/clinic/patients/999999/encounters/xxx"), ctx("999999", "xxx"))).status, 404);
+  assert.equal(
+    (await getHistory(req("/api/clinic/patients/000123/encounters/xxx", { Host: "evil.example" }), ctx("000123", "xxx"))).status,
+    403,
+  );
+});
+
+test("open_appointment_post_checks_scope_policy_and_origin", async () => {
+  const { POST: openPost } = await import("./appointments/[appointmentId]/open/route");
+  const post = (id: string, headers?: Record<string, string>) =>
+    openPost(new Request(`${BASE}/api/clinic/appointments/${id}/open`, { method: "POST", headers: { Host: "localhost:3000", ...headers } }), apptCtx(id));
+  assert.equal((await post("LK-999999")).status, 404);
+  assert.equal((await post("LK-000011")).status, 404); // lịch của bác sĩ khác
+  assert.equal((await post("LK-000003")).status, 409); // fixture test không có ngữ cảnh khám
+  assert.equal((await post("LK-000003", { Origin: "http://evil.example" })).status, 403);
 });

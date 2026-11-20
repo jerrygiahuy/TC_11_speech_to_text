@@ -78,6 +78,8 @@ export function DashboardScreen({ initialData, initialView }: Props) {
 
   const groups = groupAppointments(data.appointments);
   const { totals } = data;
+  const countBy = (status: string) => groups.remaining.filter((i) => i.status === status).length;
+  const [scheduled, inProgress, waiting] = [countBy("scheduled"), countBy("in_progress"), countBy("waiting_results")];
   const open = (id: string) => setOpenId(id);
 
   return (
@@ -124,7 +126,7 @@ export function DashboardScreen({ initialData, initialView }: Props) {
         <p className="text-[14px] text-ink">
           Tổng lịch trong ngày: <strong className="text-2xl tabular-nums">{totals.total}</strong>
         </p>
-        <div className="grid gap-3 lg:grid-cols-3">
+        <div className="grid gap-3 md:grid-cols-2">
           <EncounterGroup
             title="Đã hoàn thành"
             items={groups.completed}
@@ -137,16 +139,8 @@ export function DashboardScreen({ initialData, initialView }: Props) {
             items={groups.remaining}
             total={totals.total}
             onOpen={open}
-            note="Gồm chưa khám, đang khám và chờ kết quả CLS."
+            note={`Chưa khám ${scheduled} · Đang khám ${inProgress} · Chờ kết quả CLS ${waiting}`}
             emptyText="Không còn ca nào."
-          />
-          <EncounterGroup
-            title="Đang khám / chờ kết quả"
-            items={groups.unfinished}
-            total={totals.total}
-            onOpen={open}
-            note="Nằm trong số Còn lại, không cộng thêm."
-            emptyText="Không có ca đang khám hay chờ kết quả."
           />
         </div>
         <OtherEncounters cancelled={groups.cancelled} other={groups.other} unknown={groups.unknown} onOpen={open} />
@@ -176,7 +170,7 @@ export function DashboardScreen({ initialData, initialView }: Props) {
                 aria-pressed={view === key}
                 onClick={() => changeView(key)}
                 className={`border border-gray-300 px-3 py-1 text-[13px] first:rounded-l-sm last:rounded-r-sm last:border-l-0 ${
-                  view === key ? "bg-emr-blue font-semibold text-white" : "bg-white text-ink hover:bg-soft"
+                  view === key ? "border-emr-navy bg-emr-navy font-semibold text-white" : "bg-white text-ink hover:bg-soft"
                 }`}
               >
                 {label}

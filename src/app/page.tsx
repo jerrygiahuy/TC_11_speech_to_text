@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { EformScreen } from "@/client/eform/EformScreen";
-import { loadEformData } from "@/server/du-lieu/eform";
+import { EncounterWorkspace } from "@/client/eform/EncounterWorkspace";
 
 export const dynamic = "force-dynamic";
 
@@ -9,8 +8,11 @@ export const metadata: Metadata = {
   description: "Mô phỏng phiếu khám ngoại trú có điểm AI hỗ trợ. Chỉ dùng dữ liệu giả.",
 };
 
-/** ?bs=user_bs02 đổi tài khoản bác sĩ, để nhiều bác sĩ thử chung một máy mà gợi ý theo thói quen không lẫn nhau */
+/**
+ * Lượt khám chọn theo mã khám ở thanh trên cùng; ?ho_so=<mã hồ sơ> mở lại đúng hồ sơ đó.
+ * Danh tính bác sĩ và dữ liệu bệnh nhân do server quyết định theo từng mã khám, không lấy từ đường dẫn.
+ */
 export default async function Page({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
-  const { bs } = await searchParams;
-  return <EformScreen data={loadEformData(typeof bs === "string" ? bs : undefined)} />;
+  const { ho_so } = await searchParams;
+  return <EncounterWorkspace initialRecordId={typeof ho_so === "string" ? ho_so : undefined} />;
 }

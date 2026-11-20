@@ -22,7 +22,7 @@ import {
 import type { Appointment, AppointmentItem, DisplayStatus } from "./types";
 
 function readFixture(name: string): unknown {
-  return JSON.parse(readFileSync(path.join(process.cwd(), "data", "clinic", name), "utf8"));
+  return JSON.parse(readFileSync(path.join(process.cwd(), "data", "clinic-test", name), "utf8"));
 }
 
 const patients = PatientsFixtureSchema.parse(readFixture("patients.json"));
@@ -41,6 +41,8 @@ function fixtureItems(): AppointmentItem[] {
       encounter_id: encounter_status === null ? null : `enc-${appointment.id}`,
       status: displayStatus(appointment.scheduling_status, encounter_status),
       has_prior_encounter: false,
+      can_open: false,
+      open_reason: "no_context" as const,
     };
   });
 }

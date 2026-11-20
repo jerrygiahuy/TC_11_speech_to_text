@@ -47,7 +47,7 @@ export function ClinicDialog({ open, title, onClose, children }: Props) {
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
-      className="m-auto h-dvh max-h-dvh w-full max-w-none border-0 bg-white p-0 text-ink backdrop:bg-black/40 open:flex open:flex-col sm:h-auto sm:max-h-[90dvh] sm:max-w-2xl sm:rounded-lg"
+      className="m-auto h-dvh max-h-dvh w-full max-w-none border-0 bg-white p-0 text-ink backdrop:bg-black/40 open:flex open:flex-col sm:h-fit sm:max-h-[90dvh] sm:max-w-2xl sm:rounded-lg"
     >
       {open && (
         <>
@@ -58,12 +58,13 @@ export function ClinicDialog({ open, title, onClose, children }: Props) {
             <button
               type="button"
               onClick={onClose}
-              className="shrink-0 rounded-sm border border-gray-300 bg-white px-3 py-1 text-[13px] text-ink hover:bg-soft"
+              className="shrink-0 rounded-sm border border-[#a02622] bg-[#c9302c] px-3 py-1 text-[13px] font-semibold text-white hover:bg-[#a02622]"
             >
               Đóng
             </button>
           </div>
-          <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 py-3">{children}</div>
+          {/* Ở màn rộng cao theo nội dung (flex-initial, vẫn co lại và cuộn khi quá cao); màn hẹp chiếm hết chiều cao. */}
+          <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 py-3 sm:flex-initial">{children}</div>
         </>
       )}
     </dialog>

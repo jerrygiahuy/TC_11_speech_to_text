@@ -11,7 +11,7 @@ Phạm vi file này: Task 3 (dashboard) và Task 4 (popup lịch hẹn) của pl
 | 3.1 | Bộ 8 ca: tổng 8, Hoàn thành 2/8, Còn lại 4/8, Đang khám / chờ kết quả 2/8, Ca hủy 1, Kết thúc khác 1, Chưa xác định 0 | PASS (đọc từ trang thật) |
 | 3.2 | Mỗi khối có list thật: đúng 2 / 4 / 2 dòng, mỗi dòng đúng mã LK-00000x và PID giữ số 0 đầu (000123...) | PASS |
 | 3.3 | Nhãn "Đang khám / chờ kết quả" ghi rõ "Nằm trong số Còn lại, không cộng thêm"; ca 10:00 và 13:30 xuất hiện ở cả Còn lại và khối này | PASS |
-| 3.4 | Mặc định tối đa 5 dòng và "Xem tất cả (n)" | Chưa kiểm bằng dữ liệu thật: bộ 8 ca không có khối nào quá 5 dòng. Logic nằm trong `EncounterGroup` (`items.slice(0, 5)`), chưa chạy nút |
+| 3.4 | Khối cao cố định, nhiều ca thì cuộn trong khung (thay cho "Xem tất cả", đổi 16/11/2026) | Chưa kiểm với hơn 10 ca |
 | 3.5 | Khối rỗng có thông báo riêng (ngày 13/11: "Chưa có ca nào hoàn thành.", khối ca ngày trước "Không có ca nào còn dở từ ngày trước.") | PASS |
 | 3.6 | Dòng "Ca hủy: 1 · Kết thúc khác: 1 · Chưa xác định: 0" mở danh sách khi bấm; mục 0 bị tắt | PASS: bấm "Kết thúc khác" mở danh sách có ca nhập viện LK-000008 (aria-expanded=true) |
 | 3.7 | Khối "Chưa hoàn tất từ ngày trước" hiện ca LK-000009 (13/11 16:00) khi xem 14/11, không tính vào N | PASS |
@@ -100,3 +100,29 @@ Chú ý: Playwright không tạo lượt tải dữ liệu từ API cho trang b�
 - D.7: ô chọn ngày.
 - 5.6 ở 390px cho trang bệnh nhân với lịch sử dài (chỉ có 3 dòng ở fixture).
 - Nút Tạo phiếu khám và Xem phiếu không bấm được, đúng theo thiết kế của lượt này.
+
+## Cập nhật 2026-11-16: dữ liệu clinical thật, xem phiếu cũ, mở phiếu
+
+Dữ liệu trên trang nay là `data/clinic/` theo định danh clinical (PID `GIA-*`); các bảng cũ ở trên ghi theo bộ 8 ca đã chuyển sang `data/clinic-test/` (chỉ còn dùng cho test đơn vị). Chạy `next dev -p 3101`, mở bằng `localhost`.
+
+| # | Kiểm tra | Kết quả |
+| --- | --- | --- |
+| E.1 | `/dashboard?date=2026-11-16`: tổng 5, Còn lại 4/5, Đang khám/chờ KQ 2/5, hủy 1; ca LK-GIA-0451 (15/11 16:00, chờ KQ) ở khối chưa hoàn tất từ ngày trước; mã lượt `000123` giữ nguyên | PASS (đọc text trang thật) |
+| E.2 | Popup LK-GIA-0457 có nút "Mở phiếu khám"; bấm tạo hồ sơ và chuyển `/?ho_so=<UUID>`; eForm hiện Nguyễn Thị Giả, LK-GIA-0457 | PASS |
+| E.3 | `/benh-nhan/GIA-000123?appointment_id=LK-GIA-0456`: lịch sử 3 phiếu, loại phiếu của lịch đang chọn; "Xem phiếu" mở phiếu 20/10 đủ mục (lý do, khám, chẩn đoán J30.4, chỉ định, kết luận), ghi rõ mục thiếu và "Bản nháp" | PASS |
+| E.4 | Mới hơn/Cũ hơn: 2/3 sang 3/3 khóa "Cũ hơn", quay lại 2/3; chỉ request GET tới `/api/clinic/patients/.../encounters/...` | PASS |
+| E.5 | `/benh-nhan/GIA-000123` không chọn lịch: "Tạo phiếu khám" mở hộp chọn 2 lịch (LK-GIA-0456, LK-GIA-0457) | PASS |
+| E.6 | Mở bằng `127.0.0.1` khi chạy `next dev -H 127.0.0.1` | eForm báo "Nguồn yêu cầu không hợp lệ" (guard lớp clinical); dùng `localhost` |
+| E.7 | Hai tab bấm mở cùng lúc; rời eForm khi còn micro/chưa lưu; phiếu cũ đã duyệt hiện "Đã duyệt"; ca hủy/hoàn thành không có nút mở trên UI | Chưa kiểm trong trình duyệt (server từ chối ca hủy/hoàn thành/tương lai có test `open.test.ts`) |
+
+### Kiểm bổ sung 2026-11-16 (nghiệm thu Task 7)
+
+| # | Kiểm tra | Kết quả |
+| --- | --- | --- |
+| F.1 | `npm run build` | PASS: liệt kê `/dashboard`, `/benh-nhan/[patientId]`, `/api/clinic/appointments/[appointmentId]/open`, `/api/clinic/patients/[patientId]/encounters/[encounterId]` |
+| F.2 | Ba POST mở cùng lúc cho LK-GIA-0458 (bằng curl): cả ba trả cùng một `encounter_id`; thư mục `data/clinical/encounters` vẫn 4 hồ sơ, không tạo trùng | PASS (không phải hai tab thật, nhưng cùng đường tranh chấp ở server) |
+| F.3 | POST mở: LK-GIA-0459 (hủy) 409, LK-GIA-0461 (ngày mai) 409, LK-GIA-0450 (hoàn thành) 409, LK-GIA-0451 (chờ KQ, chưa có ngữ cảnh khám) 409, LK-GIA-0460 (bác sĩ khác) 404, mã không tồn tại 404; không tạo hồ sơ mới | PASS |
+| F.4 | Dashboard 375px (list và calendar): `scrollWidth` 375 = `innerWidth` 375 | PASS |
+| F.5 | Màn bệnh nhân và popup phiếu cũ ở 375px | Chưa kiểm xong: trình duyệt trong app không hoàn tất tải trang bệnh nhân ở cỡ mobile giả lập (kẹt ở "Đang tải hồ sơ bệnh nhân…"); trang trả 200 qua curl |
+| F.6 | `detect_changes` (đã làm mới chỉ mục): 37 file, 98 symbol, 59 luồng, mức "critical" do số lượng thay đổi của chính tính năng; phần lớp clinical chỉ thêm hàm `findEncounterContextIdentity`, không sửa hàm cũ | Đã xem |
+| F.7 | Hai tab thật; rời eForm khi còn micro/chưa lưu; phiếu cũ đã duyệt hiện "Đã duyệt"; ca chờ từ hôm trước tiếp tục được (LK-GIA-0451 hiện không mở được vì chưa có ngữ cảnh khám mẫu) | Chưa kiểm |

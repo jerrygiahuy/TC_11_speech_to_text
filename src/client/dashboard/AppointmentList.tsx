@@ -9,10 +9,13 @@ interface Props {
   onOpen: (appointmentId: string) => void;
 }
 
-function Period({ title, items, onOpen }: { title: string; items: AppointmentItem[]; onOpen: (id: string) => void }) {
+function Period({ title, items, onOpen, tone }: { title: string; items: AppointmentItem[]; onOpen: (id: string) => void; tone: "morning" | "afternoon" }) {
+  // Sáng nền vàng nhạt, chiều nền xanh nhạt để phân biệt ngay khi lướt.
+  const head = tone === "morning" ? "bg-[#b45309]" : "bg-emr-navy";
+  const body = tone === "morning" ? "bg-[#fff8e6]" : "bg-[#eaf2fb]";
   return (
-    <section aria-label={title} className="border border-gray-300 bg-white">
-      <h3 className="flex items-baseline justify-between border-b border-gray-300 bg-emr-navy px-3 py-1 text-[13px] font-bold text-white">
+    <section aria-label={title} className={`border border-gray-300 ${body}`}>
+      <h3 className={`flex items-baseline justify-between border-b border-gray-300 ${head} px-3 py-1 text-[13px] font-bold text-white`}>
         {title}
         <span className="tabular-nums">{items.length} lịch</span>
       </h3>
@@ -30,8 +33,8 @@ export function AppointmentList({ items, onOpen }: Props) {
   const { morning, afternoon } = splitByPeriod(items);
   return (
     <div className="space-y-3">
-      <Period title="Buổi sáng" items={morning} onOpen={onOpen} />
-      <Period title="Buổi chiều" items={afternoon} onOpen={onOpen} />
+      <Period title="Buổi sáng" items={morning} onOpen={onOpen} tone="morning" />
+      <Period title="Buổi chiều" items={afternoon} onOpen={onOpen} tone="afternoon" />
     </div>
   );
 }

@@ -46,6 +46,9 @@ export interface Appointment {
   scheduling_status: "scheduled" | "cancelled";
 }
 
+/** Vì sao lịch mở (hoặc không mở) được phiếu khám; do server quyết định. */
+export type OpenReason = "eligible" | "cancelled" | "future" | "terminal" | "unknown" | "no_context";
+
 export interface AppointmentItem {
   appointment: Appointment;
   patient: PatientProfile;
@@ -53,6 +56,9 @@ export interface AppointmentItem {
   encounter_id: string | null;
   status: DisplayStatus;
   has_prior_encounter: boolean;
+  /** Mở/tiếp tục được phiếu khám của lịch này; server kiểm lại khi bấm mở. */
+  can_open: boolean;
+  open_reason: OpenReason;
 }
 
 export interface DashboardTotals {
@@ -88,8 +94,27 @@ export interface HistorySummary {
 
 export interface PatientPageData {
   patient: PatientProfile;
-  /** Lịch của bác sĩ đang xem cho bệnh nhân này mà còn có thể khám (tạm, chờ policy mở phiếu của ưu tiên 1). */
+  /** Lịch của bác sĩ đang xem cho bệnh nhân này mà mở/tiếp tục được phiếu (server đã lọc theo chính sách mở phiếu). */
   eligibleAppointments: AppointmentItem[];
   history: HistorySummary[];
   selectedAppointmentId: string | null;
+}
+
+export type ApprovalLabelState = "draft" | "approved" | "changed";
+
+/** Phiếu cũ đã chiếu sang dạng chỉ đọc: chỉ có chuỗi hiển thị, không có transcript hay lần chạy AI. */
+export interface HistoricalEncounterViewModel {
+  id: string;
+  appointment_id: string | null;
+  revision: number;
+  encounter_at: string;
+  status: DisplayStatus;
+  patient: PatientProfile;
+  /** Hồ sơ hiện tại của bệnh nhân, không phải bản chụp lúc khám. */
+  identity_source: "current_profile";
+  doctor_name: string;
+  facility_name: string;
+  sections: Array<{ id: string; title: string; rows: Array<{ label: string; value: string }> }>;
+  approval: { state: ApprovalLabelState; label: string };
+  missingSections: string[];
 }

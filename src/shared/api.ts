@@ -38,6 +38,10 @@ export interface AsrTrangThai {
   provider: string;
   /** Chỉ true khi provider là zipformer và model đã tải về models/ */
   sanSang: boolean;
+  /** Thư mục model, tính từ gốc dự án (vd. models/stt/zipformer-vi) */
+  thuMucModel: string;
+  /** File model còn thiếu, tính từ gốc dự án; rỗng khi đủ hoặc khi không dùng zipformer */
+  thieu: string[];
 }
 
 /** POST /api/asr trả về id phiên */
@@ -57,4 +61,13 @@ export interface AsrKetQua {
 export interface LuuThoiQuenRequest {
   tai_khoan: string;
   don: Omit<DonDaKe, "thoi_diem">;
+}
+
+/** GET/POST/DELETE /api/stt/giong-bac-si: giọng bác sĩ đã đăng ký (chỉ lưu đặc trưng giọng, không lưu âm thanh) */
+export interface GiongBacSiTrangThai {
+  enrolled: boolean;
+  /** Thời điểm đăng ký (ISO, UTC) */
+  created_at?: string;
+  /** Số giây lời nói dùng để tạo đặc trưng giọng */
+  speech_seconds?: number;
 }

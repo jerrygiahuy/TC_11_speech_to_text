@@ -6,9 +6,10 @@ import { test } from "node:test";
 import { ClinicHttpError } from "./errors";
 import type { ClinicActor, EncounterSource } from "./ports";
 import { createClinicRepository } from "./repository";
+import { createTestClinicRepository } from "./testing";
 
 const actor: ClinicActor = { doctor_id: "BS01", facility_id: "CS01" };
-const dataDir = path.join(process.cwd(), "data", "clinic");
+const dataDir = path.join(process.cwd(), "data", "clinic-test");
 
 function snapshot(): Record<string, string> {
   return Object.fromEntries(
@@ -17,7 +18,7 @@ function snapshot(): Record<string, string> {
 }
 
 test("repository_filters_by_doctor_and_facility", () => {
-  const repo = createClinicRepository();
+  const repo = createTestClinicRepository();
   const ids = repo.listDoctorAppointments(actor).map((a) => a.id);
   assert.ok(ids.includes("LK-000001"));
   assert.ok(!ids.includes("LK-000011"), "lịch bác sĩ khác không được lọt vào");
@@ -28,7 +29,7 @@ test("repository_filters_by_doctor_and_facility", () => {
 });
 
 test("repository_patient_scoped_to_facility_and_keeps_leading_zero", () => {
-  const repo = createClinicRepository();
+  const repo = createTestClinicRepository();
   assert.equal(repo.getPatient("CS01", "000123")?.id, "000123");
   assert.equal(repo.getPatient("CS01", "000127"), null);
   assert.equal(repo.getPatient("CS01", "123"), null, "không ép PID thành số");
@@ -36,7 +37,7 @@ test("repository_patient_scoped_to_facility_and_keeps_leading_zero", () => {
 });
 
 test("repository_joins_encounters_by_facility_including_other_doctors", () => {
-  const repo = createClinicRepository();
+  const repo = createTestClinicRepository();
   const refs = repo.listPatientEncounters("CS01", "000123");
   const ids = refs.map((r) => r.id).sort();
   assert.deepEqual(ids, [
@@ -54,8 +55,8 @@ test("repository_joins_encounters_by_facility_including_other_doctors", () => {
 });
 
 test("repository_encounter_ref_ids_are_stable", () => {
-  const a = createClinicRepository().listFacilityEncounters("CS01").map((r) => r.id);
-  const b = createClinicRepository().listFacilityEncounters("CS01").map((r) => r.id);
+  const a = createTestClinicRepository().listFacilityEncounters("CS01").map((r) => r.id);
+  const b = createTestClinicRepository().listFacilityEncounters("CS01").map((r) => r.id);
   assert.deepEqual(a, b);
 });
 
@@ -63,7 +64,7 @@ test("repository_store_error_is_error_not_empty", () => {
   const tmp = mkdtempSync(path.join(tmpdir(), "clinic-"));
   cpSync(dataDir, tmp, { recursive: true });
   writeFileSync(path.join(tmp, "appointments.json"), '[{"id":"x"}]');
-  const repo = createClinicRepository({ dataDir: tmp });
+  const repo = createTestClinicRepository(tmp);
   assert.throws(
     () => repo.listDoctorAppointments(actor),
     (e: unknown) => e instanceof ClinicHttpError && e.status === 500,
@@ -77,7 +78,7 @@ test("repository_store_error_is_error_not_empty", () => {
 
 test("repository_reading_never_writes", () => {
   const before = snapshot();
-  const repo = createClinicRepository();
+  const repo = createTestClinicRepository();
   repo.listDoctorAppointments(actor);
   repo.getPatient("CS01", "000123");
   repo.listPatientEncounters("CS01", "000123");
@@ -104,7 +105,7 @@ test("repository_uses_injected_source_only_via_port", () => {
       ];
     },
   };
-  const repo = createClinicRepository({ source });
+  const repo = createClinicRepository({ dataDir, source });
   assert.deepEqual(repo.listPatientEncounters("CS01", "000123").map((r) => r.id), ["enc-x"]);
   assert.equal(calls, 1);
 });

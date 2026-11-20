@@ -18,7 +18,7 @@ function item(id: string, start: string, end: string | null, status: DisplayStat
         bao_lanh: { known: false, enrolled: null, provider: null, plan: null, member_code: null, valid_from: null, valid_to: null },
       },
     },
-    doctor_name: "BS", encounter_id: null, status, has_prior_encounter: false,
+    doctor_name: "BS", encounter_id: null, status, has_prior_encounter: false, can_open: false, open_reason: "no_context",
   };
 }
 

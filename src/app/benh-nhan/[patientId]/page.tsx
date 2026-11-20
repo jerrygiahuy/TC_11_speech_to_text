@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { PatientScreen } from "@/client/patient/PatientScreen";
 import { safeReturnTo } from "@/shared/clinic/links";
 import { toClinicDate } from "@/shared/clinic/schedule";
-import { demoActor } from "@/server/clinic/demo-actor";
+import { getClinicActor } from "@/server/clinic/demo-actor";
 import { ClinicHttpError } from "@/server/clinic/errors";
 import { assertLocalDemoPage } from "@/server/clinic/page-guard";
 import { loadPatientPage } from "@/server/clinic/service";
@@ -37,7 +37,7 @@ export default async function PatientPage({
   let data;
   try {
     // Gọi thẳng service với actor demo phía server, không đi vòng qua API nội bộ.
-    data = loadPatientPage(demoActor, patientId, appointmentId);
+    data = loadPatientPage(getClinicActor(), patientId, appointmentId);
   } catch (error) {
     // 404 cho id giả hoặc cơ sở khác; mọi lỗi khác để error boundary xử lý, không dựng dữ liệu giả.
     if (error instanceof ClinicHttpError && error.status === 404) notFound();

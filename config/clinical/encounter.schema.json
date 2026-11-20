@@ -1,0 +1,397 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Encounter storage aggregate v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "id",
+    "revision",
+    "patient_id",
+    "appointment_id",
+    "facility_id",
+    "department_id",
+    "room_id",
+    "bed_id",
+    "examiner_id",
+    "primary_doctor_id",
+    "delegated_doctor_id",
+    "encounter_at",
+    "referral_source",
+    "status",
+    "tuoi_thang_tai_kham",
+    "sinh_hieu",
+    "phieu_kham",
+    "chan_doan",
+    "lich_su",
+    "danh_gia_ban_dau",
+    "ket_qua",
+    "dong_bo_cls_luc",
+    "chi_dinh",
+    "thong_tin_khac",
+    "ai_runs",
+    "nguon_du_lieu",
+    "audit",
+    "tom_tat",
+    "recording_sessions",
+    "approval_versions",
+    "change_decisions"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.2.0"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "patient_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "appointment_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "facility_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "department_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "room_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "bed_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "examiner_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "primary_doctor_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "delegated_doctor_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "encounter_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "referral_source": {
+      "enum": [
+        "co_quan_y_te",
+        "tu_den",
+        null
+      ]
+    },
+    "status": {
+      "enum": [
+        "dang_kham",
+        "cho_kq_cls",
+        "hoan_thanh_kham",
+        "nhap_noi_tru",
+        "chuyen_cap_cuu",
+        "chuyen_cskcb_bhyt",
+        "khong_kham"
+      ]
+    },
+    "tuoi_thang_tai_kham": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "sinh_hieu": {
+      "$ref": "common.schema.json#/$defs/vitals"
+    },
+    "phieu_kham": {
+      "$ref": "common.schema.json#/$defs/phieuKhamStorage"
+    },
+    "chan_doan": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/diagnosis"
+      }
+    },
+    "lich_su": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/history"
+      }
+    },
+    "danh_gia_ban_dau": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "nhan",
+          "gia_tri",
+          "source_record_id"
+        ],
+        "properties": {
+          "nhan": {
+            "type": "string",
+            "minLength": 1
+          },
+          "gia_tri": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "source_record_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "ket_qua": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/result"
+      }
+    },
+    "dong_bo_cls_luc": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "chi_dinh": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "de_cap",
+        "items",
+        "groups"
+      ],
+      "properties": {
+        "de_cap": {
+          "enum": [
+            "chua_de_cap",
+            "khong_chi_dinh",
+            "co_chi_dinh"
+          ]
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/serviceOrder"
+          }
+        },
+        "groups": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/serviceGroup"
+          }
+        }
+      }
+    },
+    "thong_tin_khac": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "chuyen_noi_soi",
+        "xn_benh_tat",
+        "xn_bhxh",
+        "xn_me"
+      ],
+      "properties": {
+        "chuyen_noi_soi": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "xn_benh_tat": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "xn_bhxh": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "xn_me": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        }
+      }
+    },
+    "ai_runs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "transcript_id",
+          "transcript_revision",
+          "model",
+          "prompt_version",
+          "schema_version",
+          "input_digest",
+          "created_at",
+          "output_artifact_id"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "transcript_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "transcript_revision": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "model": {
+            "type": "string",
+            "minLength": 1
+          },
+          "prompt_version": {
+            "type": "string",
+            "minLength": 1
+          },
+          "schema_version": {
+            "type": "string",
+            "minLength": 1
+          },
+          "input_digest": {
+            "type": "string",
+            "minLength": 1
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "output_artifact_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "binding": {
+            "$ref": "common.schema.json#/$defs/recordingContext"
+          }
+        }
+      }
+    },
+    "nguon_du_lieu": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/source"
+      }
+    },
+    "audit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "created_at",
+        "created_by",
+        "updated_at",
+        "updated_by",
+        "approved_at",
+        "approved_by"
+      ],
+      "properties": {
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "created_by": {
+          "type": "string",
+          "minLength": 1
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updated_by": {
+          "type": "string",
+          "minLength": 1
+        },
+        "approved_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "approved_by": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "tom_tat": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "recording_sessions": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/recordingSession"
+      }
+    },
+    "approval_versions": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/approvalVersion"
+      }
+    },
+    "change_decisions": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/changeDecision"
+      }
+    }
+  }
+}

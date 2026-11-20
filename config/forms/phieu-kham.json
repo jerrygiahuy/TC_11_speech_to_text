@@ -4,15 +4,135 @@
   "system": "EMR",
   "mode": "single",
   "fields": [
-    { "id": "ly_do_kham", "label": "Lý do đến khám", "type": "text", "required": true, "hint": "Triệu chứng chính khiến bệnh nhân đi khám", "ai_fill": true, "mock_keywords": ["lý do đến khám", "lý do khám", "đến khám vì", "ld"] },
-    { "id": "benh_su", "label": "Bệnh sử", "type": "textarea", "required": true, "hint": "Diễn biến bệnh từ khi khởi phát đến nay", "ai_fill": true, "mock_keywords": ["bệnh sử", "diễn biến", "bs"] },
-    { "id": "tien_su", "label": "Tiền sử", "type": "textarea", "required": false, "hint": "Tiền sử bệnh, dị ứng, phẫu thuật", "ai_fill": true, "mock_keywords": ["tiền sử", "ts"] },
-    { "id": "kham_toan_than", "label": "Khám toàn thân", "type": "textarea", "required": false, "hint": "Tình trạng chung, dấu hiệu sinh tồn", "ai_fill": true, "mock_keywords": ["khám toàn thân", "toàn thân", "tt"] },
-    { "id": "kham_chuyen_khoa", "label": "Khám chuyên khoa TMH", "type": "textarea", "required": false, "hint": "Kết quả khám tai, mũi, họng", "ai_fill": true, "mock_keywords": ["khám tai mũi họng", "khám chuyên khoa", "khám tmh", "tmh", "soi thấy", "khám thấy"] },
-    { "id": "chan_doan_chinh", "label": "Chẩn đoán chính", "type": "text", "required": true, "hint": "Đúng theo lời bác sĩ, AI không tự suy luận", "ai_fill": true, "mock_keywords": ["chẩn đoán chính", "chẩn đoán", "cđ"] },
-    { "id": "chan_doan_kem", "label": "Chẩn đoán kèm theo", "type": "text", "required": false, "hint": "", "ai_fill": true, "mock_keywords": ["chẩn đoán kèm theo", "kèm theo", "cđ kèm"] },
-    { "id": "huong_dieu_tri", "label": "Hướng điều trị", "type": "textarea", "required": false, "hint": "", "ai_fill": true, "mock_keywords": ["hướng điều trị", "hướng xử trí", "đt"] },
-    { "id": "loi_dan", "label": "Lời dặn & theo dõi", "type": "textarea", "required": false, "hint": "", "ai_fill": true, "mock_keywords": ["lời dặn", "dặn"] },
-    { "id": "hen_tai_kham", "label": "Hẹn tái khám", "type": "text", "required": false, "hint": "Ví dụ: Sau 5 ngày", "ai_fill": true, "mock_keywords": ["hẹn tái khám", "tái khám", "hẹn"] }
+    {
+      "id": "ly_do_kham",
+      "label": "Lý do đến khám",
+      "type": "text",
+      "required": true,
+      "hint": "Triệu chứng chính khiến bệnh nhân đi khám",
+      "ai_fill": true,
+      "mock_keywords": [
+        "lý do đến khám",
+        "lý do khám",
+        "đến khám vì",
+        "ld"
+      ]
+    },
+    {
+      "id": "benh_su",
+      "label": "Bệnh sử",
+      "type": "textarea",
+      "required": true,
+      "hint": "Diễn biến bệnh từ khi khởi phát đến nay",
+      "ai_fill": true,
+      "mock_keywords": [
+        "bệnh sử",
+        "diễn biến",
+        "bs"
+      ]
+    },
+    {
+      "id": "tien_su",
+      "label": "Tiền sử",
+      "type": "textarea",
+      "required": false,
+      "hint": "Tiền sử bệnh, dị ứng, phẫu thuật",
+      "ai_fill": true,
+      "mock_keywords": [
+        "tiền sử",
+        "ts"
+      ]
+    },
+    {
+      "id": "kham_toan_than",
+      "label": "Khám toàn thân",
+      "type": "textarea",
+      "required": false,
+      "hint": "Tình trạng chung, dấu hiệu sinh tồn",
+      "ai_fill": true,
+      "mock_keywords": [
+        "khám toàn thân",
+        "toàn thân",
+        "tt"
+      ]
+    },
+    {
+      "id": "kham_chuyen_khoa",
+      "label": "Khám chuyên khoa",
+      "type": "textarea",
+      "required": false,
+      "hint": "Kết quả khám chuyên khoa được ghi nhận",
+      "ai_fill": true,
+      "mock_keywords": [
+        "khám chuyên khoa",
+        "khám tim phổi",
+        "khám tim",
+        "khám thấy"
+      ]
+    },
+    {
+      "id": "chan_doan_chinh",
+      "label": "Chẩn đoán chính",
+      "type": "text",
+      "required": true,
+      "hint": "Đúng theo lời bác sĩ, AI không tự suy luận",
+      "ai_fill": true,
+      "mock_keywords": [
+        "chẩn đoán chính",
+        "chẩn đoán",
+        "cđ"
+      ]
+    },
+    {
+      "id": "chan_doan_kem",
+      "label": "Chẩn đoán kèm theo",
+      "type": "text",
+      "required": false,
+      "hint": "",
+      "ai_fill": true,
+      "mock_keywords": [
+        "chẩn đoán kèm theo",
+        "kèm theo",
+        "cđ kèm"
+      ]
+    },
+    {
+      "id": "huong_dieu_tri",
+      "label": "Hướng điều trị",
+      "type": "textarea",
+      "required": false,
+      "hint": "",
+      "ai_fill": true,
+      "mock_keywords": [
+        "hướng điều trị",
+        "hướng xử trí",
+        "đt"
+      ]
+    },
+    {
+      "id": "loi_dan",
+      "label": "Lời dặn & theo dõi",
+      "type": "textarea",
+      "required": false,
+      "hint": "",
+      "ai_fill": true,
+      "mock_keywords": [
+        "lời dặn",
+        "dặn"
+      ]
+    },
+    {
+      "id": "hen_tai_kham",
+      "label": "Hẹn tái khám",
+      "type": "text",
+      "required": false,
+      "hint": "Ví dụ: Sau 5 ngày",
+      "ai_fill": true,
+      "mock_keywords": [
+        "hẹn tái khám",
+        "tái khám",
+        "hẹn"
+      ]
+    }
   ]
 }

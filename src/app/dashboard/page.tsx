@@ -4,7 +4,7 @@ import { DashboardScreen } from "@/client/dashboard/DashboardScreen";
 import { ClinicDateSchema } from "@/shared/clinic/schema";
 import type { DashboardView } from "@/shared/clinic/links";
 import { toClinicDate } from "@/shared/clinic/schedule";
-import { demoActor } from "@/server/clinic/demo-actor";
+import { getClinicActor } from "@/server/clinic/demo-actor";
 import { assertLocalDemoPage } from "@/server/clinic/page-guard";
 import { loadDashboard } from "@/server/clinic/service";
 
@@ -32,6 +32,6 @@ export default async function Page({
     ? rawDate
     : toClinicDate(new Date().toISOString());
   const view: DashboardView = first(params.view) === "calendar" ? "calendar" : "list";
-  const data = loadDashboard(demoActor, date);
+  const data = loadDashboard(getClinicActor(), date);
   return <DashboardScreen key={data.date} initialData={data} initialView={view} />;
 }

@@ -4,8 +4,6 @@ import { useState } from "react";
 import { AppointmentRow } from "@/client/clinic/AppointmentRow";
 import type { AppointmentItem } from "@/shared/clinic/types";
 
-const DEFAULT_LIMIT = 5;
-
 interface GroupProps {
   title: string;
   items: AppointmentItem[];
@@ -15,10 +13,9 @@ interface GroupProps {
   note?: string;
   emptyText?: string;
   showDate?: boolean;
-  limit?: number;
 }
 
-/** Danh sách thật của một nhóm số liệu: mặc định tối đa 5 dòng, "Xem tất cả" mở rộng ngay trong khối. */
+/** Danh sách thật của một nhóm số liệu. Khung cao cố định; nhiều dòng thì cuộn trong khung, không kéo giãn trang. */
 export function EncounterGroup({
   title,
   items,
@@ -27,10 +24,7 @@ export function EncounterGroup({
   note,
   emptyText = "Không có ca nào.",
   showDate = false,
-  limit = DEFAULT_LIMIT,
 }: GroupProps) {
-  const [expanded, setExpanded] = useState(false);
-  const shown = expanded ? items : items.slice(0, limit);
   return (
     <section className="flex min-w-0 flex-col border border-gray-300 bg-white">
       <div className="flex items-baseline justify-between gap-2 border-b border-gray-300 px-3 py-2">
@@ -46,21 +40,11 @@ export function EncounterGroup({
       {items.length === 0 ? (
         <p className="px-3 py-3 text-[13px] text-muted">{emptyText}</p>
       ) : (
-        <div>
-          {shown.map((item) => (
+        <div className="max-h-[22rem] min-h-0 flex-1 overflow-y-auto overscroll-contain" tabIndex={0} aria-label={`Danh sách ${title}`}>
+          {items.map((item) => (
             <AppointmentRow key={item.appointment.id} item={item} onOpen={onOpen} showDate={showDate} />
           ))}
         </div>
-      )}
-      {items.length > limit && (
-        <button
-          type="button"
-          aria-expanded={expanded}
-          onClick={() => setExpanded((v) => !v)}
-          className="border-t border-gray-200 px-3 py-1.5 text-left text-[13px] font-medium text-emr-blue hover:bg-soft"
-        >
-          {expanded ? "Thu gọn" : `Xem tất cả (${items.length})`}
-        </button>
       )}
     </section>
   );

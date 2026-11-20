@@ -1,0 +1,57 @@
+[
+  {
+    "id": "000123",
+    "facility_id": "CS01",
+    "full_name": "Bệnh nhân Mẫu A",
+    "date_of_birth": "2000-11-15",
+    "gender": "nam",
+    "insurance": {
+      "bhyt": { "known": true, "enrolled": true, "provider": "BHYT Mẫu", "plan": "Mức 80%", "member_code": "MAU-0001", "valid_from": "2026-01-01", "valid_to": "2026-12-31" },
+      "bao_lanh": { "known": true, "enrolled": false, "provider": null, "plan": null, "member_code": null, "valid_from": null, "valid_to": null }
+    }
+  },
+  {
+    "id": "000124",
+    "facility_id": "CS01",
+    "full_name": "Bệnh nhân Mẫu B",
+    "date_of_birth": "2026-09-14",
+    "gender": "nữ",
+    "insurance": {
+      "bhyt": { "known": true, "enrolled": false, "provider": null, "plan": null, "member_code": null, "valid_from": null, "valid_to": null },
+      "bao_lanh": { "known": true, "enrolled": true, "provider": "Bảo lãnh Mẫu", "plan": "Gói cơ bản", "member_code": "BL-0002", "valid_from": "2026-06-01", "valid_to": "2026-10-31" }
+    }
+  },
+  {
+    "id": "000125",
+    "facility_id": "CS01",
+    "full_name": "Bệnh nhân Mẫu C",
+    "date_of_birth": null,
+    "gender": null,
+    "insurance": {
+      "bhyt": { "known": false, "enrolled": null, "provider": null, "plan": null, "member_code": null, "valid_from": null, "valid_to": null },
+      "bao_lanh": { "known": false, "enrolled": null, "provider": null, "plan": null, "member_code": null, "valid_from": null, "valid_to": null }
+    }
+  },
+  {
+    "id": "000126",
+    "facility_id": "CS01",
+    "full_name": "Bệnh nhân Mẫu D",
+    "date_of_birth": "1985-03-20",
+    "gender": "nữ",
+    "insurance": {
+      "bhyt": { "known": true, "enrolled": true, "provider": "BHYT Mẫu", "plan": "Mức 100%", "member_code": "MAU-0004", "valid_from": "2026-01-01", "valid_to": "2026-12-31" },
+      "bao_lanh": { "known": true, "enrolled": true, "provider": "Bảo lãnh Mẫu", "plan": "Gói mở rộng", "member_code": "BL-0004", "valid_from": "2026-01-01", "valid_to": "2026-12-31" }
+    }
+  },
+  {
+    "id": "000127",
+    "facility_id": "CS02",
+    "full_name": "Bệnh nhân Mẫu E",
+    "date_of_birth": "1970-07-01",
+    "gender": "nam",
+    "insurance": {
+      "bhyt": { "known": true, "enrolled": true, "provider": "BHYT Mẫu", "plan": "Mức 95%", "member_code": "MAU-0005", "valid_from": "2026-01-01", "valid_to": "2026-12-31" },
+      "bao_lanh": { "known": true, "enrolled": false, "provider": null, "plan": null, "member_code": null, "valid_from": null, "valid_to": null }
+    }
+  }
+]

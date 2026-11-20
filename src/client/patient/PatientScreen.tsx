@@ -2,6 +2,7 @@ import Link from "next/link";
 import { formatGender, formatOptionalClinicDate } from "@/shared/clinic/format";
 import { ageAt } from "@/shared/clinic/schedule";
 import type { ClinicDate, PatientPageData } from "@/shared/clinic/types";
+import { CreateEncounter } from "./CreateEncounter";
 import { EncounterHistory } from "./EncounterHistory";
 import { InsuranceSummary } from "./InsuranceSummary";
 
@@ -13,8 +14,6 @@ interface Props {
   referenceDate: ClinicDate;
 }
 
-const CREATE_NOTE_ID = "create-note";
-
 function Field({ label, value }: { label: string; value: string }) {
   return (
     <div>
@@ -25,11 +24,7 @@ function Field({ label, value }: { label: string; value: string }) {
 }
 
 export function PatientScreen({ data, returnTo, referenceDate }: Props) {
-  const { patient, eligibleAppointments, history } = data;
-  const canCreate = eligibleAppointments.length > 0;
-  const createNote = canCreate
-    ? "Chờ nền ca khám nhiều phiên (ưu tiên 1)"
-    : "Chưa có lịch khám để tạo phiếu";
+  const { patient, history } = data;
 
   return (
     <main className="mx-auto w-full max-w-5xl space-y-5 px-4 py-5">
@@ -50,19 +45,7 @@ export function PatientScreen({ data, returnTo, referenceDate }: Props) {
               <Field label="Giới tính" value={formatGender(patient.gender)} />
             </dl>
           </div>
-          <div className="flex flex-col items-start gap-1 sm:items-end">
-            <button
-              type="button"
-              disabled
-              aria-describedby={CREATE_NOTE_ID}
-              className="cursor-not-allowed rounded bg-gray-200 px-4 py-2 text-[13px] font-semibold text-muted"
-            >
-              Tạo phiếu khám
-            </button>
-            <p id={CREATE_NOTE_ID} className="text-xs text-muted">
-              {createNote}
-            </p>
-          </div>
+          <CreateEncounter patientId={patient.id} />
         </div>
       </section>
 
@@ -73,7 +56,7 @@ export function PatientScreen({ data, returnTo, referenceDate }: Props) {
         <InsuranceSummary patient={patient} today={referenceDate} />
       </section>
 
-      <EncounterHistory items={history} />
+      <EncounterHistory patientId={patient.id} items={history} />
     </main>
   );
 }

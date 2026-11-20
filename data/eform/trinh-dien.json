@@ -1,98 +1,53 @@
 {
-  "_ghi_chu": "DỮ LIỆU GIẢ cho trang /trinh-dien. Cùng bệnh nhân giả với ca-gia.json. Đơn đã kê và hội thoại đều tự soạn, liều chỉ minh họa, không phải hướng dẫn điều trị.",
+  "_ghi_chu": "Trình diễn trên tình huống ngoại trú Tim mạch giả lập.",
   "kieu": [
     {
       "so": 1,
       "ten": "Máy điền sẵn",
       "giong_nhu": "Như điều dưỡng đã điền sẵn phiếu",
       "luc_nao": "Khám xong, ngồi lại hoàn thiện phiếu",
-      "bac_si_lam": "Đọc phiếu, sửa chỗ tô vàng, bấm ✓ Đúng hoặc sửa lại",
-      "may_lam": "Điền nháp phiếu khám, chỉ định, đơn thuốc; tô vàng chỗ chưa chắc",
-      "kiem_tra": "Các chỗ vàng: mã ICD10, thuốc khớp chưa chắc, liều"
+      "bac_si_lam": "Ghi nhận nội dung ca Tim mạch giả lập theo cách nhập đã chọn.",
+      "may_lam": "Hiển thị bản nháp để bác sĩ kiểm tra và chỉnh sửa.",
+      "kiem_tra": "Đối chiếu lý do khám, bệnh sử và nội dung ghi nhận."
     },
     {
       "so": 2,
       "ten": "Bấm một lần",
       "giong_nhu": "Như đơn mẫu, nhưng tự hiện ra đúng bệnh",
       "luc_nao": "Đã chọn chẩn đoán, sang kê đơn",
-      "bac_si_lam": "Xem bộ thuốc mình hay kê cho bệnh này, bỏ tích thuốc không dùng, bấm Thêm",
-      "may_lam": "Gom các lần anh/chị đã kê cho cùng chẩn đoán, tích sẵn thuốc hay dùng",
-      "kiem_tra": "Liều có hợp ca này không, dị ứng (máy báo đỏ nếu trùng nhóm)"
+      "bac_si_lam": "Ghi nhận nội dung ca Tim mạch giả lập theo cách nhập đã chọn.",
+      "may_lam": "Hiển thị bản nháp để bác sĩ kiểm tra và chỉnh sửa.",
+      "kiem_tra": "Đối chiếu lý do khám, bệnh sử và nội dung ghi nhận."
     },
     {
       "so": 3,
       "ten": "Nói một câu",
       "giong_nhu": "Như dặn điều dưỡng: \"kê như mọi khi, thêm…\"",
       "luc_nao": "Bất cứ lúc nào, nói hoặc gõ một câu ngắn",
-      "bac_si_lam": "Nói hoặc gõ một câu, bấm Điền vào phiếu",
-      "may_lam": "Hiểu câu: lấy bộ thuốc quen, thêm thuốc mới, điền ngày hẹn",
-      "kiem_tra": "Thuốc thêm vào có đúng tên, đúng liều không"
+      "bac_si_lam": "Ghi nhận nội dung ca Tim mạch giả lập theo cách nhập đã chọn.",
+      "may_lam": "Hiển thị bản nháp để bác sĩ kiểm tra và chỉnh sửa.",
+      "kiem_tra": "Đối chiếu lý do khám, bệnh sử và nội dung ghi nhận."
     },
     {
       "so": 4,
       "ten": "Nghe cả buổi khám",
       "giong_nhu": "Như có người ngồi cạnh ghi hộ",
       "luc_nao": "Bấm một lần lúc bắt đầu khám, khám bình thường",
-      "bac_si_lam": "Nói chuyện với bệnh nhân như mọi khi; cuối ca bấm Điền vào phiếu",
-      "may_lam": "Nghe hội thoại, cuối ca đưa ra bản nháp phiếu",
-      "kiem_tra": "Lời bệnh nhân có bị ghi thành kết luận của bác sĩ không"
+      "bac_si_lam": "Ghi nhận nội dung ca Tim mạch giả lập theo cách nhập đã chọn.",
+      "may_lam": "Hiển thị bản nháp để bác sĩ kiểm tra và chỉnh sửa.",
+      "kiem_tra": "Đối chiếu lý do khám, bệnh sử và nội dung ghi nhận."
     }
   ],
-  "lenh": "Viêm tai giữa mạn đợt cấp tai phải. Kê như mọi khi, thêm Cetirizin 10 mg uống 1 viên buổi tối 7 ngày. Hẹn tái khám sau 7 ngày.",
+  "lenh": "Người bệnh đến khám vì tái khám tăng huyết áp. Bệnh sử: Theo dõi huyết áp tại nhà, thỉnh thoảng đau đầu nhẹ, không đau ngực, không khó thở. Tiền sử bản thân: Tăng huyết áp đã được theo dõi. Tiền sử gia đình: Gia đình có người tăng huyết áp. Dị ứng: Penicillin. Thuốc đang dùng: Amlodipine 5 mg, mỗi ngày một lần. Sinh hiệu: mạch 72 lần mỗi phút, huyết áp 148 trên 88 mi li mét thủy ngân, SpO2 98 phần trăm. Toàn thân tỉnh táo, tiếp xúc tốt. Khám tim phổi: Mạch quay đều, rõ. Tiếng T1, T2 đều rõ, không âm thổi. Phổi trong, không ran. Kết quả chính: Chức năng thận trong giới hạn được ghi nhận; Điện tâm đồ nhịp xoang. Chẩn đoán: Tăng huyết áp vô căn. Hướng điều trị: Tiếp tục theo dõi huyết áp và dùng thuốc theo đơn hiện tại. Lời dặn: Ghi nhật ký huyết áp, tái khám sau 30 ngày. Hẹn tái khám sau 30 ngày.",
   "hoi_thoai": [
-    { "ai": "BS", "cau": "Chị ngồi đây. Hôm nay chị bị sao?" },
-    { "ai": "BN", "cau": "Em đau tai phải bác sĩ ạ, bốn hôm nay rồi, hai hôm nay còn chảy mủ vàng." },
-    { "ai": "BS", "cau": "Có sốt không, nghe có kém đi không?" },
-    { "ai": "BN", "cau": "Hơi sốt nhẹ, tai phải nghe kém hơn. Không chóng mặt. Em có tự nhỏ thuốc tai mà không đỡ." },
-    { "ai": "BS", "cau": "Trước đây chị bị tai này chưa? Có dị ứng thuốc gì không?" },
-    { "ai": "BN", "cau": "Em bị viêm tai giữa mạn tai phải mấy năm rồi, có viêm mũi dị ứng, huyết áp cao độ 1. Em dị ứng penicillin." },
-    { "ai": "BS", "cau": "Để tôi soi tai. Ống tai phải có mủ vàng, màng nhĩ phải thủng trung tâm. Tai trái bình thường. Niêm mạc mũi nề nhẹ, họng bình thường." },
-    { "ai": "BS", "cau": "Chị bị đợt cấp viêm tai giữa mạn có mủ tai phải, kèm viêm mũi dị ứng. Mình điều trị nội khoa, làm sạch tai." },
-    { "ai": "BS", "cau": "Hôm nay làm nội soi tai, đo thính lực đơn âm, và làm sạch ống tai hút dịch tai." },
-    { "ai": "BS", "cau": "Tôi kê Ciprofloxacin nhỏ tai, nhỏ tai phải 5 giọt một lần, ngày 2 lần, 7 ngày. Paracetamol 500 mg uống 1 viên một lần, ngày 3 lần, sau ăn, 5 ngày." },
-    { "ai": "BN", "cau": "Vâng. Em có được đi bơi không ạ?" },
-    { "ai": "BS", "cau": "Không bơi, giữ khô tai, không tự ngoáy tai. Hẹn chị tái khám sau 7 ngày." }
-  ],
-  "thoi_quen": [
     {
-      "id": "trinh-dien-1",
-      "thoi_diem": "2026-10-28T02:15:00.000Z",
-      "icd_chinh": "H66.1",
-      "chi_dinh": [
-        { "ma": "", "ten": "Nội soi tai", "so_luong": "1", "ghi_chu": "" },
-        { "ma": "", "ten": "Làm sạch ống tai, hút dịch tai", "so_luong": "1", "ghi_chu": "" }
-      ],
-      "don_thuoc": [
-        { "ma": "", "ten": "Ciprofloxacin nhỏ tai", "ham_luong": "0,3%", "duong_dung": "Nhỏ tai", "lieu_moi_lan": "5 giọt", "so_lan_ngay": "2", "thoi_diem": "", "so_ngay": "7", "ghi_chu": "Tai bên bệnh" },
-        { "ma": "", "ten": "Paracetamol", "ham_luong": "500 mg", "duong_dung": "Uống", "lieu_moi_lan": "1 viên", "so_lan_ngay": "3", "thoi_diem": "Sau ăn", "so_ngay": "5", "ghi_chu": "" }
-      ],
-      "loi_dan": "Giữ khô tai, không tự ngoáy tai, không bơi. Tái khám sau 7 ngày."
+      "ai": "BS",
+      "cau": "Hôm nay anh đến khám vì lý do gì?"
     },
     {
-      "id": "trinh-dien-2",
-      "thoi_diem": "2026-10-21T03:40:00.000Z",
-      "icd_chinh": "H66.1",
-      "chi_dinh": [
-        { "ma": "", "ten": "Nội soi tai", "so_luong": "1", "ghi_chu": "" }
-      ],
-      "don_thuoc": [
-        { "ma": "", "ten": "Ciprofloxacin nhỏ tai", "ham_luong": "0,3%", "duong_dung": "Nhỏ tai", "lieu_moi_lan": "5 giọt", "so_lan_ngay": "2", "thoi_diem": "", "so_ngay": "7", "ghi_chu": "Tai bên bệnh" },
-        { "ma": "", "ten": "Paracetamol", "ham_luong": "500 mg", "duong_dung": "Uống", "lieu_moi_lan": "1 viên", "so_lan_ngay": "3", "thoi_diem": "Khi đau", "so_ngay": "3", "ghi_chu": "" }
-      ],
-      "loi_dan": "Giữ khô tai, không bơi."
-    },
-    {
-      "id": "trinh-dien-3",
-      "thoi_diem": "2026-10-14T01:05:00.000Z",
-      "icd_chinh": "H66.1",
-      "chi_dinh": [
-        { "ma": "", "ten": "Nội soi tai", "so_luong": "1", "ghi_chu": "" },
-        { "ma": "", "ten": "Đo thính lực đơn âm", "so_luong": "1", "ghi_chu": "" }
-      ],
-      "don_thuoc": [
-        { "ma": "", "ten": "Ofloxacin nhỏ tai", "ham_luong": "0,3%", "duong_dung": "Nhỏ tai", "lieu_moi_lan": "5 giọt", "so_lan_ngay": "2", "thoi_diem": "", "so_ngay": "7", "ghi_chu": "Tai bên bệnh" }
-      ],
-      "loi_dan": "Giữ khô tai."
+      "ai": "BN",
+      "cau": "tái khám tăng huyết áp. Theo dõi huyết áp tại nhà, thỉnh thoảng đau đầu nhẹ, không đau ngực, không khó thở"
     }
-  ]
+  ],
+  "thoi_quen": []
 }

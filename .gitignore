@@ -50,9 +50,44 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# Local STT runtime and downloaded weights
+/.venv-stt/
+/.tmp/
+/models/stt/
+/models/diarization/
+# NER che PII: dữ liệu PhoNER_COVID19 (cấm phân phối lại), trọng số fine-tune, VnCoreNLP, môi trường huấn luyện
+/models/ner/
+/.venv-ner-train/
+/.cache-ner/
+/.cache-stt/
+/logs/
+__pycache__/
+.pytest_cache/
 # âm thanh để đo nhận dạng giọng nói (tự sinh hoặc tự ghi, nặng)
 /data/giong-noi/*
 !/data/giong-noi/README.md
+# Đặc trưng giọng bác sĩ đã đăng ký (dữ liệu sinh trắc học): chỉ ở máy chạy prototype, không commit
+/data/giong-bac-si
 
 # đơn bác sĩ đã kê để gợi ý theo thói quen (tự sinh khi bấm Lưu)
 /data/thoi-quen/*
+
+# Clinical prototype records, revision history and private identity stores
+/data/clinical/
+/data/private/
+/.tmp-*.log
+
+# Optional local Community-1 worker
+/.venv-community/
+/models/community-1/
+
+# Optional native denoiser and implementation scratch artifacts
+/models/denoise/
+/.superpowers/
+
+# Dữ liệu chạy demo luồng dữ liệu (kịch bản mẫu được commit)
+/data/demo-luong/*
+!/data/demo-luong/kich-ban/
+
+# Phiếu khám ngoại trú (Tim mạch): dữ liệu nhập tay không lên git
+/data/phieu-kham-ngoai-tru/*.json

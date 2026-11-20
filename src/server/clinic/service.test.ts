@@ -5,11 +5,12 @@ import { test } from "node:test";
 import { ClinicHttpError } from "./errors";
 import type { ClinicActor } from "./ports";
 import { createClinicRepository } from "./repository";
+import { createTestClinicRepository, TEST_CLINIC_DATA_DIR } from "./testing";
 import { loadAppointment, loadDashboard, loadPatientPage } from "./service";
 
 const actor: ClinicActor = { doctor_id: "BS01", facility_id: "CS01" };
 const NOW = () => "2026-11-14T03:00:00.000Z";
-const deps = { now: NOW };
+const deps = { now: NOW, repo: createTestClinicRepository(), contexts: { find: () => null } };
 
 function status(fn: () => unknown): number | string {
   try {
@@ -56,6 +57,7 @@ test("dashboard_has_prior_encounter_excludes_own_encounter", () => {
 
 test("has_prior_false_when_only_own_encounter", () => {
   const repo = createClinicRepository({
+    dataDir: TEST_CLINIC_DATA_DIR,
     source: {
       listByFacility: (facilityId) => [
         {
@@ -92,7 +94,7 @@ function encounter(over: Record<string, unknown>) {
 
 test("has_prior_only_counts_encounters_before_appointment_start", () => {
   const mk = (at: string) =>
-    createClinicRepository({ source: { listByFacility: () => [encounter({ encounter_at: at })] } });
+    createClinicRepository({ dataDir: TEST_CLINIC_DATA_DIR, source: { listByFacility: () => [encounter({ encounter_at: at })] } });
   // LK-000001 bắt đầu 08:00 ngày 14: phiếu 13:30 cùng ngày là sau, không phải lượt trước.
   assert.equal(loadAppointment(actor, "LK-000001", { repo: mk("2026-11-14T13:30:00+07:00"), now: NOW }).has_prior_encounter, false);
   assert.equal(loadAppointment(actor, "LK-000001", { repo: mk("2026-11-13T13:30:00+07:00"), now: NOW }).has_prior_encounter, true);
@@ -101,6 +103,7 @@ test("has_prior_only_counts_encounters_before_appointment_start", () => {
 test("encounter_with_mismatched_patient_facility_or_doctor_is_store_error", () => {
   for (const over of [{ patient_id: "000124" }, { doctor_id: "BS02" }]) {
     const repo = createClinicRepository({
+      dataDir: TEST_CLINIC_DATA_DIR,
       source: { listByFacility: () => [encounter({ appointment_id: "LK-000001", ...over })] },
     });
     assert.equal(status(() => loadAppointment(actor, "LK-000001", { repo, now: NOW })), 500, JSON.stringify(over));
@@ -135,7 +138,14 @@ test("appointment_scope_404", () => {
 });
 
 test("patient_page_history_is_saved_encounters_sorted_and_excludes_selected", () => {
-  const p = loadPatientPage(actor, "000123", "LK-000005", deps);
+  const withContext = {
+    ...deps,
+    contexts: {
+      find: (_actor: ClinicActor, id: string) =>
+        id === "LK-000005" ? { appointment_id: id, patient_id: "000123", facility_id: "CS01", doctor_id: "BS01" } : null,
+    },
+  };
+  const p = loadPatientPage(actor, "000123", "LK-000005", withContext);
   assert.equal(p.patient.id, "000123");
   assert.equal(p.selectedAppointmentId, "LK-000005");
   assert.deepEqual(
@@ -170,11 +180,33 @@ test("patient_page_scope_404", () => {
 });
 
 test("reading_never_writes_files", () => {
-  const dir = path.join(process.cwd(), "data", "clinic");
+  const dir = path.join(process.cwd(), "data", "clinic-test");
   const snap = () => readdirSync(dir).map((f) => [f, readFileSync(path.join(dir, f), "utf8")]);
   const before = snap();
   loadDashboard(actor, "2026-11-14", deps);
   loadAppointment(actor, "LK-000005", deps);
   loadPatientPage(actor, "000123", "LK-000005", deps);
   assert.deepEqual(snap(), before);
+});
+
+test("open_policy_matches_status_date_and_context", () => {
+  const meta = (id: string, patient: string) => ({ appointment_id: id, patient_id: patient, facility_id: "CS01", doctor_id: "BS01" });
+  const all = { find: (_a: ClinicActor, id: string) => (id === "LK-000009" ? meta(id, "000126") : id.startsWith("LK-0000") ? meta(id, { "LK-000001": "000123", "LK-000003": "000125", "LK-000005": "000123", "LK-000007": "000125", "LK-000010": "000123" }[id] ?? "000124") : null) };
+  const open = (id: string, now = NOW) => {
+    const i = loadAppointment(actor, id, { ...deps, contexts: all, now });
+    return [i.can_open, i.open_reason];
+  };
+  assert.deepEqual(open("LK-000003"), [true, "eligible"]); // chưa khám, hôm nay
+  assert.deepEqual(open("LK-000005"), [true, "eligible"]); // đang khám
+  assert.deepEqual(open("LK-000009"), [true, "eligible"]); // ca chờ kết quả từ hôm trước vẫn tiếp tục
+  assert.deepEqual(open("LK-000001"), [false, "terminal"]); // đã hoàn thành
+  assert.deepEqual(open("LK-000007"), [false, "cancelled"]);
+  assert.deepEqual(open("LK-000010"), [false, "future"]);
+  assert.deepEqual(open("LK-000002"), [false, "terminal"]);
+  // Không có ngữ cảnh khám thì không mở được, dù lịch hợp lệ.
+  const none = loadAppointment(actor, "LK-000003", { ...deps, contexts: { find: () => null } });
+  assert.deepEqual([none.can_open, none.open_reason], [false, "no_context"]);
+  // Ngữ cảnh lệch bệnh nhân là dữ liệu hỏng, không được mở nhầm người.
+  const wrong = { find: () => meta("LK-000003", "000999") };
+  assert.equal(status(() => loadAppointment(actor, "LK-000003", { ...deps, contexts: wrong })), 500);
 });

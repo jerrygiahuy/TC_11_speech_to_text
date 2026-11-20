@@ -1,378 +1,264 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { MicButton, type GiaoDienMic } from "@/client/chung/MicButton";
-import { useEform } from "@/client/eform/EformContext";
-import { BTN_OUTLINE } from "@/client/eform/fields";
-import type { KetQuaDien } from "@/shared/eform/dien-phieu";
-import { goiAiDienNhap } from "@/client/api";
-import { goiYTenMau, ketQuaTheoQuyTac, timPhieuMau, type PhieuMau } from "@/shared/eform/phieu-mau";
-import type { PipelineResult } from "@/shared/api";
-import { suaChu } from "@/shared/giong-noi/sua-chu";
+import { useEffect, useRef, useState, type ReactNode } from "react";
+import { MicButton } from "@/client/chung/MicButton";
+import { ClinicalChanges } from "@/client/eform/ClinicalChanges";
+import type { EncounterBridge } from "@/client/eform/encounter-bridge";
+import { checkClinicalPrivacy, extractClinicalDraft, recordingApi, type ClinicalResponse } from "@/client/clinical-api";
+import type { ClinicalExtraction, PrivacyCheckResult, SpeakerMode, TranscriptBinding } from "@/shared/clinical/api";
+import { privacyReviewRisks } from "@/shared/clinical/privacy";
+import { ganVaiTroChoDoan, noiChu } from "@/shared/clinical/vai-tro-nguoi-noi";
+import { NHAN_CHE, RULES, TEN_LY_DO_CHAN, TEN_RULE, gioVN, nhanNer } from "@/shared/clinical/pii/nhan";
+import type { RecordingSession } from "@/shared/clinical/types";
 import type { InputMode } from "@/shared/metrics";
 
 export type TabId = "phieu" | "chi_dinh" | "don_thuoc";
 
 interface Props {
-  ketQua: KetQuaDien | null;
-  /** Mỗi lần AI điền: trả kết quả và đoạn chữ đã gửi để màn hình áp vào phiếu; gọi phiếu mẫu thì kèm mẫu */
-  onDien: (result: PipelineResult, text: string, mau?: PhieuMau) => void;
-  /** Bác sĩ bắt đầu nói, gõ hoặc nạp câu mẫu: mốc tính thời gian lượt thử */
-  onBatDau: (kieuNhap: InputMode, tuCaMau: boolean) => void;
-  onHoanTac: (() => void) | null;
-  onGoTo: (id: string) => void;
+  /** Không có bridge (trang trình diễn): trợ lý lâm sàng không gắn được vào lượt khám nên chỉ hiện thông báo */
+  bridge: EncounterBridge | null;
+  /** Phiếu còn thay đổi chưa lưu: chưa cho quyết định đề xuất AI */
+  dirty: boolean;
+  onDecided: (response: ClinicalResponse) => void;
+  onBatDau: (mode: InputMode, sample: boolean) => void;
   onOpenTab: (tab: TabId) => void;
   soChiDinh: number;
-  soThuoc: number;
-  /** Trang trình diễn kiểu 3: ô nhập có sẵn câu lệnh */
   vanBanDau?: string;
-  /** Trang trình diễn kiểu 4: hội thoại giả, phát lại từng câu như máy đang nghe */
   hoiThoai?: { ai: "BS" | "BN"; cau: string }[];
+  onGoTo?: (id: string) => void;
 }
-
-/** Khoảng cách giữa hai câu khi phát lại hội thoại mẫu */
-const NHIP_HOI_THOAI_MS = 1400;
 
 const FOCUS = "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-tim";
 const NUT_CHINH = `w-full rounded-lg bg-tim py-2.5 text-sm font-semibold text-white hover:bg-tim/90 disabled:cursor-not-allowed disabled:opacity-50 ${FOCUS}`;
 const NUT_PHU = `w-full rounded-lg border border-tim-vien bg-white py-2.5 text-sm font-semibold text-tim hover:bg-tim-nhat disabled:cursor-not-allowed disabled:opacity-50 ${FOCUS}`;
-const NUT_CHU = "text-xs font-medium text-tim underline-offset-2 hover:underline disabled:cursor-not-allowed disabled:opacity-40 disabled:no-underline";
 
-const BUOC = ["Nói hoặc gõ", "AI điền", "Duyệt, Lưu"];
+const MAU_HOI_THOAI = "BN: Đau họng 3 ngày, không sốt.\nBS: Khám thấy họng đỏ. Chẩn đoán ban đầu viêm họng cấp. Chỉ định nội soi họng, số lượng 1. Lời dặn uống đủ nước. Hẹn tái khám sau 3 ngày.";
 
-/** Thanh 3 bước: bước đang làm tô tím, bước đã qua có dấu ✓ */
-function CacBuoc({ hienTai, xong }: { hienTai: number; xong: boolean }) {
-  return (
-    <ol className="flex items-center gap-1.5 text-xs" aria-label="Các bước">
-      {BUOC.map((nhan, i) => {
-        const so = i + 1;
-        const daQua = so < hienTai || (so === hienTai && xong);
-        const dangLam = so === hienTai && !xong;
-        return (
-          <li key={nhan} className="flex min-w-0 flex-1 items-center gap-1.5" aria-current={dangLam ? "step" : undefined}>
-            <span
-              className={`grid size-5 shrink-0 place-items-center rounded-full text-[11px] font-semibold ${
-                daQua ? "bg-tim text-white" : dangLam ? "bg-tim-nhat text-tim ring-2 ring-tim" : "bg-ef-nen text-ef-phu ring-1 ring-ef-vien"
-              }`}
-            >
-              {daQua ? "✓" : so}
-            </span>
-            <span className={`truncate ${dangLam ? "font-semibold text-ef-chu" : "text-ef-phu"}`}>{nhan}</span>
-          </li>
-        );
-      })}
-    </ol>
-  );
+const OPEN_STATES: RecordingSession["state"][] = ["opening", "recording", "finalizing"];
+
+/** Bản đã che: tô các nhãn [..] để bác sĩ thấy chỗ nào đã được thay. */
+function BanDaChe({ text }: { text: string }) {
+  const parts: ReactNode[] = [];
+  let at = 0;
+  for (const m of text.matchAll(NHAN_CHE)) {
+    if (m.index > at) parts.push(text.slice(at, m.index));
+    parts.push(<mark key={m.index} className="rounded bg-tim-nhat px-0.5 font-semibold text-tim ring-1 ring-tim-vien">{m[0]}</mark>);
+    at = m.index + m[0].length;
+  }
+  parts.push(text.slice(at));
+  return <p className="whitespace-pre-wrap break-words rounded-md border border-ef-vien bg-white px-3 py-2 text-sm leading-6 text-ef-chu">{parts}</p>;
 }
+const usable = (session: RecordingSession) => session.content_state !== "discarded";
 
-/** Cột phải: bác sĩ nói hoặc gõ tắt một lần, AI điền cả phiếu khám, chỉ định và đơn thuốc */
-export function TroLyAi({ ketQua, onDien, onBatDau, onHoanTac, onGoTo, onOpenTab, soChiDinh, soThuoc, vanBanDau, hoiThoai }: Props) {
-  const { data, get, put } = useEform();
-  const [text, setText] = useState(vanBanDau ?? "");
-  /** Số câu hội thoại mẫu đã phát; null là chưa bấm phát */
-  const [daPhat, setDaPhat] = useState<number | null>(null);
-  const hen = useRef<ReturnType<typeof setTimeout>>(undefined);
-  const dangPhat = hoiThoai !== undefined && daPhat !== null && daPhat < hoiThoai.length;
-
-  // Phát lại từng câu: mỗi nhịp thêm một dòng "BS: …" hoặc "BN: …" vào ô nhập
-  useEffect(() => {
-    if (!hoiThoai || daPhat === null || daPhat >= hoiThoai.length) return;
-    hen.current = setTimeout(() => {
-      const { ai, cau } = hoiThoai[daPhat];
-      setText((cu) => (cu ? `${cu}\n${ai}: ${cau}` : `${ai}: ${cau}`));
-      setDaPhat(daPhat + 1);
-    }, daPhat === 0 ? 300 : NHIP_HOI_THOAI_MS);
-    return () => clearTimeout(hen.current);
-  }, [hoiThoai, daPhat]);
+export function TroLyAi({ bridge, dirty, onDecided, onBatDau, onOpenTab, soChiDinh, vanBanDau, hoiThoai }: Props) {
+  // Ô nhập giữ chữ gốc, chỉ nằm trong bộ nhớ trình duyệt; máy chủ là nơi duy nhất che trước khi tạo bản nháp.
+  const [text, setText] = useState(() => vanBanDau ?? "");
+  const [mode, setMode] = useState<SpeakerMode>("conversation");
+  /** Chữ tạm từ micro (chưa chốt): hiện nối sau nội dung trong ô nhập để bác sĩ thấy máy đang nghe được gì */
+  const [interim, setInterim] = useState("");
+  const [check, setCheck] = useState<PrivacyCheckResult | null>(null);
+  const [extraction, setExtraction] = useState<ClinicalExtraction | null>(null);
+  const [reviewed, setReviewed] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  /** Đoạn chữ của lần điền gần nhất, để biết bác sĩ đã nói hoặc gõ thêm chưa */
-  const [daGui, setDaGui] = useState("");
+  const sequence = useRef(0);
+  /** Các phiên bản nội dung đã phát hành mã kiểm tra; sửa chữ sau đó phải tăng phiên bản trước khi kiểm tra lại. */
+  const usedRevisions = useRef(new Set<string>());
+  const appendRef = useRef<(chunk: string, sessionId: string) => void>(() => {});
+  /** Phiên ghi âm vừa nối chữ vào ô: cùng phiên thì nối bằng dấu cách để câu không bị ngắt dòng giữa chừng */
+  const lastMicSession = useRef<string | null>(null);
+  /** Bản sao để vẽ: ô đang nối tiếp chữ của một phiên ghi âm (chữ tạm nối bằng dấu cách) */
+  const [noiTiepMic, setNoiTiepMic] = useState(false);
+  /** Đoạn chữ của lần ghi âm đang chạy bắt đầu từ vị trí này trong ô nhập; dừng ghi thì đổi nhãn người nói trong đoạn đó */
+  const micBlock = useRef<{ sessionId: string; start: number } | null>(null);
+  const lyDoVaiTroRef = useRef("");
+  /** Người nói khớp giọng bác sĩ đã đăng ký ở lần ghi vừa dừng (STT backend báo khi chốt phiên) */
+  const giongBacSiRef = useRef<number | null>(null);
+  const [dangGhi, setDangGhi] = useState(false);
+  /** Kết quả tự phân vai bác sĩ/bệnh nhân của lần ghi gần nhất */
+  const [lyDoVaiTro, setLyDoVaiTro] = useState("");
+  const encounterId = bridge?.response.record.id ?? null;
+  const record = bridge?.response.record ?? null;
+  const canWrite = record?.status === "dang_kham";
 
-  /** Mẫu bác sĩ gọi nhưng trùng tên nhiều mẫu: hiện nút để chọn */
-  const [luaChon, setLuaChon] = useState<PhieuMau[] | null>(null);
-
-  /** Đổ phiếu mẫu vào phiếu: chỉ có tên mẫu thì không gọi API, có chi tiết thì gọi AI một lần để thay chỗ trống */
-  async function dungMau(mau: PhieuMau, chuDaGui: string, chiTiet = "") {
-    setLuaChon(null);
+  function invalidate() {
+    sequence.current += 1;
+    setCheck(null);
+    setExtraction(null);
+    setReviewed(false);
     setError(null);
-    if (!chiTiet) {
-      onDien(mau.ketQua, chuDaGui, mau);
-      setDaGui(chuDaGui);
-      return;
+    setLoading(false);
+  }
+
+  function setInput(next: string) {
+    invalidate();
+    lastMicSession.current = null;
+    setNoiTiepMic(false);
+    setText(next);
+  }
+
+  function appendInput(chunk: string, sessionId: string) {
+    invalidate();
+    const cungLanGhi = lastMicSession.current === sessionId;
+    lastMicSession.current = sessionId;
+    setNoiTiepMic(true);
+    // Vị trí bắt đầu chỉ biết khi updater chạy; ghi một lần (React dev gọi updater hai lần, lần sau giữ nguyên).
+    const block = cungLanGhi ? null : { sessionId, start: -1 };
+    if (block) micBlock.current = block;
+    setText((current) => {
+      if (block && block.start < 0) block.start = current ? current.length + 1 : 0;
+      return noiChu(current, chunk, cungLanGhi);
+    });
+  }
+
+  /** Dừng ghi: đổi "Người nói N:" trong đoạn vừa ghi thành BS/BN theo nội dung; bác sĩ không phải chọn gì. */
+  function ketThucGhi() {
+    setDangGhi(false);
+    // Lấy đoạn ra ngoài updater: updater phải thuần (React dev gọi hai lần), không được xóa ref bên trong.
+    const block = micBlock.current;
+    const giongBacSi = giongBacSiRef.current;
+    micBlock.current = null;
+    giongBacSiRef.current = null;
+    setText((current) => {
+      if (!block || block.start < 0) { lyDoVaiTroRef.current = ""; return current; }
+      const { text: daGan, ketQua } = ganVaiTroChoDoan(current.slice(block.start), giongBacSi);
+      lyDoVaiTroRef.current = ketQua.lyDo;
+      return current.slice(0, block.start) + daGan;
+    });
+    // Hàng đợi state xử lý theo thứ tự khai báo hook: text (ở trên) chạy trước nên ref đã có lý do.
+    setLyDoVaiTro(() => lyDoVaiTroRef.current);
+  }
+  useEffect(() => { appendRef.current = appendInput; });
+
+  // Chữ từ micro chỉ vào ô này khi binding thuộc đúng lượt khám đang mở.
+  useEffect(() => {
+    if (!bridge) return;
+    // binding.encounterId là mã lịch hẹn (khóa mở lượt), không phải record.id: so theo phiên ghi âm thuộc hồ sơ đang mở.
+    bridge.setTextSink((source, chunk) => {
+      if (bridge.latest().record.recording_sessions.some((item) => item.id === source.recordingSessionId)) appendRef.current(chunk, source.recordingSessionId);
+    });
+    return () => bridge.setTextSink(null);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [encounterId]);
+
+  const hasPendingText = text.trim().length > 0 && !reviewed;
+  useEffect(() => { bridge?.setPendingText(hasPendingText); }, [bridge, hasPendingText]);
+
+  /** Phiên đang làm việc: phiên mới nhất chưa bị bỏ. Chưa có thì tạo một phiên nhập tay ngay khi cần. */
+  async function ensureBinding(): Promise<TranscriptBinding> {
+    if (!bridge) throw new Error("Chưa mở lượt khám.");
+    let latest = bridge.latest().record;
+    let session = latest.recording_sessions.filter(usable).sort((a, b) => a.sequence - b.sequence).at(-1);
+    if (session && OPEN_STATES.includes(session.state)) throw new Error("Hãy dừng ghi âm trước khi kiểm tra nội dung.");
+    if (!session) session = await bridge.createManualSession();
+    latest = bridge.latest().record;
+    session = latest.recording_sessions.find((item) => item.id === session!.id) ?? session;
+    const key = `${session.id}:${session.content_revision}`;
+    if (session.content_revision < 1 || session.content_state !== "awaiting_review" || usedRevisions.current.has(key)) {
+      const updated = await recordingApi.content({ encounter_id: latest.id, session_id: session.id, expected_revision: latest.revision, content_revision: session.content_revision, client_request_id: crypto.randomUUID(), action: "invalidate" });
+      bridge.publish(updated);
+      session = updated.record.recording_sessions.find((item) => item.id === session!.id)!;
     }
+    usedRevisions.current.add(`${session.id}:${session.content_revision}`);
+    return { encounter_id: session.encounter_id, recording_session_id: session.id, generation: session.generation, content_revision: session.content_revision };
+  }
+
+  /** Máy chủ che (R1–R8, R10) → chốt chặn R11 → đồng ý R14. Qua thì lưu bản đã che vào phiên rồi tạo bản nháp; bị chặn thì dừng, không gửi AI. */
+  async function checkAndExtract() {
+    if (!text.trim() || loading || !bridge) return;
+    invalidate();
+    const request = ++sequence.current;
     setLoading(true);
     try {
-      onDien(await goiAiDienNhap(chiTiet, "AI không điền được phiếu.", mau.id), chuDaGui, mau);
-      setDaGui(chuDaGui);
+      const target = await ensureBinding();
+      if (request !== sequence.current) return;
+      const result = await checkClinicalPrivacy(text, mode, target);
+      if (request !== sequence.current) return;
+      setCheck(result);
+      if (result.status === "blocked" || !result.ticket) return;
+      // Lưu bản đã che vào đúng phiên trước khi tạo bản nháp; chỉ sau xác nhận của server mới coi là đã lưu.
+      const latest = bridge.latest().record;
+      bridge.publish(await recordingApi.content({ encounter_id: latest.id, session_id: target.recording_session_id, expected_revision: latest.revision, content_revision: target.content_revision, client_request_id: crypto.randomUUID(), action: "attach_reviewed", transcript_ticket: result.ticket }));
+      if (request !== sequence.current) return;
+      setReviewed(true);
+      const draft = await extractClinicalDraft(result.ticket, target);
+      if (request !== sequence.current) return;
+      setExtraction(draft);
     } catch (err) {
-      // AI lỗi (quá tải, hết lượt) thì vẫn điền theo mẫu, chỗ trống thay bằng quy tắc
-      onDien(ketQuaTheoQuyTac(mau, chiTiet, data.vietTat), chuDaGui, mau);
-      setDaGui(chuDaGui);
-      const lyDo = err instanceof Error ? err.message : "Không gọi được AI.";
-      setError(`${lyDo} Đã điền theo mẫu, chi tiết chỉ thay được bên, số ngày, nhiệt độ; hãy kiểm tra các chỗ vàng.`);
+      if (request === sequence.current) setError(err instanceof Error ? err.message : "Không tạo được bản nháp.");
     } finally {
-      setLoading(false);
+      if (request === sequence.current) setLoading(false);
     }
   }
 
-  async function dien() {
-    if (!text.trim() || loading) return;
-    const goi = timPhieuMau(text, data.phieuMau);
-    if (goi?.loai === "nhieu") {
-      setLuaChon(goi.cacMau);
-      return;
-    }
-    if (goi?.loai === "mot") {
-      await dungMau(goi.mau, text, goi.conLai);
-      return;
-    }
-    setLoading(true);
-    setError(null);
-    try {
-      onDien(await goiAiDienNhap(text, "AI không điền được phiếu."), text);
-      setDaGui(text);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "AI không điền được phiếu.");
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  // Trường AI chưa chắc mà bác sĩ đã sửa thì không còn ở trạng thái "xem"
-  const conXem = ketQua?.daDien.filter((item) => get(item.id).nguon === "xem") ?? [];
-  const daXong = ketQua?.daDien.filter((item) => get(item.id).nguon !== "xem") ?? [];
-  const tong = ketQua?.daDien.length ?? 0;
-  const coChu = text.trim().length > 0;
-  const chuMoi = coChu && text !== daGui;
-  // Đang gõ dở tên bệnh mà chưa khớp mẫu nào: gợi ý vài tên mẫu để bấm
-  const tenGoiY = chuMoi && !loading && !timPhieuMau(text, data.phieuMau) ? goiYTenMau(text, data.phieuMau) : [];
-  const buoc = dangPhat ? 1 : chuMoi || loading ? 2 : ketQua ? 3 : 1;
-
-  // Mỗi lúc chỉ một nút nổi bật: chưa có gì thì nút micro, có chữ mới thì nút Điền, đã điền thì phần duyệt
-  const giaoDienMic: GiaoDienMic = {
-    nut: `w-full rounded-lg py-2.5 text-sm font-semibold disabled:cursor-wait disabled:opacity-70 ${FOCUS}`,
-    dangNghe: "border border-ef-do bg-ef-do-nhat text-ef-do",
-    cho: chuMoi || ketQua ? "border border-tim-vien bg-white text-tim hover:bg-tim-nhat" : "bg-tim text-white hover:bg-tim/90",
-    nhan: coChu || ketQua ? "🎤 Nói thêm" : "🎤 Bắt đầu nói",
-  };
+  const dirtyReason = dirty ? "Phiếu còn thay đổi chưa lưu. Hãy bấm Lưu phiếu rồi chọn các đề xuất để áp dụng." : null;
 
   return (
     <aside className="flex flex-col self-start rounded-xl border border-tim-vien bg-white text-[13px] shadow-[0_1px_2px_rgba(26,37,51,0.06)] lg:sticky lg:top-[calc(var(--cao-dau)+1rem)] lg:max-h-[calc(100vh-var(--cao-dau)-var(--cao-day)-2rem)] lg:overflow-y-auto">
-      <div className="space-y-3 border-b border-tim-vien/60 bg-tim-nhat px-4 py-3">
-        <h2 className="text-[15px] font-semibold text-tim">✨ Trợ lý AI điền phiếu</h2>
-        <CacBuoc hienTai={buoc} xong={buoc === 3 && conXem.length === 0} />
+      <div className="space-y-2 border-b border-tim-vien/60 bg-tim-nhat px-4 py-3">
+        <h2 className="text-[15px] font-semibold text-tim">✨ Trợ lý lâm sàng</h2>
+        <p className="text-xs text-ef-phu">Nhập nội dung. Máy chủ tự che thông tin nhận dạng (R1–R14) rồi mới tạo bản nháp; bác sĩ chọn từng đề xuất để duyệt.</p>
       </div>
-
+      {!bridge ? (
+        <div className="px-4 py-4"><p role="status" className="text-xs text-ef-phu">Trợ lý lâm sàng chỉ hoạt động trong một lượt khám đã mở. Trang trình diễn không ghi hồ sơ.</p></div>
+      ) : (
       <div className="space-y-3 px-4 py-4">
-        {hoiThoai && (
-          <div className="rounded-lg border border-tim-vien bg-tim-nhat/60 p-3">
-            {daPhat === null ? (
-              <button
-                type="button"
-                className={NUT_CHINH}
-                onClick={() => {
-                  setText("");
-                  setDaPhat(0);
-                  onBatDau("noi", true);
-                }}
-              >
-                ▶ Bắt đầu nghe buổi khám
-              </button>
-            ) : dangPhat ? (
-              <div className="flex items-center gap-2">
-                <span aria-hidden className="size-2.5 animate-pulse rounded-full bg-ef-do motion-reduce:animate-none" />
-                <span role="status" className="flex-1 font-semibold text-ef-chu">
-                  Đang nghe buổi khám… {daPhat}/{hoiThoai.length} câu
-                </span>
-                <button type="button" className={`${BTN_OUTLINE} py-0.5`} onClick={() => setDaPhat(hoiThoai.length)}>
-                  ⏹ Dừng
-                </button>
-              </div>
-            ) : (
-              <p role="status" className="font-semibold text-ef-chu">
-                ⏹ Đã nghe xong buổi khám. Bấm Điền vào phiếu.
-              </p>
-            )}
-            <p className="mt-1.5 text-xs text-ef-phu">Giả lập: phát lại hội thoại soạn sẵn, không dùng micro.</p>
-          </div>
-        )}
-
-        {!hoiThoai && <MicButton
-          giaoDien={giaoDienMic}
-          onStart={() => {
-            setError(null);
-            onBatDau("noi", false);
-          }}
-          onText={(chunk) => {
-            const cau = suaChu(chunk, data.suaChu);
-            setText((current) => (current ? `${current} ${cau}` : cau));
-          }}
-        />}
-
-        <div className="relative">
-          <textarea
-            aria-label="Nội dung bác sĩ nói hoặc gõ tắt"
-            rows={chuMoi ? 6 : ketQua ? 2 : 4}
-            value={text}
-            onChange={(e) => {
-              setText(e.target.value);
-              setLuaChon(null);
-              onBatDau("go", false);
-            }}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) void dien();
-            }}
-            placeholder="Gõ tên mẫu, VD: mẫu viêm tai giữa cấp, tai T, 3n. Hoặc gõ tắt cả ca: LD: đau tai P 4n. TMH: … CĐ: … Đơn: …"
-            className="w-full rounded-lg border border-ef-vien bg-white px-3 py-2 text-sm leading-6 text-ef-chu outline-none placeholder:text-ef-phu/80 focus:border-tim focus:ring-2 focus:ring-tim/20"
+        {!canWrite && <p role="status" className="rounded-md bg-ef-nen px-3 py-2 text-xs text-ef-phu">Lượt khám không ở trạng thái Đang khám nên chưa ghi âm hoặc nhập nội dung mới. Chọn Tiếp tục khám để làm tiếp.</p>}
+        <fieldset className="space-y-1.5">
+          <legend className="mb-1 text-xs font-semibold text-ef-chu">Cách ghi nhận</legend>
+          <label className="mr-4 inline-flex items-center gap-1.5"><input type="radio" name="clinical-mode" checked={mode === "conversation"} onChange={() => { invalidate(); setMode("conversation"); }} /> Hội thoại</label>
+          <label className="inline-flex items-center gap-1.5"><input type="radio" name="clinical-mode" checked={mode === "dictation"} onChange={() => { invalidate(); setMode("dictation"); }} /> Bác sĩ đọc</label>
+        </fieldset>
+        {canWrite && (
+          <MicButton
+            onStart={() => { setDangGhi(true); setLyDoVaiTro(""); onBatDau("noi", false); }}
+            onInterim={setInterim}
+            onGiongBacSi={(speaker) => { giongBacSiRef.current = speaker; }}
+            onText={(chunk, source) => { if (source) bridge.routeText(source, chunk); }}
+            beforeStart={bridge.beforeStart}
+            onCaptureReady={bridge.onCaptureReady}
+            onCaptureFailed={bridge.onCaptureFailed}
+            onStopRequest={() => { void bridge.stopAndSave().catch((cause) => setError(cause instanceof Error ? cause.message : "Không dừng được ghi âm.")); }}
+            onStop={() => { ketThucGhi(); void bridge.stopAndSave().catch(() => undefined); }}
           />
-        </div>
-
-        {tenGoiY.length > 0 && !luaChon && (
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-ef-phu">
-            <span>Mẫu theo bệnh:</span>
-            {tenGoiY.map((mau) => (
-              <button key={mau.id} type="button" className={NUT_CHU} onClick={() => {
-                  void dungMau(mau, mau.ten);
-                  setText("");
-                }}>
-                {mau.ten}
-              </button>
-            ))}
-          </div>
         )}
-
-        {luaChon && (
-          <div role="group" aria-label="Chọn mẫu" className="space-y-1.5 rounded-lg border border-tim-vien bg-tim-nhat/60 p-3">
-            <p className="text-xs font-semibold text-ef-chu">Tên này khớp nhiều mẫu, chọn một:</p>
-            {luaChon.map((mau) => (
-              <button key={mau.id} type="button" className={NUT_PHU} onClick={() => void dungMau(mau, text, timPhieuMau(text, data.phieuMau)?.conLai ?? "")}>
-                Dùng mẫu: {mau.ten}
-              </button>
-            ))}
-          </div>
-        )}
-
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-ef-phu">
-          <span>Thử câu mẫu:</span>
-          <button type="button" className={NUT_CHU} onClick={() => { setText(data.cauMau.noi); onBatDau("noi", true); }} disabled={!data.cauMau.noi}>
-            kiểu nói
-          </button>
-          <button type="button" className={NUT_CHU} onClick={() => { setText(data.cauMau.goTat); onBatDau("go", true); }} disabled={!data.cauMau.goTat}>
-            kiểu gõ tắt
-          </button>
-          {coChu && (
-            <button type="button" className={`${NUT_CHU} ml-auto text-ef-phu`} onClick={() => setText("")}>
-              Xóa chữ
-            </button>
-          )}
-        </div>
-
-        {(chuMoi || loading) && !dangPhat && (
-          <button type="button" onClick={dien} disabled={loading} className={NUT_CHINH}>
-            {loading ? (
-              <span className="inline-flex items-center gap-2">
-                <span aria-hidden className="size-3.5 animate-spin rounded-full border-2 border-white/40 border-t-white motion-reduce:animate-none" />
-                AI đang điền…
-              </span>
-            ) : ketQua ? (
-              "✨ Điền thêm vào phiếu"
-            ) : (
-              "✨ Điền vào phiếu"
-            )}
-          </button>
-        )}
-
-        {error && (
-          <p role="alert" className="rounded-md bg-ef-do-nhat px-3 py-2 text-xs text-ef-do">
-            {error}
-          </p>
-        )}
+        <textarea aria-label="Nội dung buổi khám" rows={5} value={interim ? noiChu(text, interim, noiTiepMic) : text} readOnly={dangGhi || Boolean(interim)} onChange={(event) => { setInput(event.target.value); onBatDau("go", false); }} placeholder="Ghi lời bệnh nhân và bác sĩ. Máy chủ che thông tin nhận dạng trước khi tạo bản nháp." className="w-full rounded-lg border border-ef-vien bg-white px-3 py-2 text-sm leading-6 text-ef-chu outline-none placeholder:text-ef-phu/80 focus:border-tim focus:ring-2 focus:ring-tim/20" />
+        {lyDoVaiTro && <p role="status" className="text-xs text-ef-phu">Tự phân vai: {lyDoVaiTro}</p>}
+        {hasPendingText && <p className="text-xs text-ef-phu">Nội dung này chưa được che và lưu. Tạo bản nháp, hoặc xóa trước khi chuyển lượt khám.</p>}
+        {hoiThoai && <button type="button" className="text-xs font-medium text-tim underline-offset-2 hover:underline" onClick={() => { setInput(hoiThoai.map(({ ai, cau }) => `${ai}: ${cau}`).join("\n")); onBatDau("noi", true); }}>Nạp hội thoại mẫu</button>}
+        <button type="button" className="text-xs font-medium text-tim underline-offset-2 hover:underline" onClick={() => { setInput(MAU_HOI_THOAI); onBatDau("noi", true); }}>Thử hội thoại tổng hợp</button>
+        <button type="button" className={NUT_CHINH} disabled={loading || !text.trim() || !canWrite || bridge.recordingActive} onClick={() => void checkAndExtract()}>{loading ? "Đang xử lý…" : "Che thông tin và tạo bản nháp"}</button>
+        {check?.status === "blocked" && <div role="alert" className="space-y-1 rounded-lg border border-ef-do/40 bg-ef-do-nhat px-3 py-2 text-xs text-ef-do">
+          <p className="font-semibold">Chưa gửi AI: còn sót thông tin nhận dạng</p>
+          <ul className="list-disc space-y-0.5 pl-4">{check.gate.reasons.map((item, index) => <li key={index}>{TEN_LY_DO_CHAN[item.reason] ?? item.reason}{item.excerpt ? <>: <code className="break-all rounded bg-white px-1">{item.excerpt}</code></> : null}</li>)}</ul>
+          <p>Hệ thống không tự che được phần này. Sửa nội dung trong ô rồi bấm lại.</p>
+        </div>}
+        {check && <section aria-label="Bản đã che" className="space-y-2 rounded-lg border border-tim-vien bg-tim-nhat/50 p-3">
+          <h3 className="text-xs font-semibold text-ef-chu">{check.status === "passed" ? "Bản đã che (nội dung gửi AI)" : "Bản đã che (chưa gửi AI)"}</h3>
+          <BanDaChe text={check.preview} />
+          <p className="text-xs text-ef-phu">Đã che: {RULES.filter((rule) => check.counts[rule] > 0).map((rule, index) => <span key={rule}>{index > 0 && " · "}<abbr title={TEN_RULE[rule]} className="no-underline">{rule} × {check.counts[rule]}</abbr></span>)}{RULES.every((rule) => check.counts[rule] === 0) && (check.auto_masked.length ? "không có mục nào theo R1–R8" : "không có mục nào")}</p>
+          {check.auto_masked.length > 0 && <div role="status" className="text-xs text-ef-phu">
+            <p>Tự che thêm {check.auto_masked.length} mục còn sót (không cần sửa tay):</p>
+            <ul className="list-disc space-y-0.5 pl-4">{check.auto_masked.map((item, index) => <li key={index}>{TEN_LY_DO_CHAN[item.reason] ?? item.reason}{item.excerpt ? <>: <code className="break-all rounded bg-white px-1">{item.excerpt}</code></> : null}</li>)}</ul>
+          </div>}
+          <p className="text-xs text-ef-phu">{check.dong_y.trang_thai ? `Đồng ý AI: ✓ (lúc tiếp đón, ${gioVN(check.dong_y.luc)})` : "Đồng ý AI: ✗ — chỉ chạy bộ tách trên máy chủ"}</p>
+          <p className="text-xs text-ef-phu">{nhanNer(check.ner)}</p>
+          {privacyReviewRisks(check.preview).includes("rare_disease_review") && <p role="status" className="text-xs text-ef-phu">Có nhắc bệnh hiếm: tuổi, giới, thời điểm và bệnh hiếm ghép lại vẫn có thể nhận ra người bệnh; hệ thống không tự xóa chẩn đoán.</p>}
+        </section>}
+        {error && <p role="alert" className="rounded-md bg-ef-do-nhat px-3 py-2 text-xs text-ef-do">{error}</p>}
+        {extraction && <section className="space-y-3 border-t border-ef-vien pt-3" aria-label="Bản nháp lâm sàng">
+          <h3 className="font-semibold text-ef-chu">Bản nháp · bác sĩ cần duyệt</h3>
+          <p><span className="font-medium">Tóm tắt:</span> {extraction.draft.tom_tat || "Chưa có tóm tắt."}</p>
+          {extraction.draft.phieu_kham.chan_doan.length > 0 && <div><h4 className="font-medium">Chẩn đoán được nhắc đến</h4><ul className="list-disc space-y-1 pl-5">{extraction.draft.phieu_kham.chan_doan.map((diagnosis, index) => <li key={index}>{diagnosis.giai_doan} · {diagnosis.vai_tro}: {diagnosis.mo_ta || "Chưa rõ mô tả"} ({diagnosis.muc_do_khang_dinh || "chưa rõ mức độ"})</li>)}</ul></div>}
+          {(extraction.draft.phieu_kham.co_thuoc_dang_dung || extraction.draft.phieu_kham.thuoc_dang_dung.length > 0) && <div><h4 className="font-medium">Thuốc đang dùng</h4>{extraction.draft.phieu_kham.thuoc_dang_dung.length ? <ul className="list-disc space-y-1 pl-5">{extraction.draft.phieu_kham.thuoc_dang_dung.map((medication, index) => <li key={index}>{[medication.ten, medication.ham_luong, medication.cach_dung, medication.trang_thai].filter(Boolean).join(" · ") || "Thiếu chi tiết"}</li>)}</ul> : <p>Được nhắc đến nhưng chưa có chi tiết.</p>}</div>}
+          {extraction.draft.phieu_kham.di_ung.trang_thai !== "chua_de_cap" && <p><span className="font-medium">Dị ứng:</span> {[extraction.draft.phieu_kham.di_ung.trang_thai, ...extraction.draft.phieu_kham.di_ung.loai, extraction.draft.phieu_kham.di_ung.mo_ta].filter(Boolean).join(" · ")}</p>}
+          {extraction.draft.can_xem_lai.length > 0 && <div><h4 className="font-medium">Cần xem lại</h4><ul className="list-disc space-y-1 pl-5">{extraction.draft.can_xem_lai.map((issue, index) => <li key={`${issue.field_path}-${index}`}>{issue.mo_ta}</li>)}</ul></div>}
+          {extraction.draft.bang_chung.length > 0 && <details><summary className="cursor-pointer font-medium">Bằng chứng trích từ nội dung đã lọc</summary><ul className="mt-1 list-disc space-y-1 pl-5">{extraction.draft.bang_chung.map((evidence, index) => <li key={`${evidence.field_path}-${index}`}><span className="text-ef-phu">{evidence.field_path}: </span>“{evidence.trich_doan}”</li>)}</ul></details>}
+          <p className="text-xs text-ef-phu">Đơn thuốc không được tạo tự động; bác sĩ kê toa riêng.</p>
+          {encounterId && <ClinicalChanges key={extraction.run_id} encounterId={encounterId} runId={extraction.run_id} latestRevision={() => bridge.latest().record.revision} blockedReason={dirtyReason} onDecided={(response) => { setExtraction(null); onDecided(response); }} />}
+        </section>}
+        <button type="button" className={NUT_PHU} onClick={() => onOpenTab("chi_dinh")}>{soChiDinh} chỉ định</button>
       </div>
-
-      {ketQua && (
-        <div className="space-y-3 border-t border-ef-vien px-4 py-4">
-          <div>
-            <div className="flex items-baseline justify-between gap-2">
-              <p className="text-sm font-semibold text-ef-chu">Đã điền {tong} trường</p>
-              <p className={`text-xs font-medium ${conXem.length > 0 ? "text-xem" : "text-tim"}`}>
-                {conXem.length > 0 ? `Còn ${conXem.length} chỗ cần xem lại` : "Đã xem hết chỗ chưa chắc"}
-              </p>
-            </div>
-            <div
-              className="mt-2 flex h-1.5 overflow-hidden rounded-full bg-ef-nen"
-              role="img"
-              aria-label={`${daXong.length} trường chắc chắn, ${conXem.length} trường cần xem lại`}
-            >
-              <span className="bg-tim transition-[width] duration-300 motion-reduce:transition-none" style={{ width: `${tong ? (daXong.length / tong) * 100 : 0}%` }} />
-              <span className="bg-xem/70" style={{ width: `${tong ? (conXem.length / tong) * 100 : 0}%` }} />
-            </div>
-          </div>
-
-          {conXem.length > 0 && (
-            <ul className="space-y-1.5">
-              {conXem.map((item) => (
-                <li key={item.id} className="flex items-center gap-2 rounded-lg border border-xem/40 bg-xem-nhat py-1.5 pl-3 pr-1.5">
-                  <span className="min-w-0 flex-1 font-medium leading-snug text-ef-chu">
-                    {item.nhan}
-                  </span>
-                  <button type="button" className={`${BTN_OUTLINE} py-0.5`} onClick={() => onGoTo(item.id)}>
-                    Xem
-                  </button>
-                  <button
-                    type="button"
-                    className={`rounded-md border border-xem/50 bg-white px-2.5 py-0.5 text-[13px] font-semibold text-xem hover:bg-xem-nhat ${FOCUS}`}
-                    title="Giá trị đã đúng, bỏ đánh dấu cần xem lại"
-                    onClick={() => put(item.id, get(item.id).value, "ai")}
-                  >
-                    ✓ Đúng
-                  </button>
-                </li>
-              ))}
-            </ul>
-          )}
-
-          <details className="group rounded-lg border border-ef-vien" open={conXem.length === 0}>
-            <summary className="flex cursor-pointer list-none items-center justify-between px-3 py-2 text-ef-chu">
-              <span className="font-medium">{daXong.length} trường AI đã điền</span>
-              <span aria-hidden className="text-ef-phu transition-transform group-open:rotate-180 motion-reduce:transition-none">
-                ▾
-              </span>
-            </summary>
-            <ul className="border-t border-ef-vien px-1 py-1">
-              {daXong.map((item) => (
-                <li key={item.id}>
-                  <button
-                    type="button"
-                    onClick={() => onGoTo(item.id)}
-                    className="flex w-full items-center gap-2 rounded-md px-2 py-1 text-left hover:bg-tim-nhat"
-                  >
-                    <span aria-hidden className="text-tim">
-                      ✓
-                    </span>
-                    <span className="min-w-0 flex-1 truncate text-ef-chu">{item.nhan}</span>
-                    <span className="text-xs text-ef-phu">Xem</span>
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </details>
-
-          <div className="grid grid-cols-2 gap-2">
-            <button type="button" className={NUT_PHU} onClick={() => onOpenTab("chi_dinh")}>
-              {soChiDinh} chỉ định
-            </button>
-            <button type="button" className={NUT_PHU} onClick={() => onOpenTab("don_thuoc")}>
-              {soThuoc} thuốc
-            </button>
-          </div>
-
-          {onHoanTac && (
-            <button type="button" className="w-full py-1 text-xs font-medium text-ef-phu hover:text-ef-chu hover:underline" onClick={onHoanTac}>
-              ↶ Hoàn tác lần AI điền
-            </button>
-          )}
-        </div>
       )}
     </aside>
   );

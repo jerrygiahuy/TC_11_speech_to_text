@@ -1,0 +1,245 @@
+{
+  "version": 1,
+  "synthetic": true,
+  "contexts": [
+    {
+      "appointment_id": "LK-GIA-0456",
+      "patient_id": "GIA-000123",
+      "facility_id": "facility-prototype",
+      "doctor_id": "user_bs01",
+      "age_months": 576,
+      "ca": {
+        "_ghi_chu": "Hồ sơ giả mặc định cho môi trường demo.",
+        "dang_nhap": "user_bs01",
+        "co_so": "Cơ sở mô phỏng / Khu khám ngoại trú",
+        "pid": "GIA-000123",
+        "ma_luot_kham": "LK-GIA-0456",
+        "ho_ten": "Nguyễn Thị Giả",
+        "gioi_tinh": "Nữ",
+        "canh_bao_di_ung": "",
+        "chinh_sua_cuoi": {
+          "nguoi": "user_dd01",
+          "luc": "09/11/2026 08:52"
+        },
+        "danh_gia_ban_dau": [
+          {
+            "nhan": "Điều dưỡng đánh giá",
+            "gia_tri": "ĐD. X (user_dd01)"
+          },
+          {
+            "nhan": "Mức độ đau",
+            "gia_tri": "4/10, tai phải"
+          },
+          {
+            "nhan": "Nguy cơ ngã",
+            "gia_tri": "Thấp"
+          },
+          {
+            "nhan": "Tình trạng dinh dưỡng",
+            "gia_tri": "Bình thường"
+          }
+        ],
+        "sinh_hieu": {
+          "mach": 82,
+          "nhiet_do": 37.6,
+          "ha_tam_thu": 122,
+          "ha_tam_truong": 78,
+          "spo2": 98,
+          "nhip_tho": 18,
+          "chieu_cao": 160,
+          "can_nang": 56
+        },
+        "bac_si_kham": "BS. A",
+        "phong_kham": "Phòng khám ngoại trú",
+        "bac_si_chinh": "BS. A",
+        "trang_thai": "Đang khám",
+        "lich_su": {
+          "tien_su_ban_than": [],
+          "tien_su_gia_dinh": [],
+          "benh_su": [],
+          "di_ung": []
+        },
+        "xet_nghiem": [],
+        "chan_doan_hinh_anh": [],
+        "can_lam_sang": [],
+        "dong_bo_cls": "09/11/2026 08:40",
+        "gia_tri": {
+          "thoi_gian_kham": "2026-11-09T09:15"
+        }
+      }
+    },
+    {
+      "appointment_id": "000123",
+      "patient_id": "GIA-000456",
+      "facility_id": "facility-prototype",
+      "doctor_id": "user_bs01",
+      "age_months": 420,
+      "ca": {
+        "dang_nhap": "user_bs01",
+        "co_so": "Cơ sở mô phỏng / Khu khám ngoại trú",
+        "pid": "GIA-000456",
+        "ma_luot_kham": "000123",
+        "ho_ten": "Trần Văn Mô Phỏng",
+        "gioi_tinh": "Nam",
+        "canh_bao_di_ung": "",
+        "chinh_sua_cuoi": {
+          "nguoi": "user_dd01",
+          "luc": "14/11/2026 09:20"
+        },
+        "danh_gia_ban_dau": [
+          {
+            "nhan": "Mức độ đau",
+            "gia_tri": "2/10, họng"
+          }
+        ],
+        "sinh_hieu": {
+          "mach": 76,
+          "nhiet_do": 37.1,
+          "ha_tam_thu": 118,
+          "ha_tam_truong": 74,
+          "spo2": 99,
+          "nhip_tho": 16,
+          "chieu_cao": 172,
+          "can_nang": 68
+        },
+        "bac_si_kham": "BS. A",
+        "phong_kham": "Phòng khám ngoại trú",
+        "bac_si_chinh": "BS. A",
+        "trang_thai": "Đang khám",
+        "lich_su": {
+          "tien_su_ban_than": [],
+          "tien_su_gia_dinh": [],
+          "benh_su": [],
+          "di_ung": []
+        },
+        "xet_nghiem": [],
+        "chan_doan_hinh_anh": [],
+        "can_lam_sang": [],
+        "dong_bo_cls": "",
+        "gia_tri": {
+          "thoi_gian_kham": "2026-11-14T09:30"
+        }
+      }
+    },
+    {
+      "appointment_id": "LK-GIA-0457",
+      "patient_id": "GIA-000123",
+      "facility_id": "facility-prototype",
+      "doctor_id": "user_bs01",
+      "age_months": 576,
+      "ca": {
+        "_ghi_chu": "Hồ sơ giả mặc định cho môi trường demo.",
+        "dang_nhap": "user_bs01",
+        "co_so": "Cơ sở mô phỏng / Khu khám ngoại trú",
+        "pid": "GIA-000123",
+        "ma_luot_kham": "LK-GIA-0457",
+        "ho_ten": "Nguyễn Thị Giả",
+        "gioi_tinh": "Nữ",
+        "canh_bao_di_ung": "",
+        "chinh_sua_cuoi": {
+          "nguoi": "user_dd01",
+          "luc": "09/11/2026 08:52"
+        },
+        "danh_gia_ban_dau": [
+          {
+            "nhan": "Điều dưỡng đánh giá",
+            "gia_tri": "ĐD. X (user_dd01)"
+          },
+          {
+            "nhan": "Mức độ đau",
+            "gia_tri": "4/10, tai phải"
+          },
+          {
+            "nhan": "Nguy cơ ngã",
+            "gia_tri": "Thấp"
+          },
+          {
+            "nhan": "Tình trạng dinh dưỡng",
+            "gia_tri": "Bình thường"
+          }
+        ],
+        "sinh_hieu": {
+          "mach": 82,
+          "nhiet_do": 37.6,
+          "ha_tam_thu": 122,
+          "ha_tam_truong": 78,
+          "spo2": 98,
+          "nhip_tho": 18,
+          "chieu_cao": 160,
+          "can_nang": 56
+        },
+        "bac_si_kham": "BS. A",
+        "phong_kham": "Phòng khám ngoại trú",
+        "bac_si_chinh": "BS. A",
+        "trang_thai": "Đang khám",
+        "lich_su": {
+          "tien_su_ban_than": [],
+          "tien_su_gia_dinh": [],
+          "benh_su": [],
+          "di_ung": []
+        },
+        "xet_nghiem": [],
+        "chan_doan_hinh_anh": [],
+        "can_lam_sang": [],
+        "dong_bo_cls": "09/11/2026 08:40",
+        "gia_tri": {
+          "thoi_gian_kham": "2026-11-14T10:00"
+        }
+      }
+    },
+    {
+      "appointment_id": "LK-GIA-0458",
+      "patient_id": "GIA-000789",
+      "facility_id": "facility-prototype",
+      "doctor_id": "user_bs01",
+      "age_months": 300,
+      "ca": {
+        "_ghi_chu": "Hồ sơ giả mặc định cho môi trường demo.",
+        "dang_nhap": "user_bs01",
+        "co_so": "Cơ sở mô phỏng / Khu khám ngoại trú",
+        "pid": "GIA-000789",
+        "ma_luot_kham": "LK-GIA-0458",
+        "ho_ten": "Lê Văn Mới",
+        "gioi_tinh": "Nam",
+        "canh_bao_di_ung": "",
+        "chinh_sua_cuoi": {
+          "nguoi": "user_dd01",
+          "luc": "09/11/2026 08:52"
+        },
+        "danh_gia_ban_dau": [
+          {
+            "nhan": "Điều dưỡng đánh giá",
+            "gia_tri": "ĐD. X (user_dd01)"
+          }
+        ],
+        "sinh_hieu": {
+          "mach": 82,
+          "nhiet_do": 37.6,
+          "ha_tam_thu": 122,
+          "ha_tam_truong": 78,
+          "spo2": 98,
+          "nhip_tho": 18,
+          "chieu_cao": 160,
+          "can_nang": 56
+        },
+        "bac_si_kham": "BS. A",
+        "phong_kham": "Phòng khám ngoại trú",
+        "bac_si_chinh": "BS. A",
+        "trang_thai": "Đang khám",
+        "lich_su": {
+          "tien_su_ban_than": [],
+          "tien_su_gia_dinh": [],
+          "benh_su": [],
+          "di_ung": []
+        },
+        "xet_nghiem": [],
+        "chan_doan_hinh_anh": [],
+        "can_lam_sang": [],
+        "dong_bo_cls": "09/11/2026 08:40",
+        "gia_tri": {
+          "thoi_gian_kham": "2026-11-09T09:15"
+        }
+      }
+    }
+  ]
+}

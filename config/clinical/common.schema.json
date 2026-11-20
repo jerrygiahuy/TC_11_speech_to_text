@@ -1,0 +1,1769 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Task 2 - shared design definitions v1",
+  "$defs": {
+    "quantity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "value",
+        "unit"
+      ],
+      "properties": {
+        "value": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "unit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "diagnosisMention": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "giai_doan",
+        "mo_ta",
+        "muc_do_khang_dinh",
+        "vai_tro"
+      ],
+      "properties": {
+        "giai_doan": {
+          "enum": [
+            "ban_dau",
+            "ra_vien",
+            "chua_ro"
+          ]
+        },
+        "mo_ta": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "muc_do_khang_dinh": {
+          "enum": [
+            "xac_dinh",
+            "nghi_ngo",
+            "loai_tru",
+            "phu_dinh",
+            "chua_ro",
+            null
+          ]
+        },
+        "vai_tro": {
+          "enum": [
+            "chinh",
+            "kem_theo",
+            "chua_ro"
+          ]
+        }
+      }
+    },
+    "allergy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "trang_thai",
+        "loai",
+        "mo_ta"
+      ],
+      "properties": {
+        "trang_thai": {
+          "enum": [
+            "chua_de_cap",
+            "co",
+            "khong",
+            "khong_xac_dinh"
+          ]
+        },
+        "loai": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "mo_ta": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "currentMedication": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ten",
+        "ham_luong",
+        "cach_dung",
+        "trang_thai"
+      ],
+      "properties": {
+        "ten": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ham_luong": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "cach_dung": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "trang_thai": {
+          "enum": [
+            "dang_dung",
+            "da_ngung",
+            "chua_ro",
+            null
+          ]
+        }
+      }
+    },
+    "exam": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mo_ta",
+        "tai",
+        "mui",
+        "vom",
+        "hong"
+      ],
+      "properties": {
+        "mo_ta": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tai": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "mui": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "vom": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "hong": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "followUp": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "co_hen",
+        "nguyen_van",
+        "sau_bao_lau",
+        "ngay_cu_the"
+      ],
+      "properties": {
+        "co_hen": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "nguyen_van": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sau_bao_lau": {
+          "$ref": "common.schema.json#/$defs/positiveQuantity"
+        },
+        "ngay_cu_the": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        }
+      }
+    },
+    "phieuKham": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ly_do_kham",
+        "benh_su",
+        "tien_su_ban_than",
+        "tien_su_gia_dinh",
+        "di_ung",
+        "co_thuoc_dang_dung",
+        "thuoc_dang_dung",
+        "co_pttt",
+        "kham_toan_than",
+        "kham_chuyen_khoa",
+        "kham_khac",
+        "chan_doan",
+        "ghi_chu_ket_qua",
+        "da_xu_ly",
+        "huong_dieu_tri",
+        "loi_dan",
+        "hen_tai_kham",
+        "tinh_trang_ra_vien"
+      ],
+      "properties": {
+        "ly_do_kham": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "benh_su": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tien_su_ban_than": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tien_su_gia_dinh": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "di_ung": {
+          "$ref": "common.schema.json#/$defs/allergy"
+        },
+        "co_thuoc_dang_dung": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "thuoc_dang_dung": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/currentMedication"
+          }
+        },
+        "co_pttt": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "kham_toan_than": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "kham_chuyen_khoa": {
+          "$ref": "common.schema.json#/$defs/exam"
+        },
+        "kham_khac": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "chan_doan": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/diagnosisMention"
+          }
+        },
+        "ghi_chu_ket_qua": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "da_xu_ly": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "huong_dieu_tri": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "loi_dan": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "hen_tai_kham": {
+          "$ref": "common.schema.json#/$defs/followUp"
+        },
+        "tinh_trang_ra_vien": {
+          "enum": [
+            "khoi",
+            "do_giam",
+            "chua_thay_doi",
+            "nang_hon",
+            "khac",
+            null
+          ]
+        }
+      }
+    },
+    "serviceMention": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ten_dich_vu",
+        "so_luong",
+        "ghi_chu",
+        "vi_tri",
+        "ben",
+        "ly_do_chi_dinh",
+        "muc_do_khan",
+        "hanh_dong"
+      ],
+      "properties": {
+        "ten_dich_vu": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "so_luong": {
+          "anyOf": [
+            {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "ghi_chu": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "vi_tri": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ben": {
+          "enum": [
+            "phai",
+            "trai",
+            "hai_ben",
+            "khong_ap_dung",
+            null
+          ]
+        },
+        "ly_do_chi_dinh": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "muc_do_khan": {
+          "enum": [
+            "thuong",
+            "khan",
+            null
+          ]
+        },
+        "hanh_dong": {
+          "enum": [
+            "de_nghi_moi",
+            "huy",
+            "thay_the",
+            "chua_ro"
+          ]
+        }
+      }
+    },
+    "serviceGroupMention": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "de_cap",
+        "chan_doan_lich_su_lam_sang",
+        "items"
+      ],
+      "properties": {
+        "de_cap": {
+          "enum": [
+            "chua_de_cap",
+            "khong_chi_dinh",
+            "co_chi_dinh"
+          ]
+        },
+        "chan_doan_lich_su_lam_sang": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/serviceMention"
+          }
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "field_path",
+        "segment_ids",
+        "trich_doan",
+        "vai_tro"
+      ],
+      "properties": {
+        "field_path": {
+          "type": "string",
+          "pattern": "^/"
+        },
+        "segment_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "trich_doan": {
+          "type": "string",
+          "minLength": 1
+        },
+        "vai_tro": {
+          "enum": [
+            "bac_si",
+            "benh_nhan",
+            "nguoi_nha",
+            "khac",
+            "chua_ro"
+          ]
+        }
+      }
+    },
+    "issue": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "field_path",
+        "loai",
+        "mo_ta",
+        "segment_ids"
+      ],
+      "properties": {
+        "field_path": {
+          "type": "string",
+          "pattern": "^/"
+        },
+        "loai": {
+          "enum": [
+            "thieu_thong_tin",
+            "mau_thuan",
+            "khong_ro_nguoi_noi",
+            "khong_khop_danh_muc",
+            "can_xac_nhan",
+            "khong_duoc_ho_tro"
+          ]
+        },
+        "mo_ta": {
+          "type": "string",
+          "minLength": 1
+        },
+        "segment_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "catalogMatch": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "catalog_id",
+        "code_system",
+        "code",
+        "display",
+        "catalog_version",
+        "trang_thai",
+        "ung_vien_ids"
+      ],
+      "properties": {
+        "catalog_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "code_system": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "code": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "display": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "catalog_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "trang_thai": {
+          "enum": [
+            "chua_khop",
+            "khop_mot",
+            "nhieu_ung_vien",
+            "bac_si_chon"
+          ]
+        },
+        "ung_vien_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "money": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "amount",
+        "currency"
+      ],
+      "properties": {
+        "amount": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "currency": {
+          "enum": [
+            "VND"
+          ]
+        }
+      }
+    },
+    "billing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "don_gia",
+        "thanh_tien",
+        "chon_bhyt",
+        "dieu_kien_bhyt",
+        "can_cu",
+        "danh_gia_luc",
+        "nguon_tra"
+      ],
+      "properties": {
+        "don_gia": {
+          "$ref": "common.schema.json#/$defs/money"
+        },
+        "thanh_tien": {
+          "$ref": "common.schema.json#/$defs/money"
+        },
+        "chon_bhyt": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "dieu_kien_bhyt": {
+          "enum": [
+            "chua_danh_gia",
+            "can_xac_minh",
+            "du_dieu_kien",
+            "khong_du_dieu_kien"
+          ]
+        },
+        "can_cu": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "danh_gia_luc": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "nguon_tra": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "coverage_id",
+              "loai",
+              "so_tien",
+              "trang_thai"
+            ],
+            "properties": {
+              "coverage_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "loai": {
+                "enum": [
+                  "bhyt",
+                  "bao_hiem_tu_nhan",
+                  "tu_tra",
+                  "khac"
+                ]
+              },
+              "so_tien": {
+                "$ref": "common.schema.json#/$defs/money"
+              },
+              "trang_thai": {
+                "enum": [
+                  "du_kien",
+                  "da_xac_nhan"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "trang_thai",
+        "reviewer_id",
+        "reviewed_at"
+      ],
+      "properties": {
+        "trang_thai": {
+          "enum": [
+            "chua_duyet",
+            "chap_nhan",
+            "da_sua",
+            "tu_choi"
+          ]
+        },
+        "reviewer_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "reviewed_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "serviceOrder": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "noi_dung",
+        "danh_muc",
+        "trang_thai",
+        "group_id",
+        "package_id",
+        "package_version",
+        "thay_the_order_id",
+        "chan_doan_ids",
+        "requester_id",
+        "requested_at",
+        "billing",
+        "review"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "noi_dung": {
+          "$ref": "common.schema.json#/$defs/serviceMention"
+        },
+        "danh_muc": {
+          "$ref": "common.schema.json#/$defs/catalogMatch"
+        },
+        "trang_thai": {
+          "enum": [
+            "nhap",
+            "da_xac_nhan",
+            "dang_thuc_hien",
+            "hoan_thanh",
+            "da_huy"
+          ]
+        },
+        "group_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "package_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "package_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "thay_the_order_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "chan_doan_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "requester_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "requested_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "billing": {
+          "$ref": "common.schema.json#/$defs/billing"
+        },
+        "review": {
+          "$ref": "common.schema.json#/$defs/review"
+        },
+        "intentional_repeat_reason": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "diagnosis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "noi_dung",
+        "icd",
+        "review"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "noi_dung": {
+          "$ref": "common.schema.json#/$defs/diagnosisMention"
+        },
+        "icd": {
+          "$ref": "common.schema.json#/$defs/catalogMatch"
+        },
+        "review": {
+          "$ref": "common.schema.json#/$defs/review"
+        }
+      }
+    },
+    "vitals": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mach",
+        "nhiet_do",
+        "ha_tam_thu",
+        "ha_tam_truong",
+        "spo2",
+        "nhip_tho",
+        "chieu_cao",
+        "can_nang",
+        "bmi",
+        "measured_at",
+        "source_system",
+        "source_record_id"
+      ],
+      "properties": {
+        "mach": {
+          "$ref": "common.schema.json#/$defs/quantity"
+        },
+        "nhiet_do": {
+          "$ref": "common.schema.json#/$defs/quantity"
+        },
+        "ha_tam_thu": {
+          "$ref": "common.schema.json#/$defs/quantity"
+        },
+        "ha_tam_truong": {
+          "$ref": "common.schema.json#/$defs/quantity"
+        },
+        "spo2": {
+          "$ref": "common.schema.json#/$defs/quantity"
+        },
+        "nhip_tho": {
+          "$ref": "common.schema.json#/$defs/quantity"
+        },
+        "chieu_cao": {
+          "$ref": "common.schema.json#/$defs/quantity"
+        },
+        "can_nang": {
+          "$ref": "common.schema.json#/$defs/quantity"
+        },
+        "bmi": {
+          "$ref": "common.schema.json#/$defs/quantity"
+        },
+        "measured_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "source_system": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "source_record_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "service_order_id",
+        "nhom",
+        "ten",
+        "ket_qua_text",
+        "gia_tri",
+        "khoang_tham_chieu",
+        "co_bat_thuong",
+        "trang_thai",
+        "performed_at",
+        "reported_at",
+        "source_system",
+        "source_record_id",
+        "tai_lieu_ids",
+        "ngay"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "service_order_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "nhom": {
+          "enum": [
+            "xet_nghiem",
+            "chan_doan_hinh_anh",
+            "can_lam_sang"
+          ]
+        },
+        "ten": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ket_qua_text": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "gia_tri": {
+          "$ref": "common.schema.json#/$defs/quantity"
+        },
+        "khoang_tham_chieu": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "co_bat_thuong": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "trang_thai": {
+          "enum": [
+            "so_bo",
+            "chinh_thuc",
+            "da_sua",
+            "da_huy"
+          ]
+        },
+        "performed_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reported_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "source_system": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "source_record_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tai_lieu_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ngay": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "field_path",
+        "nguon",
+        "source_record_id",
+        "ai_run_id",
+        "evidence_indexes",
+        "review",
+        "source_system"
+      ],
+      "properties": {
+        "field_path": {
+          "type": "string",
+          "pattern": "^/"
+        },
+        "nguon": {
+          "enum": [
+            "he_thong",
+            "nhap_tay",
+            "lich_su",
+            "ai",
+            "tinh_toan"
+          ]
+        },
+        "source_record_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ai_run_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "evidence_indexes": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "review": {
+          "$ref": "common.schema.json#/$defs/review"
+        },
+        "source_system": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "recording_session_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "history": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "nhom",
+        "ngay",
+        "bac_si_id",
+        "khoa_id",
+        "loai_phieu",
+        "loai_di_ung",
+        "noi_dung",
+        "source_system",
+        "source_record_id",
+        "copied_to_path"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "nhom": {
+          "enum": [
+            "tien_su_ban_than",
+            "tien_su_gia_dinh",
+            "benh_su",
+            "di_ung"
+          ]
+        },
+        "ngay": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "bac_si_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "khoa_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "loai_phieu": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "loai_di_ung": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "noi_dung": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "source_system": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "source_record_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "copied_to_path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "phieuKhamStorage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ly_do_kham",
+        "benh_su",
+        "tien_su_ban_than",
+        "tien_su_gia_dinh",
+        "di_ung",
+        "co_thuoc_dang_dung",
+        "thuoc_dang_dung",
+        "co_pttt",
+        "kham_toan_than",
+        "kham_chuyen_khoa",
+        "kham_khac",
+        "ghi_chu_ket_qua",
+        "da_xu_ly",
+        "huong_dieu_tri",
+        "loi_dan",
+        "hen_tai_kham",
+        "tinh_trang_ra_vien"
+      ],
+      "properties": {
+        "ly_do_kham": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "benh_su": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tien_su_ban_than": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tien_su_gia_dinh": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "di_ung": {
+          "$ref": "common.schema.json#/$defs/allergy"
+        },
+        "co_thuoc_dang_dung": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "thuoc_dang_dung": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/currentMedication"
+          }
+        },
+        "co_pttt": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "kham_toan_than": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "kham_chuyen_khoa": {
+          "$ref": "common.schema.json#/$defs/exam"
+        },
+        "kham_khac": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ghi_chu_ket_qua": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "da_xu_ly": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "huong_dieu_tri": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "loi_dan": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "hen_tai_kham": {
+          "$ref": "common.schema.json#/$defs/followUp"
+        },
+        "tinh_trang_ra_vien": {
+          "enum": [
+            "khoi",
+            "do_giam",
+            "chua_thay_doi",
+            "nang_hon",
+            "khac",
+            null
+          ]
+        }
+      }
+    },
+    "positiveQuantity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "value",
+        "unit"
+      ],
+      "properties": {
+        "value": {
+          "anyOf": [
+            {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "unit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "serviceGroup": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "chan_doan_lich_su_lam_sang",
+        "room_id",
+        "bed_id",
+        "created_at",
+        "requester_id"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "chan_doan_lich_su_lam_sang": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "room_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "bed_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "created_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "requester_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "jsonValue": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/jsonValue"
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "common.schema.json#/$defs/jsonValue"
+          }
+        }
+      ]
+    },
+    "recordingContext": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "encounter_id",
+        "recording_session_id",
+        "generation",
+        "content_revision"
+      ],
+      "properties": {
+        "encounter_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "recording_session_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "generation": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "content_revision": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "reviewedTranscriptRevision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "content_revision",
+        "digest",
+        "transcript_id",
+        "transcript_revision",
+        "artifact_id",
+        "reviewed_at",
+        "reviewed_by"
+      ],
+      "properties": {
+        "content_revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "digest": {
+          "type": "string",
+          "minLength": 1
+        },
+        "transcript_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "transcript_revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "artifact_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reviewed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "reviewed_by": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "recordingRequestResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "request_id",
+        "payload_digest",
+        "action",
+        "result_id"
+      ],
+      "properties": {
+        "request_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "payload_digest": {
+          "type": "string",
+          "minLength": 1
+        },
+        "action": {
+          "type": "string",
+          "minLength": 1
+        },
+        "result_id": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "recordingSession": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "encounter_id",
+        "sequence",
+        "device_id",
+        "generation",
+        "started_at",
+        "ended_at",
+        "state",
+        "stop_reason",
+        "content_state",
+        "content_revision",
+        "reviewed_content_revision",
+        "reviewed_digest",
+        "reviewed_transcripts",
+        "requests",
+        "discarded_at",
+        "discarded_by"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "encounter_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sequence": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "device_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "generation": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "started_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "ended_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "state": {
+          "enum": [
+            "opening",
+            "recording",
+            "finalizing",
+            "stopped",
+            "interrupted"
+          ]
+        },
+        "stop_reason": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "content_state": {
+          "enum": [
+            "empty",
+            "awaiting_review",
+            "reviewed",
+            "discarded"
+          ]
+        },
+        "content_revision": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "reviewed_content_revision": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reviewed_digest": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reviewed_transcripts": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/reviewedTranscriptRevision"
+          }
+        },
+        "requests": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/recordingRequestResult"
+          }
+        },
+        "discarded_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "discarded_by": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "approvalVersion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "scope",
+        "snapshot",
+        "digest",
+        "approved_by",
+        "approved_at",
+        "sources"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scope": {
+          "type": "string",
+          "pattern": "^(initial_note|conclusion|summary|legacy|service_order:.+)$"
+        },
+        "snapshot": {
+          "$ref": "common.schema.json#/$defs/jsonValue"
+        },
+        "digest": {
+          "type": "string",
+          "minLength": 1
+        },
+        "approved_by": {
+          "type": "string",
+          "minLength": 1
+        },
+        "approved_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/source"
+          }
+        }
+      }
+    },
+    "changeDecision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "change_set_id",
+        "change_id",
+        "run_id",
+        "decision",
+        "decided_by",
+        "decided_at"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "change_set_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "change_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "run_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "decision": {
+          "enum": [
+            "accepted",
+            "rejected"
+          ]
+        },
+        "decided_by": {
+          "type": "string",
+          "minLength": 1
+        },
+        "decided_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  }
+}

@@ -23,6 +23,9 @@
   --color-ef-dam: var(--ef_dam);
   --color-ef-do: var(--ef_do);
   --color-ef-do-nhat: color-mix(in srgb, var(--ef_do) 8%, white);
+  /* Dashboard lịch khám và hồ sơ bệnh nhân: xanh thao tác chính và xanh đậm cho tiêu đề (trước đây chưa khai báo nên nền không hiện) */
+  --color-emr-blue: var(--ef_xanh);
+  --color-emr-navy: var(--navy);
   --color-tim: var(--ai_tim);
   --color-tim-nhat: color-mix(in srgb, var(--ai_tim) 7%, white);
   --color-tim-vien: color-mix(in srgb, var(--ai_tim) 35%, white);
@@ -40,6 +43,14 @@ body {
   color: var(--ink);
   font-family: var(--font-sans);
   font-size: 15px;
+}
+
+/* /demo-luong: nhãn che vừa xuất hiện chuyển từ đỏ (bản thô) sang xanh (đã che) */
+@keyframes demo-do-sang-xanh {
+  from {
+    background-color: color-mix(in srgb, var(--ef_do) 16%, white);
+    color: var(--ef_do);
+  }
 }
 
 /* "In ngay" trên eForm: chỉ in khối BanIn, khổ A4 */

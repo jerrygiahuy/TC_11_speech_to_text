@@ -15,6 +15,15 @@ function getTu(bang: Record<string, Truong>) {
 
 const nhap = (pk: Record<string, string>): Draft => ({ phieu_kham: pk, chi_dinh: [], ke_don: [] });
 
+test("clinical scope does not copy an initial diagnosis to discharge or fill a prescription", () => {
+  const draft = { ...nhap({ chan_doan_chinh: "Viêm tai giữa" }), ke_don: [{ ten_thuoc: "Thuốc mẫu" }], chi_dinh: [{ ten_dich_vu: "Nội soi tai", so_luong: null }] };
+  const result = dienPhieu(draft, {}, DATA, getTu({}), { clinicalOnly: true });
+  assert.equal(result.truong.mo_ta_ban_dau.value, "Viêm tai giữa");
+  assert.equal(result.truong.mo_ta_ra_vien, undefined);
+  assert.deepEqual(result.donThuoc, []);
+  assert.equal(result.chiDinh[0].so_luong, "");
+});
+
 test("chiOTrong giữ ô có dữ liệu cũ", () => {
   const kq = dienPhieu(nhap({ ly_do_kham: "Đau tai trái" }), {}, DATA, getTu({ ly_do: { value: "Đau tai", nguon: "cu" } }), {
     chiOTrong: true,

@@ -39,7 +39,7 @@ test("R11c: chữ STT có dấu, đọc liền không dấu câu không bị coi
   for (const s of [
     "sốt ba mươi tám phẩy năm độ trước đó có hồi hộp",
     "chưa dị ứng thuốc gì toàn thân bé tỉnh",
-    "chẩn đoán viêm thai giữa cấp thai phải hướng điều trị",
+    "chẩn đoán tăng huyết áp hiện không có thai hướng điều trị",
     "ha ceamon hai trăm năm mươi mi lim uống ngày ba lần",
   ]) assert.equal(checkResidualPii(s, none, noAllow).passed, true, s);
   // tên thật trong văn bản có dấu vẫn chặn, kể cả họ phổ biến viết không dấu

@@ -4,6 +4,13 @@ Mỗi thay đổi, dù nhỏ, đều có một mục ở đây. Mục mới nh�
 
 ## 2026-11-21
 
+### Đổi câu mẫu "viêm thai giữa" trong test che PII sang Tim mạch
+- **Loại:** Kiểm thử
+- **Thay đổi:** `gate.test.ts` (R11c) đổi câu "chẩn đoán viêm thai giữa cấp thai phải…" (STT nghe nhầm "viêm tai giữa") thành "chẩn đoán tăng huyết áp hiện không có thai hướng điều trị". Test vẫn kiểm đúng điều cũ: chữ "thai" viết thường trong câu có dấu không bị coi là họ Thái.
+- **Lý do:** dấu vết Tai Mũi Họng còn sót mà bộ lọc của test chặn TMH không bắt được.
+- **File:** `src/shared/clinical/pii/gate.test.ts`, `docs/CHANGELOG.md`
+- **Kiểm tra:** `gate.test.ts` 23/23; `npm test` 0 fail ba lần liền.
+
 ### Dọn hết dấu vết Tai Mũi Họng nhóm "đỏ" và mở rộng test chặn TMH
 - **Loại:** Dọn dẹp, Tài liệu, Kiểm thử
 - **Thay đổi:** (1) Test: đổi câu mẫu TMH sang Tim mạch giữ nguyên điều kiểm (chỗ trống bên/số ngày `[phải|trái|2 bên]`, `[số] ngày`; `ke_don` không bị đụng; lượt người nói và vị trí từ; che PII; vai trò và vị trí trong câu), trong `phieu-mau.test.ts`, `speakers.test.ts`, `gate.test.ts`, `redact.test.ts`, các test clinical/demo-luong dùng "Họng đỏ", "đau tai". (2) `docs/task-2/examples/*.json`: ca mẫu thành ca Tim mạch giả lập (đau ngực ba ngày, chẩn đoán ban đầu tăng huyết áp, khám tim đều ghi ở `kham_tim_mach_ho_hap`), `department_id` thành `tim-mach`; `verify.py` PASS. (3) `docs/task-2/README.md`, `ai-contract.md`: phạm vi CardioNote Tim mạch, ghi một câu "trước 20/11 là TMH". (4) `CLAUDE.md`, `AGENTS.md`: khối GitNexus ghi repo `TC_11_speech_to_text`, bỏ số liệu index giả, ghi chưa có index. (5) `docs/kich-ban-thu-bac-si.md` viết lại thành kịch bản thử Tim mạch (đợt đo 10 ca giả lập, `/demo-luong` 3 kịch bản, eForm `/`). (6) `docs/STT.md` đường dẫn repo và ví dụ thuật ngữ khám của bộ đoán vai trò người nói (nay là thuật ngữ Tim mạch theo `vai-tro-nguoi-noi.ts`); `docs/STT-VERIFICATION.md` ghi chú "thời TMH". (7) `sua-chu.ts` và `README.md`: bỏ ví dụ "thanh quản" thành "Tanakan" (không còn đúng với danh sách thuốc Tim mạch, thử `suaChu` không tìm được ví dụ Tim mạch thật nên viết câu không nêu ví dụ); `data/giong-noi/README.md` bỏ ví dụ "tai"/"thai". (8) Ba file khảo sát màn EMR thêm một dòng ghi chú khảo sát tại PK Tai Mũi Họng, không sửa nội dung. (9) `khong-con-tmh.test.ts`: quét thêm `lib/` (.ts, .tsx) và `docs/task-2/examples/` (.json), regex thêm `mũi`, `đau tai`, `khe giữa`, `ngạt mũi`, `sổ mũi`, `speech-to-navigation` và `Họng` viết hoa; không thêm `tai` trần; giữ assert số file tối thiểu cho gốc mới.

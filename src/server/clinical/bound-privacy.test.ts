@@ -70,11 +70,11 @@ test("check rejects fake ownership, a missing session and a stale content revisi
   const { store, actor, binding, tickets, audit } = setup();
   const options = { store, tickets, auditDirectory: audit };
   assert.throws(() => requireRecordingContext({ ...actor, doctorId: "other" }, binding, store), (e: unknown) => e instanceof ClinicalError && e.status === 403);
-  assert.throws(() => checkRecordingPrivacy(actor, { binding: { ...binding, recording_session_id: randomUUID() }, text: "Đau tai", mode: "conversation" }, options));
+  assert.throws(() => checkRecordingPrivacy(actor, { binding: { ...binding, recording_session_id: randomUUID() }, text: "Đau ngực", mode: "conversation" }, options));
   const record = store.read(binding.encounter_id);
   store.update(record.id, record.revision, draft => { draft.recording_sessions[0].content_revision++; return draft; }, actor.doctorId, "2026-11-14T01:00:02Z");
-  assert.throws(() => checkRecordingPrivacy(actor, { binding, text: "BS: Họng đỏ.", mode: "dictation" }, options), (e: unknown) => e instanceof ClinicalError && e.status === 409);
-  assert.throws(() => checkRecordingPrivacy(actor, { binding, text: "BS: Họng đỏ.", mode: "dictation", consent: true }, options));
+  assert.throws(() => checkRecordingPrivacy(actor, { binding, text: "BS: Tim đều.", mode: "dictation" }, options), (e: unknown) => e instanceof ClinicalError && e.status === 409);
+  assert.throws(() => checkRecordingPrivacy(actor, { binding, text: "BS: Tim đều.", mode: "dictation", consent: true }, options));
 });
 
 test("eForm: NER chạy thì che thêm tên rule bỏ sót và trả trạng thái ner", async () => {

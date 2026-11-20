@@ -37,7 +37,7 @@ test("R11c: họ + âm tiết chữ thường, không dấu cũng bắt", () => 
 test("R11c: chữ STT có dấu, đọc liền không dấu câu không bị coi là tên", () => {
   // "ba" (số), "thai", "ha" là chữ thường trong văn bản có dấu, không phải họ Bá/Thái/Hà
   for (const s of [
-    "sốt ba mươi tám phẩy năm độ trước đó có sổ mũi",
+    "sốt ba mươi tám phẩy năm độ trước đó có hồi hộp",
     "chưa dị ứng thuốc gì toàn thân bé tỉnh",
     "chẩn đoán viêm thai giữa cấp thai phải hướng điều trị",
     "ha ceamon hai trăm năm mươi mi lim uống ngày ba lần",

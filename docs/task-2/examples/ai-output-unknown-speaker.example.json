@@ -1,9 +1,9 @@
 {
   "schema_version": "2.0.0",
-  "tom_tat": "Có lời kể đau tai; chưa xác minh người nói.",
+  "tom_tat": "Có lời kể đau ngực; chưa xác minh người nói.",
   "phieu_kham": {
-    "ly_do_kham": "Đau tai",
-    "benh_su": "Người nói cho biết đau tai; chưa xác minh vai trò.",
+    "ly_do_kham": "Đau ngực",
+    "benh_su": "Người nói cho biết đau ngực; chưa xác minh vai trò.",
     "tien_su_ban_than": null,
     "tien_su_gia_dinh": null,
     "di_ung": {
@@ -44,7 +44,7 @@
       "segment_ids": [
         "seg-1"
       ],
-      "trich_doan": "Tôi đau tai.",
+      "trich_doan": "Tôi đau ngực.",
       "vai_tro": "chua_ro"
     },
     {
@@ -52,7 +52,7 @@
       "segment_ids": [
         "seg-1"
       ],
-      "trich_doan": "Tôi đau tai.",
+      "trich_doan": "Tôi đau ngực.",
       "vai_tro": "chua_ro"
     },
     {
@@ -60,7 +60,7 @@
       "segment_ids": [
         "seg-1"
       ],
-      "trich_doan": "Tôi đau tai.",
+      "trich_doan": "Tôi đau ngực.",
       "vai_tro": "chua_ro"
     }
   ],

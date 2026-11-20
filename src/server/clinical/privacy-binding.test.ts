@@ -10,7 +10,7 @@ const check = (store: PrivacyTickets, text: string, binding?: typeof a) =>
 
 test("passed tickets remain bound to their encounter, session, generation and content revision", () => {
   const store = new PrivacyTickets();
-  const checked = check(store, "BS: Họng đỏ.", a);
+  const checked = check(store, "BS: Tim đều.", a);
   assert.deepEqual(store.approved(checked.ticket!, a).binding, a);
   for (const mismatch of [
     { ...a, encounter_id: "encounter-b" }, { ...a, recording_session_id: "session-b" },
@@ -24,14 +24,14 @@ test("passed tickets remain bound to their encounter, session, generation and co
 
 test("unbound tickets cannot be promoted to a bound recording ticket", () => {
   const store = new PrivacyTickets();
-  const checked = check(store, "BS: Họng đỏ.");
+  const checked = check(store, "BS: Tim đều.");
   assert.throws(() => store.approved(checked.ticket!, a), conflict);
 });
 
 test("binding is copied and digest comes from the checked text", () => {
   const store = new PrivacyTickets();
   const binding = { ...a };
-  const checked = check(store, "BS: Họng đỏ.", binding);
+  const checked = check(store, "BS: Tim đều.", binding);
   binding.encounter_id = "tampered";
   const first = store.reviewed(checked.ticket!, a);
   assert.match(first.digest, /^[a-f0-9]{64}$/);
@@ -44,7 +44,7 @@ test("binding is copied and digest comes from the checked text", () => {
 test("binding is rechecked before revealing ticket content, including after expiration", () => {
   let time = 1_000;
   const store = new PrivacyTickets(() => time);
-  const checked = store.check("BS: Họng đỏ.", "dictation", { known: [], allowlist: new Set(), consent: true, binding: a });
+  const checked = store.check("BS: Tim đều.", "dictation", { known: [], allowlist: new Set(), consent: true, binding: a });
   time += 600_000;
   assert.throws(() => store.reviewed(checked.ticket!, a), /hết hạn/);
 });

@@ -16,7 +16,7 @@ test("atomic save/read, revision conflict, immutable history and server owned me
   assert.match(record.id, /^[a-f0-9-]{36}$/);
   assert.deepEqual(repository.read(record.id), record);
   const updated = repository.update(record.id, 1, current => {
-    current.phieu_kham.benh_su = "Đau tai phải";
+    current.phieu_kham.benh_su = "Đau ngực phải";
     current.audit.approved_by = "untrusted";
     current.patient_id = "spoofed";
     return current;
@@ -25,7 +25,7 @@ test("atomic save/read, revision conflict, immutable history and server owned me
   assert.equal(updated.patient_id, "patient-demo");
   assert.equal(updated.audit.approved_by, null);
   assert.throws(() => repository.update(record.id, 1, value => value, "doctor-demo", now), (error: unknown) => error instanceof ClinicalError && error.status === 409);
-  assert.equal(repository.read(record.id).phieu_kham.benh_su, "Đau tai phải");
+  assert.equal(repository.read(record.id).phieu_kham.benh_su, "Đau ngực phải");
   assert.equal(JSON.parse(fs.readFileSync(path.join(directory, "revisions", `${record.id}-r1.json`), "utf8")).phieu_kham.benh_su, null);
 });
 test("rejects traversal and invalid payload, missing records give 404", () => {

@@ -87,7 +87,7 @@ test("ca tự che: stream đủ 5 bước, bước che có auto_masked", async (
 
 test("PATCH revision cũ: 409; duyệt; GET; danh sách kịch bản; xóa dữ liệu", async () => {
   const p = await create();
-  const fields = { ly_do: "đau tai trái hai ngày" };
+  const fields = { ly_do: "đau ngực trái hai ngày" };
   const first = await patchPhieu(json("PATCH", `/api/demo-luong/phieu/${p.encounter_id}`, { expected_revision: p.revision, fields }), ctx(p.encounter_id));
   assert.equal(first.status, 200);
   const edited = (await first.json()) as DemoPhieu;
@@ -110,7 +110,7 @@ test("audio: STT trả chữ thì chạy đủ luồng; STT lỗi thì một dò
   const p = await create();
   const wav = (n = 64) => new Uint8Array(n);
   const audioReq = (id: string, body: Uint8Array) => new Request(`${BASE}/api/demo-luong?phieu=${id}`, { method: "POST", headers: { "content-type": "audio/wav" }, body: Buffer.from(body) });
-  sttBody = { transcript: "bệnh nhân đau tai phải ba ngày", audio_ms: 1500 };
+  sttBody = { transcript: "bệnh nhân đau ngực phải ba ngày", audio_ms: 1500 };
   const ok = await lines(await runFlow(audioReq(p.encounter_id, wav())));
   assert.equal(ok[0].buoc, "stt");
   assert.equal(ok[0].trang_thai, "xong");

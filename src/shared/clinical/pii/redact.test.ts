@@ -28,7 +28,7 @@ test("R1: người nhà xuất hiện hai lần cùng nhãn; số điện thoạ
 });
 
 test("R2: tên người không cần chữ hoa", () => {
-  assert.equal(redactPii("con tôi tên là lê minh bé, bị sổ mũi", none).clean, "con tôi tên là [NGƯỜI_1], bị sổ mũi");
+  assert.equal(redactPii("con tôi tên là lê minh bé, bị hồi hộp", none).clean, "con tôi tên là [NGƯỜI_1], bị hồi hộp");
   const r = redactPii("bác sĩ ơi ông phạm văn hàng xóm cũng bị", none);
   assert.ok(r.clean.includes("[NGƯỜI_1]"));
   assert.ok(!r.clean.includes("phạm"));

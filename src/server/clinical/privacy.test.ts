@@ -72,22 +72,22 @@ test("unlabelled conversation stays unknown while manually selected dictation at
 
 test("ticket store is bounded and rejects empty or oversized text", () => {
   const store = new PrivacyTickets(() => 1_000, 2);
-  const old = ok(store, "Đau tai.");
+  const old = ok(store, "Đau ngực.");
   ok(store, "Đau ngực."); ok(store, "Hồi hộp.");
   assert.throws(() => store.approved(old.ticket!));
   assert.throws(() => ok(store, " "));
   assert.throws(() => ok(store, "a".repeat(50_001)));
-  assert.throws(() => store.check("Đau tai", "doctor" as "dictation", { known: [], allowlist: ALLOW, consent: true }));
+  assert.throws(() => store.check("Đau ngực", "doctor" as "dictation", { known: [], allowlist: ALLOW, consent: true }));
 });
 
 test("privacy route guards origin, validates strict actions, and exposes only safe errors", async () => {
   const request = (body: unknown, origin = "http://localhost:3000") => new Request("http://localhost:3000/api/clinical/privacy", {
     method: "POST", headers: { origin, "Content-Type": "application/json" }, body: JSON.stringify(body),
   });
-  assert.equal((await POST(request({ action: "prepare", text: "Đau tai", mode: "conversation" }, "https://evil.test"))).status, 403);
+  assert.equal((await POST(request({ action: "prepare", text: "Đau ngực", mode: "conversation" }, "https://evil.test"))).status, 403);
   for (const body of [
-    { action: "prepare", text: "Đau tai", mode: "conversation", status: "passed" },
-    { action: "prepare", text: "Đau tai", mode: "doctor" },
+    { action: "prepare", text: "Đau ngực", mode: "conversation", status: "passed" },
+    { action: "prepare", text: "Đau ngực", mode: "doctor" },
     { action: "prepare", text: "a".repeat(50_001), mode: "conversation" },
     { action: "approve", ticket: "missing", text: "PRIVATE-VALUE" },
     { action: "approve", ticket: "missing", text: "PRIVATE-VALUE", consent: true, binding: { encounter_id: "00000000-0000-4000-8000-000000000000", recording_session_id: "00000000-0000-4000-8000-000000000001", generation: 1, content_revision: 1 } },
@@ -98,7 +98,7 @@ test("privacy route guards origin, validates strict actions, and exposes only sa
     assert.ok(!(await response.text()).includes("PRIVATE-VALUE"));
   }
   // A request without encounter/session binding must never receive a ticket (the bound flow is covered by bound-privacy.test.ts).
-  const unbound = await POST(request({ action: "prepare", text: "BN: Nguyễn Thị Giả đau tai.", mode: "conversation" }));
+  const unbound = await POST(request({ action: "prepare", text: "BN: Nguyễn Thị Giả đau ngực.", mode: "conversation" }));
   assert.equal(unbound.status, 400);
   assert.equal(unbound.headers.get("Cache-Control"), "no-store");
   assert.equal((await unbound.json()).ticket, undefined);

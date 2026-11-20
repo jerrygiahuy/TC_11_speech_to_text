@@ -1,12 +1,12 @@
 {
-  "_ghi_chu": "Hồ sơ giả mặc định cho môi trường demo.",
+  "_ghi_chu": "Ngữ cảnh giả sinh từ SYN-CARDIO-001 bằng npm run tao-du-lieu-tim-mach.",
   "dang_nhap": "user_bs01",
-  "co_so": "Cơ sở mô phỏng / Khu khám ngoại trú",
+  "co_so": "OPD - Trung tâm Tim mạch",
   "pid": "GIA-000123",
   "ma_luot_kham": "LK-GIA-0456",
   "ho_ten": "Nguyễn Thị Giả",
   "gioi_tinh": "Nữ",
-  "canh_bao_di_ung": "",
+  "canh_bao_di_ung": "Penicillin",
   "chinh_sua_cuoi": {
     "nguoi": "user_dd01",
     "luc": "09/11/2026 08:52"
@@ -18,7 +18,7 @@
     },
     {
       "nhan": "Mức độ đau",
-      "gia_tri": "4/10, tai phải"
+      "gia_tri": "Không đau"
     },
     {
       "nhan": "Nguy cơ ngã",
@@ -30,29 +30,87 @@
     }
   ],
   "sinh_hieu": {
-    "mach": 82,
-    "nhiet_do": 37.6,
-    "ha_tam_thu": 122,
-    "ha_tam_truong": 78,
+    "mach": 72,
+    "nhiet_do": 36.7,
+    "ha_tam_thu": 148,
+    "ha_tam_truong": 88,
     "spo2": 98,
     "nhip_tho": 18,
-    "chieu_cao": 160,
-    "can_nang": 56
+    "chieu_cao": 165,
+    "can_nang": 68,
+    "bmi": 25
   },
   "bac_si_kham": "BS. A",
-  "phong_kham": "Phòng khám ngoại trú",
+  "phong_kham": "PK Nội tim mạch",
   "bac_si_chinh": "BS. A",
   "trang_thai": "Đang khám",
   "lich_su": {
-    "tien_su_ban_than": [],
-    "tien_su_gia_dinh": [],
+    "tien_su_ban_than": [
+      {
+        "ngay": "20/10/2026",
+        "bac_si": "BS. B",
+        "khoa": "PK Tim mạch",
+        "noi_dung": "Tăng huyết áp đã được theo dõi"
+      }
+    ],
+    "tien_su_gia_dinh": [
+      {
+        "ngay": "20/10/2026",
+        "bac_si": "BS. B",
+        "khoa": "PK Tim mạch",
+        "noi_dung": "Gia đình có người tăng huyết áp"
+      }
+    ],
     "benh_su": [],
-    "di_ung": []
+    "di_ung": [
+      {
+        "ngay": "20/10/2026",
+        "loai_phieu": "Phiếu Đánh giá ban đầu ngoại trú",
+        "loai": "Thuốc",
+        "thong_tin": "Penicillin",
+        "nguoi": "ĐD. X (user_dd01)"
+      }
+    ],
+    "thuoc": [
+      {
+        "ten_thuoc": "Amlodipine",
+        "lieu": "5 mg, mỗi ngày một lần",
+        "duong_dung": "Uống",
+        "ngay": "20/10/2026"
+      }
+    ]
   },
-  "xet_nghiem": [],
+  "chan_doan_oh": "",
+  "xet_nghiem": [
+    {
+      "ngay": "20/10/2026",
+      "muc": [
+        {
+          "nhom": "Xét nghiệm",
+          "ten": "Creatinin máu",
+          "ket_qua": "Chức năng thận trong giới hạn được ghi nhận",
+          "thoi_gian": "20/10/2026 08:30",
+          "nguoi_tra_ket_qua": "KTV. Y (dữ liệu giả)"
+        }
+      ]
+    }
+  ],
   "chan_doan_hinh_anh": [],
-  "can_lam_sang": [],
-  "dong_bo_cls": "09/11/2026 08:40",
+  "can_lam_sang": [
+    {
+      "ngay": "20/10/2026",
+      "muc": [
+        {
+          "nhom": "Thăm dò chức năng",
+          "ten": "Điện tim thường",
+          "ket_qua": "Điện tâm đồ nhịp xoang",
+          "thoi_gian": "20/10/2026 08:30",
+          "nguoi_tra_ket_qua": "KTV. Y (dữ liệu giả)"
+        }
+      ]
+    }
+  ],
+  "dong_bo_cls": "09/11/2026 08:52",
   "gia_tri": {
     "thoi_gian_kham": "2026-11-09T09:15"
   }

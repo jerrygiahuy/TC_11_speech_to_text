@@ -21,7 +21,7 @@
     "cao-du-lieu": "tsx scripts/cao-du-lieu.ts",
     "tai-model-giong-noi": "tsx scripts/tai-model-giong-noi.ts",
     "tao-am-thanh-mau": "tsx --conditions=react-server scripts/tao-am-thanh-mau.ts",
-    "tao-lich-su-clinic": "tsx --conditions=react-server scripts/tao-lich-su-clinic.ts",
+    "tao-du-lieu-tim-mach": "tsx --conditions=react-server scripts/tao-du-lieu-tim-mach.ts",
     "eval-giong-noi": "tsx --conditions=react-server scripts/eval-giong-noi.ts",
     "thu-che-pii": "tsx --conditions=react-server scripts/thu-che-pii.ts",
     "eval-pii": "tsx --conditions=react-server scripts/eval-pii.ts"

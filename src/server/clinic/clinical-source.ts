@@ -1,6 +1,6 @@
 import "server-only";
 // Nguồn Encounter thật: đọc các phiếu đã lưu của lớp clinical (data/clinical/encounters) cùng bộ phiếu cũ giả
-// trong data/clinic/history (cùng định dạng, tạo bằng `npm run tao-lich-su-clinic`). Chỉ đọc.
+// trong data/clinic/history (cùng định dạng, tạo bằng `npm run tao-du-lieu-tim-mach`). Chỉ đọc.
 import path from "node:path";
 import type { Encounter } from "@/shared/clinical/types";
 import { ClinicalRepository } from "@/server/clinical/repository";

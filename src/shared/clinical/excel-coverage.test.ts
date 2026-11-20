@@ -3,6 +3,7 @@ import { test } from "node:test";
 import { CAU_HINH_PHIEU } from "../phieu-kham-ngoai-tru/config";
 import { EXCEL_MAP, excelKeys } from "./excel-coverage";
 import { emptyEncounter } from "./schema";
+import { listEncounterContexts, getDemoClinicalActor } from "@/server/clinical/encounter-context";
 
 const ctx = { id: "enc-1", patientId: "patient-demo", doctorId: "doctor-demo", now: "2026-11-20T10:00:00+07:00" };
 
@@ -53,4 +54,15 @@ test("phieu_kham_2_0_co_dung_cac_khoa_tim_mach", () => {
   ]);
   assert.equal(note.kham_tim_mach_ho_hap, null);
   assert.equal(note.kham_chuyen_khoa, null);
+});
+
+test("duong_ngu_canh_ton_tai", () => {
+  const ca = listEncounterContexts(getDemoClinicalActor())[0].data.ca;
+  const entries = Object.entries(EXCEL_MAP).filter(([, item]) => item.noi === "ngu_canh");
+  assert.ok(entries.length > 0);
+  for (const [key, item] of entries) {
+    let value: unknown = ca;
+    for (const part of item.duong.split(".")) value = value === null || typeof value !== "object" ? undefined : (value as Record<string, unknown>)[part];
+    assert.notEqual(value, undefined, `${key} -> ${item.duong}`);
+  }
 });

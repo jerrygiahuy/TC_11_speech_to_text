@@ -1,0 +1,143 @@
+{
+  "schema_version": "2.0.0",
+  "id": "7a1c0001-0000-4000-8000-000000000002",
+  "revision": 1,
+  "patient_id": "GIA-000123",
+  "appointment_id": null,
+  "facility_id": "facility-prototype",
+  "department_id": "tim-mach",
+  "room_id": null,
+  "bed_id": null,
+  "examiner_id": "user_bs01",
+  "primary_doctor_id": "user_bs01",
+  "delegated_doctor_id": null,
+  "encounter_at": "2026-09-05T14:30:00+07:00",
+  "referral_source": null,
+  "status": "hoan_thanh_kham",
+  "tuoi_thang_tai_kham": null,
+  "sinh_hieu": {
+    "mach": {
+      "value": null,
+      "unit": null
+    },
+    "nhiet_do": {
+      "value": null,
+      "unit": null
+    },
+    "ha_tam_thu": {
+      "value": null,
+      "unit": null
+    },
+    "ha_tam_truong": {
+      "value": null,
+      "unit": null
+    },
+    "spo2": {
+      "value": null,
+      "unit": null
+    },
+    "nhip_tho": {
+      "value": null,
+      "unit": null
+    },
+    "chieu_cao": {
+      "value": null,
+      "unit": null
+    },
+    "can_nang": {
+      "value": null,
+      "unit": null
+    },
+    "bmi": {
+      "value": null,
+      "unit": null
+    },
+    "measured_at": null,
+    "source_system": null,
+    "source_record_id": null
+  },
+  "phieu_kham": {
+    "ly_do_kham": "tái khám suy tim",
+    "benh_su": "Khó thở khi gắng sức mức độ ổn định, không khó thở khi nghỉ",
+    "tien_su_ban_than": "Suy tim đang theo dõi",
+    "tien_su_gia_dinh": null,
+    "di_ung": {
+      "trang_thai": "chua_de_cap",
+      "loai": [],
+      "mo_ta": null
+    },
+    "co_thuoc_dang_dung": null,
+    "thuoc_dang_dung": [],
+    "kham_toan_than": "Tỉnh táo, tiếp xúc tốt",
+    "kham_chuyen_khoa": null,
+    "kham_tim_mach_ho_hap": "Tĩnh mạch cổ không nổi. Tiếng tim rõ. Phổi chưa ghi nhận ran. Phù mắt cá chân nhẹ hai bên",
+    "kham_khac": null,
+    "ghi_chu_ket_qua": null,
+    "da_xu_ly": null,
+    "huong_dieu_tri": "Tiếp tục điều trị và theo dõi cân nặng theo hướng dẫn của bác sĩ",
+    "loi_dan": "Theo dõi khó thở, phù và cân nặng hằng ngày",
+    "hen_tai_kham": {
+      "co_hen": null,
+      "nguyen_van": null,
+      "sau_bao_lau": {
+        "value": null,
+        "unit": null
+      },
+      "ngay_cu_the": null
+    },
+    "tinh_trang_ra_vien": null
+  },
+  "chan_doan": [
+    {
+      "id": "7a1c0001-0000-4000-8000-0000000000d1",
+      "noi_dung": {
+        "giai_doan": "ra_vien",
+        "mo_ta": "Suy tim, không đặc hiệu",
+        "muc_do_khang_dinh": "xac_dinh",
+        "vai_tro": "chinh"
+      },
+      "icd": {
+        "catalog_id": null,
+        "code_system": "ICD-10",
+        "code": "I50.9",
+        "display": "Suy tim, không đặc hiệu",
+        "catalog_version": null,
+        "trang_thai": "bac_si_chon",
+        "ung_vien_ids": []
+      },
+      "review": {
+        "trang_thai": "chua_duyet",
+        "reviewer_id": null,
+        "reviewed_at": null
+      }
+    }
+  ],
+  "lich_su": [],
+  "danh_gia_ban_dau": [],
+  "ket_qua": [],
+  "dong_bo_cls_luc": null,
+  "chi_dinh": {
+    "de_cap": "khong_chi_dinh",
+    "items": [],
+    "groups": []
+  },
+  "thong_tin_khac": {
+    "chuyen_noi_soi": null,
+    "xn_benh_tat": null,
+    "xn_bhxh": null
+  },
+  "ai_runs": [],
+  "nguon_du_lieu": [],
+  "audit": {
+    "created_at": "2026-09-05T14:30:00+07:00",
+    "created_by": "user_bs01",
+    "updated_at": "2026-09-05T14:30:00+07:00",
+    "updated_by": "user_bs01",
+    "approved_at": null,
+    "approved_by": null
+  },
+  "tom_tat": null,
+  "recording_sessions": [],
+  "approval_versions": [],
+  "change_decisions": []
+}

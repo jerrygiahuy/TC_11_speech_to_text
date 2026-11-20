@@ -41,6 +41,8 @@ const eslintConfig = defineConfig([
   },
   // Override default ignores of eslint-config-next.
   globalIgnores([
+    // Bản sao tạm, không thuộc sản phẩm:
+    "temp-1/**",
     // Default ignores of eslint-config-next:
     ".next/**",
     "out/**",

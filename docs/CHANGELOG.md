@@ -4,6 +4,19 @@ Mỗi thay đổi, dù nhỏ, đều có một mục ở đây. Mục mới nh�
 
 ## 2026-11-20
 
+### Sửa review cuối CardioNote (I1, I2, m1 đến m8)
+- **Loại:** Sửa lỗi, Kiểm thử, Tài liệu, Dọn dẹp
+- **Thay đổi:**
+  - I1: mục có nhãn "Thuốc đang dùng:" (hoặc cụm "đang dùng/đang uống") là tiền sử thuốc bất kể người nói, ở cả mock (`extraction.ts`) lẫn validator (`laTienSuThuoc`). Guard kê đơn giữ nguyên ("kê", "cho uống", "tăng liều", "giảm liều", "đổi thuốc", "ngừng thuốc", "đơn thuốc"): lời bác sĩ "kê Bisoprolol 2,5 mg" vẫn bị coi là kê đơn. Lời đọc bổ sung ở chế độ "Bác sĩ đọc" nay ra 2 thuốc, giữ "2,5 mg".
+  - I2: hồ sơ schema 1.x ném `ClinicalError` 409 với thông báo nguyên văn, đến được API/UI; `list()` bỏ qua hồ sơ 1.x (ghi cảnh báo, đếm ở `skippedLegacy`) thay vì làm hỏng cả danh sách và mở lượt khám.
+  - m1: validator `ngay_cu_the` nhận `thoi_gian_kham` và so với ngày khám + N ngày/tuần/tháng của trích dẫn; lệch thì bác bản nháp. m2: "không/chưa chỉ định" không còn sinh cờ nhắc chỉ định. m5: thông báo lỗi chung bỏ chữ "nội soi".
+  - m3: test chặn TMH không nuốt lỗi `readdirSync`, có ngưỡng số file quét mỗi gốc (src, config, data, stt), test ngoại lệ mồ côi tự quét lại. m4: guard âm khóa VTG/VTN/VMX/TMH (`sua-chu.test.ts`) và hotword Tai Mũi Họng (`stt/tests/test_terminology.py`); đổi "tai T", "sổ mũi" ở `phieu-mau.test.ts`, `prompt.test.ts` sang "chân T", "sổ khám".
+  - m6: `CLAUDE.md` ghi ngoại lệ `dien-phieu.ts` gán ICD qua `goiYIcd` (có từ trước nhánh). m7: ESLint bỏ quét `temp-1/`. m8: README và `docs/CLINICAL-WORKFLOW.md` ghi phụ thuộc `jsonschema` của `clinical:check`.
+- **Lý do:** review cuối nhánh (`.superpowers/sdd/2026-11-20-cardionote-tim-mach/review-cuoi.md`), trước khi merge.
+- **File:** `src/server/clinical/{extraction,migrations,repository,service}.ts`, `src/server/clinical/{nghiem-thu-tim-mach,extraction,migrations}.test.ts`, `src/shared/khong-con-tmh.test.ts`, `src/shared/giong-noi/sua-chu.test.ts`, `src/shared/eform/phieu-mau.test.ts`, `src/server/ai/prompt.test.ts`, `stt/tests/test_terminology.py`, `eslint.config.mjs`, `CLAUDE.md`, `README.md`, `docs/CLINICAL-WORKFLOW.md`, `docs/CHANGELOG.md`
+- **Kiểm tra:** `npm test` 479/479 pass, `npm run lint` 0 lỗi, `tsc --noEmit` sạch, `npm run build` PASS, `eval --rule-only` và `eval-pii` chạy được; pytest `test_terminology.py` 9 pass.
+- **Ảnh hưởng:** máy còn hồ sơ 1.x trong `data/clinical/` mở được lượt khám khác bình thường; mở đúng hồ sơ cũ báo 409. Không đụng `data/clinical/`.
+
 ### Chốt 100% Tim mạch: test chặn TMH và tài liệu (Task 11 CardioNote)
 - **Loại:** Kiểm thử, Dọn dẹp, Tài liệu, Giao diện
 - **Thay đổi:** thêm `src/shared/khong-con-tmh.test.ts` (`khong_con_tmh_trong_san_pham`) quét `src/`, `config/`, `data/` (trừ `data/cardiology/`) và `stt/*.py`, tìm TMH, tai mũi họng, viêm tai, amidan, màng nhĩ, viêm xoang, họng, nhỏ tai, xịt mũi, mã H6x, khóa `"tai"`, `"mui"`, `"vom"`, `"hong"`. Sửa các chỗ sót: câu mẫu trong test PII, ghi âm, phiếu mẫu, ICD đổi sang câu và mã Tim mạch; bỏ các test "không còn TMH" cũ (test mới thay thế). Tiêu đề tab các trang phụ (`/demo-luong`, `/giong-bac-si`, `/benh-nhan/[id]`, `/stt`) thêm " – CardioNote". `config/viet-tat.json` bỏ NS, KD, NMSL (chỉ có nghĩa TMH; không còn nơi dùng); giữ KS, XQ, P, T vì dùng chung. Xóa 4 type chết `GiaTri`, `DuLieuPhieu`, `BanGhiPhieu`, `TomTatPhieu` ở `src/shared/phieu-kham-ngoai-tru/types.ts` (grep không còn nơi dùng). Tài liệu: README mô tả CardioNote, luồng, cách chạy macOS, danh mục mock, sinh lại fixture; `CLAUDE.md` bỏ tham chiếu `docs/tham-khao/`; `docs/CLINICAL-WORKFLOW.md` đổi tiêu đề; `docs/cau-truc-du-an.md` ghi test chặn; `scripts/cao-du-lieu.ts` ghi chú bộ lọc TMH "chưa dùng".

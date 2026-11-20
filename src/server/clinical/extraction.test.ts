@@ -257,8 +257,8 @@ test("mock_chan_doan_co_hai_cham: 'Chẩn đoán: X.' của bộ 60 ca được 
   const output = validateClinicalExtraction(mockClinicalExtraction(transcript), transcript);
   assert.equal(output.phieu_kham.chan_doan.length, 1);
   assert.equal(output.phieu_kham.chan_doan[0].giai_doan, "chua_ro");
-  assert.match(output.phieu_kham.chan_doan[0].mo_ta, /^Tăng huyết áp/u);
-  assert.ok(!output.phieu_kham.chan_doan[0].mo_ta.startsWith(":"));
+  assert.match(String(output.phieu_kham.chan_doan[0].mo_ta), /^Tăng huyết áp/u);
+  assert.ok(!String(output.phieu_kham.chan_doan[0].mo_ta).startsWith(":"));
   // Dạng cũ không dấu hai chấm vẫn đọc được.
   const cu = nhieuCau("Chẩn đoán ban đầu tăng huyết áp.");
   assert.equal(validateClinicalExtraction(mockClinicalExtraction(cu), cu).phieu_kham.chan_doan[0].giai_doan, "ban_dau");

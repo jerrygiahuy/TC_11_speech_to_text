@@ -4,6 +4,24 @@ Mỗi thay đổi, dù nhỏ, đều có một mục ở đây. Mục mới nh�
 
 ## 2026-11-20
 
+### Sửa logic sau review giữa kỳ (nhóm A CardioNote)
+- **Loại:** Sửa lỗi, Cấu hình, Dữ liệu, Kiểm thử
+- **Thay đổi:**
+  - I1: luồng thật truyền sinh hiệu của lượt khám vào bộ trích (`contextFromVitals` trong `extraction.ts`, dùng ở `extract-recording.ts` và `demo-luong/flow.ts`). HA đọc khác HA lượt khám thì bản nháp có cờ `mau_thuan`; sinh hiệu của phiếu không đổi.
+  - I2: mock nhận "Chẩn đoán: X" (có dấu hai chấm, như cả 60 ca). `projectEform` hiện chẩn đoán `giai_doan = chua_ro` ở ô ban đầu, không chép sang ra viện; `applyEformSnapshot` thay đúng dòng đó khi bác sĩ sửa hoặc xóa ô ban đầu.
+  - I3: bỏ "khám tim phổi", "khám tim" khỏi `kham_chuyen_khoa`; `kham_tim_mach_ho_hap` bỏ từ khóa trần "tim", "phổi", dùng cụm cụ thể (khám tim phổi, khám tim mạch, khám tim, nghe tim, khám phổi, tiếng tim, mỏm tim, tĩnh mạch cổ, âm thổi, phổi trong). Lệch spec 02 B1 (spec đề xuất từ trần): "tim" và "phổi" cắt bệnh sử ("tim đập nhanh", "Điện tim"). Không dùng "ran" vì khi bỏ dấu trùng "rắn", "rằn".
+  - I4/B12: `tien_su` chỉ là tiền sử bản thân (hint đổi); thêm `tien_su_gia_dinh` (ánh xạ sang ô eForm cùng tên); thêm 3 trường điểm dừng `ai_fill: false` ("dị ứng:", "thuốc đang dùng:", "sinh hiệu:"). `rules.ts` coi trường `ai_fill: false` có từ khóa là điểm dừng, bỏ nội dung.
+  - I5: `scripts/tao-du-lieu-tim-mach.ts` sinh thêm context thứ 4 từ SYN-CARDIO-049 cho `GIA-000789` / `LK-GIA-0458` (3 context đầu giữ nguyên thứ tự). Sinh lại `data/eform/encounter-contexts.json`; 5 test demo-luong hết lỗi 409.
+  - M1: `tuyChon.icd` (mã phiếu mẫu) chỉ dùng cho ô ban đầu; ICD ra viện gợi ý theo mô tả ra viện.
+  - M3: `EXCEL_MAP` trỏ các cột lịch sử và kết quả về `ngu_canh` đúng đường dẫn CaGia (`xet_nghiem[].muc[].ten`...); `huyet_ap` có `cung_voi` tâm trương. Test đối chiếu đường dẫn với khuôn zod của CaGia (xuất `caSchema`) và chặn cột bảng lặp khai là "encounter có".
+  - M7: mô tả cờ lệch HA ghi rõ nguồn câu (Bác sĩ đọc / Bệnh nhân kể / Người nhà kể).
+  - M8: `aiEformPatch` bỏ ô rỗng khỏi gói; RF1 kiểm bằng `projectEform`; sửa test `thieu_thong_tin_khong_chon_nut_nao` và `ra_vien_trong_khi_chi_co_ban_dau`.
+  - README: ghi chú cách đặt `mock_keywords` và trường điểm dừng.
+- **Lý do:** Review giữa kỳ CardioNote, các mục I1 đến I5, M1, M3, M7, M8 (`.superpowers/sdd/2026-11-20-cardionote-tim-mach/review-giua-ky.md`).
+- **File:** `src/server/clinical/{extraction,extract-recording,encounter-context}.ts`, `src/server/demo-luong/flow.ts`, `src/server/ai/llm/rules.ts`, `src/shared/clinical/{eform,apply-ai,excel-coverage}.ts`, `src/shared/eform/dien-phieu.ts`, `src/shared/types.ts`, `config/forms/phieu-kham.json`, `scripts/tao-du-lieu-tim-mach.ts`, `data/eform/encounter-contexts.json`, các test kèm theo (có file mới `src/server/ai/llm/rules.test.ts`), `README.md`.
+- **Kiểm tra:** Đỏ trước rồi xanh: `luong_that_doi_chieu_sinh_hieu_luot_kham`, `luong_demo_doi_chieu_sinh_hieu`, `mock_chan_doan_co_hai_cham`, `chan_doan_chua_ro_hien_o_ban_dau_khong_chep_sang_ra_vien`, `mock_mau_thuan_ha_ghi_ro_nguon_cau`, 4 test trong `rules.test.ts`, `thieu_thong_tin_khong_chon_nut_nao`, `ra_vien_trong_khi_chi_co_ban_dau`, `chẩn đoán ra viện chỉ lấy từ chan_doan[] có giai_doan ra_vien`. `npm test`: 476 test, 7 fail (đều nằm trong 11 lỗi đã biết trước; 5 lỗi demo-luong và test "server contexts" đã hết). `npm run tao-du-lieu-tim-mach -- --check`: khớp 9 file. `npm run eval -- --rule-only` (1 ca TMH còn lại): Phiếu khám (nói) trước 7 đúng, 2 sai, 77,8%; sau 8 đúng, 1 sai, 1 thừa, 80,0% (`tien_su` từ sai thành đúng; `tien_su_gia_dinh` thừa vì ca eval chưa có kỳ vọng gia đình).
+- **Ảnh hưởng:** Bản nháp trên app thật nay có chẩn đoán ở ô ban đầu và cảnh báo lệch huyết áp. Đã đổi hợp đồng `aiEformPatch` (không còn ô rỗng); chưa có nơi gọi trong app. Mọi mã ICD vẫn do `goiYIcd`, chưa qua `match.ts` (mẫu có từ trước, chưa ghi ngoại lệ vào CLAUDE.md).
+
 ### Dọn chữ TMH, cảnh báo thiếu thông tin và sửa nhãn (nhóm B sau review giữa kỳ)
 - **Loại:** Giao diện, Cấu hình, Sửa lỗi, Dọn dẹp
 - **Thay đổi:**

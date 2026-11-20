@@ -189,7 +189,7 @@ Ví dụ thêm trường "Mạch" vào phiếu khám, chèn vào mảng `fields`
 | `type` | `text`, `textarea`, `number`, `date`, hoặc `select` (kèm `"options": ["A", "B"]`) |
 | `required` | Đánh dấu trường bắt buộc trong schema; giao diện eForm hiện chưa dùng khóa này |
 | `ai_fill` | `false` thì AI không điền |
-| `mock_keywords` | Không bắt buộc. Từ khóa để chế độ `mock` nhận ra phần này trong câu tự do |
+| `mock_keywords` | Không bắt buộc. Từ khóa để chế độ `mock` nhận ra phần này trong câu tự do. Dùng cụm cụ thể ("khám tim phổi"), không dùng từ trần ("tim") vì bộ tách cắt câu tại mọi từ khóa. Trường `ai_fill: false` có từ khóa chỉ là điểm dừng (cắt đoạn trước, bỏ nội dung), ví dụ `diem_dung_di_ung` trong `phieu-kham.json` |
 
 Trường mã có thêm `catalog` (tên danh mục), `name_field` (trường tên) và `strength_field` (trường hàm lượng, nếu có) để pipeline biết khớp danh mục nào bằng trường nào. Không đặt `ai_fill: true` cho trường mã: mã chỉ được gán bởi code khớp danh mục ở `src/shared/match.ts`.
 

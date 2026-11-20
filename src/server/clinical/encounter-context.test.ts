@@ -12,7 +12,8 @@ test("server contexts replace complete patient data and preserve leading zero ap
   assert.equal(b.appointmentId, "000123");
   assert.equal(b.patientId, "GIA-000456");
   assert.equal(b.data.ca.ho_ten, "Trần Văn Mô Phỏng");
-  assert.ok(b.data.ca._ghi_chu.includes("SYN-CARDIO-007"), "lịch 000123 (đánh trống ngực) mang context ca đánh trống ngực");
+  const thô = JSON.parse(fs.readFileSync("data/eform/encounter-contexts.json", "utf8")).contexts as { appointment_id: string; ca: { _ghi_chu: string } }[];
+  assert.ok(thô.find(item => item.appointment_id === "000123")?.ca._ghi_chu.includes("SYN-CARDIO-007"), "lịch 000123 (đánh trống ngực) mang context ca đánh trống ngực");
   assert.equal(b.data.ca.gioi_tinh, "Nam");
   assert.equal(b.data.ca.canh_bao_di_ung, "");
   assert.deepEqual(b.data.ca.lich_su.di_ung, []);

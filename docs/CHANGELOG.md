@@ -10,6 +10,7 @@ Mỗi thay đổi, dù nhỏ, đều có một mục ở đây. Mục mới nh�
 - **Lý do:** review: lịch và hồ sơ mẫu của `000123` lệch lý do; guard `approveScopes` chưa có test riêng.
 - **File:** `scripts/tao-du-lieu-tim-mach.ts`, `data/eform/encounter-contexts.json`, `src/server/clinical/{approval-service.test,encounter-context.test}.ts`, `docs/CHANGELOG.md`
 - **Kiểm tra:** `tao-du-lieu-tim-mach` và `--check` khớp 9 file; `npm test` 491/491; lint 0 lỗi; tsc sạch ngoài `.next/`.
+- **Sửa tiếp:** assert context 007 trong `encounter-context.test.ts` đọc JSON thô với kiểu riêng (type `CaGia` không có `_ghi_chu`), `tsc` sạch toàn bộ `src/`.
 
 ### Sửa lịch hẹn đúng 10 lý do theo 05 (điểm 2)
 - **Loại:** Dữ liệu, Kiểm thử

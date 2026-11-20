@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-> **Trạng thái 20/11:** ✅ Task 0–9 và review giữa kỳ (kèm hai nhóm sửa) xong. Đang làm Task 10. `npm test` 482 test, 0 fail; lint 0 lỗi; tsc 0 lỗi. Tổng kết: `Knowledge/2026-11-20 CardioNote - công việc đã làm.md`.
+> **Trạng thái 20/11:** ✅ Task 0–10 và review giữa kỳ (kèm hai nhóm sửa) xong. Đang làm Task 11. `npm test` 471 test, 0 fail; lint 0 lỗi; tsc 0 lỗi. Tổng kết: `Knowledge/2026-11-20 CardioNote - công việc đã làm.md`.
 
 **Goal:** Biến `TC_11_speech_to_text` thành CardioNote, sản phẩm riêng của Trung tâm Tim mạch. Bác sĩ khám, máy ghi âm và chuyển giọng nói thành chữ, che PII, rồi AI điền nháp **đúng Phiếu khám ngoại trú Tim mạch theo Excel**. Bác sĩ sửa, duyệt, in. Không còn dữ liệu, nhãn, schema, từ điển hay test TMH.
 
@@ -61,7 +61,7 @@ Nguồn sự thật danh sách trường là `config/forms/phieu-kham-ngoai-tru.
 | ✅ **Review giữa kỳ** sau Task 1–7 | Opus | 1–7 | – |
 | ✅ 8. Kịch bản demo, ca eval, fixture test; về 0 test fail | Sonnet, medium | review giữa kỳ | – |
 | ✅ 9. Nghiệm thu tự động 3 ca của `04` | Sonnet, medium | 8 | 10 |
-| 10. Bỏ trang riêng `/phieu-kham-ngoai-tru` | Haiku, medium | 4 | 9 |
+| ✅ 10. Bỏ trang riêng `/phieu-kham-ngoai-tru` | Haiku, medium | 4 | 9 |
 | 11. Chốt 100% Tim mạch: test chặn TMH + tài liệu | Haiku, medium | 9, 10 | – |
 | **Review cuối** toàn nhánh | Opus | 11 | – |
 
@@ -431,9 +431,9 @@ Session chính chỉ điều phối:
   - `src/shared/phieu-kham-ngoai-tru/{types,config}.ts`, mà Task 1 dùng cho `excelKeys`. Xóa `du-lieu.ts`, `schema.ts` và test của chúng nếu không còn nơi import (kiểm bằng grep).
 - Sửa: `src/client/chung/Header.tsx` (bỏ link "Phiếu khám Tim mạch"), `.gitignore` (bỏ dòng `/data/phieu-kham-ngoai-tru/*.json`), `README.md`, `docs/cau-truc-du-an.md`
 
-- [ ] **Bước 1:** `grep -rn "phieu-kham-ngoai-tru" src` chỉ còn import tới `src/shared/phieu-kham-ngoai-tru/{types,config}`.
-- [ ] **Bước 2:** `npm test` 0 fail, `npm run lint` sạch, `npx tsc --noEmit -p .` sạch.
-- [ ] **Bước 3:** ghi CHANGELOG, commit `refactor: gộp trang phiếu khám riêng vào eForm chính`.
+- [x] **Bước 1:** `grep -rn "phieu-kham-ngoai-tru" src` chỉ còn import tới `src/shared/phieu-kham-ngoai-tru/{types,config}`.
+- [x] **Bước 2:** `npm test` 0 fail, `npm run lint` sạch, `npx tsc --noEmit -p .` sạch.
+- [x] **Bước 3:** ghi CHANGELOG, commit `refactor: gộp trang phiếu khám riêng vào eForm chính`. *(Xong 20/11: `c5c8763`; review đạt. `npm test` 471/471: bớt 11 test của các file đã xóa. Chạy `tsc` cần sinh lại type route bằng `npx next typegen`, vì `.next/` còn type cũ.)*
 
 ---
 

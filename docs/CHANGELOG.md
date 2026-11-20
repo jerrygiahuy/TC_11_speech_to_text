@@ -4,6 +4,14 @@ Mỗi thay đổi, dù nhỏ, đều có một mục ở đây. Mục mới nh�
 
 ## 2026-11-20
 
+### Bỏ trang riêng `/phieu-kham-ngoai-tru` (Task 10 CardioNote)
+- **Loại:** Dọn dẹp, Giao diện, Tài liệu
+- **Thay đổi:** xóa trang `/phieu-kham-ngoai-tru`, API `/api/phieu-kham-ngoai-tru`, form động phía client, store lưu JSON phía server và thư mục `data/phieu-kham-ngoai-tru/` (cùng `du-lieu.ts`, `schema.ts` và test của chúng). Header bỏ link "Phiếu khám Tim mạch", tên "CardioNote" giữ nguyên. Giữ `config/forms/phieu-kham-ngoai-tru.json`, `scripts/nhap-excel-phieu-kham.py` và `src/shared/phieu-kham-ngoai-tru/{types,config}.ts` (dùng cho `excelKeys` / `EXCEL_MAP`). Test config còn lại 1 ca (đủ 49 trường gốc).
+- **Lý do:** phiếu khám đã gộp vào eForm chính `/` (plan CardioNote, Task 10). Trang riêng còn sót, route và form không còn ai dùng.
+- **File:** `src/app/phieu-kham-ngoai-tru/` (đã xóa), `src/app/api/phieu-kham-ngoai-tru/` (đã xóa), `src/client/phieu-kham-ngoai-tru/` (đã xóa), `src/server/phieu-kham-ngoai-tru/` (đã xóa), `src/shared/phieu-kham-ngoai-tru/du-lieu.ts` (đã xóa), `src/shared/phieu-kham-ngoai-tru/schema.ts` (đã xóa), `src/shared/phieu-kham-ngoai-tru/phieu-kham-ngoai-tru.test.ts`, `data/phieu-kham-ngoai-tru/` (đã xóa), `src/client/chung/Header.tsx`, `.gitignore`, `README.md`, `docs/cau-truc-du-an.md`, `docs/CHANGELOG.md`
+- **Kiểm tra:** `npm test` 471/471 pass (482 trước; 11 test của store, du-lieu, schema bị xóa cùng code). `npm run lint` 0 lỗi (8 cảnh báo có sẵn ở file khác). `tsc` sạch khi loại trừ `.next/` (xem Ảnh hưởng). Chưa chạy trình duyệt.
+- **Ảnh hưởng:** thư mục `.next/` còn cache types cũ trỏ tới route đã xóa, nên `npx tsc --noEmit -p .` báo 4 lỗi trong `.next/dev/types/validator.ts` cho đến khi `.next/` được tạo lại (`next dev` hoặc `next build`). Không liên quan source. Ai đang giữ `.next/` thì xóa thư mục đó rồi chạy lại.
+
 ### Mock cờ "nhắc chỉ định nhưng chưa nêu dịch vụ" (sửa Task 9)
 - **Loại:** Sửa lỗi, Kiểm thử
 - **Thay đổi:** `extraction.ts`: khi Hướng điều trị của bác sĩ nhắc chỉ định cận lâm sàng mà không có dòng dịch vụ, mock thêm `can_xem_lai` (`/chi_dinh`, `thieu_thong_tin`, "Bác sĩ nhắc chỉ định cận lâm sàng nhưng chưa nêu dịch vụ."). Test `nghiem_thu_013_kham_moi` kiểm mục này, `items` rỗng và `de_cap = chua_de_cap`.

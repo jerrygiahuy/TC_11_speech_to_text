@@ -127,7 +127,7 @@ Muốn thay một tính năng rule bằng LLM thật (ví dụ tóm tắt lịch
 | Sửa chữ giọng nói | `shared/giong-noi/sua-chu.ts` + `config/sua-chu-giong-noi.json` | `TroLyAi`, `scripts/eval-giong-noi.ts` | Màn mới có nút micro thì gọi `suaChu(cau, data.suaChu)` trên từng câu `onText` |
 | Gợi ý theo thói quen | `shared/eform/thoi-quen.ts`, `/api/thoi-quen` | `GoiYTheoChanDoan`, `EformScreen` | `ghepGoiY` trả nhóm thói quen trước, bộ mẫu sau, dùng chung cho tab Chỉ định và Đơn thuốc |
 | Demo luồng dữ liệu | `src/app/demo-luong`, `src/client/demo-luong/`, `src/server/demo-luong/`, `src/shared/clinical/pii/`, `src/shared/demo-luong/types.ts`, `/api/demo-luong/*` | trang `/demo-luong` | Bộ che PII là TS thuần ở `shared` (dùng được cả hai phía); điều phối 5 bước và kho phiếu ở `server`; client đọc stream NDJSON qua `client/demo-luong/api.ts` |
-| Phiếu khám Tim mạch (lưu JSON) | `src/app/phieu-kham-ngoai-tru`, `src/app/api/phieu-kham-ngoai-tru/`, `src/client/phieu-kham-ngoai-tru/`, `src/server/phieu-kham-ngoai-tru/store.ts`, `src/shared/phieu-kham-ngoai-tru/`, `config/forms/phieu-kham-ngoai-tru.json` | trang `/phieu-kham-ngoai-tru` | Form và schema zod đều sinh từ config nên thêm trường chỉ sửa JSON; store nhận thư mục qua tham số hoặc `PHIEU_KHAM_DIR`, id phải là UUID trước khi ghép đường dẫn |
+| Config phiếu khám Excel (49 trường gốc) | `config/forms/phieu-kham-ngoai-tru.json`, `src/shared/phieu-kham-ngoai-tru/{types,config}.ts`, `scripts/nhap-excel-phieu-kham.py` | `src/shared/clinical/excel-coverage.ts` (`excelKeys`, `EXCEL_MAP`) | Trang riêng `/phieu-kham-ngoai-tru` đã bỏ; phiếu khám nằm trong eForm chính `/` |
 
 ## Thêm mới thì đặt ở đâu
 

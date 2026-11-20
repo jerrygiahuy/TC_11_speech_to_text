@@ -294,14 +294,11 @@ Trang chính mở theo **mã khám**: thanh **Lượt khám** ở đầu trang c
 
 Chi tiết endpoint, data model, riêng tư, nguồn dẫn, model và các giới hạn: [CLINICAL-WORKFLOW.md](docs/CLINICAL-WORKFLOW.md). Các nút kết nối hệ thống ngoài vẫn là mô phỏng. Mô tả eForm/pipeline cũ được giữ tại [tư liệu lịch sử](docs/legacy-eform-before-clinical.md).
 
-## Phiếu khám ngoại trú Tim mạch (`/phieu-kham-ngoai-tru`)
+## Config phiếu khám ngoại trú (Tim mạch) từ Excel
 
-Prototype lưu **mọi trường** của phiếu khám ngoại trú (Tim mạch) ra file JSON, không gọi AI. Form dựng động từ `config/forms/phieu-kham-ngoai-tru.json` (phần → mục → trường; thứ tự đúng như EMR, mục "Chẩn đoán" xuất hiện hai lần). Thanh trên có danh sách phiếu đã lưu, **Phiếu mới**, **Điền ví dụ** (đổ `vi_du` của config, dữ liệu bịa, chỉ giá trị hợp lệ) và **Lưu** (POST lần đầu, PUT các lần sau). Trường `tu_dong` / `chi_doc` vẫn sửa được để lưu hết dữ liệu, kèm nhãn "EMR tự điền" / "Chỉ đọc trên EMR". Trường chọn 1 có nút **Bỏ chọn** để về `null` khi thiếu thông tin.
+Trang riêng `/phieu-kham-ngoai-tru` (lưu JSON, API `/api/phieu-kham-ngoai-tru`) đã bỏ ngày 2026-11-20: phiếu khám đã gộp vào eForm chính `/`. Còn lại `config/forms/phieu-kham-ngoai-tru.json` là nguồn danh sách 49 trường gốc, dùng cho `excelKeys` / `EXCEL_MAP` (`src/shared/clinical/excel-coverage.ts`) qua `src/shared/phieu-kham-ngoai-tru/{types,config}.ts`.
 
-- **Nơi lưu:** `data/phieu-kham-ngoai-tru/<uuid>.json`, dạng `{ id, tao_luc, cap_nhat_luc, phien_ban_config, du_lieu }`; ghi bằng file tạm rồi đổi tên. File `*.json` không đưa lên git (`.gitignore`), thư mục giữ bằng `.gitkeep`. Đổi thư mục lưu bằng biến môi trường `PHIEU_KHAM_DIR` (test dùng thư mục tạm).
-- **`du_lieu`:** khóa theo config, khóa có dấu chấm thành object lồng (`chan_doan_ban_dau.ma_icd10`). Số là number hoặc `null`, chọn 1 là chuỗi trong `gia_tri_cho_phep` hoặc `null`, chọn nhiều là mảng chuỗi, bảng lặp là mảng object theo `cot`. Huyết áp lưu cả chuỗi `huyet_ap` ("135/80") lẫn `huyet_ap_tam_thu`, `huyet_ap_tam_truong`.
-- **API:** `GET/POST /api/phieu-kham-ngoai-tru`, `GET/PUT/DELETE /api/phieu-kham-ngoai-tru/<id>`. Kiểm tra bằng schema zod sinh từ config (`src/shared/phieu-kham-ngoai-tru/schema.ts`); lỗi trả `{ "error": "..." }` kèm 400/404.
-- **Sinh lại config từ Excel:** `python3 scripts/nhap-excel-phieu-kham.py "<file.xlsx>" config/forms/phieu-kham-ngoai-tru.json` (cần `pip install openpyxl`; đọc sheet `PhieuKhamNgoaiTru` của Excel "Danh sách field – Phiếu khám ngoại trú (Tim mạch)"). Thêm/sửa trường chỉ cần sinh lại JSON, form, schema và bản rỗng tự đổi theo.
+- **Sinh lại config từ Excel:** `python3 scripts/nhap-excel-phieu-kham.py "<file.xlsx>" config/forms/phieu-kham-ngoai-tru.json` (cần `pip install openpyxl`; đọc sheet `PhieuKhamNgoaiTru` của Excel "Danh sách field – Phiếu khám ngoại trú (Tim mạch)"). Thêm/sửa trường thì sinh lại JSON rồi cập nhật `excel-coverage.ts` nếu cần.
 
 ## Cấu trúc thư mục
 
@@ -310,7 +307,6 @@ config/         cấu hình form, màu, viết tắt, cảnh báo
 data/catalog/   danh mục bệnh viện soạn tay (khớp trước danh mục thật)
 data/cases/     ca giả
 data/sessions/  kết quả các lượt thử (tự sinh, không đưa lên git)
-data/phieu-kham-ngoai-tru/ phiếu khám Tim mạch đã lưu, mỗi phiếu một file JSON (tự sinh, không đưa lên git)
 data/thoi-quen/ đơn từng tài khoản bác sĩ đã Lưu, cho gợi ý theo thói quen (tự sinh, không đưa lên git)
 data/giong-noi/ file âm thanh để đo nhận dạng giọng nói (tự sinh hoặc tự ghi, không đưa lên git, trừ README)
 data/eform/     ca giả, danh mục và quy tắc của trang eForm
@@ -318,9 +314,7 @@ data/tham-khao/ danh mục thật cào từ nguồn công khai, ứng dụng n�
 src/app/        trang và API (định tuyến Next, mỏng)
 src/client/     giao diện chạy trên trình duyệt: chung/ (Header, MicButton), eform/ (trang chủ), trinh-dien/ (trang Trình diễn), ket-qua/, api.ts (gọi API)
 src/server/ai/  AI thật: pipeline, prompt, schema, llm/ (mock, rules, anthropic, openai, gemini), asr.ts (Zipformer)
-src/server/phieu-kham-ngoai-tru/ lưu/đọc/liệt kê phiếu khám Tim mạch ra file JSON (store.ts)
-src/shared/phieu-kham-ngoai-tru/ kiểu, bản ghi rỗng/ví dụ, get/set theo đường dẫn chấm, schema zod sinh từ config
-src/client/phieu-kham-ngoai-tru/ form động của trang /phieu-kham-ngoai-tru
+src/shared/phieu-kham-ngoai-tru/ kiểu và config của danh sách trường Excel (types.ts, config.ts), dùng cho excelKeys
 src/server/du-lieu/ nạp config và data, lưu lượt thử và đơn đã kê, dữ liệu trang Trình diễn (trinh-dien.ts)
 src/shared/     dùng chung hai phía: kiểu, khớp danh mục, chuẩn hóa, tính tổng, đo lường, api.ts (hợp đồng FE–BE)
 src/shared/eform/ rule của trang eForm: tóm tắt, gợi ý ICD10, mẫu câu, gợi ý theo chẩn đoán và theo thói quen (thoi-quen.ts), cảnh báo dị ứng, đổ kết quả AI vào phiếu, đếm số đo lượt thử (do-luong.ts)

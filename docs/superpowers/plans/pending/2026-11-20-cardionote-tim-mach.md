@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-> **Trạng thái 20/11:** ✅ Task 0–7 và review giữa kỳ (kèm hai nhóm sửa) xong. ⏸ Tạm dừng trước Task 8 theo yêu cầu anh. `npm test` 476 test, 7 fail đã biết (Task 8 sửa); lint 0 lỗi; tsc 0 lỗi. Tổng kết: `Knowledge/2026-11-20 CardioNote - công việc đã làm.md`.
+> **Trạng thái 20/11:** ✅ Task 0–8 và review giữa kỳ (kèm hai nhóm sửa) xong. Đang làm Task 9. `npm test` 477 test, 0 fail; lint 0 lỗi; tsc 0 lỗi. Tổng kết: `Knowledge/2026-11-20 CardioNote - công việc đã làm.md`.
 
 **Goal:** Biến `TC_11_speech_to_text` thành CardioNote, sản phẩm riêng của Trung tâm Tim mạch. Bác sĩ khám, máy ghi âm và chuyển giọng nói thành chữ, che PII, rồi AI điền nháp **đúng Phiếu khám ngoại trú Tim mạch theo Excel**. Bác sĩ sửa, duyệt, in. Không còn dữ liệu, nhãn, schema, từ điển hay test TMH.
 
@@ -59,7 +59,7 @@ Nguồn sự thật danh sách trường là `config/forms/phieu-kham-ngoai-tru.
 | ✅ 6. Từ điển ngôn ngữ trong code + bộ trích mock | Sonnet, medium | 1 | 2, 3, 5, 7 |
 | ✅ 7. Từ vựng STT | Haiku, medium | 0 | 1–6 |
 | ✅ **Review giữa kỳ** sau Task 1–7 | Opus | 1–7 | – |
-| 8. Kịch bản demo, ca eval, fixture test; về 0 test fail | Sonnet, medium | review giữa kỳ | – |
+| ✅ 8. Kịch bản demo, ca eval, fixture test; về 0 test fail | Sonnet, medium | review giữa kỳ | – |
 | 9. Nghiệm thu tự động 3 ca của `04` | Sonnet, medium | 8 | 10 |
 | 10. Bỏ trang riêng `/phieu-kham-ngoai-tru` | Haiku, medium | 4 | 9 |
 | 11. Chốt 100% Tim mạch: test chặn TMH + tài liệu | Haiku, medium | 9, 10 | – |
@@ -386,13 +386,13 @@ Session chính chỉ điều phối:
 - Consumes: mọi thứ ở Task 1–7.
 - Produces: `npm test` → **0 fail**.
 
-- [ ] **Bước 1:** `npm test 2>&1 | grep '^✖' | sort -u` liệt kê các test fail hiện tại.
-- [ ] **Bước 2: Thay dữ liệu.** Với mỗi test fail, sửa dữ liệu hoặc kỳ vọng sang Tim mạch. **Không xóa test để cho qua.** Test kiểm hành vi không còn tồn tại, ví dụ 4 vùng TMH, thì xóa và ghi lý do vào CHANGELOG.
-- [ ] **Bước 3: Chạy kiểm tra.**
+- [x] **Bước 1:** `npm test 2>&1 | grep '^✖' | sort -u` liệt kê các test fail hiện tại. *(Xong 20/11: 7 test fail đã biết.)*
+- [x] **Bước 2: Thay dữ liệu.** Với mỗi test fail, sửa dữ liệu hoặc kỳ vọng sang Tim mạch. **Không xóa test để cho qua.** Test kiểm hành vi không còn tồn tại, ví dụ 4 vùng TMH, thì xóa và ghi lý do vào CHANGELOG. *(Xong 20/11: không xóa test nào. Sửa thêm 2 lỗi code: duyệt phiếu bị chặn khi có chẩn đoán kèm theo; regex mock `ho`/`phù` khớp nhầm "thoại". Khác plan: mỗi kịch bản demo chạy trên bệnh nhân có context mới nhất khớp hội thoại (001→GIA-000123, 013→GIA-000789, 049→GIA-000456), nên có 6 context và 11 lịch hẹn, thay vì 10 lịch như `05`.)*
+- [x] **Bước 3: Chạy kiểm tra.** *(Xong 20/11: 477/477 PASS. Eval rule-only: đọc bằng giọng nói 86,1%, gõ tắt 85,1%. `eval-mau` đạt 39,4% vì `phieu-mau.json` lệch `02`, dời sang Task 9. eval-pii che nhầm 0/84. Lint 0 lỗi.)*
   - `npm test` → `ℹ fail 0`.
   - `npm run eval -- --rule-only` và `npm run eval-mau` chạy được; ghi điểm.
   - `npm run lint` sạch lỗi.
-- [ ] **Bước 4:** ghi CHANGELOG, commit `test: chuyển fixture và kịch bản sang Tim mạch`.
+- [x] **Bước 4:** ghi CHANGELOG, commit `test: chuyển fixture và kịch bản sang Tim mạch`. *(Xong 20/11: `f16132d`, `ab25835`, `37a7f31`; review đạt, 0 Critical/Important.)*
 
 ---
 

@@ -11,8 +11,10 @@ export interface PhieuMauGoc {
   ten: string;
   /** Viết tắt, không dấu, cách gọi khác; so khớp sau normalizeVi */
   bi_danh: string[];
-  /** Đúng tên một mã trong data/tham-khao/icd10-tmh.json; mã do code tra, không ghi ở đây */
+  /** Đúng tên một mã trong data/eform/icd10.json; mã do code tra, không ghi ở đây */
   icd_ten: string;
+  /** Dữ liệu mock soạn tay, giao diện gắn nhãn mock */
+  mock?: boolean;
   /** Ô "Khám các bộ phận khác" (eForm có, schema LLM không có) */
   kham_khac: string;
   /** Cùng dạng Draft của config/forms: phieu_kham, chi_dinh, ke_don; không có trường mã */
@@ -126,7 +128,7 @@ function timSo(chiTiet: string, folded: string, donVi: string): string | null {
 }
 
 /** Từ đứng trước "phải/trái" cho biết đó là bên cơ thể, không phải động từ "phải" */
-const NGU_CANH_BEN = new Set(["tai", "mui", "ben", "hong", "amidan", "amydan", "hach", "ma", "nhi", "thanh"]);
+const NGU_CANH_BEN = new Set(["ben", "hach", "ma", "nhi", "thanh"]);
 
 /** Lựa chọn có trong chi tiết. "phải/trái" chỉ tính khi đứng sau từ chỉ vị trí hoặc đứng riêng một vế ("tai T", "…, phải, …") */
 function coLuaChon(luaChon: string, toanBo: string, cacVe: string[]): boolean {

@@ -1,3 +1,317 @@
 {
-  "mau": []
+  "mau": [
+    {
+      "id": "tang-huyet-ap",
+      "ten": "Tăng huyết áp",
+      "bi_danh": [
+        "tha"
+      ],
+      "icd_ten": "Bệnh tăng huyết áp vô căn (nguyên phát)",
+      "kham_khac": "Chưa ghi nhận bất thường ở các bộ phận khác.",
+      "nhap": {
+        "phieu_kham": {
+          "ly_do_kham": "Tái khám tăng huyết áp",
+          "benh_su": "Theo dõi huyết áp tại nhà, thỉnh thoảng đau đầu nhẹ, không đau ngực, không khó thở.",
+          "kham_toan_than": "Tỉnh táo, tiếp xúc tốt.",
+          "kham_chuyen_khoa": "Mạch quay đều, rõ. Tiếng T1, T2 đều rõ, không âm thổi. Phổi trong, không ran.",
+          "chan_doan_chinh": "Tăng huyết áp vô căn",
+          "huong_dieu_tri": "Tiếp tục theo dõi huyết áp và dùng thuốc theo đơn hiện tại.",
+          "loi_dan": "Ghi nhật ký huyết áp.",
+          "hen_tai_kham": "Sau 30 ngày"
+        },
+        "chi_dinh": [
+          {
+            "ten_dich_vu": "Điện tim thường",
+            "so_luong": 1
+          }
+        ]
+      },
+      "mock": true
+    },
+    {
+      "id": "danh-trong-nguc",
+      "ten": "Đánh trống ngực",
+      "bi_danh": [
+        "dtn"
+      ],
+      "icd_ten": "Đánh trống ngực",
+      "kham_khac": "Chưa ghi nhận bất thường ở các bộ phận khác.",
+      "nhap": {
+        "phieu_kham": {
+          "ly_do_kham": "Đánh trống ngực từng cơn",
+          "benh_su": "Đánh trống ngực vài phút, tự hết, không ngất, không đau ngực.",
+          "kham_toan_than": "Tỉnh táo, tiếp xúc tốt.",
+          "kham_chuyen_khoa": "Mạch quay đều. Tiếng T1, T2 rõ, chưa ghi nhận âm thổi. Phổi trong, không ran.",
+          "chan_doan_chinh": "Đánh trống ngực",
+          "huong_dieu_tri": "Theo dõi triệu chứng và thăm dò nhịp tim theo chỉ định.",
+          "loi_dan": "Quay lại sớm nếu cơn kéo dài hoặc có ngất.",
+          "hen_tai_kham": "Sau 14 ngày"
+        },
+        "chi_dinh": [
+          {
+            "ten_dich_vu": "Điện tim thường",
+            "so_luong": 1
+          },
+          {
+            "ten_dich_vu": "Holter điện tâm đồ 24 giờ",
+            "so_luong": 1
+          }
+        ]
+      },
+      "mock": true
+    },
+    {
+      "id": "dau-nguc",
+      "ten": "Đau ngực",
+      "bi_danh": [
+        "dn"
+      ],
+      "icd_ten": "Đau ngực, không đặc hiệu",
+      "kham_khac": "Chưa ghi nhận bất thường ở các bộ phận khác.",
+      "nhap": {
+        "phieu_kham": {
+          "ly_do_kham": "Khó chịu vùng ngực khi gắng sức",
+          "benh_su": "Cảm giác nặng ngực khi đi nhanh, giảm khi nghỉ, không ngất.",
+          "kham_toan_than": "Tỉnh táo, tiếp xúc tốt.",
+          "kham_chuyen_khoa": "Lồng ngực cân đối. Tiếng T1, T2 rõ, không rung miu. Phổi trong, không ran.",
+          "chan_doan_chinh": "Đau ngực cần đánh giá nguyên nhân tim mạch",
+          "huong_dieu_tri": "Đánh giá thêm theo chỉ định cận lâm sàng của bác sĩ.",
+          "loi_dan": "Hạn chế gắng sức cho đến khi hoàn tất đánh giá.",
+          "hen_tai_kham": "Sau 7 ngày"
+        },
+        "chi_dinh": [
+          {
+            "ten_dich_vu": "Điện tim thường",
+            "so_luong": 1
+          },
+          {
+            "ten_dich_vu": "Nghiệm pháp gắng sức",
+            "so_luong": 1
+          }
+        ]
+      },
+      "mock": true
+    },
+    {
+      "id": "kho-tho",
+      "ten": "Khó thở",
+      "bi_danh": [
+        "kt"
+      ],
+      "icd_ten": "Khó thở",
+      "kham_khac": "Chưa ghi nhận bất thường ở các bộ phận khác.",
+      "nhap": {
+        "phieu_kham": {
+          "ly_do_kham": "Khó thở khi gắng sức",
+          "benh_su": "Khó thở tăng khi đi cầu thang, không sốt, không đau ngực.",
+          "kham_toan_than": "Tỉnh táo, tiếp xúc tốt.",
+          "kham_chuyen_khoa": "Không co kéo cơ hô hấp phụ. Tiếng tim rõ. Phổi thông khí hai bên, chưa ghi nhận ran.",
+          "chan_doan_chinh": "Khó thở",
+          "huong_dieu_tri": "Đánh giá nguyên nhân khó thở theo chỉ định của bác sĩ.",
+          "loi_dan": "Theo dõi mức độ khó thở và tái khám theo hẹn.",
+          "hen_tai_kham": "Sau 14 ngày"
+        },
+        "chi_dinh": [
+          {
+            "ten_dich_vu": "X-quang ngực thẳng",
+            "so_luong": 1
+          },
+          {
+            "ten_dich_vu": "Điện tim thường",
+            "so_luong": 1
+          }
+        ]
+      },
+      "mock": true
+    },
+    {
+      "id": "roi-loan-lipid-mau",
+      "ten": "Rối loạn lipid máu",
+      "bi_danh": [
+        "rllm"
+      ],
+      "icd_ten": "Rối loạn lipid máu, không đặc hiệu",
+      "kham_khac": "Chưa ghi nhận bất thường ở các bộ phận khác.",
+      "nhap": {
+        "phieu_kham": {
+          "ly_do_kham": "Tái khám rối loạn lipid máu",
+          "benh_su": "Dùng thuốc đều, chưa ghi nhận triệu chứng mới.",
+          "kham_toan_than": "Tỉnh táo, tiếp xúc tốt.",
+          "kham_chuyen_khoa": "Mạch đều. Tiếng tim rõ, không âm thổi. Phổi trong, không ran.",
+          "chan_doan_chinh": "Rối loạn lipid máu",
+          "huong_dieu_tri": "Duy trì điều trị theo đơn hiện tại và theo dõi xét nghiệm.",
+          "loi_dan": "Tái khám mang theo kết quả xét nghiệm.",
+          "hen_tai_kham": "Sau 90 ngày"
+        },
+        "chi_dinh": [
+          {
+            "ten_dich_vu": "Xét nghiệm bộ mỡ máu (Cholesterol, Triglycerid, HDL-C, LDL-C)",
+            "so_luong": 1
+          }
+        ]
+      },
+      "mock": true
+    },
+    {
+      "id": "sau-nong-vanh",
+      "ten": "Sau can thiệp mạch vành",
+      "bi_danh": [
+        "sau nong vanh"
+      ],
+      "icd_ten": "Có nong mạch vành và bộ phận cấy ghép",
+      "kham_khac": "Chưa ghi nhận bất thường ở các bộ phận khác.",
+      "nhap": {
+        "phieu_kham": {
+          "ly_do_kham": "Tái khám sau can thiệp mạch vành",
+          "benh_su": "Hiện không đau ngực, không khó thở khi sinh hoạt thông thường.",
+          "kham_toan_than": "Tỉnh táo, tiếp xúc tốt.",
+          "kham_chuyen_khoa": "Mạch đều, rõ. Tiếng T1, T2 rõ. Không phù. Phổi trong, không ran.",
+          "chan_doan_chinh": "Có nong mạch vành và bộ phận cấy ghép",
+          "chan_doan_kem": "Bệnh tim do xơ vữa động mạch",
+          "huong_dieu_tri": "Duy trì thuốc theo đơn đã được bác sĩ xác nhận.",
+          "loi_dan": "Theo dõi đau ngực và tái khám đúng hẹn.",
+          "hen_tai_kham": "Sau 30 ngày"
+        },
+        "chi_dinh": [
+          {
+            "ten_dich_vu": "Điện tim thường",
+            "so_luong": 1
+          },
+          {
+            "ten_dich_vu": "Xét nghiệm bộ mỡ máu (Cholesterol, Triglycerid, HDL-C, LDL-C)",
+            "so_luong": 1
+          }
+        ]
+      },
+      "mock": true
+    },
+    {
+      "id": "suy-tim",
+      "ten": "Suy tim",
+      "bi_danh": [
+        "st"
+      ],
+      "icd_ten": "Suy tim, không đặc hiệu",
+      "kham_khac": "Chưa ghi nhận bất thường ở các bộ phận khác.",
+      "nhap": {
+        "phieu_kham": {
+          "ly_do_kham": "Tái khám suy tim",
+          "benh_su": "Khó thở khi gắng sức mức độ ổn định, không khó thở khi nghỉ.",
+          "kham_toan_than": "Tỉnh táo, tiếp xúc tốt.",
+          "kham_chuyen_khoa": "Tĩnh mạch cổ không nổi. Tiếng tim rõ. Phổi chưa ghi nhận ran. Phù mắt cá chân nhẹ hai bên.",
+          "chan_doan_chinh": "Suy tim",
+          "huong_dieu_tri": "Tiếp tục điều trị và theo dõi cân nặng theo hướng dẫn của bác sĩ.",
+          "loi_dan": "Theo dõi khó thở, phù và cân nặng hằng ngày.",
+          "hen_tai_kham": "Sau 14 ngày"
+        },
+        "chi_dinh": [
+          {
+            "ten_dich_vu": "Siêu âm tim, màng tim qua thành ngực",
+            "so_luong": 1
+          },
+          {
+            "ten_dich_vu": "Creatinin máu / điện giải đồ",
+            "so_luong": 1
+          }
+        ]
+      },
+      "mock": true
+    },
+    {
+      "id": "rung-nhi",
+      "ten": "Rung nhĩ",
+      "bi_danh": [
+        "rn"
+      ],
+      "icd_ten": "Rung nhĩ và cuồng nhĩ, không đặc hiệu",
+      "kham_khac": "Chưa ghi nhận bất thường ở các bộ phận khác.",
+      "nhap": {
+        "phieu_kham": {
+          "ly_do_kham": "Tái khám rối loạn nhịp",
+          "benh_su": "Thỉnh thoảng hồi hộp ngắn, không ngất, không khó thở khi nghỉ.",
+          "kham_toan_than": "Tỉnh táo, tiếp xúc tốt.",
+          "kham_chuyen_khoa": "Mạch không đều. Tiếng tim nghe không đều, phổi trong, không ran.",
+          "chan_doan_chinh": "Rung nhĩ",
+          "huong_dieu_tri": "Tiếp tục theo dõi nhịp và dùng thuốc theo đơn đã xác nhận.",
+          "loi_dan": "Theo dõi chảy máu bất thường và tái khám đúng hẹn.",
+          "hen_tai_kham": "Sau 30 ngày"
+        },
+        "chi_dinh": [
+          {
+            "ten_dich_vu": "Điện tim thường",
+            "so_luong": 1
+          },
+          {
+            "ten_dich_vu": "Holter điện tâm đồ 24 giờ",
+            "so_luong": 1
+          }
+        ]
+      },
+      "mock": true
+    },
+    {
+      "id": "ngat-thoang-qua",
+      "ten": "Ngất thoáng qua",
+      "bi_danh": [
+        "ngat"
+      ],
+      "icd_ten": "Ngất và trụy",
+      "kham_khac": "Chưa ghi nhận bất thường ở các bộ phận khác.",
+      "nhap": {
+        "phieu_kham": {
+          "ly_do_kham": "Một lần ngất thoáng qua",
+          "benh_su": "Ngất trong thời gian ngắn khi đang đứng, tỉnh lại tự nhiên, chưa ghi nhận co giật.",
+          "kham_toan_than": "Tỉnh táo, tiếp xúc tốt.",
+          "kham_chuyen_khoa": "Mạch đều, tiếng tim rõ, chưa ghi nhận âm thổi. Phổi trong, không ran.",
+          "chan_doan_chinh": "Ngất thoáng qua",
+          "huong_dieu_tri": "Đánh giá thêm nguyên nhân ngất theo chỉ định của bác sĩ.",
+          "loi_dan": "Tránh tự lái xe cho đến khi được đánh giá, quay lại nếu tái diễn.",
+          "hen_tai_kham": "Sau 7 ngày"
+        },
+        "chi_dinh": [
+          {
+            "ten_dich_vu": "Điện tim thường",
+            "so_luong": 1
+          },
+          {
+            "ten_dich_vu": "Holter điện tâm đồ 24 giờ",
+            "so_luong": 1
+          }
+        ]
+      },
+      "mock": true
+    },
+    {
+      "id": "kham-truoc-thu-thuat",
+      "ten": "Khám trước thủ thuật",
+      "bi_danh": [
+        "truoc thu thuat"
+      ],
+      "icd_ten": "Khám chuyên khoa xác định khác",
+      "kham_khac": "Chưa ghi nhận bất thường ở các bộ phận khác.",
+      "nhap": {
+        "phieu_kham": {
+          "ly_do_kham": "Đánh giá tim mạch trước thủ thuật",
+          "benh_su": "Không đau ngực, không khó thở khi sinh hoạt thông thường.",
+          "kham_toan_than": "Tỉnh táo, tiếp xúc tốt.",
+          "kham_chuyen_khoa": "Mạch đều. Tiếng T1, T2 rõ, không âm thổi. Phổi trong, không ran.",
+          "chan_doan_chinh": "Đánh giá tim mạch trước thủ thuật",
+          "huong_dieu_tri": "Hoàn thiện đánh giá tim mạch theo hồ sơ thủ thuật.",
+          "loi_dan": "Thực hiện hướng dẫn dùng thuốc trước thủ thuật của bác sĩ phụ trách.",
+          "hen_tai_kham": "Sau 7 ngày"
+        },
+        "chi_dinh": [
+          {
+            "ten_dich_vu": "Điện tim thường",
+            "so_luong": 1
+          },
+          {
+            "ten_dich_vu": "Creatinin máu / điện giải đồ",
+            "so_luong": 1
+          }
+        ]
+      },
+      "mock": true
+    }
+  ]
 }

@@ -3,9 +3,10 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import { normalizeVi } from "@/shared/normalize";
 import type { Values } from "@/shared/types";
+import { loadIcd10 } from "./danh-muc";
 import { loadPhieuMau, loadPhieuMauGoc, timMauGoc } from "./phieu-mau";
 
-const SO_MAU_TOI_THIEU = 30;
+const SO_MAU = 10;
 const O_PHIEU = [
   "ly_do_kham",
   "benh_su",
@@ -22,9 +23,18 @@ const TRUONG_MA = ["ma_dich_vu", "ma_thuoc", "tong_so_luong"];
 const goc = loadPhieuMauGoc();
 const daKhop = loadPhieuMau();
 
-test(`có ít nhất ${SO_MAU_TOI_THIEU} mẫu, id không trùng`, () => {
-  assert.ok(goc.length >= SO_MAU_TOI_THIEU, `mới có ${goc.length} mẫu`);
+test(`có đúng ${SO_MAU} mẫu, id không trùng`, () => {
+  assert.equal(goc.length, SO_MAU, `có ${goc.length} mẫu`);
   assert.equal(new Set(goc.map((m) => m.id)).size, goc.length);
+});
+
+test("mọi icd_ten có trong icd10.json (khớp đúng tên)", () => {
+  const tenIcd = new Set(loadIcd10().map((item) => item.ten));
+  assert.deepEqual(goc.filter((m) => !tenIcd.has(m.icd_ten)).map((m) => `${m.id}: "${m.icd_ten}"`), []);
+});
+
+test("mỗi mẫu gắn mock: true", () => {
+  assert.deepEqual(goc.filter((m) => (m as { mock?: unknown }).mock !== true).map((m) => m.id), []);
 });
 
 test("tìm mẫu gốc theo id", () => {

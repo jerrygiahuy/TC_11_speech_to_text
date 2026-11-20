@@ -44,7 +44,7 @@ src/
       errors.ts, http.ts  lỗi có mã HTTP, bọc GET (no-store)
     du-lieu/              đọc/ghi đĩa
       config.ts           nạp config/ và data/cases
-      danh-muc.ts         ghép danh mục bệnh viện (data/catalog/) với danh mục thật (data/tham-khao/), ICD10; nhớ theo giờ sửa file
+      danh-muc.ts         đọc danh mục Tim mạch soạn tay (data/catalog/, data/eform/icd10.json, mock); chưa ghép danh mục thật
       eform.ts            nạp data/eform/ cho trang eForm
       sessions.ts         ghi/đọc data/sessions/
 

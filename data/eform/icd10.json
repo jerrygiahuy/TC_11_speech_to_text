@@ -1,12 +1,138 @@
 [
   {
     "ma": "I10",
-    "ten": "Tăng huyết áp vô căn",
+    "ten": "Bệnh tăng huyết áp vô căn (nguyên phát)",
     "manh": [
-      "tăng huyết áp vô căn"
+      "tăng huyết áp vô căn",
+      "tăng huyết áp nguyên phát"
     ],
     "vua": [
-      "tăng huyết áp"
-    ]
+      "tăng huyết áp",
+      "tái khám tăng huyết áp"
+    ],
+    "mock": true
+  },
+  {
+    "ma": "R00.2",
+    "ten": "Đánh trống ngực",
+    "manh": [
+      "đánh trống ngực"
+    ],
+    "vua": [
+      "trống ngực",
+      "tim đập nhanh"
+    ],
+    "mock": true
+  },
+  {
+    "ma": "R07.4",
+    "ten": "Đau ngực, không đặc hiệu",
+    "manh": [
+      "đau ngực"
+    ],
+    "vua": [
+      "khó chịu vùng ngực",
+      "nặng ngực"
+    ],
+    "mock": true
+  },
+  {
+    "ma": "R06.0",
+    "ten": "Khó thở",
+    "manh": [
+      "khó thở"
+    ],
+    "vua": [
+      "thở gấp",
+      "khó thở khi gắng sức"
+    ],
+    "mock": true
+  },
+  {
+    "ma": "E78.5",
+    "ten": "Rối loạn lipid máu, không đặc hiệu",
+    "manh": [
+      "rối loạn lipid máu"
+    ],
+    "vua": [
+      "rối loạn lipid",
+      "mỡ máu",
+      "cholesterol"
+    ],
+    "mock": true
+  },
+  {
+    "ma": "Z95.5",
+    "ten": "Có nong mạch vành và bộ phận cấy ghép",
+    "manh": [
+      "nong mạch vành",
+      "đặt stent"
+    ],
+    "vua": [
+      "sau can thiệp mạch vành",
+      "sau nong vành"
+    ],
+    "mock": true
+  },
+  {
+    "ma": "I25.1",
+    "ten": "Bệnh tim do xơ vữa động mạch",
+    "manh": [
+      "xơ vữa động mạch"
+    ],
+    "vua": [
+      "xơ vữa",
+      "hẹp động mạch vành"
+    ],
+    "mock": true
+  },
+  {
+    "ma": "I50.9",
+    "ten": "Suy tim, không đặc hiệu",
+    "manh": [
+      "suy tim"
+    ],
+    "vua": [
+      "phù mắt cá chân",
+      "phù chân"
+    ],
+    "mock": true
+  },
+  {
+    "ma": "I48.9",
+    "ten": "Rung nhĩ và cuồng nhĩ, không đặc hiệu",
+    "manh": [
+      "rung nhĩ",
+      "cuồng nhĩ"
+    ],
+    "vua": [
+      "loạn nhịp",
+      "nhịp không đều"
+    ],
+    "mock": true
+  },
+  {
+    "ma": "R55",
+    "ten": "Ngất và trụy",
+    "manh": [
+      "ngất"
+    ],
+    "vua": [
+      "ngất thoáng qua",
+      "choáng váng"
+    ],
+    "mock": true
+  },
+  {
+    "ma": "Z01.8",
+    "ten": "Khám chuyên khoa xác định khác",
+    "manh": [
+      "khám trước thủ thuật"
+    ],
+    "vua": [
+      "trước thủ thuật",
+      "đánh giá tim mạch trước"
+    ],
+    "mock": true
   }
 ]

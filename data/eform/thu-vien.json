@@ -1,20 +1,41 @@
 {
   "kham_toan_than": [
     "Tỉnh táo, tiếp xúc tốt.",
-    "Da, niêm mạc hồng.",
-    "Hạch ngoại vi không sờ thấy.",
-    "Tim đều, phổi không ran."
+    "Thể trạng trung bình.",
+    "Da và tổ chức dưới da màu sắc bình thường, không phù, không dấu xuất huyết.",
+    "Niêm mạc hồng.",
+    "Lông, tóc, móng bình thường.",
+    "Hạch ngoại vi không sưng đau, không sờ thấy tuyến giáp.",
+    "Nhiệt độ, mạch, huyết áp bình thường."
+  ],
+  "kham_chuyen_khoa": [
+    "Lồng ngực cân đối hai bên.",
+    "Mỏm tim đập ở liên sườn V, giữa đòn trái, tĩnh mạch cổ không nổi.",
+    "Diện đục của tim không to, không rung miu.",
+    "Tiếng T1, T2 đều rõ, không âm thổi.",
+    "Không có tiếng tim bệnh lý.",
+    "Mạch quay đều, rõ.",
+    "Không tím môi, đầu chi.",
+    "Lồng ngực cân đối di động theo nhịp thở.",
+    "Không khó thở, không co kéo cơ hô hấp phụ.",
+    "Rung thanh đều hai bên.",
+    "Gõ trong.",
+    "Phổi trong, không ran.",
+    "Rì rào phế nang êm dịu hai phế trường."
   ],
   "kham_khac": [
     "Chưa ghi nhận bất thường ở các bộ phận khác."
   ],
   "huong_dieu_tri": [
-    "Điều trị ngoại trú.",
-    "Điều trị nội khoa, đánh giá lại sau đợt điều trị.",
-    "Chỉ định thăm dò thêm, hẹn đọc kết quả."
+    "Tiếp tục theo dõi huyết áp và dùng thuốc theo đơn hiện tại.",
+    "Đánh giá thêm theo chỉ định cận lâm sàng của bác sĩ.",
+    "Duy trì thuốc theo đơn đã được bác sĩ xác nhận.",
+    "Hoàn thiện đánh giá tim mạch theo hồ sơ thủ thuật."
   ],
   "loi_dan": [
-    "Dùng thuốc theo đơn, không tự ý ngừng thuốc.",
-    "Tái khám ngay nếu sốt cao, đau tăng hoặc chóng mặt."
+    "Ghi nhật ký huyết áp, tái khám sau 30 ngày.",
+    "Hạn chế gắng sức cho đến khi hoàn tất đánh giá.",
+    "Tránh tự lái xe cho đến khi được đánh giá, quay lại nếu tái diễn.",
+    "Theo dõi khó thở, phù và cân nặng hằng ngày."
   ]
 }

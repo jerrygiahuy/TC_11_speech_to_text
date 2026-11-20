@@ -41,7 +41,7 @@ test("gọi mẫu bằng tên đầy đủ", () => {
 });
 
 test("gọi bằng viết tắt, giữ phần chi tiết", () => {
-  assert.deepEqual(pick(timPhieuMau("tha cấp, tai T, 3n", M)), { loai: "mot", id: "tha-cap", conLai: "tai T, 3n" });
+  assert.deepEqual(pick(timPhieuMau("tha cấp, chân T, 3n", M)), { loai: "mot", id: "tha-cap", conLai: "chân T, 3n" });
 });
 
 test("không dấu vẫn khớp", () => {
@@ -116,12 +116,12 @@ test("điền số giờ và cân nặng", () => {
 
 // --- Sửa sau review ---
 
-test("chữ 'sổ mũi' không xóa chỗ [số] chưa điền", () => {
-  assert.equal(dienChoTrong("Sốt [số] độ. Huyết áp [số] mmHg.", "tai T, 3n, sổ mũi", VT), "Sốt [số] độ. Huyết áp [số] mmHg.");
+test("chữ 'sổ khám' không xóa chỗ [số] chưa điền", () => {
+  assert.equal(dienChoTrong("Sốt [số] độ. Huyết áp [số] mmHg.", "chân T, 3n, sổ khám", VT), "Sốt [số] độ. Huyết áp [số] mmHg.");
 });
 
 test("'sốt 2 ngày' không thành nhiệt độ", () => {
-  assert.equal(dienChoTrong("Sốt [số] độ. Đau [số] ngày.", "tai T, sốt 2 ngày", VT), "Sốt [số] độ. Đau 2 ngày.");
+  assert.equal(dienChoTrong("Sốt [số] độ. Đau [số] ngày.", "chân T, sốt 2 ngày", VT), "Sốt [số] độ. Đau 2 ngày.");
 });
 
 test("nhiệt độ ngoài khoảng thân nhiệt thì bỏ qua", () => {

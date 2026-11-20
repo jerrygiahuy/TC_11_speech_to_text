@@ -44,3 +44,13 @@ def test_bundled_hotwords_are_cardiology():
     hotwords = load_hotwords()
     for phrase in CARDIO_HOTWORDS:
         assert phrase.lower() in hotwords, phrase
+
+
+# Guard âm: từ vựng Tai Mũi Họng cũ không được quay lại danh sách hotword mặc định
+ENT_TERMS = ['amidan', 'màng nhĩ', 'viêm xoang', 'xoang', 'họng', 'nhỏ tai', 'xịt mũi', 'sổ mũi', 'viêm tai', 'tai mũi họng']
+
+def test_bundled_hotwords_have_no_ent_terms():
+    hotwords = load_hotwords()
+    for phrase in hotwords:
+        for term in ENT_TERMS:
+            assert term not in phrase, (phrase, term)

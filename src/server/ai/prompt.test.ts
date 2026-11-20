@@ -10,8 +10,8 @@ test("không có mẫu thì prompt như cũ", () => {
 });
 
 test("có mẫu thì kèm <phieu_mau> và JSON mẫu", () => {
-  const prompt = buildUserPrompt("tai T, 3n", undefined, MAU);
-  assert.ok(prompt.startsWith("<tom_tat>\ntai T, 3n\n</tom_tat>"));
+  const prompt = buildUserPrompt("chân T, 3n", undefined, MAU);
+  assert.ok(prompt.startsWith("<tom_tat>\nchân T, 3n\n</tom_tat>"));
   assert.ok(prompt.includes(`<phieu_mau>\n${JSON.stringify(MAU)}\n</phieu_mau>`));
   assert.ok(prompt.includes("giữ nguyên cả ngoặc"));
 });

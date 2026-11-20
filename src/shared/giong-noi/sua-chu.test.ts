@@ -34,3 +34,7 @@ test("viet-tat: ĐTĐ là đái tháo đường, ECG là điện tâm đồ", ()
   assert.equal(expandAbbreviations("THA", vietTat), "tăng huyết áp");
   assert.equal(expandAbbreviations("HA", vietTat), "huyết áp");
 });
+
+test("viet-tat: khóa viết tắt của Tai Mũi Họng không còn trong config", () => {
+  for (const khoa of ["VTG", "VTN", "VMX", "TMH"]) assert.ok(!(khoa in vietTat), khoa);
+});

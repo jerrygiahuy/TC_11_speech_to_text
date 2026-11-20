@@ -127,7 +127,10 @@ export function applyEformSnapshot(base: Encounter, input: EformSnapshot, contex
   for (const [stage, codeId, textId] of [["ban_dau", "icd_ban_dau", "mo_ta_ban_dau"], ["ra_vien", "icd_ra_vien", "mo_ta_ra_vien"]] as const) {
     if (!(codeId in fields) && !(textId in fields)) continue;
     const row = (get(codeId) || get(textId)) ? diagnosis(stage, get(codeId), get(textId)) : null;
-    result.chan_doan = result.chan_doan.filter(item => item.id !== row?.id && !(item.noi_dung.giai_doan === stage && item.noi_dung.vai_tro === "chinh"));
+    // Dòng AI chưa rõ giai đoạn đang hiện ở ô ban đầu thì được thay khi bác sĩ sửa/xóa ô, không để hiện lại.
+    const hienTam = stage === "ban_dau" && !result.chan_doan.some(item => item.noi_dung.giai_doan === "ban_dau" && item.noi_dung.vai_tro === "chinh")
+      ? result.chan_doan.find(item => item.noi_dung.giai_doan === "chua_ro" && item.noi_dung.vai_tro !== "kem_theo")?.id : undefined;
+    result.chan_doan = result.chan_doan.filter(item => item.id !== row?.id && item.id !== hienTam && !(item.noi_dung.giai_doan === stage && item.noi_dung.vai_tro === "chinh"));
     if (row) result.chan_doan.push(row);
   }
   if ("icd_kem_theo" in fields) {
@@ -213,8 +216,10 @@ export function projectEform(record: Encounter): EformSnapshot {
   set("tinh_trang_ra_vien", Object.entries(OUTCOME).find(([, value]) => value === note.tinh_trang_ra_vien)?.[0] ?? null);
   for (const id of ["chuyen_noi_soi", "xn_benh_tat", "xn_bhxh"] as const) set(id, boolText(record.thong_tin_khac[id]), `/thong_tin_khac/${id}`);
   for (const [stage, codeId, textId] of [["ban_dau", "icd_ban_dau", "mo_ta_ban_dau"], ["ra_vien", "icd_ra_vien", "mo_ta_ra_vien"]] as const) {
+    // Chẩn đoán AI chưa rõ giai đoạn (giai_doan = chua_ro) chỉ hiện ở ô ban đầu, tuyệt đối không chép sang ra viện.
     const dx = record.chan_doan.find(item => item.noi_dung.giai_doan === stage && item.noi_dung.vai_tro === "chinh")
-      ?? record.chan_doan.find(item => item.noi_dung.giai_doan === stage && item.noi_dung.vai_tro === "chua_ro");
+      ?? record.chan_doan.find(item => item.noi_dung.giai_doan === stage && item.noi_dung.vai_tro === "chua_ro")
+      ?? (stage === "ban_dau" ? record.chan_doan.find(item => item.noi_dung.giai_doan === "chua_ro" && item.noi_dung.vai_tro !== "kem_theo") : undefined);
     set(codeId, dx?.icd.code ?? null); set(textId, dx?.noi_dung.mo_ta ?? null);
   }
   set("icd_kem_theo", record.chan_doan.filter(item => item.noi_dung.vai_tro === "kem_theo").map(item => item.icd.code).filter(Boolean).join(","));

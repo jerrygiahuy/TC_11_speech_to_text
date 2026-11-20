@@ -180,10 +180,12 @@ export function mockClinicalExtraction(transcript: Transcript, context?: MockCon
       if (!text.trim() || isPrescription(text)) continue;
       const bp = HUYET_AP.exec(text);
       if (bp && context?.sinh_hieu) {
+        // Cờ cho cả hai nguồn, nhưng mô tả nói rõ ai nói: số do bác sĩ đọc khác với số bệnh nhân kể (có thể đo ở nhà).
+        const nguonCau = segment.vai_tro === "bac_si" ? "Bác sĩ đọc" : segment.vai_tro === "chua_ro" ? "Hội thoại (chưa rõ người nói) nói" : segment.vai_tro === "nguoi_nha" ? "Người nhà kể" : "Bệnh nhân kể";
         for (const [key, said, label] of [["ha_tam_thu", Number(bp[1]), "tâm thu"], ["ha_tam_truong", Number(bp[2]), "tâm trương"]] as const) {
           const known = context.sinh_hieu[key];
           if (known !== null && known !== undefined && known !== said) {
-            output.can_xem_lai.push({ field_path: `/sinh_hieu/${key}`, loai: "mau_thuan", mo_ta: `Hội thoại nói huyết áp ${label} ${said}, khác sinh hiệu đã ghi ${known}. Giữ theo sinh hiệu đã ghi, bác sĩ kiểm tra lại.`, segment_ids: [segment.id] });
+            output.can_xem_lai.push({ field_path: `/sinh_hieu/${key}`, loai: "mau_thuan", mo_ta: `${nguonCau} huyết áp ${label} ${said}, khác sinh hiệu đã ghi ${known}. Giữ theo sinh hiệu đã ghi, bác sĩ kiểm tra lại.`, segment_ids: [segment.id] });
           }
         }
       }
@@ -209,8 +211,9 @@ export function mockClinicalExtraction(transcript: Transcript, context?: MockCon
         output.chi_dinh.de_cap = "co_chi_dinh";
         add(`/chi_dinh/items/${output.chi_dinh.items.length - 1}`, text, segment); add("/chi_dinh/de_cap", text, segment);
         summarize(text, segment);
-      } else if (/^chẩn đoán\s+/iu.test(text)) {
-        const diagnosis = /^chẩn đoán\s+(?:(ban đầu|ra viện)\s+)?(.+?)[.!?;]*$/iu.exec(text);
+      } else if (/^chẩn đoán(?:\s*:\s*|\s+)/iu.test(text)) {
+        // Chấp nhận cả "Chẩn đoán: X" (dạng của bộ 60 ca) và "Chẩn đoán [ban đầu|ra viện] X".
+        const diagnosis = /^chẩn đoán(?:\s*:\s*|\s+)(?:(ban đầu|ra viện)(?:\s*:\s*|\s+))?(.+?)[.!?;]*$/iu.exec(text);
         if (!diagnosis) continue;
         output.phieu_kham.chan_doan.push({ giai_doan: diagnosis[1]?.toLocaleLowerCase("vi") === "ban đầu" ? "ban_dau" : diagnosis[1]?.toLocaleLowerCase("vi") === "ra viện" ? "ra_vien" : "chua_ro", mo_ta: diagnosis[2], muc_do_khang_dinh: null, vai_tro: "chua_ro" });
         add(`/phieu_kham/chan_doan/${output.phieu_kham.chan_doan.length - 1}`, text, segment);

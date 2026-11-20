@@ -4,7 +4,9 @@ import os from "node:os";
 import path from "node:path";
 import { randomUUID } from "node:crypto";
 import { test } from "node:test";
-import { emptyDefinition } from "@/shared/clinical/schema";
+import { emptyDefinition, emptyEncounter } from "@/shared/clinical/schema";
+import { applyAiDraft } from "@/shared/clinical/apply-ai";
+import { projectEform } from "@/shared/clinical/eform";
 import type { AiOutput, Transcript } from "@/shared/clinical/types";
 import { PrivacyTickets } from "./privacy";
 import { CLINICAL_PROMPT_VERSION, extractClinical, loadClinicalRun, mockClinicalExtraction, validateClinicalExtraction } from "./extraction";
@@ -243,4 +245,44 @@ test("clinical-tim-mach-1 và mock đi qua bộ trích với câu lấy từ b�
   const transcript = nhieuCau("Khám tim phổi: Mạch quay đều, rõ. Tiếng T1, T2 đều rõ, không âm thổi. Phổi trong, không ran.");
   const output = validateClinicalExtraction(mockClinicalExtraction(transcript), transcript);
   assert.ok(output.phieu_kham.kham_tim_mach_ho_hap?.includes("Phổi trong, không ran."));
+});
+
+function hoiThoaiCa(id: string): string {
+  const line = fs.readFileSync("data/cardiology/synthetic-cases.jsonl", "utf8").split("\n").find(row => row.includes(`"${id}"`));
+  return JSON.parse(line!).conversation_text as string;
+}
+
+test("mock_chan_doan_co_hai_cham: 'Chẩn đoán: X.' của bộ 60 ca được trích, giai đoạn chưa rõ", () => {
+  const transcript = nhieuCau(hoiThoaiCa("SYN-CARDIO-001"));
+  const output = validateClinicalExtraction(mockClinicalExtraction(transcript), transcript);
+  assert.equal(output.phieu_kham.chan_doan.length, 1);
+  assert.equal(output.phieu_kham.chan_doan[0].giai_doan, "chua_ro");
+  assert.match(output.phieu_kham.chan_doan[0].mo_ta, /^Tăng huyết áp/u);
+  assert.ok(!output.phieu_kham.chan_doan[0].mo_ta.startsWith(":"));
+  // Dạng cũ không dấu hai chấm vẫn đọc được.
+  const cu = nhieuCau("Chẩn đoán ban đầu tăng huyết áp.");
+  assert.equal(validateClinicalExtraction(mockClinicalExtraction(cu), cu).phieu_kham.chan_doan[0].giai_doan, "ban_dau");
+});
+
+test("chan_doan_chua_ro_hien_o_ban_dau_khong_chep_sang_ra_vien: mock -> apply -> project", () => {
+  const transcript = nhieuCau(hoiThoaiCa("SYN-CARDIO-001"));
+  const draft = validateClinicalExtraction(mockClinicalExtraction(transcript), transcript);
+  const run = { run_id: randomUUID(), draft, transcript, provider: "mock", model: "extractive", prompt_version: CLINICAL_PROMPT_VERSION, created_at: "2026-11-12T10:00:00+07:00", input_digest: "d".repeat(64), duration_ms: 1 };
+  const base = emptyEncounter({ id: "enc-1", patientId: "p", doctorId: "d", now: run.created_at });
+  const shown = projectEform(applyAiDraft(base, run, { now: run.created_at, newId: () => randomUUID(), services: [] }));
+  assert.match(shown.fields.mo_ta_ban_dau.value, /^Tăng huyết áp/u);
+  assert.equal(shown.fields.mo_ta_ra_vien.value, "");
+  assert.equal(shown.fields.icd_ra_vien.value, "");
+});
+
+test("mock_mau_thuan_ha_ghi_ro_nguon_cau: bác sĩ đọc khác với bệnh nhân kể", () => {
+  const ngu = { sinh_hieu: { ha_tam_thu: 132, ha_tam_truong: 80 } };
+  const bs = nhieuCau("Huyết áp 150 trên 90.");
+  const coBs = mockClinicalExtraction(bs, ngu).can_xem_lai.find(item => item.loai === "mau_thuan");
+  assert.match(coBs!.mo_ta, /Bác sĩ đọc/u);
+  const bn = input("benh_nhan", "Huyết áp 150 trên 90 khi tôi tự đo ở nhà.");
+  const coBn = mockClinicalExtraction(bn, ngu).can_xem_lai.filter(item => item.loai === "mau_thuan");
+  assert.ok(coBn.length > 0);
+  assert.match(coBn[0].mo_ta, /Bệnh nhân kể/u);
+  assert.doesNotMatch(coBn[0].mo_ta, /Bác sĩ đọc/u);
 });

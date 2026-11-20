@@ -147,3 +147,13 @@ test("bác sĩ chọn mã ICD cho chẩn đoán AI chưa rõ vai trò thì thay 
   assert.equal(chosen.chan_doan.length, 1);
   assert.equal(chosen.chan_doan[0].icd.code, "I10");
 });
+
+test("xoa_o_ban_dau_go_dong_ai_chua_ro_dang_hien", () => {
+  const withAi = applyEformSnapshot(base(), parseEformSnapshot({ fields: { mo_ta_ban_dau: { value: "tăng huyết áp", nguon: "bs" } }, chiDinh: [], trangThai: "Đang khám" }), context);
+  withAi.chan_doan[0].noi_dung.giai_doan = "chua_ro"; withAi.chan_doan[0].noi_dung.vai_tro = "chua_ro";
+  const shown = projectEform(withAi);
+  assert.equal(shown.fields.mo_ta_ban_dau.value, "tăng huyết áp");
+  assert.equal(shown.fields.mo_ta_ra_vien.value, "");
+  const cleared = applyEformSnapshot(withAi, parseEformSnapshot({ fields: { ...shown.fields, mo_ta_ban_dau: { value: "", nguon: null } }, chiDinh: [], trangThai: "Đang khám" }), context);
+  assert.equal(projectEform(cleared).fields.mo_ta_ban_dau.value, "");
+});

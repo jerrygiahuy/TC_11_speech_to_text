@@ -2,6 +2,8 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
+> **Trạng thái 20/11:** ✅ Task 0–7 và review giữa kỳ (kèm hai nhóm sửa) xong. ⏸ Tạm dừng trước Task 8 theo yêu cầu anh. `npm test` 476 test, 7 fail đã biết (Task 8 sửa); lint 0 lỗi; tsc 0 lỗi. Tổng kết: `Knowledge/2026-11-20 CardioNote - công việc đã làm.md`.
+
 **Goal:** Biến `TC_11_speech_to_text` thành CardioNote, sản phẩm riêng của Trung tâm Tim mạch. Bác sĩ khám, máy ghi âm và chuyển giọng nói thành chữ, che PII, rồi AI điền nháp **đúng Phiếu khám ngoại trú Tim mạch theo Excel**. Bác sĩ sửa, duyệt, in. Không còn dữ liệu, nhãn, schema, từ điển hay test TMH.
 
 **Architecture:** Giữ nguyên hạ tầng kế thừa từ dự án TMH của anh Hùng, vì nó không phụ thuộc chuyên khoa: STT local, che PII R1–R14 + NER, provider LLM, repository JSON có revision, duyệt, in, lịch khám. **Thay toàn bộ lớp nghiệp vụ**:

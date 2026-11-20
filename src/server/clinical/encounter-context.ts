@@ -16,7 +16,8 @@ const resultItem = z.object({
 const result = z.array(z.object({ ngay: z.string(), muc: z.array(resultItem) }));
 const nullableNumber = z.number().nullable();
 const medicineHistory = z.object({ ten_thuoc: z.string(), lieu: z.string(), duong_dung: z.string(), ngay: z.string() });
-const caSchema = z.object({
+/** Khuôn của `ca` (CaGia); `excel-coverage.test.ts` đối chiếu đường dẫn bảng phủ Excel với khuôn này. */
+export const caSchema = z.object({
   dang_nhap: z.string(), co_so: z.string(), pid: z.string(), ma_luot_kham: z.string(), ho_ten: z.string(), gioi_tinh: z.string(), canh_bao_di_ung: z.string(),
   chinh_sua_cuoi: z.object({ nguoi: z.string(), luc: z.string() }), danh_gia_ban_dau: z.array(z.object({ nhan: z.string(), gia_tri: z.string() })),
   sinh_hieu: z.object({ mach: nullableNumber, nhiet_do: nullableNumber, ha_tam_thu: nullableNumber, ha_tam_truong: nullableNumber, spo2: nullableNumber, nhip_tho: nullableNumber, chieu_cao: nullableNumber, can_nang: nullableNumber, bmi: nullableNumber.default(null) }),

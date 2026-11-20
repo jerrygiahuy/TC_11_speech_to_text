@@ -88,8 +88,8 @@ export function applyAiDraft(base: Encounter, run: ClinicalExtraction, context: 
 }
 
 /**
- * Gói điền nháp cho eForm. Ô AI không nhắc tới vẫn có mặt với `value: ""` và `nguon: null`
- * ("chưa chọn", không phải "Không"); nơi nhận phải bỏ qua ô rỗng, không được xóa chữ đã có.
+ * Gói điền nháp cho eForm: chỉ chứa ô AI có nói. Ô AI không nhắc tới không có mặt trong gói, nên nơi nhận không thể
+ * xóa nhầm chữ bác sĩ đã nhập; "chưa chọn" của nút chọn (khác "Không") kiểm bằng `projectEform`.
  * Trường hành chính và sinh hiệu không bao giờ nằm trong gói.
  */
 export function aiEformPatch(run: ClinicalExtraction, context: Context): { fields: Record<string, Truong>; thuocDangDung?: NonNullable<ReturnType<typeof projectEform>["thuocDangDung"]>; chiDinh: DongChiDinh[] } {
@@ -97,7 +97,7 @@ export function aiEformPatch(run: ClinicalExtraction, context: Context): { field
   const projection = projectEform(applyAiDraft(base, run, context));
   const excluded = new Set(["thoi_gian_kham", "noi_gioi_thieu", "bs_uy_quyen", "chuyen_noi_soi", "xn_benh_tat", "xn_bhxh"]);
   return {
-    fields: Object.fromEntries(Object.entries(projection.fields).filter(([id]) => !excluded.has(id)).map(([id, field]) => [id, field.value === "" ? { value: "", nguon: null } : { value: field.value, nguon: "xem" as const }])),
+    fields: Object.fromEntries(Object.entries(projection.fields).filter(([id, field]) => !excluded.has(id) && field.value !== "").map(([id, field]) => [id, { value: field.value, nguon: "xem" as const }])),
     ...(projection.thuocDangDung?.length ? { thuocDangDung: projection.thuocDangDung } : {}),
     chiDinh: projection.chiDinh.map(row => ({ ...row, id: undefined, nguon: "xem" })),
   };

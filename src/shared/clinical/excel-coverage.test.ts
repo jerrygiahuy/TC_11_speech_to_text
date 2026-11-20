@@ -3,7 +3,7 @@ import { test } from "node:test";
 import { CAU_HINH_PHIEU } from "../phieu-kham-ngoai-tru/config";
 import { EXCEL_MAP, excelKeys } from "./excel-coverage";
 import { emptyEncounter } from "./schema";
-import { listEncounterContexts, getDemoClinicalActor } from "@/server/clinical/encounter-context";
+import { caSchema, listEncounterContexts, getDemoClinicalActor } from "@/server/clinical/encounter-context";
 
 const ctx = { id: "enc-1", patientId: "patient-demo", doctorId: "doctor-demo", now: "2026-11-20T10:00:00+07:00" };
 
@@ -56,13 +56,44 @@ test("phieu_kham_2_0_co_dung_cac_khoa_tim_mach", () => {
   assert.equal(note.kham_chuyen_khoa, null);
 });
 
+/** Đi theo `duong` ("a.b[].c") trong khuôn zod của CaGia; trả về null nếu đường không có trong khuôn. */
+function theoKhuon(duong: string): unknown | null {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const mo = (schema: any): any => {
+    let current = schema;
+    while (current?.def?.innerType) current = current.def.innerType;
+    return current;
+  };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let schema: any = caSchema;
+  for (const part of duong.split(".")) {
+    const mang = part.endsWith("[]");
+    const key = mang ? part.slice(0, -2) : part;
+    schema = mo(schema)?.def?.shape?.[key];
+    if (!schema) return null;
+    if (mang) { schema = mo(schema)?.def?.element; if (!schema) return null; }
+  }
+  return schema;
+}
+
 test("duong_ngu_canh_ton_tai", () => {
-  const ca = listEncounterContexts(getDemoClinicalActor())[0].data.ca;
   const entries = Object.entries(EXCEL_MAP).filter(([, item]) => item.noi === "ngu_canh");
   assert.ok(entries.length > 0);
   for (const [key, item] of entries) {
-    let value: unknown = ca;
-    for (const part of item.duong.split(".")) value = value === null || typeof value !== "object" ? undefined : (value as Record<string, unknown>)[part];
-    assert.notEqual(value, undefined, `${key} -> ${item.duong}`);
+    for (const duong of [item.duong, ...(item.cung_voi ?? [])]) assert.notEqual(theoKhuon(duong), null, `${key} -> ${duong} không có trong khuôn CaGia`);
   }
+  // Có số liệu thật trong fixture cho các đường đầu bảng (không chỉ đúng khuôn).
+  const ca = listEncounterContexts(getDemoClinicalActor())[0].data.ca;
+  for (const duong of ["sinh_hieu.ha_tam_thu", "sinh_hieu.ha_tam_truong", "lich_su.tien_su_ban_than", "lich_su.di_ung", "can_lam_sang", "xet_nghiem"]) {
+    let value: unknown = ca;
+    for (const part of duong.split(".")) value = value === null || typeof value !== "object" ? undefined : (value as Record<string, unknown>)[part];
+    assert.notEqual(value, undefined, duong);
+  }
+  assert.deepEqual(EXCEL_MAP["huyet_ap"].cung_voi, ["sinh_hieu.ha_tam_truong"]);
+});
+
+test("cot_bang_lap_khong_gia_vo_encounter_luu_du", () => {
+  // Cột của bảng lịch sử/kết quả không được khai là "encounter có": seed chỉ chép một phần cột (service.ts).
+  const sai = Object.entries(EXCEL_MAP).filter(([key, item]) => key.includes("[].") && item.noi === "encounter" && !key.startsWith("thuoc_dang_dung[]."));
+  assert.deepEqual(sai.map(([key]) => key), []);
 });

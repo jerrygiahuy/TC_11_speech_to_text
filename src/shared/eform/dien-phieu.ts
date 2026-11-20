@@ -138,7 +138,8 @@ export function dienPhieu(
   if (raVien) {
     const moTa = chu(raVien.mo_ta);
     dat("mo_ta_ra_vien", "Mô tả chẩn đoán ra viện", moTa, "ai");
-    dat("icd_ra_vien", "Chẩn đoán ra viện (ICD10)", tuyChon.icd || (goiYIcd(moTa, data.icd10, data.quyTac)[0]?.item.ma ?? ""), "xem");
+    // `tuyChon.icd` là mã của chẩn đoán chính trong phiếu mẫu, chỉ thuộc ô ban đầu; ra viện luôn gợi ý theo chính mô tả ra viện.
+    dat("icd_ra_vien", "Chẩn đoán ra viện (ICD10)", goiYIcd(moTa, data.icd10, data.quyTac)[0]?.item.ma ?? "", "xem");
   }
 
   const kemTheo = chu(pk.chan_doan_kem);

@@ -39,7 +39,8 @@ test("chẩn đoán ra viện chỉ lấy từ chan_doan[] có giai_doan ra_vien
   ] } as unknown as Draft;
   const kq = dienPhieu(draft, {}, DATA, getTu({}), { icd: "I10" });
   assert.equal(kq.truong.mo_ta_ra_vien.value, "Tăng huyết áp vô căn");
-  assert.equal(kq.truong.icd_ra_vien.value, "I10");
+  // M1: mã của phiếu mẫu (`tuyChon.icd`) chỉ dành cho ô ban đầu, ô ra viện không mang mã của chẩn đoán khác.
+  assert.equal(kq.truong.icd_ra_vien, undefined);
   const chiBanDau = dienPhieu({ ...nhap({}), chan_doan: [{ giai_doan: "ban_dau", vai_tro: "chinh", mo_ta: "Tăng huyết áp" }] } as unknown as Draft, {}, DATA, getTu({}));
   assert.equal(chiBanDau.truong.mo_ta_ra_vien, undefined);
 });

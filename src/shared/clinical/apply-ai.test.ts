@@ -3,6 +3,7 @@ import fs from "node:fs";
 import { test } from "node:test";
 import { applyAiDraft, aiEformPatch } from "./apply-ai";
 import { emptyEncounter, parseEncounter } from "./schema";
+import { projectEform } from "./eform";
 import type { ClinicalExtraction } from "./api";
 
 const fixture = (name: string) => JSON.parse(fs.readFileSync(`docs/task-2/examples/${name}.example.json`, "utf8"));
@@ -34,20 +35,28 @@ const cardioDraft = (edit: (phieu: Record<string, unknown>) => void = () => {}) 
   draft.can_xem_lai = [];
   return draft;
 };
+const phieuTrong = () => emptyEncounter({ id: "enc-1", patientId: "patient-demo", doctorId: "doctor-demo", now: context.now });
 test("thieu_thong_tin_khong_chon_nut_nao", () => {
   const r = run(); r.draft = cardioDraft();
+  // RF1: phiếu sau khi áp bản nháp, các nút chọn thiếu thông tin vẫn chưa chọn nút nào.
+  const projection = projectEform(applyAiDraft(phieuTrong(), r, context));
+  for (const id of ["di_ung", "thuoc_dang_dung", "hen_tai_kham", "tinh_trang_ra_vien", "da_xu_ly"]) assert.deepEqual(projection.fields[id], { value: "", nguon: null }, id);
+  // Gói điền nháp chỉ chứa ô AI có nói: không có khóa nào của trường thiếu thông tin, nên không chỗ nào xóa nhầm chữ bác sĩ đã nhập.
   const patch = aiEformPatch(r, context);
-  assert.equal(patch.fields.di_ung.value, "");
-  assert.equal(patch.fields.thuoc_dang_dung.value, "");
-  assert.equal(patch.fields.hen_tai_kham.value, "");
+  for (const id of ["di_ung", "thuoc_dang_dung", "hen_tai_kham", "tinh_trang_ra_vien", "da_xu_ly"]) assert.equal(id in patch.fields, false, id);
+  assert.ok(Object.values(patch.fields).every(field => field.value !== "" && field.nguon === "xem"));
   assert.equal(patch.thuocDangDung, undefined);
 });
 test("ra_vien_trong_khi_chi_co_ban_dau", () => {
   const r = run(); r.draft = cardioDraft();
+  const projection = projectEform(applyAiDraft(phieuTrong(), r, context));
+  assert.equal(projection.fields.mo_ta_ban_dau.value, "Tăng huyết áp độ II");
+  assert.equal(projection.fields.mo_ta_ra_vien.value, "");
+  assert.equal(projection.fields.icd_ra_vien.value, "");
   const patch = aiEformPatch(r, context);
   assert.equal(patch.fields.mo_ta_ban_dau.value, "Tăng huyết áp độ II");
-  assert.equal(patch.fields.mo_ta_ra_vien.value, "");
-  assert.equal(patch.fields.icd_ra_vien.value, "");
+  assert.equal("mo_ta_ra_vien" in patch.fields, false);
+  assert.equal("icd_ra_vien" in patch.fields, false);
 });
 test("ai_khong_ghi_de_sinh_hieu", () => {
   const base = emptyEncounter({ id: "enc-1", patientId: "patient-demo", doctorId: "doctor-demo", now: context.now });
@@ -71,7 +80,7 @@ test("UI patch gom khám tim phổi và thuốc đang dùng, không điền hàn
   assert.equal(patch.fields.ly_do.value, "tái khám tăng huyết áp");
   assert.equal(patch.fields.kham_tim_mach_ho_hap.nguon, "xem");
   assert.match(patch.fields.kham_tim_mach_ho_hap.value, /T1, T2/);
-  assert.equal(patch.fields.kham_chuyen_khoa.value, "");
+  assert.equal("kham_chuyen_khoa" in patch.fields, false);
   assert.equal(patch.fields.thuoc_dang_dung.value, "NB có");
   assert.deepEqual(patch.thuocDangDung, [{ ten: "Bisoprolol", ham_luong: "2,5 mg", cach_dung: "buổi sáng" }]);
   assert.equal(patch.fields.mo_ta_ra_vien.value, "Tăng huyết áp vô căn");

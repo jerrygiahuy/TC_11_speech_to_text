@@ -1,5 +1,5 @@
 // Sinh dữ liệu giả Tim mạch từ bộ 60 ca (data/cardiology/synthetic-cases.jsonl), chạy xác định, không dùng mạng:
-//   - ngữ cảnh lượt khám: data/eform/encounter-contexts.json (6 context: SYN-CARDIO-001, 013, 039, rồi 013, 049, 001 cho ba bệnh nhân của kịch bản demo) và data/eform/ca-gia.json (= ca đầu)
+//   - ngữ cảnh lượt khám: data/eform/encounter-contexts.json (5 context: SYN-CARDIO-013, 039, rồi 013, 049, 001 cho ba bệnh nhân của kịch bản demo) và data/eform/ca-gia.json (= context LK-GIA-0456, SYN-CARDIO-001)
 //   - dữ liệu phòng khám: data/clinic/{appointments,patients,directory-demo}.json và 4 phiếu cũ data/clinic/history/*.json
 // Chạy: npm run tao-du-lieu-tim-mach (ghi đè đúng các file này); thêm `-- --check` để chỉ so với file trên đĩa (lệch thì thoát mã 1).
 import fs from "node:fs";
@@ -44,15 +44,14 @@ function getCase(id: string): Case {
 // ---- Ngữ cảnh lượt khám ----
 interface ContextSpec { caseId: string; appointment: string; patient: string; name: string; sex: string; ageMonths: number; ngay: string; xemLai: string; mucDau: string }
 const CONTEXTS: ContextSpec[] = [
-  { caseId: "SYN-CARDIO-001", appointment: "LK-GIA-0456", patient: "GIA-000123", name: "Nguyễn Thị Giả", sex: "Nữ", ageMonths: 576, ngay: "20/10/2026", xemLai: "09/11/2026 08:52", mucDau: "Không đau" },
   { caseId: "SYN-CARDIO-013", appointment: "000123", patient: "GIA-000456", name: "Trần Văn Mô Phỏng", sex: "Nam", ageMonths: 420, ngay: "05/10/2026", xemLai: "09/11/2026 08:40", mucDau: "3/10, vùng ngực khi gắng sức" },
   { caseId: "SYN-CARDIO-039", appointment: "LK-GIA-0457", patient: "GIA-000123", name: "Nguyễn Thị Giả", sex: "Nữ", ageMonths: 576, ngay: "02/10/2026", xemLai: "09/11/2026 08:55", mucDau: "Không đau" },
   // Kịch bản demo dùng "context mới nhất của bệnh nhân" (store.ts baseContextFor), nên bệnh nhân của mỗi kịch bản mang đúng context của hội thoại kịch bản đó:
   // ca-tu-che (hội thoại 013) chạy trên GIA-000789; ca-chua-dong-y (hội thoại 049) chạy trên GIA-000456. Hai context này đặt cuối danh sách.
+  // GIA-000123 có hai lượt (001 ở LK-GIA-0456 và 039 ở LK-GIA-0457); ca-chuan (hội thoại 001) cần context 001 là mới nhất nên context 001 đứng sau 039. Không thêm lịch hẹn: 05 quy định đúng 10 lịch.
   { caseId: "SYN-CARDIO-013", appointment: "LK-GIA-0458", patient: "GIA-000789", name: "Lê Văn Mới", sex: "Nam", ageMonths: 306, ngay: "09/11/2026", xemLai: "09/11/2026 08:58", mucDau: "3/10, vùng ngực khi gắng sức" },
   { caseId: "SYN-CARDIO-049", appointment: "LK-GIA-0461", patient: "GIA-000456", name: "Trần Văn Mô Phỏng", sex: "Nam", ageMonths: 420, ngay: "09/11/2026", xemLai: "09/11/2026 08:45", mucDau: "Không đau" },
-  // GIA-000123 có hai lượt (001 và 039) nhưng ca-chuan (hội thoại 001) cần context 001 là mới nhất: thêm lượt tái khám tăng huyết áp cuối danh sách.
-  { caseId: "SYN-CARDIO-001", appointment: "LK-GIA-0463", patient: "GIA-000123", name: "Nguyễn Thị Giả", sex: "Nữ", ageMonths: 576, ngay: "20/10/2026", xemLai: "09/11/2026 08:52", mucDau: "Không đau" },
+  { caseId: "SYN-CARDIO-001", appointment: "LK-GIA-0456", patient: "GIA-000123", name: "Nguyễn Thị Giả", sex: "Nữ", ageMonths: 576, ngay: "20/10/2026", xemLai: "09/11/2026 08:52", mucDau: "Không đau" },
 ];
 
 function tenDichVu(loai: "lab" | "imaging" | "paraclinical", text: string): string {
@@ -197,13 +196,12 @@ const APPOINTMENTS = [
   lich("LK-GIA-0451", "GIA-000456", "user_bs01", "2026-11-15T16:00:00+07:00", null, "Ca hôm qua tái khám rối loạn lipid máu, còn chờ kết quả xét nghiệm"),
   lich("LK-GIA-0456", "GIA-000123", "user_bs01", "2026-11-16T08:00:00+07:00", "2026-11-16T08:30:00+07:00", "Tái khám tăng huyết áp theo hẹn"),
   lich("LK-GIA-0457", "GIA-000123", "user_bs01", "2026-11-16T09:30:00+07:00", null, "Lượt thứ hai cùng bệnh nhân, tái khám suy tim"),
-  lich("000123", "GIA-000456", "user_bs01", "2026-11-16T10:00:00+07:00", null, "Khó chịu vùng ngực khi gắng sức, mã lượt chỉ gồm chữ số"),
+  lich("000123", "GIA-000456", "user_bs01", "2026-11-16T10:00:00+07:00", null, "Đánh trống ngực từng cơn, mã lượt chỉ gồm chữ số"),
   lich("LK-GIA-0458", "GIA-000789", "user_bs01", "2026-11-16T14:00:00+07:00", null, "Bệnh nhân mới, khó chịu vùng ngực khi gắng sức, khám lần đầu"),
   lich("LK-GIA-0459", "GIA-000456", "user_bs01", "2026-11-16T15:00:00+07:00", null, "Khó thở khi gắng sức, bệnh nhân hủy hẹn", "cancelled"),
   lich("LK-GIA-0460", "GIA-000123", "user_bs02", "2026-11-16T16:00:00+07:00", null, "Tái khám rối loạn nhịp, lịch của bác sĩ khác cùng cơ sở"),
   lich("LK-GIA-0461", "GIA-000456", "user_bs01", "2026-11-17T09:00:00+07:00", null, "Một lần ngất thoáng qua, lịch ngày mai"),
   lich("LK-GIA-0462", "GIA-000789", "user_bs01", "2026-11-17T10:30:00+07:00", null, "Đánh giá tim mạch trước thủ thuật"),
-  lich("LK-GIA-0463", "GIA-000123", "user_bs01", "2026-11-17T14:00:00+07:00", null, "Tái khám tăng huyết áp, lượt bổ sung cho kịch bản demo"),
 ];
 
 const trong = { known: false, enrolled: null, provider: null, plan: null, member_code: null, valid_from: null, valid_to: null };
@@ -231,7 +229,7 @@ const DIRECTORY = {
 const outputs = new Map<string, string>();
 const json = (value: unknown) => JSON.stringify(value, null, 2) + "\n";
 outputs.set("data/eform/encounter-contexts.json", json({ version: 1, synthetic: true, contexts }));
-outputs.set("data/eform/ca-gia.json", json(contexts[0].ca));
+outputs.set("data/eform/ca-gia.json", json(contexts.find(item => item.appointment_id === "LK-GIA-0456")!.ca));
 outputs.set("data/clinic/appointments.json", json(APPOINTMENTS));
 outputs.set("data/clinic/patients.json", json(PATIENTS));
 outputs.set("data/clinic/directory-demo.json", json(DIRECTORY));

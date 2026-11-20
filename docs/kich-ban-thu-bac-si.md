@@ -53,7 +53,7 @@ Mở `/demo-luong` và chạy lần lượt 3 kịch bản có sẵn (nguồn **
 
 ### Chuẩn bị
 
-- Đặt `ASR_PROVIDER=zipformer` trong `.env.local` (đã tải model bằng `npm run tai-model-giong-noi`) để âm thanh không rời khỏi máy. Cần chạy STT (`npm run stt:start`) nếu dùng micro.
+- Đặt `ASR_PROVIDER=zipformer` trong `.env.local` (đã tải model bằng `npm run tai-model-giong-noi`) để âm thanh không rời khỏi máy. Cần chạy STT (`npm run stt:start`) nếu dùng micro. Lệnh này là PowerShell (Windows); trên macOS làm tay theo mục "Chạy trên macOS" trong `README.md`.
 - Chọn `CLINICAL_LLM_PROVIDER`. Ở `mock` thì bản nháp là dữ liệu mô phỏng, chỉ đủ để thử giao diện; muốn đo chất lượng tách thật thì dùng LLM thật.
 - Nếu dùng `gemini` bằng key miễn phí: đặt `GEMINI_MODEL=gemini-3.5-flash-lite` (**15 lượt gọi mỗi phút, 500 lượt mỗi ngày**, mỗi lượt khoảng 2–3 giây). Thỉnh thoảng Google trả lỗi 503 khi quá tải, gặp lỗi thì bấm lại.
 - Mở `/ket-qua` trước buổi thử để biết đã có bao nhiêu lượt cũ.

@@ -4,6 +4,13 @@ Mỗi thay đổi, dù nhỏ, đều có một mục ở đây. Mục mới nh�
 
 ## 2026-11-21
 
+### Kịch bản thử bác sĩ: ghi chú chạy STT trên macOS
+- **Loại:** Tài liệu
+- **Thay đổi:** `docs/kich-ban-thu-bac-si.md` ghi rõ `npm run stt:start` là PowerShell, trên macOS làm tay theo README.
+- **Lý do:** review đợt dọn TMH (Minor).
+- **File:** `docs/kich-ban-thu-bac-si.md`, `docs/CHANGELOG.md`
+- **Kiểm tra:** chỉ tài liệu.
+
 ### Đổi câu mẫu "viêm thai giữa" trong test che PII sang Tim mạch
 - **Loại:** Kiểm thử
 - **Thay đổi:** `gate.test.ts` (R11c) đổi câu "chẩn đoán viêm thai giữa cấp thai phải…" (STT nghe nhầm "viêm tai giữa") thành "chẩn đoán tăng huyết áp hiện không có thai hướng điều trị". Test vẫn kiểm đúng điều cũ: chữ "thai" viết thường trong câu có dấu không bị coi là họ Thái.

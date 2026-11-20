@@ -204,3 +204,20 @@ test("duyet_chan_chinh_chua_ro_giai_doan_van_bi_chan: chỉ chẩn đoán kèm t
   assert.equal(sua.chan_doan.find(item => item.noi_dung.vai_tro === "kem_theo")?.noi_dung.giai_doan, "chua_ro");
   assert.ok(approveClinical({ id: saved.record.id, expected_revision: sua.revision, acknowledged_issues: true }, store).record.audit.approved_at);
 });
+
+test("duyet_chi_dinh_chua_co_dich_vu_bi_chan: co_chi_dinh với danh sách trống không duyệt được, đổi trạng thái thì duyệt", () => {
+  const store = new ClinicalRepository(fs.mkdtempSync(path.join(os.tmpdir(), "clinical-co-chi-dinh-")));
+  const data = loadEformData();
+  const fields = Object.fromEntries(Object.entries(data.ca.gia_tri).map(([key, value]) => [key, { value, nguon: "bs" }]));
+  fields.ly_do = { value: "tái khám tăng huyết áp", nguon: "bs" };
+  fields.benh_su = { value: "Theo dõi huyết áp tại nhà", nguon: "bs" };
+  fields.mo_ta_ban_dau = { value: "Tăng huyết áp vô căn", nguon: "bs" };
+  fields.icd_ban_dau = { value: "I10", nguon: "bs" };
+  const saved = saveClinical({ snapshot: { fields, chiDinh: [], chiDinhDeCap: "co_chi_dinh", trangThai: "Đang khám" } }, store);
+  assert.equal(saved.record.chi_dinh.de_cap, "co_chi_dinh");
+  assert.equal(saved.record.chi_dinh.items.length, 0);
+  assert.throws(() => approveClinical({ id: saved.record.id, expected_revision: saved.record.revision, acknowledged_issues: true }, store), /chưa có dịch vụ nào/);
+  const doi = saveClinical({ id: saved.record.id, expected_revision: saved.record.revision, snapshot: { ...saved.snapshot, chiDinhDeCap: "khong_chi_dinh" } }, store);
+  assert.equal(doi.record.chi_dinh.de_cap, "khong_chi_dinh");
+  assert.doesNotThrow(() => approveClinical({ id: saved.record.id, expected_revision: doi.record.revision, acknowledged_issues: true }, store));
+});

@@ -1,7 +1,7 @@
 import "server-only";
 import { randomUUID } from "node:crypto";
 import { z } from "zod";
-import { emptyDefinition, emptyEncounter } from "@/shared/clinical/schema";
+import { chiDinhChuaCoDichVu, emptyDefinition, emptyEncounter, THIEU_DICH_VU_KHI_DUYET } from "@/shared/clinical/schema";
 import { applyEformSnapshot, parseEformSnapshot, projectEform } from "@/shared/clinical/eform";
 import type { Encounter, History, Result, Source } from "@/shared/clinical/types";
 import type { ClinicalActor, ClinicalResponse, EncounterContext, EncounterSummary } from "@/shared/clinical/api";
@@ -206,6 +206,7 @@ export function approveClinicalForActor(actor: ClinicalActor, value: unknown, st
     const diagnoses = draft.chan_doan.filter(item => item.noi_dung.mo_ta && !["loai_tru", "phu_dinh"].includes(item.noi_dung.muc_do_khang_dinh ?? ""));
     if (!diagnoses.length || diagnoses.some(item => (item.noi_dung.vai_tro !== "kem_theo" && item.noi_dung.giai_doan === "chua_ro") || !item.icd.code)) throw new ClinicalError("Cần bác sĩ xác định giai đoạn và chọn mã ICD cho chẩn đoán trước khi duyệt.", 422);
     if (draft.chi_dinh.de_cap === "chua_de_cap") throw new ClinicalError("Hãy xác nhận có hoặc không chỉ định dịch vụ.", 422);
+    if (chiDinhChuaCoDichVu(draft.chi_dinh)) throw new ClinicalError(THIEU_DICH_VU_KHI_DUYET, 422);
     for (const item of draft.chi_dinh.items) {
       if (!draft.chi_dinh.groups.find(group => group.id === item.group_id)?.chan_doan_lich_su_lam_sang?.trim()) throw new ClinicalError("Cần chẩn đoán hoặc lịch sử lâm sàng chung cho chỉ định trước khi duyệt.", 422);
       if (!item.danh_muc.code || item.noi_dung.so_luong === null) throw new ClinicalError("Cần chọn đúng dịch vụ và nhập số lượng trước khi duyệt.", 422);

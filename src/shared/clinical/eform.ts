@@ -168,7 +168,9 @@ export function applyEformSnapshot(base: Encounter, input: EformSnapshot, contex
     }
     return item;
   });
-  result.chi_dinh.de_cap = result.chi_dinh.items.length ? "co_chi_dinh" : (input.chiDinhDeCap ?? base.chi_dinh.de_cap) === "khong_chi_dinh" ? "khong_chi_dinh" : "chua_de_cap";
+  // `co_chi_dinh` được phép chưa có dòng dịch vụ (04, ca 013): giữ nguyên khi bác sĩ chưa thêm dòng; có dòng thì bắt buộc `co_chi_dinh`.
+  const deCapYeuCau = input.chiDinhDeCap ?? base.chi_dinh.de_cap;
+  result.chi_dinh.de_cap = result.chi_dinh.items.length || deCapYeuCau === "co_chi_dinh" ? "co_chi_dinh" : deCapYeuCau === "khong_chi_dinh" ? "khong_chi_dinh" : "chua_de_cap";
   if (input.chiDinhLyDo !== undefined) {
     const reason = text(input.chiDinhLyDo);
     const currentGroup = result.chi_dinh.groups.at(-1);

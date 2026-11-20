@@ -85,3 +85,19 @@ test("legacy 1.1 transcript and AI contracts retain compatibility alongside boun
   assert.deepEqual(parseTranscript({ ...legacy, binding }).binding, binding);
   assert.throws(() => parseTranscript({ ...legacy, binding: { ...binding, encounter_id: undefined } }));
 });
+
+test("chỉ định: co_chi_dinh được phép chưa có dịch vụ (04, ca 013), có dịch vụ thì bắt buộc co_chi_dinh", () => {
+  const rong = fixture("encounter-service");
+  rong.chi_dinh.items = [];
+  rong.chi_dinh.de_cap = "co_chi_dinh";
+  assert.equal(parseEncounter(rong).chi_dinh.de_cap, "co_chi_dinh");
+  for (const de_cap of ["chua_de_cap", "khong_chi_dinh"]) {
+    const sai = fixture("encounter-service");
+    sai.chi_dinh.de_cap = de_cap;
+    assert.throws(() => parseEncounter(sai), /chỉ định/i);
+  }
+  const ai = fixture("ai-output-service");
+  ai.chi_dinh.items = [];
+  ai.chi_dinh.de_cap = "co_chi_dinh";
+  assert.equal(parseAiOutput(ai).chi_dinh.items.length, 0);
+});

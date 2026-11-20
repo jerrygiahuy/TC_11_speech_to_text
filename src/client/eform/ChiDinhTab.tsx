@@ -10,7 +10,7 @@ import type { CatalogItem } from "@/shared/types";
 const CELL = "w-full rounded-md border border-ef-vien bg-white px-2 py-1 text-[13px] outline-none focus:border-ef-xanh focus:ring-2 focus:ring-ef-xanh/20";
 
 /** Màn chỉ định dịch vụ theo EMR: tìm dịch vụ, danh sách đã chọn, tổng số. Dòng AI khớp chưa chắc có ô chọn lại. */
-export function ChiDinhTab({ rows, onChange, onSave, saving, noServices, onNoServices, clinicalInfo = "", onClinicalInfo }: { rows: DongChiDinh[]; onChange: (rows: DongChiDinh[]) => void; onSave?: () => void; saving?: boolean; noServices?: boolean; onNoServices?: (checked: boolean) => void; clinicalInfo?: string; onClinicalInfo?: (value: string) => void }) {
+export function ChiDinhTab({ rows, onChange, onSave, saving, noServices, onNoServices, clinicalInfo = "", onClinicalInfo, chuaNeuDichVu }: { rows: DongChiDinh[]; onChange: (rows: DongChiDinh[]) => void; onSave?: () => void; saving?: boolean; noServices?: boolean; onNoServices?: (checked: boolean) => void; clinicalInfo?: string; onClinicalInfo?: (value: string) => void; chuaNeuDichVu?: boolean }) {
   const { data, notify } = useEform();
   const dichVu = data.danhMuc.dichVu;
 
@@ -38,6 +38,7 @@ export function ChiDinhTab({ rows, onChange, onSave, saving, noServices, onNoSer
       </div>
 
       <div className="space-y-4 p-5">
+        {rows.length === 0 && chuaNeuDichVu && !noServices && <p role="status" className="rounded border border-ef-vien bg-ef-nen px-3 py-2 text-sm">Bác sĩ có nhắc chỉ định cận lâm sàng nhưng chưa nêu dịch vụ. Hãy thêm dịch vụ hoặc xác nhận không chỉ định trước khi duyệt.</p>}
         {rows.length === 0 && onNoServices && <label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={noServices ?? false} onChange={event => onNoServices(event.target.checked)} />Bác sĩ xác nhận không chỉ định dịch vụ</label>}
         {rows.length > 0 && onClinicalInfo && <label className="block text-sm font-medium">Chẩn đoán / lịch sử lâm sàng chỉ định<textarea aria-label="Chẩn đoán / lịch sử lâm sàng chỉ định" className={`${CELL} mt-1`} rows={2} value={clinicalInfo} onChange={event => onClinicalInfo(event.target.value)} /></label>}
         <GoiYTheoChanDoan rows={rows} lay={(mau) => mau.chiDinh} onAdd={(moi) => onChange([...rows, ...moi])} />

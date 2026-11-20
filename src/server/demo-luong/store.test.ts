@@ -57,6 +57,16 @@ test("approveDemoPhieu ghi người duyệt, sửa sau duyệt thì về nháp",
   assert.equal(edited.duyet, null);
 });
 
+test("approveDemoPhieu chặn phiếu co_chi_dinh chưa có dịch vụ (04, ca 013)", () => {
+  const store = newStore();
+  const p = createDemoPhieu(store, "GIA-000123");
+  const sau = store.repo.update(p.encounter_id, p.revision, record => { record.chi_dinh.de_cap = "co_chi_dinh"; record.chi_dinh.items = []; return record; }, "test", new Date().toISOString());
+  assert.throws(() => approveDemoPhieu(store, p.encounter_id, sau.revision), (error: unknown) => status(422)(error) && /chưa có dịch vụ nào/.test((error as Error).message));
+  assert.equal(readDemoPhieu(store, p.encounter_id).duyet, null);
+  store.repo.update(p.encounter_id, sau.revision, record => { record.chi_dinh.de_cap = "khong_chi_dinh"; return record; }, "test", new Date().toISOString());
+  assert.ok(approveDemoPhieu(store, p.encounter_id, sau.revision + 1).duyet);
+});
+
 test("resetDemoData xóa dữ liệu chạy, giữ kich-ban/", () => {
   const store = newStore(); const root = store.root; const create = (id: string) => createDemoPhieu(store, id);
   const p = create("GIA-000123");

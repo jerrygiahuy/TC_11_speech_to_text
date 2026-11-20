@@ -33,8 +33,15 @@ function requireValid(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
 
+/** Phiếu `co_chi_dinh` nhưng chưa có dịch vụ nào (04, ca 013: bác sĩ nhắc chỉ định chưa nêu dịch vụ) chưa được duyệt. */
+export const THIEU_DICH_VU_KHI_DUYET = "Phiếu có chỉ định nhưng chưa có dịch vụ nào. Hãy thêm dịch vụ hoặc xác nhận không chỉ định trước khi duyệt.";
+
+export function chiDinhChuaCoDichVu(services: Encounter["chi_dinh"]): boolean {
+  return services.de_cap === "co_chi_dinh" && services.items.length === 0;
+}
+
 function checkClinical(note: AiOutput["phieu_kham"] | Encounter["phieu_kham"], services: AiOutput["chi_dinh"] | Encounter["chi_dinh"]) {
-  requireValid((services.de_cap === "co_chi_dinh") === (services.items.length > 0), "Trạng thái chỉ định không khớp danh sách dịch vụ.");
+  requireValid(services.items.length === 0 || services.de_cap === "co_chi_dinh", "Trạng thái chỉ định không khớp danh sách dịch vụ.");
   requireValid(note.co_thuoc_dang_dung !== false || note.thuoc_dang_dung.length === 0, "Thông tin thuốc đang dùng mâu thuẫn.");
   requireValid(note.hen_tai_kham.co_hen !== false || (!note.hen_tai_kham.ngay_cu_the && note.hen_tai_kham.sau_bao_lau.value === null), "Thông tin hẹn tái khám mâu thuẫn.");
   requireValid(note.di_ung.trang_thai !== "khong" || (!note.di_ung.mo_ta && note.di_ung.loai.length === 0), "Thông tin dị ứng mâu thuẫn.");

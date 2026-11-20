@@ -73,7 +73,7 @@ Ví dụ: `/chi_dinh/items/0/ten_dich_vu` → `/chi_dinh/items/0/noi_dung/ten_di
 JSON Schema kiểm kiểu và hình dạng. Các kiểm tra sau cần code nghiệp vụ, không được xem là đã có vì tài liệu đã nêu:
 
 - ID segment/order/diagnosis không trùng; FK tồn tại và cùng patient/encounter; start ≤ end; sequence tăng; revision input khớp.
-- `de_cap=co_*` thì có ít nhất một item; `chua_de_cap/khong_*` không mang item. `co_hen=false` không có ngày hoặc khoảng hẹn; `co_thuoc_dang_dung=false` không có danh sách thuốc; dị ứng “không” không kèm chất gây dị ứng.
+- Có item thì `de_cap=co_chi_dinh`; `chua_de_cap/khong_*` không mang item. `co_chi_dinh` được phép chưa có item (bác sĩ nhắc chỉ định chưa nêu dịch vụ, kèm mục `can_xem_lai`); phiếu ở trạng thái này chưa duyệt được. `co_hen=false` không có ngày hoặc khoảng hẹn; `co_thuoc_dang_dung=false` không có danh sách thuốc; dị ứng “không” không kèm chất gây dị ứng.
 - Có value phải có unit hợp lệ; không đổi đơn vị ngầm. Số lượng dịch vụ và khoảng hẹn là số dương; tính phù hợp chỉ định do bác sĩ kiểm tra.
 - Quote, pointer, role đúng; chỉ định/chẩn đoán quyết định phải có evidence bác sĩ đã xác minh. Không tin nhãn vai trò do model tự xuất khác với đầu vào.
 - Một tên dịch vụ khớp nhiều kỹ thuật/vị trí thì chưa chọn mã. Mã nội bộ và mã nguồn tham khảo có namespace riêng. `khop_mot` của thuật toán vẫn chưa tương đương bác sĩ đã duyệt.

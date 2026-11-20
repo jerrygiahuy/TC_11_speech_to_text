@@ -18,7 +18,7 @@ import { CLINICAL_PROMPT_VERSION, mockClinicalExtraction, validateClinicalExtrac
  */
 const THOI_GIAN_KHAM = "2026-11-19T09:00";
 type Vai = Transcript["segments"][number]["vai_tro"];
-interface Mong { ca: string; thoi_gian_kham: string; sinh_hieu_fixture: { ha_tam_thu: number; ha_tam_truong: number }; fields?: Record<string, string>; thuocDangDung?: Row[]; giai_doan_a?: Giai; giai_doan_b?: Giai }
+interface Mong { ca: string; thoi_gian_kham: string; sinh_hieu_fixture: { ha_tam_thu: number; ha_tam_truong: number }; fields?: Record<string, string>; thuocDangDung?: Row[]; chiDinhDeCap?: string; giai_doan_a?: Giai; giai_doan_b?: Giai }
 interface Row { ten: string; ham_luong: string; cach_dung: string }
 interface Giai { fields: Record<string, string>; thuocDangDung?: Row[] }
 
@@ -78,9 +78,9 @@ test("nghiem_thu_013_kham_moi", () => {
   assert.equal(patch.fields.kham_chuyen_khoa?.value ?? "", "");
   assert.deepEqual(patch.chiDinh, []);
   assert.equal(draft.chi_dinh.items.length, 0);
-  // Lệch 04 có chủ đích: 04 ghi de_cap = co_chi_dinh với items rỗng, nhưng schema (schema.ts) chỉ cho co_chi_dinh khi có dòng dịch vụ.
-  // Giữ de_cap = chua_de_cap và thay bằng mục can_xem_lai "nhắc chỉ định nhưng chưa nêu dịch vụ" (chờ quyết định của anh).
-  assert.equal(draft.chi_dinh.de_cap, "chua_de_cap");
+  // 04, ca 013: de_cap = co_chi_dinh, items = [], kèm mục can_xem_lai; không tạo dòng dịch vụ.
+  assert.equal(expected.chiDinhDeCap, "co_chi_dinh");
+  assert.equal(draft.chi_dinh.de_cap, expected.chiDinhDeCap);
   assert.ok(draft.can_xem_lai.some(issue => issue.field_path === "/chi_dinh" && issue.loai === "thieu_thong_tin" && /chưa nêu dịch vụ/u.test(issue.mo_ta)));
   assert.ok(draft.can_xem_lai.every(issue => issue.loai !== "mau_thuan"), "mạch/HA trong hội thoại trùng fixture nên không cảnh báo lệch");
   assert.equal(patch.fields.da_xu_ly?.value ?? "", "");

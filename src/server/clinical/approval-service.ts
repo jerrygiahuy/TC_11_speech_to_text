@@ -8,6 +8,7 @@ import { projectEform } from "@/shared/clinical/eform";
 import { ClinicalError, ClinicalRepository } from "./repository";
 import { resolveEncounterContextForRecord } from "./encounter-context";
 import { loadClinicalRun } from "./extraction";
+import { chiDinhChuaCoDichVu, THIEU_DICH_VU_KHI_DUYET } from "@/shared/clinical/schema";
 
 const repository = new ClinicalRepository();
 const scopeSchema = z.union([z.literal("initial_note"), z.literal("conclusion"), z.literal("summary"), z.string().regex(/^service_order:\S+$/)]);
@@ -75,6 +76,7 @@ export function approveScopes(actor: ClinicalActor, value: ApproveClinicalReques
   const scopes = [...new Set(request.scopes)] as ApprovalScope[];
   const record = store.update(request.id, request.expected_revision, draft => {
     resolveEncounterContextForRecord(actor, draft); assertOpen(draft);
+    if (chiDinhChuaCoDichVu(draft.chi_dinh)) throw new ClinicalError(THIEU_DICH_VU_KHI_DUYET, 422);
     for (const scope of scopes) validateScope(draft, scope);
     const review = { trang_thai: "chap_nhan", reviewer_id: actor.doctorId, reviewed_at: now } as const;
     for (const item of draft.chan_doan) if (scopes.includes(item.noi_dung.giai_doan === "ra_vien" ? "conclusion" : "initial_note")) item.review = { ...review };

@@ -4,6 +4,30 @@ Mỗi thay đổi, dù nhỏ, đều có một mục ở đây. Mục mới nh�
 
 ## 2026-11-20
 
+### Sửa review: lịch `000123` mang context ca đánh trống ngực, thêm test chặn duyệt `approveScopes`
+- **Loại:** Dữ liệu, Kiểm thử
+- **Thay đổi:** generator gắn context của lịch `000123` (GIA-000456, lý do "đánh trống ngực từng cơn") sang SYN-CARDIO-007 (đánh trống ngực, không dị ứng, điện tâm đồ chưa ghi nhận rối loạn nhịp) thay cho ca 013; sinh lại `encounter-contexts.json`. `LK-GIA-0458` giữ ca 013, `LK-GIA-0461` (ca 049) vẫn là context mới nhất của GIA-000456, `LK-GIA-0456` (ca 001) vẫn mới nhất của GIA-000123. Thêm test `approveScopes` chặn cả ba phạm vi khi `co_chi_dinh` chưa có dịch vụ (422, revision và lịch sử duyệt không đổi), đổi trạng thái thì duyệt được; test `000123` kiểm context là SYN-CARDIO-007.
+- **Lý do:** review: lịch và hồ sơ mẫu của `000123` lệch lý do; guard `approveScopes` chưa có test riêng.
+- **File:** `scripts/tao-du-lieu-tim-mach.ts`, `data/eform/encounter-contexts.json`, `src/server/clinical/{approval-service.test,encounter-context.test}.ts`, `docs/CHANGELOG.md`
+- **Kiểm tra:** `tao-du-lieu-tim-mach` và `--check` khớp 9 file; `npm test` 491/491; lint 0 lỗi; tsc sạch ngoài `.next/`.
+- **Sửa tiếp:** assert context 007 trong `encounter-context.test.ts` đọc JSON thô với kiểu riêng (type `CaGia` không có `_ghi_chu`), `tsc` sạch toàn bộ `src/`.
+
+### Sửa lịch hẹn đúng 10 lý do theo 05 (điểm 2)
+- **Loại:** Dữ liệu, Kiểm thử
+- **Thay đổi:** `data/clinic/appointments.json` còn đúng 10 lịch, mỗi lý do khám một lịch theo `handoff/claude/05` mục 1. Bỏ lịch `LK-GIA-0463` (trùng lý do tăng huyết áp); lịch `000123` đổi nội dung thành "Đánh trống ngực từng cơn" (trước đó trùng lý do khó chịu vùng ngực với `LK-GIA-0458`). Để context SYN-CARDIO-001 vẫn là mới nhất của GIA-000123 mà không cần lịch thêm, generator đặt context 001 (`LK-GIA-0456`) sau context 039 trong `encounter-contexts.json` (5 context thay vì 6); `ca-gia.json` vẫn là context `LK-GIA-0456`. Cờ đồng ý và `benh_nhan_id` kịch bản giữ nguyên.
+- **Lý do:** anh yêu cầu bám đúng `05`; cách đơn giản nhất thỏa cả 10 lịch và bất biến kịch bản demo là đổi thứ tự context thay vì thêm lịch.
+- **File:** `scripts/tao-du-lieu-tim-mach.ts`, `data/clinic/appointments.json`, `data/eform/encounter-contexts.json`, `src/server/clinical/encounter-context.test.ts`, `docs/CHANGELOG.md`
+- **Kiểm tra:** `npm run tao-du-lieu-tim-mach` và `-- --check` khớp 9 file; test mới `lich_hen_dung_10_ly_do_khac_nhau_theo_05`; test thứ tự context và test kịch bản (cặp kịch bản/context) cập nhật theo thứ tự mới.
+- **Ảnh hưởng:** mã `LK-GIA-0463` không còn; lịch `000123` hiện lý do đánh trống ngực nhưng context đi kèm vẫn là ca 013 (khó chịu ngực khi gắng sức).
+
+### Sửa ca SYN-CARDIO-013 đúng 04: chỉ định `co_chi_dinh` chưa có dịch vụ (điểm 1)
+- **Loại:** Sửa lỗi, Kiểm thử, Tài liệu
+- **Thay đổi:** bất biến `checkClinical` (`src/shared/clinical/schema.ts`) nới thành "có dịch vụ thì bắt buộc `co_chi_dinh`"; `co_chi_dinh` được phép `items = []`. Mock trích xuất sinh `de_cap = co_chi_dinh`, `items = []` kèm mục `can_xem_lai` "nhắc chỉ định nhưng chưa nêu dịch vụ" (có bằng chứng ở `/chi_dinh/de_cap`). An toàn lâm sàng: `approveClinicalForActor`, `approveScopes` và `approveDemoPhieu` từ chối duyệt phiếu `co_chi_dinh` chưa có dịch vụ (422, "Phiếu có chỉ định nhưng chưa có dịch vụ nào. Hãy thêm dịch vụ hoặc xác nhận không chỉ định trước khi duyệt."). Bộ chuyển eForm (`applyEformSnapshot`) và nút Lưu của eForm giữ nguyên `co_chi_dinh` khi chưa có dòng; tab Chỉ định hiện lời nhắc. Bản in vẫn không in bảng khi không có dòng. JSON schema và `verify.py` không có ràng buộc tương ứng nên không đổi; `CLINICAL_SCHEMA_VERSION` giữ `2.0.0`.
+- **Lý do:** `04` dòng 42 yêu cầu `co_chi_dinh` với `items = []` cho ca 013; trước đó mock phải để `chua_de_cap` kèm cờ.
+- **File:** `src/shared/clinical/{schema,eform,schema.test}.ts`, `src/server/clinical/{extraction,service,approval-service,service.test,nghiem-thu-tim-mach.test}.ts`, `src/server/demo-luong/{store,store.test}.ts`, `src/client/eform/{EformScreen,ChiDinhTab}.tsx`, `data/cardiology/nghiem-thu/SYN-CARDIO-013.expected.json`, `docs/tc11-nghiem-thu-phieu-ngoai-tru.md`, `docs/task-2/ai-contract.md`, `docs/CHANGELOG.md`
+- **Kiểm tra:** `npm test` 490/490 (thêm test schema, duyệt clinical, duyệt demo, lịch hẹn); lint 0 lỗi; tsc sạch ngoài `.next/`; `verify.py` PASS; eval-mau 76,0% (không đổi), eval-pii che nhầm 0/84.
+- **Ảnh hưởng:** phiếu ca 013 giờ hiện trạng thái "có chỉ định" nhưng không duyệt được cho đến khi bác sĩ thêm dịch vụ hoặc tích "không chỉ định".
+
 ### Ghim phụ thuộc Python của clinical:check, sửa phiên bản schema trong tài liệu
 - **Loại:** Tài liệu, Phụ thuộc
 - **Thay đổi:** ghim `jsonschema==4.26.0` trong `stt/requirements-dev.txt` (đã xác minh trên PyPI: dự án `python-jsonschema`, phát hành 07/01/2026). README hướng dẫn cài vào `.venv-stt` bằng `uv`, không cài vào Python của máy. `docs/CLINICAL-WORKFLOW.md` sửa phiên bản schema `1.1.0` → `2.0.0`.

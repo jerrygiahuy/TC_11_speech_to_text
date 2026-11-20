@@ -467,6 +467,10 @@ export function mockClinicalExtraction(transcript: Transcript, context?: MockCon
     output.phieu_kham.kham_chuyen_khoa = [...nhomKham].map(([nhom, dong]) => `${nhom}:\n${dong.map(d => `- ${d}`).join("\n")}`).join("\n");
   }
   if (nhacChiDinh && output.chi_dinh.items.length === 0 && output.chi_dinh.de_cap === "chua_de_cap") {
+    // 04, ca 013: de_cap = co_chi_dinh với items rỗng; bác sĩ phải thêm dịch vụ hoặc đổi trạng thái trước khi duyệt.
+    const nguon = transcript.segments.find(item => item.id === nhacChiDinh)!;
+    output.chi_dinh.de_cap = "co_chi_dinh";
+    add("/chi_dinh/de_cap", nguon.text, nguon);
     output.can_xem_lai.push({ field_path: "/chi_dinh", loai: "thieu_thong_tin", mo_ta: "Bác sĩ nhắc chỉ định cận lâm sàng nhưng chưa nêu dịch vụ.", segment_ids: [nhacChiDinh] });
   }
   output.tom_tat = summary.length ? summary.join(" ") : null;

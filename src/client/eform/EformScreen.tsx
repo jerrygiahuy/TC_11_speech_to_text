@@ -132,6 +132,8 @@ export function EformScreen({ data, kichBan, bridge }: { data: EformData; kichBa
   const [scopesChosen, setScopesChosen] = useState<ApprovalScope[]>([]);
   const [clinicalInfo, setClinicalInfo] = useState("");
   const [noServices, setNoServices] = useState(false);
+  // Phiếu AI nhắc chỉ định nhưng chưa nêu dịch vụ: `co_chi_dinh` với danh sách trống, giữ nguyên khi lưu (04, ca 013).
+  const [coChiDinhTrong, setCoChiDinhTrong] = useState(false);
   const [fields, setFields] = useState(dau.fields);
   const [chiDinh, setChiDinh] = useState(dau.chiDinh);
   const [donThuoc] = useState(dau.donThuoc);
@@ -171,6 +173,7 @@ export function EformScreen({ data, kichBan, bridge }: { data: EformData; kichBa
     setReviewConfirmed(false);
     setScopesChosen([]);
     setNoServices(response.record.chi_dinh.de_cap === "khong_chi_dinh");
+    setCoChiDinhTrong(response.record.chi_dinh.de_cap === "co_chi_dinh");
     setClinicalInfo(response.snapshot.chiDinhLyDo ?? "");
     setChiDinh(response.snapshot.chiDinh);
     setThuoc(response.snapshot.thuocDangDung ?? KHONG_THUOC_DANG_DUNG);
@@ -336,7 +339,7 @@ export function EformScreen({ data, kichBan, bridge }: { data: EformData; kichBa
     setSaving(true);
     setClinicalError("");
     const thuocLuu = thuoc.filter((row) => row.ten.trim() || row.ham_luong.trim() || row.cach_dung.trim());
-    const snapshot = { fields, thuocDangDung: thuocLuu, chiDinh, chiDinhLyDo: clinicalInfo, chiDinhDeCap: noServices ? "khong_chi_dinh" as const : "chua_de_cap" as const, trangThai: trangThai as TrangThai };
+    const snapshot = { fields, thuocDangDung: thuocLuu, chiDinh, chiDinhLyDo: clinicalInfo, chiDinhDeCap: noServices ? "khong_chi_dinh" as const : coChiDinhTrong ? "co_chi_dinh" as const : "chua_de_cap" as const, trangThai: trangThai as TrangThai };
     try {
       const current = bridge.latest().record;
       const response = await luuHoSo(snapshot, { id: current.id, revision: current.revision }, summary || null);
@@ -474,7 +477,7 @@ export function EformScreen({ data, kichBan, bridge }: { data: EformData; kichBa
             {/* fieldset disabled khóa mọi ô nhập và nút bên trong khi phiếu đã hoàn thành */}
             <fieldset disabled={khoa || saving || loadingRecord} className="contents">
               {tab === "phieu" && <EformForm noiSoiEnabled={trangThai === TRANG_THAI_NOI_SOI} />}
-              {tab === "chi_dinh" && <ChiDinhTab rows={chiDinh} onChange={setChiDinh} onSave={save} saving={saving} noServices={noServices} onNoServices={setNoServices} clinicalInfo={clinicalInfo} onClinicalInfo={setClinicalInfo} />}
+              {tab === "chi_dinh" && <ChiDinhTab rows={chiDinh} onChange={setChiDinh} onSave={save} saving={saving} noServices={noServices} onNoServices={setNoServices} chuaNeuDichVu={coChiDinhTrong} clinicalInfo={clinicalInfo} onClinicalInfo={setClinicalInfo} />}
             </fieldset>
           </main>
 

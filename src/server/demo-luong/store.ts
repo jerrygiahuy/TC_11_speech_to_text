@@ -4,6 +4,7 @@ import path from "node:path";
 import { createHash, randomUUID } from "node:crypto";
 import { ZodError } from "zod";
 import { applyEformSnapshot, parseEformSnapshot, projectEform, type EformSnapshot } from "@/shared/clinical/eform";
+import { chiDinhChuaCoDichVu, THIEU_DICH_VU_KHI_DUYET } from "@/shared/clinical/schema";
 import type { Encounter } from "@/shared/clinical/types";
 import type { ClinicalActor, EncounterContext } from "@/shared/clinical/api";
 import type { CatalogItem } from "@/shared/types";
@@ -140,7 +141,10 @@ export function saveDoctorEdit(store: DemoStore, encounterId: string, expectedRe
 export function approveDemoPhieu(store: DemoStore, encounterId: string, expectedRevision: number): DemoPhieu {
   const actor = getDemoClinicalActor();
   const now = new Date().toISOString();
-  store.repo.update(encounterId, expectedRevision, record => record, actor.doctorId, now, true);
+  store.repo.update(encounterId, expectedRevision, record => {
+    if (chiDinhChuaCoDichVu(record.chi_dinh)) throw new ClinicalError(THIEU_DICH_VU_KHI_DUYET, 422);
+    return record;
+  }, actor.doctorId, now, true);
   writeSidecar(store, encounterId, { ...readSidecar(store, encounterId), duyet: { luc: now, boi: actor.doctorId } });
   return readDemoPhieu(store, encounterId);
 }

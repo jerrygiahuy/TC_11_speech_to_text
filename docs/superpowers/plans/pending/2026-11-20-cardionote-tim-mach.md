@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-> **Trạng thái 20/11:** ✅ Task 0–11 và review giữa kỳ (kèm hai nhóm sửa) xong. Đang review cuối. `npm test` 472 test, 0 fail; build PASS; lint 0 lỗi; tsc 0 lỗi. Tổng kết: `Knowledge/2026-11-20 CardioNote - công việc đã làm.md`.
+> **Trạng thái 20/11:** ✅ Task 0–11, review giữa kỳ và review cuối (kèm sửa) xong. `npm test` 479 test, 0 fail; build PASS; chờ anh quyết push/PR vào `dev`; lint 0 lỗi; tsc 0 lỗi. Tổng kết: `Knowledge/2026-11-20 CardioNote - công việc đã làm.md`.
 
 **Goal:** Biến `TC_11_speech_to_text` thành CardioNote, sản phẩm riêng của Trung tâm Tim mạch. Bác sĩ khám, máy ghi âm và chuyển giọng nói thành chữ, che PII, rồi AI điền nháp **đúng Phiếu khám ngoại trú Tim mạch theo Excel**. Bác sĩ sửa, duyệt, in. Không còn dữ liệu, nhãn, schema, từ điển hay test TMH.
 
@@ -63,7 +63,7 @@ Nguồn sự thật danh sách trường là `config/forms/phieu-kham-ngoai-tru.
 | ✅ 9. Nghiệm thu tự động 3 ca của `04` | Sonnet, medium | 8 | 10 |
 | ✅ 10. Bỏ trang riêng `/phieu-kham-ngoai-tru` | Haiku, medium | 4 | 9 |
 | ✅ 11. Chốt 100% Tim mạch: test chặn TMH + tài liệu | Haiku, medium | 9, 10 | – |
-| **Review cuối** toàn nhánh | Opus | 11 | – |
+| ✅ **Review cuối** toàn nhánh | Opus | 11 | – |
 
 Session chính chỉ điều phối:
 - viết brief tự đủ ngữ cảnh: dán phần task, Global Constraints, Review Focus và đường dẫn plan;
@@ -464,6 +464,8 @@ So sánh toàn nhánh với `dev`:
 - đối chiếu 5 dòng Review Focus.
 
 Báo cáo PASS/FAIL thật. Sửa xong thì session chính hỏi anh có tạo PR vào `dev` không.
+
+*(Xong 20/11: 0 Critical, 2 Important, 9 Minor. I1: khi bác sĩ đọc bổ sung, phiếu không ra thuốc đang dùng. I2: hồ sơ 1.x còn trên đĩa làm hỏng danh sách lượt khám và nuốt thông báo bắt buộc. Một đợt sửa `924505d`–`c109f54` xử lý I1, I2 và m1–m8; review lại đạt. Để sau: m9, cảnh báo lệch sinh hiệu cho provider LLM thật. Kết quả: test 479/479, lint 0 lỗi, tsc sạch, build PASS. Luồng mock SYN-CARDIO-001 chạy qua API đạt. `clinical:check` FAIL vì máy thiếu `jsonschema`.)*
 
 ### Task tùy chọn (sau khi anh đồng ý, cần mạng): danh mục thật
 

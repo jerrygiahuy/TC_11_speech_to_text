@@ -286,3 +286,31 @@ test("mock_mau_thuan_ha_ghi_ro_nguon_cau: bác sĩ đọc khác với bệnh nh�
   assert.match(coBn[0].mo_ta, /Bệnh nhân kể/u);
   assert.doesNotMatch(coBn[0].mo_ta, /Bác sĩ đọc/u);
 });
+
+function bacSiNoi(text: string): Transcript {
+  return input("bac_si", text);
+}
+
+test("ngay_cu_the: ngày hẹn phải bằng ngày khám + N của trích dẫn, lệch thì bác bản nháp", () => {
+  const transcript = bacSiNoi("Hẹn tái khám sau 30 ngày.");
+  const context = { thoi_gian_kham: "2026-11-09T09:00" };
+  const draft = mockClinicalExtraction(transcript, context);
+  assert.equal(draft.phieu_kham.hen_tai_kham.ngay_cu_the, "2026-12-09");
+  assert.doesNotThrow(() => validateClinicalExtraction(draft, transcript, context));
+  const lech = structuredClone(draft);
+  lech.phieu_kham.hen_tai_kham.ngay_cu_the = "2026-12-20";
+  assert.throws(() => validateClinicalExtraction(lech, transcript, context), /không đạt kiểm tra/u);
+  // Đơn vị tuần và tháng cũng được đối chiếu.
+  const tuan = bacSiNoi("Hẹn tái khám sau 2 tuần.");
+  assert.equal(mockClinicalExtraction(tuan, context).phieu_kham.hen_tai_kham.ngay_cu_the, "2026-11-23");
+  const lechTuan = mockClinicalExtraction(tuan, context);
+  lechTuan.phieu_kham.hen_tai_kham.ngay_cu_the = "2026-12-23";
+  assert.throws(() => validateClinicalExtraction(lechTuan, tuan, context), /không đạt kiểm tra/u);
+});
+
+test("nhac_chi_dinh: 'không chỉ định' không sinh cờ nhắc chỉ định, 'chỉ định' thì có", () => {
+  const nhac = (text: string) => mockClinicalExtraction(bacSiNoi(text)).can_xem_lai.length;
+  assert.equal(nhac("Hướng điều trị: không chỉ định thêm cận lâm sàng."), 0);
+  assert.equal(nhac("Hướng điều trị: chưa chỉ định thêm xét nghiệm."), 0);
+  assert.equal(nhac("Hướng điều trị: chỉ định thêm xét nghiệm máu."), 1);
+});

@@ -53,6 +53,17 @@ function isPrescription(raw: string): boolean {
   return /(?:uống|dùng|sử dụng|bôi|tiêm|nhỏ|xịt|ngừng)\s+(?!(?:nước|ấm|đủ nước|nhiều nước|nước muối|khẩu trang|vệ sinh)\b)[\p{L}\d][^.!?;]*/iu.test(text);
 }
 
+const THUOC_LICH_SU_PATH = /^\/phieu_kham\/(?:(?:co_)?thuoc_dang_dung|benh_su|tien_su_ban_than)(?:\/|$)/u;
+/** Dấu hiệu kê đơn mới: dù có nhãn "Thuốc đang dùng:" hay "đang dùng", câu mang dấu hiệu này vẫn bị coi là kê đơn. */
+const DAU_HIEU_KE_DON = /(?:\bkê\s+|cho (?:uống|dùng)|đổi thuốc|tăng liều|giảm liều|ngừng thuốc|đơn thuốc)/iu;
+/**
+ * Trích dẫn nói về thuốc đã/đang dùng (tiền sử), không phải kê đơn mới. Người bệnh khai: nhận cụm đang/đã/trước/tiền sử/từng.
+ * Bác sĩ đọc lại (lời đọc bổ sung): chỉ nhận mục có nhãn "Thuốc đang dùng:" hoặc cụm "đang dùng/đang uống", và không có dấu hiệu kê đơn.
+ */
+function laTienSuThuoc(quote: string, vaiTro: string): boolean {
+  if (vaiTro !== "bac_si") return /(?:đang|đã|trước|tiền sử|từng)/iu.test(quote);
+  return (/^\s*thuốc đang dùng\s*:/iu.test(quote) || /đang\s+(?:dùng|uống)/iu.test(quote)) && !DAU_HIEU_KE_DON.test(quote);
+}
 const doctorPath = (field: string) => /^\/(?:chi_dinh(?:\/|$)|phieu_kham\/(?:kham_toan_than|kham_chuyen_khoa|kham_khac|chan_doan|ghi_chu_ket_qua|da_xu_ly|huong_dieu_tri|loi_dan|hen_tai_kham|tinh_trang_ra_vien)(?:\/|$))/u.test(field);
 const VITALS_FLAG_PATH = /^\/sinh_hieu\/(?:ha_tam_thu|ha_tam_truong)$/u;
 const clinicalPath = (field: string) => /^\/(?:phieu_kham|chi_dinh|tom_tat)(?:\/|$)/u.test(field);
@@ -81,7 +92,7 @@ function extractive(field: string, item: string, evidence: Evidence[]) {
 }
 
 /** Schema validates shape; this layer verifies actual transcript sources and authority. */
-export function validateClinicalExtraction(value: unknown, transcript: Transcript): AiOutput {
+export function validateClinicalExtraction(value: unknown, transcript: Transcript, context?: MockContext): AiOutput {
   const output = parseAiOutput(value);
   const segments = new Map(transcript.segments.map(segment => [segment.id, segment]));
   for (const evidence of output.bang_chung) {
@@ -92,8 +103,7 @@ export function validateClinicalExtraction(value: unknown, transcript: Transcrip
     if (selected.some(segment => !segment || segment.vai_tro !== evidence.vai_tro)) fail();
     // A quote cannot be assembled from separate utterances. Every named segment must support it.
     if (selected.some(segment => !normalize(segment!.text).includes(normalize(evidence.trich_doan)))) fail();
-    const historicalSource = /^\/phieu_kham\/(?:(?:co_)?thuoc_dang_dung|benh_su|tien_su_ban_than)(?:\/|$)/u.test(evidence.field_path)
-      && evidence.vai_tro !== "bac_si" && /(?:đang|đã|trước|tiền sử|từng)/iu.test(evidence.trich_doan);
+    const historicalSource = THUOC_LICH_SU_PATH.test(evidence.field_path) && laTienSuThuoc(evidence.trich_doan, evidence.vai_tro);
     // Looking at the source clause also catches a model quoting only a drug name from a new Rx.
     if (!historicalSource && (isPrescription(evidence.trich_doan) || selected.some(segment => segment!.text.split(/[.!?;\n]/u).some(clause => normalize(clause).includes(normalize(evidence.trich_doan).replace(/[.!?;]+$/u, "")) && isPrescription(clause))))) fail();
   }
@@ -123,7 +133,12 @@ export function validateClinicalExtraction(value: unknown, transcript: Transcrip
     const quotes = evidence.map(source => source.trich_doan);
     // Ngày hẹn cụ thể do máy tính từ ngày khám + "sau N ngày/tuần/tháng" trong lời bác sĩ: không nằm nguyên văn trong lời nói.
     if (field === "/phieu_kham/hen_tai_kham/ngay_cu_the") {
-      if (typeof item !== "string" || !/^\d{4}-\d\d-\d\d$/u.test(item) || !quotes.some(quote => /sau\s+\d+\s*(?:ngày|tuần|tháng)/iu.test(quote))) fail();
+      if (typeof item !== "string" || !/^\d{4}-\d\d-\d\d$/u.test(item)) fail();
+      const khoang = quotes.map(quote => /sau\s+(\d+)\s*(ngày|tuần|tháng)/iu.exec(quote)).find(Boolean);
+      if (!khoang) fail();
+      // Có giờ khám thì ngày phải đúng bằng ngày khám + N; lệch là ngày bịa, bác cả bản nháp như các kiểm khác.
+      const mong = ngayHen(context?.thoi_gian_kham, Number(khoang![1]), khoang![2].toLocaleLowerCase("vi"));
+      if (mong !== null && mong !== item) fail();
       return;
     }
     if (field === "/tom_tat" && typeof item === "string") {
@@ -137,8 +152,7 @@ export function validateClinicalExtraction(value: unknown, transcript: Transcrip
       if (!quotes.some(quote => normalize(quote).includes(side))) fail();
     }
     if (typeof item === "string") {
-      const historicalMedication = /^\/phieu_kham\/(?:(?:co_)?thuoc_dang_dung|benh_su|tien_su_ban_than)(?:\/|$)/u.test(field)
-        && evidence.every(source => /(?:đang|đã|trước|tiền sử|từng)/iu.test(source.trich_doan) && source.vai_tro !== "bac_si");
+      const historicalMedication = THUOC_LICH_SU_PATH.test(field) && evidence.every(source => laTienSuThuoc(source.trich_doan, source.vai_tro));
       if (isPrescription(item) && !historicalMedication) fail();
       if (!node.enum) preserveDetails(item, quotes);
       // Narrative values remain extractive. Enumerations represent normalized schema states.
@@ -241,8 +255,8 @@ export function mockClinicalExtraction(transcript: Transcript, context?: MockCon
           break;
         }
         case "thuoc": {
-          // Bác sĩ nói tên thuốc kèm liều dễ lẫn với kê đơn mới: chỉ nhận khi người khác khai thuốc đang dùng.
-          if (segment.vai_tro === "bac_si" || pk.co_thuoc_dang_dung !== null) break;
+          // Mục có nhãn "Thuốc đang dùng:" là tiền sử thuốc bất kể người nói (lời đọc bổ sung do bác sĩ đọc); câu mang dấu hiệu kê đơn thì bỏ.
+          if (pk.co_thuoc_dang_dung !== null || DAU_HIEU_KE_DON.test(bo)) break;
           const dong = bo.split(";").map(item => item.trim()).filter(Boolean);
           for (const item of dong) {
             const m = /^(.*?)\s+(\d+(?:[.,]\d+)?\s*(?:mg|mcg|µg|g|ml|iu)\b)\s*(?:,\s*(.+))?$/iu.exec(item);
@@ -261,7 +275,7 @@ export function mockClinicalExtraction(transcript: Transcript, context?: MockCon
           break;
         }
         case "ket_qua": ghi("ghi_chu_ket_qua", bo); break;
-        case "huong_dieu_tri": if (/cận lâm sàng|chỉ định/iu.test(bo) && !nhacChiDinh) nhacChiDinh = segment.id; ghi("huong_dieu_tri", bo); if (pk.huong_dieu_tri === bo) summarize(trichDoan, segment); break;
+        case "huong_dieu_tri": if (/cận lâm sàng|chỉ định/iu.test(bo.replace(/(?:không|chưa)(?:\s+cần)?\s+chỉ định[^.;]*/giu, "")) && !nhacChiDinh) nhacChiDinh = segment.id; ghi("huong_dieu_tri", bo); if (pk.huong_dieu_tri === bo) summarize(trichDoan, segment); break;
         case "loi_dan": ghi("loi_dan", bo); if (pk.loi_dan === bo) summarize(trichDoan, segment); break;
       }
     });
@@ -436,7 +450,7 @@ export async function extractClinical(ticket: string, options: ClinicalExtractio
   const operation = (async () => {
     const started = Date.now();
     let draft: AiOutput;
-    try { draft = validateClinicalExtraction(mockClinicalExtraction(transcript, options.context), transcript); }
+    try { draft = validateClinicalExtraction(mockClinicalExtraction(transcript, options.context), transcript, options.context); }
     catch { fail(); }
     const result: ClinicalExtraction = { run_id: randomUUID(), draft: draft!, transcript, provider, model, prompt_version: CLINICAL_PROMPT_VERSION, created_at: new Date().toISOString(), input_digest: inputDigest, duration_ms: Date.now() - started,
       ...(transcript.binding ? { binding: structuredClone(transcript.binding) } : {}) };

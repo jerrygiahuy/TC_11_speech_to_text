@@ -8,6 +8,8 @@ import { projectEform } from "@/shared/clinical/eform";
 import { dongChanDoanIn } from "@/shared/eform/chan-doan-in";
 import type { Transcript } from "@/shared/clinical/types";
 import type { ClinicalExtraction } from "@/shared/clinical/api";
+import { PrivacyTickets } from "./privacy";
+import { clinicalAllowlist } from "./pii-allowlist";
 import { CLINICAL_PROMPT_VERSION, mockClinicalExtraction, validateClinicalExtraction, type MockContext } from "./extraction";
 
 /**
@@ -119,7 +121,7 @@ test("nghiem_thu_039_doc_bo_sung", () => {
   assert.match(a.patch.fields.tien_su_gia_dinh.value, /không rõ/iu);
 
   // Giai đoạn B: lời đọc bổ sung, chỉ chứa thuốc đang dùng.
-  const b = chay(hoiThoai(goc.recovery_dictation!, "chua_ro"), ngu(expected));
+  const b = chay(hoiThoai(goc.recovery_dictation!, "bac_si"), ngu(expected));
   soSanh(b.patch, expected.giai_doan_b!.fields, "039 B");
   soThuoc(b.patch, expected.giai_doan_b!.thuocDangDung);
   assert.equal(b.patch.thuocDangDung!.length, 2);
@@ -137,6 +139,37 @@ test("nghiem_thu_039_doc_bo_sung", () => {
   assert.equal(gon(shown.fields.loi_dan.value), expected.giai_doan_a!.fields.loi_dan);
   assert.match(shown.fields.tien_su_gia_dinh.value, /không rõ/iu);
   assert.equal(shown.fields.mo_ta_ra_vien.value, "");
+});
+
+test("doc_bo_sung_qua_duong_dictation_that_ra_2_thuoc: privacy.ts gán bac_si, thuốc vẫn là tiền sử, giữ 2,5 mg", () => {
+  const goc = caGoc("SYN-CARDIO-039"), expected = mong("SYN-CARDIO-039");
+  const tickets = new PrivacyTickets();
+  const kiem = tickets.check(goc.recovery_dictation!, "dictation", { known: [], allowlist: clinicalAllowlist(), consent: true });
+  assert.equal(kiem.status, "passed");
+  const transcript = tickets.approved(kiem.ticket!);
+  assert.ok(transcript.segments.length > 0 && transcript.segments.every(segment => segment.vai_tro === "bac_si"), "chế độ Bác sĩ đọc gán mọi đoạn là bác sĩ");
+  const { patch } = chay(transcript, ngu(expected));
+  soThuoc(patch, expected.giai_doan_b!.thuocDangDung);
+  assert.equal(patch.thuocDangDung!.length, 2);
+  assert.ok(patch.thuocDangDung!.some(row => row.ham_luong === "2,5 mg"), "giữ dấu phẩy thập phân");
+});
+
+test("bac_si_ke_don_van_bi_coi_la_ke_don: nhãn tiền sử không mở đường cho kê đơn", () => {
+  const ngCanh: MockContext = { thoi_gian_kham: THOI_GIAN_KHAM };
+  // Mock: câu kê đơn không thành thuốc đang dùng.
+  const keDon = hoiThoai("Kê Bisoprolol 2,5 mg, mỗi ngày một lần.", "bac_si");
+  assert.deepEqual(mockClinicalExtraction(keDon, ngCanh).phieu_kham.thuoc_dang_dung, []);
+  // Mock: nhãn "Thuốc đang dùng:" nhưng kèm dấu hiệu kê đơn vẫn không nhận.
+  const nhanKeDon = hoiThoai("Thuốc đang dùng: tăng liều Bisoprolol 2,5 mg.", "bac_si");
+  assert.deepEqual(mockClinicalExtraction(nhanKeDon, ngCanh).phieu_kham.thuoc_dang_dung, []);
+  // Validator: đầu ra kiểu LLM đưa thuốc kê từ bác sĩ vào thuốc đang dùng bị bác.
+  for (const text of ["Kê Bisoprolol 2,5 mg mỗi ngày.", "Thuốc đang dùng: Bisoprolol 2,5 mg, cho uống thêm Furosemide 40 mg."]) {
+    const transcript = hoiThoai(text, "bac_si");
+    const out = mockClinicalExtraction(hoiThoai("Thuốc đang dùng: Bisoprolol 2,5 mg.", "bac_si"), ngCanh);
+    out.bang_chung.forEach(source => { source.segment_ids = [transcript.segments[0].id]; source.trich_doan = text; });
+    assert.ok(out.phieu_kham.thuoc_dang_dung.length > 0);
+    assert.throws(() => validateClinicalExtraction(out, transcript, ngCanh), /không đạt kiểm tra/u, text);
+  }
 });
 
 test("mock_so_dien_thoai_khong_la_trieu_chung: 'ho'/'phù' chỉ tính khi đứng riêng, không nằm trong 'số điện thoại'", () => {

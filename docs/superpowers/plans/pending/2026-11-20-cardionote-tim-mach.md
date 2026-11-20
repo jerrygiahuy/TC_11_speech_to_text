@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-> **Trạng thái 20/11:** ✅ Task 0–8 và review giữa kỳ (kèm hai nhóm sửa) xong. Đang làm Task 9. `npm test` 477 test, 0 fail; lint 0 lỗi; tsc 0 lỗi. Tổng kết: `Knowledge/2026-11-20 CardioNote - công việc đã làm.md`.
+> **Trạng thái 20/11:** ✅ Task 0–9 và review giữa kỳ (kèm hai nhóm sửa) xong. Đang làm Task 10. `npm test` 482 test, 0 fail; lint 0 lỗi; tsc 0 lỗi. Tổng kết: `Knowledge/2026-11-20 CardioNote - công việc đã làm.md`.
 
 **Goal:** Biến `TC_11_speech_to_text` thành CardioNote, sản phẩm riêng của Trung tâm Tim mạch. Bác sĩ khám, máy ghi âm và chuyển giọng nói thành chữ, che PII, rồi AI điền nháp **đúng Phiếu khám ngoại trú Tim mạch theo Excel**. Bác sĩ sửa, duyệt, in. Không còn dữ liệu, nhãn, schema, từ điển hay test TMH.
 
@@ -60,7 +60,7 @@ Nguồn sự thật danh sách trường là `config/forms/phieu-kham-ngoai-tru.
 | ✅ 7. Từ vựng STT | Haiku, medium | 0 | 1–6 |
 | ✅ **Review giữa kỳ** sau Task 1–7 | Opus | 1–7 | – |
 | ✅ 8. Kịch bản demo, ca eval, fixture test; về 0 test fail | Sonnet, medium | review giữa kỳ | – |
-| 9. Nghiệm thu tự động 3 ca của `04` | Sonnet, medium | 8 | 10 |
+| ✅ 9. Nghiệm thu tự động 3 ca của `04` | Sonnet, medium | 8 | 10 |
 | 10. Bỏ trang riêng `/phieu-kham-ngoai-tru` | Haiku, medium | 4 | 9 |
 | 11. Chốt 100% Tim mạch: test chặn TMH + tài liệu | Haiku, medium | 9, 10 | – |
 | **Review cuối** toàn nhánh | Opus | 11 | – |
@@ -410,13 +410,14 @@ Session chính chỉ điều phối:
   - Trường mong đợi "trống" phải bằng `""`.
   - Mã ICD phải ở trạng thái `xem`.
 
-- [ ] **Bước 1:** viết 3 test:
+- [x] **Bước 1:** viết 3 test:
   - `nghiem_thu_013_kham_moi`: `icd_kem_theo === ""` (Review Focus 3), `mo_ta_ra_vien === ""`, `kham_tim_mach_ho_hap` chứa `"Tiếng T1, T2 rõ"`.
   - `nghiem_thu_001_tai_kham`: `di_ung === "Có"`, `hen_tai_kham === "Có"`, `ngay_tai_kham` = `thoi_gian_kham` + 30 ngày.
   - `nghiem_thu_039_doc_bo_sung`: `thuocDangDung` có 2 dòng, một dòng `ham_luong === "2,5 mg"`; `tien_su_gia_dinh` giữ cụm "không rõ".
-- [ ] **Bước 2:** chạy → ghi lại kết quả. Trường nào lệch do mock trích thiếu thì sửa mock ở `extraction.ts`. **Không sửa expected** trừ khi expected trái `04`.
-- [ ] **Bước 3:** cả 3 test PASS, `npm test` vẫn 0 fail.
-- [ ] **Bước 4:** cập nhật `docs/tc11-nghiem-thu-phieu-ngoai-tru.md` (cách chạy, kết quả). Ghi CHANGELOG, commit `test: nghiệm thu tự động 3 ca Tim mạch`.
+- [x] **Bước 2:** chạy → ghi lại kết quả. Trường nào lệch do mock trích thiếu thì sửa mock ở `extraction.ts`. **Không sửa expected** trừ khi expected trái `04`.
+- [x] **Bước 3:** cả 3 test PASS, `npm test` vẫn 0 fail. *(Xong 20/11: 482/482. Sửa mock theo M6. `phieu-mau.json` theo `02`: `eval-mau` 39,4% → 76,0%. Rule-only giữ 86,1% / 85,1%. Che nhầm PII 0/84. Thêm 2 test bảo vệ: "số điện thoại" và chẩn đoán chính `chua_ro`.)*
+- [x] **Bước 4:** cập nhật `docs/tc11-nghiem-thu-phieu-ngoai-tru.md` (cách chạy, kết quả). Ghi CHANGELOG, commit `test: nghiệm thu tự động 3 ca Tim mạch`.
+  *(Xong 20/11: `1988a27`, `b7efb3f`; review đạt. Khác `04`: ca 013 giữ `de_cap = chua_de_cap`, thêm mục `can_xem_lai` "bác sĩ nhắc chỉ định CLS nhưng chưa nêu dịch vụ", vì schema buộc `co_chi_dinh` phải có dịch vụ. Chờ anh quyết. `di_ung` "chưa ghi nhận" ra "Không" (xem), chờ Q6.)*
 
 ---
 

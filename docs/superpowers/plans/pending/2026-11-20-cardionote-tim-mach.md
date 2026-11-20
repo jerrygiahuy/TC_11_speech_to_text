@@ -48,7 +48,7 @@ Nguồn sự thật danh sách trường là `config/forms/phieu-kham-ngoai-tru.
 
 | Task | Agent | Phụ thuộc | Chạy song song với |
 |---|---|---|---|
-| 0. Chuẩn bị nhánh, dọn file " 2", ghi nền test | Session chính + anh | – | – |
+| ✅ 0. Chuẩn bị nhánh, dọn file " 2", ghi nền test | Session chính + anh | – | – |
 | 1. Hợp đồng dữ liệu 2.0.0 + test phủ trường Excel | Sonnet, medium | 0 | – |
 | 2. Bộ chuyển Encounter ↔ eForm và điền nháp AI | Sonnet, medium | 1 | 3, 5, 6, 7 |
 | 3. Ngữ cảnh lượt khám và bộ sinh fixture từ 60 ca | Sonnet, medium | 1 | 2, 5, 6, 7 |
@@ -85,18 +85,18 @@ Session chính chỉ điều phối:
 
 ### Task 0: Chuẩn bị nhánh, dọn file " 2", ghi nền test
 
-**Người làm:** session chính. Ba quyết định dưới đây **cần anh đồng ý trước**.
+**Người làm:** session chính. Ba quyết định dưới đây **cần anh đồng ý trước**. **Trạng thái: ✅ xong 20/11.**
 
-- [ ] **Bước 1: Commit nền.** Cây làm việc đang ở nhánh `feature/sync-hung-dev-20261119` với khoảng 300 thay đổi chưa commit. Hỏi anh: commit toàn bộ hiện trạng thành commit nền `chore: đồng bộ hiện trạng TC_11 trước khi làm CardioNote`, rồi tạo `dev` từ commit đó và push `dev`. Repo chưa có `dev`, mà CLAUDE.md quy tắc 6 bắt buộc nhánh mới phải tạo từ `dev`.
-- [ ] **Bước 2: Tạo nhánh làm việc.** `git fetch origin && git checkout -b feature/cardionote-tim-mach origin/dev`. Kiểm `git merge-base HEAD origin/dev` bằng commit mới nhất của `dev`.
-- [ ] **Bước 3: Dọn file " 2".**
+- [x] **Bước 1: Commit nền.** *(Xong 20/11: commit `4c2aa10`, 423 file; `dev` đã push lên `origin`.)* Cây làm việc đang ở nhánh `feature/sync-hung-dev-20261119` với khoảng 300 thay đổi chưa commit. Hỏi anh: commit toàn bộ hiện trạng thành commit nền `chore: đồng bộ hiện trạng TC_11 trước khi làm CardioNote`, rồi tạo `dev` từ commit đó và push `dev`. Repo chưa có `dev`, mà CLAUDE.md quy tắc 6 bắt buộc nhánh mới phải tạo từ `dev`.
+- [x] **Bước 2: Tạo nhánh làm việc.** *(Xong 20/11: `feature/cardionote-tim-mach`, `merge-base` = `4c2aa10`.)* `git fetch origin && git checkout -b feature/cardionote-tim-mach origin/dev`. Kiểm `git merge-base HEAD origin/dev` bằng commit mới nhất của `dev`.
+- [x] **Bước 3: Dọn file " 2".** *(Xong 20/11, khác plan: xóa 105 file giống hệt; 56 file khác bản gốc (54 trùng commit `6a09af2`) **chuyển** vào `temp-1/ban-sao-2/` thay vì xóa, vì lệnh xóa bị chặn. Lint còn 0 lỗi.)*
   - Xóa các file tên có " 2" **giống hệt** bản gốc. Kiểm bằng `cmp`; theo `06` có khoảng 145 file.
   - Liệt kê 59 file " 2" **khác** bản gốc để anh xác nhận rồi mới xóa.
   - Kết quả mong đợi: `loadCases()` không còn nạp trùng, và lint hết 7 lỗi ở `src/shared/eform/*.test 2.ts`.
-- [ ] **Bước 4: Ghi nền.**
+- [x] **Bước 4: Ghi nền.** *(Xong 20/11: `docs/testing/2026-11-20-nen-test.txt`, 422 test, 13 lỗi sẵn có.)*
   - `npm test 2>&1 | grep '^✖' | sort -u > docs/testing/2026-11-20-nen-test.txt`. Hiện là 13 test fail, do dữ liệu TMH đã bị làm rỗng.
   - Ghi `npm run lint` vào cùng file.
-- [ ] **Bước 5:** ghi CHANGELOG, commit `chore: dọn file bản sao " 2" và ghi nền test CardioNote`.
+- [x] **Bước 5:** ghi CHANGELOG, commit `chore: dọn file bản sao " 2" và ghi nền test CardioNote`. *(Xong 20/11, khác tên: commit `9a10c87` và `cbde067`.)*
 
 ---
 

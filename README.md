@@ -147,7 +147,7 @@ Mỗi câu chốt (cả Zipformer lẫn Web Speech) đi qua `src/shared/giong-no
 | `thay` | Thay cụm hay nghe nhầm: `sai` (các cách nghe nhầm) thành `dung`. Có `tru_khi_truoc`, `tru_khi_sau` (từ ngay trước/sau thì không thay: "có thai" giữ nguyên) và `chi_khi_sau` (chỉ thay khi từ sau là một trong các từ này: "suốt" thành "sốt" chỉ khi sau là "nhẹ", "cao", số). Áp theo thứ tự trong file |
 | `tu_chuyen_khoa` | Tên thuốc: `dung` là tên chuẩn ghi vào ô, `doc` là cách bác sĩ đọc bằng âm tiết tiếng Việt ("pa ra xê ta mon"). So gần đúng sau khi bỏ dấu và gộp âm gần nhau (x/s, d/gi/r, ph/f…) |
 | `nguong_giong` | Độ giống tối thiểu để thay tên thuốc (0,72; thấp hơn thì bắt đầu sửa nhầm câu đúng) |
-| `dau_hieu_thuoc` | Tên thuốc chỉ được thay khi trong 4 từ phía sau có một từ này hoặc một con số, hoặc từ ngay trước là "đơn", "thuốc". Thiếu điều kiện này thì một cụm từ thường nói có âm gần giống tên thuốc bị thay nhầm thành tên thuốc |
+| `dau_hieu_thuoc` | Tên thuốc chỉ được thay khi trong 4 từ phía sau có một từ này hoặc một con số, hoặc từ ngay trước là "đơn", "thuốc", hoặc hai từ ngay trước là "dị ứng" (nên "dị ứng pen xi lin" thành "dị ứng Penicillin", còn "phản ứng pen xi lin" giữ nguyên). Thiếu điều kiện này thì một cụm từ thường nói có âm gần giống tên thuốc bị thay nhầm thành tên thuốc |
 
 Cuối cùng số đọc thành chữ được đổi sang chữ số khi đứng trước đơn vị (ngày, lần, viên, mg, độ…) hoặc là số nhiều chữ: "năm trăm mi li gam" thành "500 mg", "ba mươi tám phẩy năm độ" thành "38,5 độ". "hai bên", "một ít", "năm nay" giữ nguyên.
 

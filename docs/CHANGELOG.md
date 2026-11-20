@@ -4,6 +4,14 @@ Mỗi thay đổi, dù nhỏ, đều có một mục ở đây. Mục mới nh�
 
 ## 2026-11-21
 
+### Giảm lỗi thuật ngữ Tim mạch sau STT: từ ưu tiên và bảng sửa chữ
+- **Loại:** Cấu hình
+- **Thay đổi:** `config/stt-hotwords.json` thêm 6 cụm ưu tiên ("phổi trong không ran", "không ran", "lời dặn", "penicillin", "dị ứng penicillin", "mi li mét thủy ngân"). `config/sua-chu-giong-noi.json`: thêm 6 quy tắc `thay` vào đầu mảng (SpO2, mmHg, tiếng T1 T2, "phổi trong không ran", "lời dặn"; quy tắc SpO2 có "thủy ngân" đứng trước mmHg), thêm "amlodi" cho Amlodipine và mục Penicillin. `sua-chu.ts`: hai từ ngay trước cụm là "dị ứng" cũng tính là ngữ cảnh thuốc ("tôi dị ứng pen xi lin" thành "tôi dị ứng Penicillin"; "phản ứng pen xi lin" giữ nguyên). Thêm test với bảng thật.
+- **Lý do:** đo STT Zipformer cục bộ vẫn sai SpO2, mmHg, T1 T2, "không ran", "lời dặn", Amlodipine ("amloki"), Penicillin ("pensylin") sau `suaChu`. Quy tắc lấy từ phép đo với **giọng máy đọc (TTS) giả lập**, chưa kiểm với giọng bác sĩ thật. Còn sai, không sửa được bằng bảng: "tenni" (penicillin, giọng Linh), STT bỏ mất chữ "khám".
+- **File:** `config/stt-hotwords.json`, `config/sua-chu-giong-noi.json`, `src/shared/giong-noi/sua-chu.ts`, `src/shared/giong-noi/sua-chu.test.ts`, `README.md`, `docs/CHANGELOG.md`
+- **Kiểm tra:** `npm test` 493 pass, 0 fail; `npm run lint` 0 lỗi (6 cảnh báo có sẵn); `tsc --noEmit` sạch; `pytest stt/tests` 131 pass, 1 skip. `npm run eval-giong-noi` không chạy được vì repo chưa có `.wav` trong `data/giong-noi/` (cần `tao-am-thanh-mau` trên Windows), nên không có số trước/sau.
+- **Ảnh hưởng:** bác sĩ thấy các thuật ngữ trên được ghi đúng hơn; "dị ứng" giờ cho phép sửa tên thuốc không kèm liều.
+
 ### Kịch bản thử bác sĩ: ghi chú chạy STT trên macOS
 - **Loại:** Tài liệu
 - **Thay đổi:** `docs/kich-ban-thu-bac-si.md` ghi rõ `npm run stt:start` là PowerShell, trên macOS làm tay theo README.

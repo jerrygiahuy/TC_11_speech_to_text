@@ -23,6 +23,60 @@
   "thay": [
     {
       "sai": [
+        "thủy ngân có hai",
+        "thuỷ ngân có hai",
+        "thủy ngân por hai",
+        "thuỷ ngân por hai",
+        "thủy ngânpor hai",
+        "thuỷ ngânpor hai"
+      ],
+      "dung": "thủy ngân SpO2"
+    },
+    {
+      "sai": [
+        "por hai",
+        "pô hai",
+        "xờ pê ô hai",
+        "sờ pê ô hai",
+        "ét pê ô hai"
+      ],
+      "dung": "SpO2"
+    },
+    {
+      "sai": [
+        "mi li mét thủy ngân",
+        "mi li mét thuỷ ngân",
+        "milimet thủy ngân",
+        "milimet thuỷ ngân",
+        "dạm limet thủy ngân",
+        "dạm limet thuỷ ngân",
+        "limet thủy ngân",
+        "limet thuỷ ngân"
+      ],
+      "dung": "mmHg"
+    },
+    {
+      "sai": [
+        "tiếng một thứ hai",
+        "tiếng t một t hai",
+        "tiếng tê một tê hai"
+      ],
+      "dung": "tiếng T1 T2"
+    },
+    {
+      "sai": [
+        "phổi trong không gian"
+      ],
+      "dung": "phổi trong không ran"
+    },
+    {
+      "sai": [
+        "lời dạng"
+      ],
+      "dung": "lời dặn"
+    },
+    {
+      "sai": [
         "chạy máu"
       ],
       "dung": "chảy máu"
@@ -168,7 +222,8 @@
       "dung": "Amlodipine",
       "doc": [
         "am lô đi pin",
-        "am lô đi panh"
+        "am lô đi panh",
+        "amlodi"
       ]
     },
     {
@@ -218,6 +273,17 @@
       "doc": [
         "lô xác tan",
         "lô sác tan"
+      ]
+    },
+    {
+      "dung": "Penicillin",
+      "doc": [
+        "pê ni xi lin",
+        "pen ni xi lin",
+        "pen xi lin",
+        "pen si lin",
+        "pensilin",
+        "penixilin"
       ]
     }
   ]

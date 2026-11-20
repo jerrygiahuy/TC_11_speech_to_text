@@ -4,6 +4,13 @@ Mỗi thay đổi, dù nhỏ, đều có một mục ở đây. Mục mới nh�
 
 ## 2026-11-20
 
+### Mock cờ "nhắc chỉ định nhưng chưa nêu dịch vụ" (sửa Task 9)
+- **Loại:** Sửa lỗi, Kiểm thử
+- **Thay đổi:** `extraction.ts`: khi Hướng điều trị của bác sĩ nhắc chỉ định cận lâm sàng mà không có dòng dịch vụ, mock thêm `can_xem_lai` (`/chi_dinh`, `thieu_thong_tin`, "Bác sĩ nhắc chỉ định cận lâm sàng nhưng chưa nêu dịch vụ."). Test `nghiem_thu_013_kham_moi` kiểm mục này, `items` rỗng và `de_cap = chua_de_cap`.
+- **Lý do:** `04` ca 013 yêu cầu mục cần xem lại này; `de_cap = co_chi_dinh` với `items = []` trái schema nên giữ `chua_de_cap`, chờ anh quyết.
+- **File:** `src/server/clinical/extraction.ts`, `src/server/clinical/nghiem-thu-tim-mach.test.ts`, `docs/tc11-nghiem-thu-phieu-ngoai-tru.md`
+- **Kiểm tra:** `npm test` 482/482, `tsc` sạch, lint 0 lỗi.
+
 ### Nghiệm thu tự động 3 ca Tim mạch và sửa bộ trích mock (Task 9 CardioNote)
 - **Loại:** Kiểm thử, Sửa lỗi, Dữ liệu
 - **Thay đổi:** thêm `src/server/clinical/nghiem-thu-tim-mach.test.ts` (3 test `nghiem_thu_013_kham_moi`, `nghiem_thu_001_tai_kham`, `nghiem_thu_039_doc_bo_sung`) và `data/cardiology/nghiem-thu/*.expected.json` (bảng "Mong đợi" của `04` theo khóa eForm). Bộ trích mock `extraction.ts` nay lấy mục có nhãn ("Người bệnh đến khám vì", Bệnh sử, Tiền sử bản thân/gia đình, Dị ứng, Thuốc đang dùng, Toàn thân, Khám tim phổi, Kết quả chính, Hướng điều trị, Lời dặn) trọn đoạn đến nhãn kế tiếp. Sửa M6: bỏ tiền tố "Khám tim phổi:" và giữ cả câu "Phù mắt cá chân" dưới nhãn đó; "Lời dặn: ..., tái khám sau N ngày" không còn rơi vào nhánh tái khám nên `loi_dan` không trống; `hen_tai_kham.sau_bao_lau` và `ngay_cu_the` = giờ khám + N ngày/tuần/tháng (`MockContext.thoi_gian_kham`, `contextFromVitals(sinh_hieu, encounter_at)`). Bộ kiểm tra bằng chứng chấp nhận ngày hẹn tính từ "sau N ngày", coi `co_thuoc_dang_dung` như `thuoc_dang_dung`, và "dùng thuốc theo đơn hiện tại" không phải đơn mới. Sửa `phieu-mau.json` theo `02`: khám tim phổi sang `kham_tim_mach_ho_hap`, bỏ chỉ định và chẩn đoán kèm theo, lời dặn ca 001 có "tái khám sau 30 ngày"; test `phieu-mau.test.ts` đổi theo. Thêm test `duyet_chan_chinh_chua_ro_giai_doan_van_bi_chan` (service) và test số điện thoại không bị coi là triệu chứng.

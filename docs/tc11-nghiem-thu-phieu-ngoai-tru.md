@@ -12,5 +12,5 @@ Mỗi ca cần kiểm tra qua đầu ra AI, eForm, phiên bản đã duyệt, b�
 
 ## Nghiệm thu tự động 3 ca
 
-Chạy: `npx tsx --conditions=react-server --test src/server/clinical/nghiem-thu-tim-mach.test.ts` (hoặc `npm test`). Mỗi ca chạy `conversation_text` (ca 039 giai đoạn B thêm `recovery_dictation`) qua mock, kiểm tra bằng chứng, rồi so từng ô của gói điền nháp với `data/cardiology/nghiem-thu/<mã ca>.expected.json`. Ô mong đợi trống phải bằng `""`; mọi ô AI điền ở trạng thái `xem`. Kết quả hiện tại: 3 ca PASS. Lệch với `04`: ca 013 chưa tạo `de_cap = co_chi_dinh` khi không có dòng dịch vụ (schema không cho), chỉ bảo đảm không sinh dòng chỉ định.
+Chạy: `npx tsx --conditions=react-server --test src/server/clinical/nghiem-thu-tim-mach.test.ts` (hoặc `npm test`). Mỗi ca chạy `conversation_text` (ca 039 giai đoạn B thêm `recovery_dictation`) qua mock, kiểm tra bằng chứng, rồi so từng ô của gói điền nháp với `data/cardiology/nghiem-thu/<mã ca>.expected.json`. Ô mong đợi trống phải bằng `""`; mọi ô AI điền ở trạng thái `xem`. Kết quả hiện tại: 3 ca PASS. Lệch với `04`: ca 013 giữ `de_cap = chua_de_cap` (schema chỉ cho `co_chi_dinh` khi có dòng dịch vụ) và thêm mục `can_xem_lai` "nhắc chỉ định nhưng chưa nêu dịch vụ" thay cho `co_chi_dinh` rỗng; chờ anh quyết.
 

@@ -76,6 +76,10 @@ test("nghiem_thu_013_kham_moi", () => {
   assert.equal(patch.fields.kham_chuyen_khoa?.value ?? "", "");
   assert.deepEqual(patch.chiDinh, []);
   assert.equal(draft.chi_dinh.items.length, 0);
+  // Lệch 04 có chủ đích: 04 ghi de_cap = co_chi_dinh với items rỗng, nhưng schema (schema.ts) chỉ cho co_chi_dinh khi có dòng dịch vụ.
+  // Giữ de_cap = chua_de_cap và thay bằng mục can_xem_lai "nhắc chỉ định nhưng chưa nêu dịch vụ" (chờ quyết định của anh).
+  assert.equal(draft.chi_dinh.de_cap, "chua_de_cap");
+  assert.ok(draft.can_xem_lai.some(issue => issue.field_path === "/chi_dinh" && issue.loai === "thieu_thong_tin" && /chưa nêu dịch vụ/u.test(issue.mo_ta)));
   assert.ok(draft.can_xem_lai.every(issue => issue.loai !== "mau_thuan"), "mạch/HA trong hội thoại trùng fixture nên không cảnh báo lệch");
   assert.equal(patch.fields.da_xu_ly?.value ?? "", "");
   assert.equal(patch.fields.tinh_trang_ra_vien?.value ?? "", "");

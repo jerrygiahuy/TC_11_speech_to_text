@@ -199,6 +199,8 @@ export function mockClinicalExtraction(transcript: Transcript, context?: MockCon
   const nhomKham = new Map<string, string[]>();
   const addLine = (current: string | null, text: string) => (current === null ? text : `${current}\n${text}`);
   const summary: string[] = [];
+  /** Bác sĩ nhắc chỉ định cận lâm sàng nhưng chưa nêu dịch vụ: không tạo dòng dịch vụ, chỉ cờ cho bác sĩ (04, ca 013). */
+  let nhacChiDinh: string | null = null;
   const summarize = (text: string, segment: Transcript["segments"][number]) => {
     if (!summary.includes(text)) { summary.push(text); add("/tom_tat", text, segment); }
   };
@@ -259,7 +261,7 @@ export function mockClinicalExtraction(transcript: Transcript, context?: MockCon
           break;
         }
         case "ket_qua": ghi("ghi_chu_ket_qua", bo); break;
-        case "huong_dieu_tri": ghi("huong_dieu_tri", bo); if (pk.huong_dieu_tri === bo) summarize(trichDoan, segment); break;
+        case "huong_dieu_tri": if (/cận lâm sàng|chỉ định/iu.test(bo) && !nhacChiDinh) nhacChiDinh = segment.id; ghi("huong_dieu_tri", bo); if (pk.huong_dieu_tri === bo) summarize(trichDoan, segment); break;
         case "loi_dan": ghi("loi_dan", bo); if (pk.loi_dan === bo) summarize(trichDoan, segment); break;
       }
     });
@@ -340,6 +342,9 @@ export function mockClinicalExtraction(transcript: Transcript, context?: MockCon
   }
   if (nhomKham.size) {
     output.phieu_kham.kham_chuyen_khoa = [...nhomKham].map(([nhom, dong]) => `${nhom}:\n${dong.map(d => `- ${d}`).join("\n")}`).join("\n");
+  }
+  if (nhacChiDinh && output.chi_dinh.items.length === 0 && output.chi_dinh.de_cap === "chua_de_cap") {
+    output.can_xem_lai.push({ field_path: "/chi_dinh", loai: "thieu_thong_tin", mo_ta: "Bác sĩ nhắc chỉ định cận lâm sàng nhưng chưa nêu dịch vụ.", segment_ids: [nhacChiDinh] });
   }
   output.tom_tat = summary.length ? summary.join(" ") : null;
   return output;

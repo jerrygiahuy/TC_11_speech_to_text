@@ -4,6 +4,14 @@ Mỗi thay đổi, dù nhỏ, đều có một mục ở đây. Mục mới nh�
 
 ## 2026-11-20
 
+### Chuyển 56 file bản sao " 2" còn lại ra `temp-1/`, push nhánh `dev`
+- **Loại:** Dọn dẹp
+- **Thay đổi:** Chuyển 56 file " 2" khác bản gốc vào `temp-1/ban-sao-2/` (gitignore, giữ nguyên đường dẫn con), theo đồng ý của chủ repo. 54 file trùng bản ở commit `6a09af2`; `README 2.md` chỉ có một dòng ghi chú cũ; `docs/CHANGELOG 2.md` không có dòng riêng. Push nhánh `dev` (commit nền `4c2aa10`) lên `origin`.
+- **Lý do:** Task 0 của plan CardioNote: cây làm việc không còn bản sao; có `dev` trên remote để tạo nhánh đúng quy tắc 6.
+- **File:** `docs/CHANGELOG.md` (56 file đã chuyển không thuộc git)
+- **Kiểm tra:** Không còn file `* 2*` trong cây (trừ `temp-1/`). `npm run lint` 0 lỗi, 8 cảnh báo. `git push -u origin dev` thành công.
+- **Ảnh hưởng:** Không đổi hành vi ứng dụng.
+
 ### Ghi nền test cho plan CardioNote
 - **Loại:** Tài liệu
 - **Thay đổi:** Thêm `docs/testing/2026-11-20-nen-test.txt`: số test, tên 13 test lỗi sẵn có, kết quả lint tại commit nền `4c2aa10`. Tạo nhánh `dev` (cục bộ, chưa push) và nhánh làm việc `feature/cardionote-tim-mach` từ `dev`.

@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-> **Trạng thái 20/11:** ✅ Task 0–10 và review giữa kỳ (kèm hai nhóm sửa) xong. Đang làm Task 11. `npm test` 471 test, 0 fail; lint 0 lỗi; tsc 0 lỗi. Tổng kết: `Knowledge/2026-11-20 CardioNote - công việc đã làm.md`.
+> **Trạng thái 20/11:** ✅ Task 0–11 và review giữa kỳ (kèm hai nhóm sửa) xong. Đang review cuối. `npm test` 472 test, 0 fail; build PASS; lint 0 lỗi; tsc 0 lỗi. Tổng kết: `Knowledge/2026-11-20 CardioNote - công việc đã làm.md`.
 
 **Goal:** Biến `TC_11_speech_to_text` thành CardioNote, sản phẩm riêng của Trung tâm Tim mạch. Bác sĩ khám, máy ghi âm và chuyển giọng nói thành chữ, che PII, rồi AI điền nháp **đúng Phiếu khám ngoại trú Tim mạch theo Excel**. Bác sĩ sửa, duyệt, in. Không còn dữ liệu, nhãn, schema, từ điển hay test TMH.
 
@@ -62,7 +62,7 @@ Nguồn sự thật danh sách trường là `config/forms/phieu-kham-ngoai-tru.
 | ✅ 8. Kịch bản demo, ca eval, fixture test; về 0 test fail | Sonnet, medium | review giữa kỳ | – |
 | ✅ 9. Nghiệm thu tự động 3 ca của `04` | Sonnet, medium | 8 | 10 |
 | ✅ 10. Bỏ trang riêng `/phieu-kham-ngoai-tru` | Haiku, medium | 4 | 9 |
-| 11. Chốt 100% Tim mạch: test chặn TMH + tài liệu | Haiku, medium | 9, 10 | – |
+| ✅ 11. Chốt 100% Tim mạch: test chặn TMH + tài liệu | Haiku, medium | 9, 10 | – |
 | **Review cuối** toàn nhánh | Opus | 11 | – |
 
 Session chính chỉ điều phối:
@@ -444,15 +444,15 @@ Session chính chỉ điều phối:
 - Sửa: `README.md`, `CLAUDE.md` (đoạn mô tả dự án; `docs/tham-khao/` đã xóa thì sửa câu tham chiếu), `docs/CLINICAL-WORKFLOW.md` (tiêu đề "Luồng khám TMH" → "Luồng khám Tim mạch"), `docs/cau-truc-du-an.md`, `docs/superpowers/plans/pending/README.md` (trạng thái plan này)
 - Sửa: `scripts/cao-du-lieu.ts`: đổi chú thích; bộ lọc TMH giữ nguyên nhưng ghi "chưa dùng". Việc cào lại để task tùy chọn.
 
-- [ ] **Bước 1: Viết test** `khong_con_tmh_trong_san_pham`:
+- [x] **Bước 1: Viết test** `khong_con_tmh_trong_san_pham`:
   - Quét `src/`, `config/`, `data/` (trừ `data/cardiology/`, file test này, `node_modules`), các đuôi `.ts`, `.tsx`, `.json`, `.py`.
   - Tìm regex `/TMH|[Tt]ai [Mm]ũi [Hh]ọng|viêm tai|amidan|màng nhĩ|viêm xoang|họng|nhỏ tai|xịt mũi|\bH6[0-9]\.|"tai"|"mui"|"vom"|"hong"/`. *(Mở rộng 20/11 sau review giữa kỳ I6: thêm "họng", "nhỏ tai", "xịt mũi", mã H6x.)*
   - Quét thêm `stt/` (đuôi `.py`), vì `stt/tests/test_ner.py` từng còn câu "đau họng".
   - Kỳ vọng mảng `file:line` khớp **rỗng**. Cụm "nhịp xoang" không khớp regex.
-- [ ] **Bước 2:** chạy → FAIL nếu còn sót. Sửa từng chỗ sót, ghi vào báo cáo.
-- [ ] **Bước 3:** cập nhật tài liệu theo Files. README mô tả sản phẩm CardioNote, luồng, cách chạy trên macOS (`.venv-stt` Python 3.12, `uv`), danh mục mock, cách sinh lại config từ Excel và fixture từ 60 ca.
-- [ ] **Bước 4:** `npm test` 0 fail, `npm run lint` sạch, `npm run build` PASS.
-- [ ] **Bước 5:** commit `docs: CardioNote 100% Tim mạch`.
+- [x] **Bước 2:** chạy → FAIL nếu còn sót. Sửa từng chỗ sót, ghi vào báo cáo.
+- [x] **Bước 3:** cập nhật tài liệu theo Files. README mô tả sản phẩm CardioNote, luồng, cách chạy trên macOS (`.venv-stt` Python 3.12, `uv`), danh mục mock, cách sinh lại config từ Excel và fixture từ 60 ca.
+- [x] **Bước 4:** `npm test` 0 fail, `npm run lint` sạch, `npm run build` PASS.
+- [x] **Bước 5:** commit `docs: CardioNote 100% Tim mạch`. *(Xong 20/11: `5c39bd9`, `a234bc9`; review đạt. 472/472 PASS, lint 0 lỗi, tsc sạch, build PASS. Sửa khoảng 60 chỗ còn sót TMH. Tiêu đề tab của 4 trang phụ có "CardioNote". `viet-tat.json` bỏ NS, KD, NMSL, giữ P, T, KS, XQ. Khác plan: test có danh sách ngoại lệ hẹp 3 mục (file + đúng chuỗi + lý do) cho thông báo "Hồ sơ TMH cũ…" bắt buộc nguyên văn và tên riêng "Tài" trong bộ che PII; ngoại lệ không còn khớp thì test fail.)*
 
 ---
 

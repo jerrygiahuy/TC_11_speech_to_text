@@ -132,7 +132,8 @@ export function ruleExtract(
     form.mode === "rows"
       ? [{ formId: form.id, keywords: form.mock_keywords ?? [] }]
       : form.fields
-          .filter((field) => field.ai_fill && field.mock_keywords?.length)
+          // Trường không ai_fill nhưng có từ khóa là "điểm dừng": cắt đoạn trước đó, nội dung bị bỏ.
+          .filter((field) => field.mock_keywords?.length)
           .map((field) => ({ formId: form.id, fieldId: field.id, keywords: field.mock_keywords ?? [] })),
   );
 
@@ -154,6 +155,7 @@ export function ruleExtract(
     const form = forms.find((f) => f.id === hit.target.formId);
     if (!form) return;
     if (hit.target.fieldId) {
+      if (!form.fields.find((field) => field.id === hit.target.fieldId)?.ai_fill) return;
       (draft[form.id] as Values)[hit.target.fieldId] = capitalize(clean(segment)) || null;
     } else if (form.fields.some((field) => field.catalog === "thuoc")) {
       draft[form.id] = segment

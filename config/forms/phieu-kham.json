@@ -36,11 +36,56 @@
       "label": "Tiền sử",
       "type": "textarea",
       "required": false,
-      "hint": "Tiền sử bệnh, dị ứng, phẫu thuật",
+      "hint": "Tiền sử bản thân (dị ứng, thuốc đang dùng và tiền sử gia đình ghi riêng)",
       "ai_fill": true,
       "mock_keywords": [
+        "tiền sử bản thân",
         "tiền sử",
         "ts"
+      ]
+    },
+    {
+      "id": "tien_su_gia_dinh",
+      "label": "Tiền sử gia đình",
+      "type": "textarea",
+      "required": false,
+      "hint": "Tiền sử gia đình, ghi riêng với tiền sử bản thân",
+      "ai_fill": true,
+      "mock_keywords": [
+        "tiền sử gia đình"
+      ]
+    },
+    {
+      "id": "diem_dung_di_ung",
+      "label": "Điểm dừng: dị ứng",
+      "type": "text",
+      "required": false,
+      "hint": "Chỉ để bộ tách quy tắc cắt đúng chỗ, không điền vào phiếu",
+      "ai_fill": false,
+      "mock_keywords": [
+        "dị ứng:"
+      ]
+    },
+    {
+      "id": "diem_dung_thuoc_dang_dung",
+      "label": "Điểm dừng: thuốc đang dùng",
+      "type": "text",
+      "required": false,
+      "hint": "Chỉ để bộ tách quy tắc cắt đúng chỗ, không điền vào phiếu",
+      "ai_fill": false,
+      "mock_keywords": [
+        "thuốc đang dùng:"
+      ]
+    },
+    {
+      "id": "diem_dung_sinh_hieu",
+      "label": "Điểm dừng: sinh hiệu",
+      "type": "text",
+      "required": false,
+      "hint": "Chỉ để bộ tách quy tắc cắt đúng chỗ, không điền vào phiếu",
+      "ai_fill": false,
+      "mock_keywords": [
+        "sinh hiệu:"
       ]
     },
     {
@@ -65,8 +110,6 @@
       "ai_fill": true,
       "mock_keywords": [
         "khám chuyên khoa",
-        "khám tim phổi",
-        "khám tim",
         "khám thấy"
       ]
     },
@@ -80,8 +123,14 @@
       "mock_keywords": [
         "khám tim phổi",
         "khám tim mạch",
-        "tim",
-        "phổi"
+        "khám tim",
+        "nghe tim",
+        "khám phổi",
+        "tiếng tim",
+        "mỏm tim",
+        "tĩnh mạch cổ",
+        "âm thổi",
+        "phổi trong"
       ]
     },
     {

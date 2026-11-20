@@ -57,6 +57,7 @@ const ANH_XA: { tu: string; den: string; nhan: string }[] = [
   { tu: "ly_do_kham", den: "ly_do", nhan: "Lý do đến khám" },
   { tu: "benh_su", den: "benh_su", nhan: "Bệnh sử" },
   { tu: "tien_su", den: "tien_su_ban_than", nhan: "Tiền sử bản thân" },
+  { tu: "tien_su_gia_dinh", den: "tien_su_gia_dinh", nhan: "Tiền sử gia đình" },
   { tu: "kham_toan_than", den: "kham_toan_than", nhan: "Khám toàn thân" },
   { tu: "kham_chuyen_khoa", den: "kham_chuyen_khoa", nhan: "Khám chuyên khoa" },
   { tu: "kham_tim_mach_ho_hap", den: "kham_tim_mach_ho_hap", nhan: "Khám tim mạch, hô hấp" },

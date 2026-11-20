@@ -16,7 +16,7 @@ export interface FieldDef {
   name_field?: string;
   /** Trường mã: id trường hàm lượng tương ứng trong cùng dòng */
   strength_field?: string;
-  /** Từ khóa để chế độ mock tách câu tự do */
+  /** Từ khóa để chế độ mock tách câu tự do. Trường `ai_fill: false` có từ khóa chỉ là điểm dừng: cắt đoạn trước, nội dung bỏ đi. */
   mock_keywords?: string[];
 }
 

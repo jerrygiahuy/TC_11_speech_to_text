@@ -2,69 +2,73 @@
 
 import { useState } from "react";
 import { useEform } from "@/client/eform/EformContext";
-import { BTN_AI } from "@/client/eform/fields";
-import { VUNG_KHAM, goiYMauCau, tachMau } from "@/shared/eform/mau-cau";
+import { BTN_AI, BTN_OUTLINE } from "@/client/eform/fields";
+import { VUNG_KHAM, chenMauCau } from "@/shared/eform/mau-cau";
+import type { VungKham } from "@/shared/eform/types";
 
-const TRUONG_KHAM = "kham_chuyen_khoa";
+/**
+ * Hộp chọn mẫu câu khám (thư viện tham khảo). Tick câu rồi bấm Chọn: các câu thành dòng "- …" cuối ô khám.
+ * Thư viện chỉ gợi ý câu thường gặp, bác sĩ tự quyết câu nào đúng với người bệnh.
+ */
+export function MauCauPanel({ vung, onDong }: { vung: VungKham; onDong: () => void }) {
+  const { data, get, put, notify } = useEform();
+  const [chon, setChon] = useState<Set<number>>(new Set());
+  const info = VUNG_KHAM.find((item) => item.id === vung);
+  const cau = data.mauCau.theoVung[vung];
+  if (!info) return null;
+  const tatCa = chon.size === cau.length && cau.length > 0;
 
-function TheMau({ nhanVung, text, theoLyDo }: { nhanVung: string; text: string; theoLyDo: boolean }) {
-  const { append, notify } = useEform();
-  const [chon, setChon] = useState<Record<number, string>>({});
-  const phan = tachMau(text);
+  const toggle = (index: number) =>
+    setChon((prev) => {
+      const next = new Set(prev);
+      if (next.has(index)) next.delete(index);
+      else next.add(index);
+      return next;
+    });
 
-  const insert = () => {
-    const cau = phan.map((p, index) => (p.kieu === "chu" ? p.text : (chon[index] ?? p.goc))).join("");
-    append(TRUONG_KHAM, `${nhanVung}: ${cau}`, "ai");
-    setChon({});
-    notify(`Đã chèn mẫu câu ${nhanVung} vào Khám chuyên khoa.`);
+  const chenVao = () => {
+    const dong = cau.filter((_, index) => chon.has(index));
+    if (dong.length === 0) return;
+    const hienCo = get(info.truong);
+    // Câu do bác sĩ tick và chèn nên là "Bác sĩ nhập"; ô đã có dữ liệu AI hoặc dữ liệu cũ thì thành "Đã sửa"
+    const daCoGiaTri = hienCo.value.trim() !== "";
+    put(info.truong, chenMauCau(hienCo.value, dong), daCoGiaTri && hienCo.nguon ? "sua" : "bs");
+    notify(`Đã chèn ${dong.length} câu vào ${info.nhan}.`);
+    setChon(new Set());
+    onDong();
   };
 
   return (
-    <div className="rounded border border-ef-vien bg-white p-2 text-[13px]">
-      {!theoLyDo && <span className="mb-1 block text-[11px] text-ef-phu">Mẫu chung</span>}
-      <p className="leading-7">
-        {phan.map((p, index) =>
-          p.kieu === "chu" ? (
-            <span key={index}>{p.text}</span>
-          ) : (
-            <select
-              key={index}
-              aria-label={`Chọn: ${p.luaChon.join(", ")}`}
-              value={chon[index] ?? ""}
-              onChange={(e) => setChon((prev) => ({ ...prev, [index]: e.target.value }))}
-              className="mx-0.5 max-w-full rounded border border-tim-vien bg-tim-nhat px-1 text-[13px]"
-            >
-              <option value="">…</option>
-              {p.luaChon.map((option) => (
-                <option key={option}>{option}</option>
-              ))}
-            </select>
-          ),
-        )}
-      </p>
-      <button type="button" className={`${BTN_AI} mt-1`} onClick={insert}>
-        Chèn
-      </button>
-    </div>
-  );
-}
-
-export function MauCauPanel() {
-  const { data, get } = useEform();
-  const lyDo = get("ly_do").value;
-  const { theoVung } = goiYMauCau(lyDo, data.mauCau, data.quyTac.phu_dinh);
-
-  return (
-    <div className="mt-2 rounded-lg border border-tim-vien bg-tim-nhat p-3">
-      <div className="grid gap-2 md:grid-cols-2 xl:grid-cols-4">
-        {VUNG_KHAM.map((vung) => (
-          <div key={vung.id} className="space-y-1.5">
-            <h3 className="text-[13px] font-semibold text-ef-chu">{vung.nhan}</h3>
-            {theoVung[vung.id].map((mau) => (
-              <TheMau key={mau.text} nhanVung={vung.nhan} text={mau.text} theoLyDo={mau.theoLyDo} />
-            ))}
-          </div>
+    <div className="mt-2 rounded-lg border border-tim-vien bg-tim-nhat p-3" role="group" aria-label={`Thư viện câu ${info.nhan}`}>
+      <div className="mb-2 flex flex-wrap items-center gap-2">
+        <label className="flex items-center gap-1.5 text-[13px] font-semibold text-ef-chu">
+          <input
+            type="checkbox"
+            checked={tatCa}
+            onChange={() => setChon(tatCa ? new Set() : new Set(cau.map((_, index) => index)))}
+            className="accent-ef-xanh"
+          />
+          Chọn tất cả
+        </label>
+        <span className="text-xs text-ef-phu">{chon.size}/{cau.length} câu</span>
+      </div>
+      <ul className="space-y-1">
+        {cau.map((text, index) => (
+          <li key={text}>
+            <label className="flex cursor-pointer items-start gap-1.5 rounded border border-ef-vien bg-white p-1.5 text-[13px] leading-5">
+              <input type="checkbox" checked={chon.has(index)} onChange={() => toggle(index)} className="mt-0.5 accent-ef-xanh" />
+              <span>{text}</span>
+            </label>
+          </li>
         ))}
+      </ul>
+      <div className="mt-2 flex gap-1.5">
+        <button type="button" className={BTN_AI} disabled={chon.size === 0} onClick={chenVao}>
+          Chọn
+        </button>
+        <button type="button" className={BTN_OUTLINE} onClick={onDong}>
+          Hủy
+        </button>
       </div>
     </div>
   );

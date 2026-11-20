@@ -2,7 +2,7 @@ import "server-only";
 import type { ClinicalActor, ClinicalExtraction, TranscriptBinding } from "@/shared/clinical/api";
 import { buildAuditEntry, PII_POLICY_VERSION } from "@/shared/clinical/pii";
 import { requireRecordingContext } from "./bound-privacy";
-import { extractClinical } from "./extraction";
+import { contextFromVitals, extractClinical } from "./extraction";
 import { appendPiiAudit } from "./pii-audit";
 import { PrivacyTickets, privacyTickets } from "./privacy";
 import { ClinicalError, ClinicalRepository } from "./repository";
@@ -23,7 +23,7 @@ export async function extractForRecording(actor: ClinicalActor, ticket: string, 
   }
   const pii = tickets.pii(ticket, binding);
   const run = await extractClinical(ticket, {
-    binding, provider: "mock", directory: options.runDirectory,
+    binding, provider: "mock", directory: options.runDirectory, context: contextFromVitals(source.record.sinh_hieu),
     approvedTranscript: value => tickets.approved(value, binding),
     deidentification: { policy_version: PII_POLICY_VERSION, gate_passed: true, consent: pii.consent },
   });

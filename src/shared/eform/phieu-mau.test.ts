@@ -89,7 +89,7 @@ test("gợi ý không chạy với chữ quá ngắn hoặc quá dài", () => {
 
 test("điền bên và số", () => {
   assert.equal(
-    dienChoTrong("Đau tai [phải|trái|2 bên] [số] ngày, sốt [số] độ", "tai T, 3n, sốt 38,5", VT),
+    dienChoTrong("Đau tai [phải|trái|2 bên] [số] ngày, sốt [số] độ", "bên T, 3n, sốt 38,5", VT),
     "Đau tai trái 3 ngày, sốt 38,5 độ",
   );
 });
@@ -104,7 +104,7 @@ test("hai lựa chọn cùng có thì giữ nguyên", () => {
 
 test("dienChoTrongNhap không sửa mẫu gốc", () => {
   const nhap: Draft = { phieu_kham: { benh_su: "Đau tai [phải|trái] [số] ngày" }, ke_don: [{ ten_thuoc: "Paracetamol", so_ngay: 3 }] };
-  const ra = dienChoTrongNhap(nhap, "tai P, 5n", VT);
+  const ra = dienChoTrongNhap(nhap, "bên P, 5n", VT);
   assert.equal((ra.phieu_kham as Record<string, unknown>).benh_su, "Đau tai phải 5 ngày");
   assert.deepEqual(ra.ke_don, [{ ten_thuoc: "Paracetamol", so_ngay: 3 }]);
   assert.equal((nhap.phieu_kham as Record<string, unknown>).benh_su, "Đau tai [phải|trái] [số] ngày");
@@ -140,6 +140,12 @@ test("bên đứng riêng một vế vẫn nhận", () => {
   assert.equal(dienChoTrong("Tai [phải|trái].", "vtg cấp, phải, 3n", VT), "Tai phải.");
 });
 
+test("tai, mũi, họng, amidan không còn là ngữ cảnh bên (Tim mạch)", () => {
+  for (const tu of ["tai", "mũi", "họng", "amidan"]) {
+    assert.equal(dienChoTrong(`Đau ${tu} [phải|trái].`, `${tu} T`, VT), `Đau ${tu} [phải|trái].`);
+  }
+});
+
 test("ketQuaTheoQuyTac điền chỗ trống trên mẫu đã khớp mã, giữ mã", () => {
   const m: PhieuMau = {
     ...M[0],
@@ -150,7 +156,7 @@ test("ketQuaTheoQuyTac điền chỗ trống trên mẫu đã khớp mã, giữ 
       duration_ms: 0,
     },
   };
-  const kq = ketQuaTheoQuyTac(m, "tai T, 3n", VT);
+  const kq = ketQuaTheoQuyTac(m, "bên T, 3n", VT);
   assert.equal((kq.draft.phieu_kham as Record<string, unknown>).benh_su, "Đau tai trái 3 ngày");
   assert.deepEqual(kq.draft.ke_don, [{ ma_thuoc: "TH-001", ten_thuoc: "Augmentin" }]);
   assert.equal((m.ketQua.draft.phieu_kham as Record<string, unknown>).benh_su, "Đau tai [phải|trái] [số] ngày");

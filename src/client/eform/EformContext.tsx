@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext } from "react";
-import type { EformData, Nguon, Truong } from "@/shared/eform/types";
+import type { DongThuocDangDung, EformData, Nguon, Truong } from "@/shared/eform/types";
 
 export const MO_PHONG = "Chưa kết nối hệ thống thật.";
 
@@ -15,6 +15,9 @@ export interface EformApi {
   /** Thêm vào cuối ô, không ghi đè nội dung đang có */
   append: (id: string, text: string, nguon?: Nguon) => void;
   notify: (message: string) => void;
+  /** Danh sách thuốc đang dùng (giữ thứ tự dòng) */
+  thuoc: DongThuocDangDung[];
+  datThuoc: (rows: DongThuocDangDung[]) => void;
 }
 
 export const EformContext = createContext<EformApi | null>(null);

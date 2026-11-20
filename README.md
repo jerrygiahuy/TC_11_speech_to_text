@@ -108,7 +108,7 @@ Sao chép `.env.example` thành `.env.local`, rồi sửa:
 
 Các trang `/dashboard`, `/benh-nhan/...` và API `/api/clinic/*` chỉ kiểm header Host/Origin/Sec-Fetch-Site (chặn trình duyệt gọi chéo origin và DNS rebinding); client không phải trình duyệt tự đặt được Host nên không bị chặn. Muốn máy khác trong mạng không vào được, chạy `npx next dev -H 127.0.0.1` (đừng dùng `-H 0.0.0.0`), nhưng hãy mở trang bằng `localhost`: eForm gọi guard của lớp clinical và báo "Nguồn yêu cầu không hợp lệ" nếu truy cập bằng `127.0.0.1`.
 
-Dashboard (`/dashboard`) và hồ sơ bệnh nhân (`/benh-nhan/<PID>`) đọc phiếu khám thật của lớp clinical (`data/clinical/encounters`) cùng 4 phiếu cũ giả trong `data/clinic/history/` (tạo lại bằng `npm run tao-lich-su-clinic`). Lịch, bệnh nhân và danh bạ nằm ở `data/clinic/`, cùng định danh với `data/eform/encounter-contexts.json`; lịch chỉ mở được phiếu khi có ngữ cảnh khám tương ứng. Từ popup lịch hẹn hoặc màn bệnh nhân bấm "Mở phiếu khám" để sang eForm đúng bệnh nhân; "Xem phiếu" ở lịch sử mở toàn bộ phiếu cũ ở chế độ chỉ đọc. Bộ 8 ca dùng cho test nằm ở `data/clinic-test/`.
+Dashboard (`/dashboard`) và hồ sơ bệnh nhân (`/benh-nhan/<PID>`) đọc phiếu khám thật của lớp clinical (`data/clinical/encounters`) cùng 4 phiếu cũ giả trong `data/clinic/history/` (tạo lại bằng `npm run tao-du-lieu-tim-mach`). Lịch, bệnh nhân và danh bạ nằm ở `data/clinic/`, cùng định danh với `data/eform/encounter-contexts.json`; lịch chỉ mở được phiếu khi có ngữ cảnh khám tương ứng. Từ popup lịch hẹn hoặc màn bệnh nhân bấm "Mở phiếu khám" để sang eForm đúng bệnh nhân; "Xem phiếu" ở lịch sử mở toàn bộ phiếu cũ ở chế độ chỉ đọc. Bộ 8 ca dùng cho test nằm ở `data/clinic-test/`.
 
 Khởi động lại `npm run dev` sau khi sửa `.env.local`. Header của ứng dụng hiện chế độ đang dùng.
 
@@ -163,6 +163,8 @@ Kết quả trên giọng máy ngày 2026-11-11: WER 21,4% thành 10,5%, Mã 7/4
 
 **Luồng mới:** sửa `config/clinical/*.schema.json`, chạy `npm run clinical:types` và `npm run clinical:check`. Các config/forms và eval bên dưới là bộ thử pipeline cũ, không còn là hợp đồng endpoint trích xuất hiện tại.
 
+`clinical:check` phần thứ hai gọi `python3 docs/task-2/verify.py` và cần gói Python `jsonschema`. Nếu thiếu, lệnh báo `ModuleNotFoundError: jsonschema`. Cài bằng `python3 -m pip install jsonschema` (hoặc dùng môi trường Python đã có sẵn gói này).
+
 Các trường AI tách ra nằm trong JSON ở `config/forms/`. Schema gửi cho LLM, prompt, chế độ `mock` và eval đều sinh từ các file này.
 
 **Giao diện eForm không sinh từ JSON.** Thêm trường mới vào JSON thì AI sẽ tách được ngay (thấy trong eval), nhưng muốn trường hiện trên phiếu thì phải nối thêm: trường phiếu khám vào bảng `ANH_XA` trong `src/shared/eform/dien-phieu.ts` và vào ô tương ứng ở `src/client/eform/EformForm.tsx`; cột chỉ định, thuốc vào `dienPhieu` và `ChiDinhTab.tsx` / `DonThuocTab.tsx`.
@@ -187,7 +189,7 @@ Ví dụ thêm trường "Mạch" vào phiếu khám, chèn vào mảng `fields`
 | `type` | `text`, `textarea`, `number`, `date`, hoặc `select` (kèm `"options": ["A", "B"]`) |
 | `required` | Đánh dấu trường bắt buộc trong schema; giao diện eForm hiện chưa dùng khóa này |
 | `ai_fill` | `false` thì AI không điền |
-| `mock_keywords` | Không bắt buộc. Từ khóa để chế độ `mock` nhận ra phần này trong câu tự do |
+| `mock_keywords` | Không bắt buộc. Từ khóa để chế độ `mock` nhận ra phần này trong câu tự do. Dùng cụm cụ thể ("khám tim phổi"), không dùng từ trần ("tim") vì bộ tách cắt câu tại mọi từ khóa. Trường `ai_fill: false` có từ khóa chỉ là điểm dừng (cắt đoạn trước, bỏ nội dung), ví dụ `diem_dung_di_ung` trong `phieu-kham.json` |
 
 Trường mã có thêm `catalog` (tên danh mục), `name_field` (trường tên) và `strength_field` (trường hàm lượng, nếu có) để pipeline biết khớp danh mục nào bằng trường nào. Không đặt `ai_fill: true` cho trường mã: mã chỉ được gán bởi code khớp danh mục ở `src/shared/match.ts`.
 
@@ -196,10 +198,12 @@ Các cấu hình khác:
 - `config/viet-tat.json`: bảng từ viết tắt. Khóa một chữ cái phân biệt hoa thường và phải đứng riêng thành từ.
 - `config/canh-bao.json`: cách tính tổng số lượng thuốc (`tinh_tong`). Các khóa tuổi trẻ em, cân nặng là của cảnh báo trên trang cũ đã bỏ, hiện không dùng.
 - `config/theme.json`: màu giao diện. Các khóa `ef_*` là màu của trang eForm (nền, viền, chữ, xanh thao tác chính, đỏ dị ứng), `ai_tim` là màu tím đánh dấu phần AI điền, `xem` là màu vàng đất "cần xem lại".
-- Danh mục ứng dụng nạp gồm hai phần, ghép ở `src/server/du-lieu/danh-muc.ts`:
-  - **Danh mục bệnh viện soạn tay** `data/catalog/dich-vu.json` (30 mục), `data/catalog/thuoc.json` (33 thuốc): có `ten_khac` (tên bác sĩ hay gọi) và được khớp trước. Dịch vụ có kỹ thuật tương ứng trong TT 23/2024 dùng mã thật (ví dụ `20.13` Nội soi tai mũi họng); 11 dịch vụ TT 23 không có (khám TMH, nội soi tai riêng, lấy ráy, test nhanh liên cầu, CT xoang...) giữ mã giả `DV-TMH-*`. Thuốc giữ mã nội bộ giả `TH-*`.
-  - **Danh mục thật** ở `data/tham-khao/` (xem `data/tham-khao/README.md`, cào lại bằng `npm run cao-du-lieu`): 486 kỹ thuật, 4.914 số đăng ký thuốc gộp còn khoảng 4.770 mục (trùng tên + hàm lượng + dạng bào chế thì giữ số đăng ký còn hạn lâu nhất), 433 mã ICD-10 lọc còn 367 mã chi tiết nhất. Mục thật trùng mã với mục soạn tay thì lấy bản soạn tay.
-  - Thứ tự khớp (`matchCatalog`): trùng tên ở danh mục bệnh viện → trùng tên ở danh mục thật → tìm mờ ở danh mục bệnh viện → tìm mờ ở danh mục thật. Ví dụ "Paracetamol 500mg" ra `TH-013`, "Betaserc 24mg" (bệnh viện chỉ có 16 mg) ra số đăng ký thật, "đo thính lực lời" ra `21.61`.
+- Danh mục ứng dụng nạp từ `src/server/du-lieu/danh-muc.ts`, hiện chỉ có danh mục Tim mạch soạn tay (mock, mỗi mục có `"mock": true`):
+  - `data/catalog/dich-vu.json`: 10 dịch vụ cận lâm sàng `DV-TM-001` đến `DV-TM-010`, có `ten_khac`.
+  - `data/catalog/thuoc.json`: 9 thuốc đang dùng của bộ ca (mã `TH-TM-*`).
+  - `data/eform/icd10.json`: 11 mã ICD-10 Tim mạch, mỗi mã có từ khóa `manh` và `vua` để gợi ý.
+  - Chưa có danh mục thật Tim mạch. `data/tham-khao/` (cào bằng `npm run cao-du-lieu`) không còn được nạp.
+  - Mục soạn tay được đánh dấu `uu_tien` và khớp trước. Thứ tự khớp (`matchCatalog`): trùng tên hoặc tên khác → tìm mờ.
 
 Lưu ý với file `ca-*.json` đã có: thêm trường mới thì nên bổ sung giá trị vào `expected` để điểm eval không bị tính là "Thừa".
 
@@ -284,7 +288,7 @@ npm run eval-pii -- --ner
 
 ## Mô phỏng eForm ngoại trú
 
-Trang `/` có hai tab **Phiếu khám** và **Chỉ định dịch vụ**, dữ liệu giả. Trợ lý bên phải có bước lọc/xem lại transcript trước model và bước áp dụng bản nháp. Bác sĩ tự kê đơn trong quy trình riêng.
+Trang `/` có hai tab **Phiếu khám** và **Chỉ định dịch vụ**, dữ liệu giả. Giao diện theo Excel Phiếu khám ngoại trú Tim mạch (CardioNote): Đánh giá chung, Nơi giới thiệu, Lý do, Tiền sử, Dị ứng, Bệnh sử, **Thuốc đang dùng** (chưa hỏi thì không nút nào được chọn, có danh sách thuốc và nút **+ Thêm thuốc**, lưu cùng hồ sơ), Khám lâm sàng (Khám toàn thân, Khám chuyên khoa là ô chữ thường, **Khám tim mạch, hô hấp**; hai ô khám có nút **Mở thư viện tham khảo** lấy câu từ `data/cardiology/exam-library.json`, tick câu hoặc **Chọn tất cả** rồi **Chọn** để chèn thành các dòng `- ...`), Chẩn đoán, **Các xét nghiệm, thăm dò chính**. Bản in tách riêng **Chẩn đoán ban đầu** và **Chẩn đoán ra viện** (dòng trống thì bỏ), thêm Thuốc đang dùng và Khám tim mạch, hô hấp; sinh hiệu chưa đo hiện "chưa đo", BMI để trống khi thiếu chiều cao hoặc cân nặng. Trợ lý bên phải có bước lọc/xem lại transcript trước model và bước áp dụng bản nháp. Bác sĩ tự kê đơn trong quy trình riêng.
 
 Trang chính mở theo **mã khám**: thanh **Lượt khám** ở đầu trang chuyển giữa các bệnh nhân (đang khám, chờ kết quả) hoặc mở mã khác; mỗi mã khám là một hồ sơ có nhiều phiên ghi âm. Nút **Lưu phiếu & chỉ định** ghi hồ sơ JSON có revision; **Tải bản lưu** và URL `?ho_so=...` khôi phục đúng hồ sơ. Duyệt theo từng phần (phiếu ban đầu, kết luận, tóm tắt, từng chỉ định); sửa phần nào chỉ phần đó cần duyệt lại. **Chờ kết quả**, **Tiếp tục khám**, **Hoàn tất lượt khám** đổi trạng thái lượt khám, tách khỏi việc duyệt. Đề xuất của AI hiện thành danh sách để bác sĩ chấp nhận hoặc từ chối từng mục. Chỉ in được khi mọi phần đã duyệt đúng bản đang lưu. Chuyển lượt khi phiếu chưa lưu hoặc còn nội dung chưa kiểm tra sẽ bị chặn hoặc hỏi lại.
 

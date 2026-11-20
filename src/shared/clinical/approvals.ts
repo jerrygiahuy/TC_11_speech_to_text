@@ -9,14 +9,14 @@ export interface ApproveClinicalRequest { id: string; expected_revision: number;
 export interface TransitionClinicalRequest { id: string; expected_revision: number; action: "wait" | "resume" | "complete" }
 export interface ApprovalState { scope: ApprovalScope; status: "unapproved" | "current" | "changed"; version: ApprovalVersion | null }
 
-const INITIAL_NOTE_FIELDS = ["ly_do_kham", "benh_su", "tien_su_ban_than", "tien_su_gia_dinh", "di_ung", "co_thuoc_dang_dung", "thuoc_dang_dung", "co_pttt", "kham_toan_than", "kham_chuyen_khoa", "kham_khac"] as const;
+const INITIAL_NOTE_FIELDS = ["ly_do_kham", "benh_su", "tien_su_ban_than", "tien_su_gia_dinh", "di_ung", "co_thuoc_dang_dung", "thuoc_dang_dung", "kham_toan_than", "kham_chuyen_khoa", "kham_tim_mach_ho_hap", "kham_khac"] as const;
 const CONCLUSION_FIELDS = ["ghi_chu_ket_qua", "da_xu_ly", "huong_dieu_tri", "loi_dan", "hen_tai_kham", "tinh_trang_ra_vien"] as const;
 const VITAL_FIELDS = ["mach", "nhiet_do", "ha_tam_thu", "ha_tam_truong", "spo2", "nhip_tho", "chieu_cao", "can_nang", "bmi"];
-const OTHER_INFO_FIELDS = ["chuyen_noi_soi", "xn_benh_tat", "xn_bhxh", "xn_me"];
+const OTHER_INFO_FIELDS = ["chuyen_noi_soi", "xn_benh_tat", "xn_bhxh"];
 const NESTED_FORM_FIELDS: Record<string, readonly string[]> = { di_ung: ["trang_thai", "loai", "mo_ta"], hen_tai_kham: ["co_hen", "nguyen_van", "sau_bao_lau", "ngay_cu_the"] };
 const ORDER_CONTENT_FIELDS = ["noi_dung", "danh_muc", "trang_thai", "group_id", "package_id", "package_version", "thay_the_order_id", "chan_doan_ids", "billing", "intentional_repeat_reason"];
 const GROUP_CONTENT_FIELDS = ["chan_doan_lich_su_lam_sang", "room_id", "bed_id"];
-const UI_INITIAL = new Set(["ly_do", "benh_su", "tien_su_ban_than", "tien_su_gia_dinh", "noi_gioi_thieu", "di_ung", "di_ung_loai", "di_ung_mo_ta", "thuoc_dang_dung", "co_pttt", "kham_toan_than", "kham_chuyen_khoa", "kham_khac", "icd_ban_dau", "mo_ta_ban_dau", "icd_kem_theo", "giai_doan_kem_theo", "chuyen_noi_soi", "xn_benh_tat", "xn_bhxh", "xn_me"]);
+const UI_INITIAL = new Set(["ly_do", "benh_su", "tien_su_ban_than", "tien_su_gia_dinh", "noi_gioi_thieu", "di_ung", "di_ung_loai", "di_ung_mo_ta", "thuoc_dang_dung", "kham_toan_than", "kham_chuyen_khoa", "kham_tim_mach_ho_hap", "kham_khac", "icd_ban_dau", "mo_ta_ban_dau", "icd_kem_theo", "chuyen_noi_soi", "xn_benh_tat", "xn_bhxh"]);
 const UI_CONCLUSION = new Set(["ghi_chu_kq", "da_xu_ly", "huong_dieu_tri", "loi_dan", "hen_tai_kham", "ngay_tai_kham", "tinh_trang_ra_vien", "icd_ra_vien", "mo_ta_ra_vien"]);
 
 /** Diagnosis paths must carry their stage; order/group paths must carry the stable order ID.

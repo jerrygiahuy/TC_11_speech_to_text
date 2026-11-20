@@ -54,7 +54,7 @@ def main() -> None:
 
     ner_segment.download()
     segment = ner_segment.make_segmenter()
-    words = segment('chị nguyễn thị lan ở thủ đức đau họng')
+    words = segment('bệnh nhân nam đau ngực khi gắng sức, đang dùng bisoprolol')
     step('VnCoreNLP wseg đã nạp', base)
     print('   ', ' '.join(words))
 

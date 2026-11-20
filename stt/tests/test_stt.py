@@ -42,8 +42,8 @@ def test_empty_transcript_is_no_speech():
 
 def test_only_explicit_hotwords_are_forwarded():
     recognizer = Recognizer('xin chào')
-    adapter(recognizer).transcribe(decode(wav_bytes()), ('  bệnh   án ', 'tai mũi họng'))
-    assert recognizer.hotwords == 'BỆNH ÁN/TAI MŨI HỌNG'
+    adapter(recognizer).transcribe(decode(wav_bytes()), ('  bệnh   án ', 'rung nhĩ'))
+    assert recognizer.hotwords == 'BỆNH ÁN/RUNG NHĨ'
     adapter(recognizer).transcribe(decode(wav_bytes()))
     assert recognizer.hotwords is None
     assert to_sherpa_hotwords(('bad/injection', ' ')) == ''

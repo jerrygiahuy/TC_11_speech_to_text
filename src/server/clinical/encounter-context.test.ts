@@ -14,18 +14,41 @@ test("server contexts replace complete patient data and preserve leading zero ap
   assert.equal(b.data.ca.ho_ten, "Trần Văn Mô Phỏng");
   assert.equal(b.data.ca.gioi_tinh, "Nam");
   assert.equal(b.data.ca.canh_bao_di_ung, "");
-  assert.deepEqual(b.data.ca.lich_su, { tien_su_ban_than: [], tien_su_gia_dinh: [], benh_su: [], di_ung: [] });
+  assert.deepEqual(b.data.ca.lich_su.di_ung, []);
+  assert.ok(b.data.ca.lich_su.tien_su_ban_than.length > 0);
   assert.deepEqual(b.data.ca.xet_nghiem, []);
   assert.deepEqual(b.data.ca.chan_doan_hinh_anh, []);
-  assert.deepEqual(b.data.ca.can_lam_sang, []);
+  assert.deepEqual(b.data.ca.can_lam_sang.map(day => day.muc.map(item => item.ten)), [["Điện tim thường"]]);
   assert.notDeepEqual(b.data.ca.sinh_hieu, a.data.ca.sinh_hieu);
-  assert.match(b.data.ca.gia_tri.ly_do, /họng/);
   assert.equal(b.data.ca.gia_tri.di_ung_mo_ta, undefined);
   assert.equal(resolveEncounterContext(actor, "LK-GIA-0457").data.ca.gia_tri.benh_su, undefined);
   b.data.ca.ho_ten = "changed";
   assert.equal(resolveEncounterContext(actor, "000123").data.ca.ho_ten, "Trần Văn Mô Phỏng");
   assert.deepEqual(loadEformData().ca, a.data.ca);
-  assert.equal(listEncounterContexts(actor).length, 4); // thêm LK-GIA-0458 (bệnh nhân mới) cho dashboard
+  assert.deepEqual(listEncounterContexts(actor).map(item => item.appointmentId), ["LK-GIA-0456", "000123", "LK-GIA-0457", "LK-GIA-0458"]); // SYN-CARDIO-001, 013, 039, 049
+});
+
+test("ngu_canh_tim_mach_mac_dinh", () => {
+  const contexts = listEncounterContexts(getDemoClinicalActor());
+  assert.equal(contexts[0].appointmentId, "LK-GIA-0456");
+  assert.equal(contexts[0].data.ca.phong_kham, "PK Nội tim mạch");
+  for (const context of contexts) {
+    assert.equal(context.data.ca.co_so, "OPD - Trung tâm Tim mạch");
+    assert.equal(context.data.ca.phong_kham, "PK Nội tim mạch");
+  }
+  const text = JSON.stringify(contexts);
+  for (const word of ["tai phải", "họng", "TMH"]) assert.ok(!text.includes(word), `còn "${word}"`);
+  const ca = contexts[0].data.ca;
+  assert.equal(ca.sinh_hieu.ha_tam_thu, 148);
+  assert.equal(ca.lich_su.di_ung.some(row => row.thong_tin.includes("Penicillin") && row.loai_phieu === "Phiếu Đánh giá ban đầu ngoại trú"), true);
+  assert.equal(ca.lich_su.thuoc[0].ten_thuoc, "Amlodipine");
+});
+
+test("sinh_hieu_null_hop_le", () => {
+  const fixture = JSON.parse(fs.readFileSync("data/eform/encounter-contexts.json", "utf8"));
+  fixture.contexts[0].ca.sinh_hieu.nhiet_do = null;
+  fixture.contexts[0].ca.sinh_hieu.bmi = null;
+  assert.doesNotThrow(() => validateEncounterContexts(fixture));
 });
 
 test("context authorization uses server doctor and facility, never patient identifiers", () => {

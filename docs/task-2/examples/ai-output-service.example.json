@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.1.0",
+  "schema_version": "2.0.0",
   "tom_tat": "Bác sĩ chỉ định dịch vụ mẫu B một lần, bên trái. Ví dụ giả lập.",
   "phieu_kham": {
     "ly_do_kham": null,
@@ -13,15 +13,9 @@
     },
     "co_thuoc_dang_dung": null,
     "thuoc_dang_dung": [],
-    "co_pttt": null,
     "kham_toan_than": null,
-    "kham_chuyen_khoa": {
-      "mo_ta": null,
-      "tai": null,
-      "mui": null,
-      "vom": null,
-      "hong": null
-    },
+    "kham_chuyen_khoa": null,
+    "kham_tim_mach_ho_hap": null,
     "kham_khac": null,
     "chan_doan": [],
     "ghi_chu_ket_qua": null,

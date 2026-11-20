@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { MO_PHONG, useEform } from "@/client/eform/EformContext";
 import {
-  BTN_AI,
   BTN_OUTLINE,
   FieldLabel,
   NHOM,
@@ -20,10 +19,9 @@ import {
   inputClass,
 } from "@/client/eform/fields";
 import { IcdField, IcdMultiField } from "@/client/eform/IcdField";
-import { LichSuBlock } from "@/client/eform/LichSuBlock";
+import { LichSuBlock, LichSuThuoc } from "@/client/eform/LichSuBlock";
 import { MauCauPanel } from "@/client/eform/MauCauPanel";
-import { demChoTrong } from "@/shared/eform/mau-cau";
-import type { KetQuaTheoNgay } from "@/shared/eform/types";
+import type { DongThuocDangDung, KetQuaTheoNgay, VungKham } from "@/shared/eform/types";
 
 const CO_KHONG = ["Có", "Không"];
 /**
@@ -72,24 +70,80 @@ function DateField({ id, label, type }: { id: string; label: string; type: "date
   );
 }
 
-function KhamChuyenKhoa() {
-  const { get } = useEform();
+/** Ô khám có nút "Mở thư viện tham khảo": tick câu trong hộp chọn rồi chèn vào ô */
+function OKhamCoThuVien({ id, label, vung }: { id: string; label: string; vung: VungKham }) {
   const [open, setOpen] = useState(false);
-  const choTrong = demChoTrong(get("kham_chuyen_khoa").value);
   return (
     <TextBox
-      id="kham_chuyen_khoa"
-      label="Khám chuyên khoa"
+      id={id}
+      label={label}
       rows={4}
       actions={
-        <button type="button" className={BTN_AI} aria-expanded={open} onClick={() => setOpen((value) => !value)}>
-          ✨ Gợi ý mẫu câu
+        <button type="button" className={BTN_OUTLINE} aria-expanded={open} onClick={() => setOpen((value) => !value)}>
+          Mở thư viện tham khảo
         </button>
       }
     >
-      {choTrong > 0 && <p className="mt-1 text-xs text-xem">⚠ Còn {choTrong} chỗ [ ] chưa chọn, cần điền kết quả khám thực tế.</p>}
-      {open && <MauCauPanel />}
+      {open && <MauCauPanel vung={vung} onDong={() => setOpen(false)} />}
     </TextBox>
+  );
+}
+
+const TRONG_THUOC: DongThuocDangDung = { ten: "", ham_luong: "", cach_dung: "" };
+
+/** Thuốc đang dùng: hỏi có hay không (chưa hỏi thì không nút nào được chọn), có thì nhập danh sách thuốc */
+function ThuocDangDung() {
+  const { get, edit, thuoc, datThuoc } = useEform();
+  const co = get("thuoc_dang_dung").value === "NB có";
+  const khong = get("thuoc_dang_dung").value === "NB không có";
+  const sua = (index: number, khoa: keyof DongThuocDangDung, value: string) =>
+    datThuoc(thuoc.map((row, i) => (i === index ? { ...row, [khoa]: value } : row)));
+  const chon = (value: string) => {
+    edit("thuoc_dang_dung", value);
+    if (value === "NB không có") datThuoc([]);
+  };
+  return (
+    <div className="space-y-2">
+      <fieldset id={anchorId("thuoc_dang_dung")} className="scroll-mt-44">
+        <legend className="mb-1">
+          <FieldLabel id="thuoc_dang_dung" label="Thuốc hiện đang dùng (Bao gồm cả thuốc kê đơn và không kê đơn)" nguon={get("thuoc_dang_dung").nguon} />
+        </legend>
+        <div className="flex flex-wrap gap-1.5">
+          {[["NB không có", "NB không có thuốc đang dùng"], ["NB có", "NB có thuốc đang dùng"]].map(([option, nhan]) => (
+            <label key={option} className={RADIO}>
+              <input type="radio" name="thuoc_dang_dung" checked={get("thuoc_dang_dung").value === option} onChange={() => chon(option)} className="accent-ef-xanh" />
+              {nhan}
+            </label>
+          ))}
+        </div>
+      </fieldset>
+      {!khong && (
+        <div className="space-y-2" aria-label="Danh sách thuốc đang dùng">
+          {thuoc.map((row, index) => (
+            <div key={index} className="grid gap-2 rounded-md border border-ef-vien bg-white p-2 md:grid-cols-[2fr_1fr_2fr_auto]">
+              <input aria-label={`Tên thuốc ${index + 1}`} placeholder="Tên thuốc" value={row.ten} onChange={(e) => sua(index, "ten", e.target.value)} className={inputClass(null)} />
+              <input aria-label={`Hàm lượng ${index + 1}`} placeholder="Hàm lượng" value={row.ham_luong} onChange={(e) => sua(index, "ham_luong", e.target.value)} className={inputClass(null)} />
+              <input aria-label={`Cách dùng ${index + 1}`} placeholder="Cách dùng, ghi chú" value={row.cach_dung} onChange={(e) => sua(index, "cach_dung", e.target.value)} className={inputClass(null)} />
+              <button type="button" className={BTN_OUTLINE} onClick={() => datThuoc(thuoc.filter((_, i) => i !== index))}>
+                Xóa
+              </button>
+            </div>
+          ))}
+          <button type="button" className={BTN_OUTLINE} onClick={() => { datThuoc([...thuoc, { ...TRONG_THUOC }]); if (!co) edit("thuoc_dang_dung", "NB có"); }}>
+            + Thêm thuốc
+          </button>
+          {co && thuoc.length === 0 && <p className="text-xs text-xem">⚠ Đã chọn NB có thuốc đang dùng nhưng danh sách còn trống.</p>}
+        </div>
+      )}
+      {HIEN_THONG_TIN_KHAI_THAC && (
+        <LichSuThuoc
+          onCopy={(row) => {
+            datThuoc([...thuoc, { ten: row.ten_thuoc, ham_luong: row.lieu, cach_dung: row.duong_dung }]);
+            if (!co) edit("thuoc_dang_dung", "NB có");
+          }}
+        />
+      )}
+    </div>
   );
 }
 
@@ -130,6 +184,7 @@ function DanhGiaChung() {
 
       <div className="space-y-2">
         <RadioField id="di_ung" label="Tiền sử dị ứng" options={["Có", "Không", "Không xác định"]} />
+        {!diUng.value && <p className="text-xs text-xem">⚠ Chưa chọn tiền sử dị ứng.</p>}
         {diUng.value === "Có" && (
           <>
             <fieldset>
@@ -198,13 +253,13 @@ function DanhGiaChung() {
         )}
       </TextBox>
 
-      <RadioField id="thuoc_dang_dung" label="Thuốc đang dùng (cả kê đơn và không kê đơn)" options={["NB không có", "NB có"]} />
+      <ThuocDangDung />
 
       <div className={NHOM}>
         <FieldLabel label="Khám lâm sàng" bcyt />
-        <RadioField id="co_pttt" label="Có phẫu thuật/thủ thuật" options={CO_KHONG} />
-        <TextBox id="kham_toan_than" label="Khám toàn thân" actions={<ThuVienButton id="kham_toan_than" />} />
-        <KhamChuyenKhoa />
+        <OKhamCoThuVien id="kham_toan_than" label="Khám toàn thân" vung="toan_than" />
+        <TextBox id="kham_chuyen_khoa" label="Khám chuyên khoa" rows={3} actions={<ThuVienButton id="kham_chuyen_khoa" />} />
+        <OKhamCoThuVien id="kham_tim_mach_ho_hap" label="Khám tim mạch, hô hấp" vung="tim_mach_ho_hap" />
         <TextBox id="kham_khac" label="Khám các bộ phận khác" actions={<ThuVienButton id="kham_khac" />} />
       </div>
 
@@ -212,7 +267,7 @@ function DanhGiaChung() {
 
       <div className={NHOM}>
         <div className="flex flex-wrap items-center justify-between gap-2">
-          <FieldLabel label="Xét nghiệm, thăm dò chính" bcyt />
+          <FieldLabel label="Xét nghiệm, thăm dò" />
           <button type="button" className={BTN_OUTLINE} onClick={() => notify(MO_PHONG)}>
             Lấy kết quả mới nhất
           </button>
@@ -232,11 +287,12 @@ function DanhGiaChung() {
           items={ca.can_lam_sang}
           extra={ca.dong_bo_cls ? <span className="text-xs text-ef-phu">Đồng bộ lần cuối lúc {ca.dong_bo_cls}</span> : undefined}
         />
-        <TextBox id="ghi_chu_kq" label="Ghi chú kết quả" />
+        <TextBox id="ghi_chu_kq" label="Các xét nghiệm, thăm dò chính" bcyt />
       </div>
 
       <div className="flex flex-wrap items-center gap-2">
-        <span className="text-[13px] font-semibold text-ef-chu">Thông tin chẩn đoán xác định từ hệ thống ngoài</span>
+        <span className="text-[13px] font-semibold text-ef-chu">Thông tin chẩn đoán xác định từ OH</span>
+        {ca.chan_doan_oh && <span className="rounded-md bg-ef-nen px-2 py-1 text-[13px] text-ef-chu">{ca.chan_doan_oh}</span>}
         <button type="button" className={BTN_OUTLINE} onClick={() => notify(MO_PHONG)}>
           Lấy kết quả
         </button>
@@ -248,7 +304,6 @@ function DanhGiaChung() {
         label="Chẩn đoán kèm theo"
         loaiTru={[get("icd_ban_dau").value, get("icd_ra_vien").value].filter(Boolean)}
       />
-      {get("icd_kem_theo").value && <RadioField id="giai_doan_kem_theo" label="Giai đoạn chẩn đoán kèm" options={["Ban đầu", "Ra viện", "Chưa rõ"]} />}
       <RadioField id="da_xu_ly" label="Đã xử lý (thuốc, chăm sóc)" options={CO_KHONG} />
     </Section>
   );
@@ -262,7 +317,12 @@ function DieuTri() {
       <TextBox id="loi_dan" label="Lời dặn & theo dõi" bcyt actions={<ThuVienButton id="loi_dan" />} />
       <div className="grid gap-4 md:grid-cols-2">
         <RadioField id="hen_tai_kham" label="Hẹn tái khám" options={CO_KHONG} />
-        {get("hen_tai_kham").value === "Có" && <DateField id="ngay_tai_kham" label="Ngày tái khám" type="date" />}
+        {get("hen_tai_kham").value === "Có" && (
+          <div className="space-y-1">
+            <DateField id="ngay_tai_kham" label="Ngày tái khám" type="date" />
+            {!get("ngay_tai_kham").value && <p className="text-xs text-xem">⚠ Đã chọn hẹn tái khám nhưng chưa nhập ngày.</p>}
+          </div>
+        )}
       </div>
       <RadioField id="tinh_trang_ra_vien" label="Tình trạng ra viện" options={data.tuyChon.tinh_trang_ra_vien} />
     </Section>
@@ -300,10 +360,9 @@ function ThongTinKhac({ noiSoiEnabled }: { noiSoiEnabled: boolean }) {
         </label>
         {!noiSoiEnabled && <p className="mt-1 text-xs text-ef-phu">Chỉ hoạt động khi trạng thái là &quot;Chờ KQ CLS&quot;.</p>}
       </div>
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="grid gap-4 md:grid-cols-2">
         <RadioField id="xn_benh_tat" label="Xác nhận bệnh tật" options={CO_KHONG} />
         <RadioField id="xn_bhxh" label="Xác nhận nghỉ việc hưởng BHXH" options={CO_KHONG} />
-        <RadioField id="xn_me" label="Xác nhận người mẹ không đủ sức khỏe chăm sóc con" options={CO_KHONG} />
       </div>
     </Section>
   );

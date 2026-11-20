@@ -3,7 +3,7 @@
 import { useEform } from "@/client/eform/EformContext";
 import { goiYIcd } from "@/shared/eform/icd";
 
-const NGUON_GOI_Y = ["benh_su", "kham_toan_than", "kham_chuyen_khoa", "kham_khac"];
+const NGUON_GOI_Y = ["benh_su", "kham_toan_than", "kham_chuyen_khoa", "kham_tim_mach_ho_hap", "kham_khac"];
 
 interface Props {
   loaiTru?: string[];

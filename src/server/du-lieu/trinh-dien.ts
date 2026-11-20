@@ -11,7 +11,7 @@ import type { DonDaKe } from "@/shared/eform/thoi-quen";
 import type { EformData, TrinhDienData } from "@/shared/eform/types";
 
 /** Chẩn đoán chọn sẵn cho kiểu 2, 3; trùng chẩn đoán của câu mẫu và các đơn đã kê giả */
-const ICD_TRINH_DIEN = "H66.1";
+const ICD_TRINH_DIEN = "I10";
 
 type FileTrinhDien = Omit<TrinhDienData, "phieuMau" | "icd" | "hoiThoai"> & {
   hoi_thoai: TrinhDienData["hoiThoai"];

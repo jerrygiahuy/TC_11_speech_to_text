@@ -9,13 +9,21 @@ import { loadEncounterEformData } from "@/server/du-lieu/eform";
 import { ClinicalError } from "./repository";
 
 const history = z.object({ ngay: z.string(), bac_si: z.string(), khoa: z.string(), noi_dung: z.string() });
-const result = z.array(z.object({ ngay: z.string(), muc: z.array(z.object({ ten: z.string(), ket_qua: z.string() })) }));
-const caSchema = z.object({
+const resultItem = z.object({
+  nhom: z.string().optional(), bo_xet_nghiem: z.string().optional(), ten: z.string(), ket_qua: z.string(), tham_chieu: z.string().optional(), don_vi: z.string().optional(),
+  thoi_gian: z.string().optional(), nguoi_tra_ket_qua: z.string().optional(), ket_luan: z.string().optional(),
+});
+const result = z.array(z.object({ ngay: z.string(), muc: z.array(resultItem) }));
+const nullableNumber = z.number().nullable();
+const medicineHistory = z.object({ ten_thuoc: z.string(), lieu: z.string(), duong_dung: z.string(), ngay: z.string() });
+/** Khuôn của `ca` (CaGia); `excel-coverage.test.ts` đối chiếu đường dẫn bảng phủ Excel với khuôn này. */
+export const caSchema = z.object({
   dang_nhap: z.string(), co_so: z.string(), pid: z.string(), ma_luot_kham: z.string(), ho_ten: z.string(), gioi_tinh: z.string(), canh_bao_di_ung: z.string(),
   chinh_sua_cuoi: z.object({ nguoi: z.string(), luc: z.string() }), danh_gia_ban_dau: z.array(z.object({ nhan: z.string(), gia_tri: z.string() })),
-  sinh_hieu: z.object({ mach: z.number(), nhiet_do: z.number(), ha_tam_thu: z.number(), ha_tam_truong: z.number(), spo2: z.number(), nhip_tho: z.number(), chieu_cao: z.number(), can_nang: z.number() }),
+  sinh_hieu: z.object({ mach: nullableNumber, nhiet_do: nullableNumber, ha_tam_thu: nullableNumber, ha_tam_truong: nullableNumber, spo2: nullableNumber, nhip_tho: nullableNumber, chieu_cao: nullableNumber, can_nang: nullableNumber, bmi: nullableNumber.default(null) }),
   bac_si_kham: z.string(), phong_kham: z.string(), bac_si_chinh: z.string(), trang_thai: z.string(),
-  lich_su: z.object({ tien_su_ban_than: z.array(history), tien_su_gia_dinh: z.array(history), benh_su: z.array(history), di_ung: z.array(z.object({ ngay: z.string(), loai_phieu: z.string(), loai: z.string(), thong_tin: z.string(), nguoi: z.string() })) }),
+  lich_su: z.object({ tien_su_ban_than: z.array(history), tien_su_gia_dinh: z.array(history), benh_su: z.array(history), di_ung: z.array(z.object({ ngay: z.string(), loai_phieu: z.string(), loai: z.string(), thong_tin: z.string(), nguoi: z.string() })), thuoc: z.array(medicineHistory).default([]) }),
+  chan_doan_oh: z.string().default(""),
   xet_nghiem: result, chan_doan_hinh_anh: result, can_lam_sang: result, dong_bo_cls: z.string(), gia_tri: z.record(z.string(), z.string()),
 }).passthrough();
 const contextSchema = z.object({

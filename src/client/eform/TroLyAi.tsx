@@ -32,7 +32,7 @@ const FOCUS = "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visi
 const NUT_CHINH = `w-full rounded-lg bg-tim py-2.5 text-sm font-semibold text-white hover:bg-tim/90 disabled:cursor-not-allowed disabled:opacity-50 ${FOCUS}`;
 const NUT_PHU = `w-full rounded-lg border border-tim-vien bg-white py-2.5 text-sm font-semibold text-tim hover:bg-tim-nhat disabled:cursor-not-allowed disabled:opacity-50 ${FOCUS}`;
 
-const MAU_HOI_THOAI = "BN: Đau họng 3 ngày, không sốt.\nBS: Khám thấy họng đỏ. Chẩn đoán ban đầu viêm họng cấp. Chỉ định nội soi họng, số lượng 1. Lời dặn uống đủ nước. Hẹn tái khám sau 3 ngày.";
+const MAU_HOI_THOAI = "BN: Tái khám tăng huyết áp, theo dõi huyết áp tại nhà, thỉnh thoảng đau đầu nhẹ, không đau ngực, không khó thở.\nBS: Dị ứng penicillin. Thuốc đang dùng amlodipine 5 mg, mỗi ngày một lần. Mạch 72, huyết áp 148 trên 88, SpO2 98. Khám tim phổi: tiếng T1, T2 đều rõ, không âm thổi. Chẩn đoán ban đầu tăng huyết áp vô căn. Chỉ định điện tâm đồ, số lượng 1. Lời dặn ghi nhật ký huyết áp. Hẹn tái khám sau 30 ngày.";
 
 const OPEN_STATES: RecordingSession["state"][] = ["opening", "recording", "finalizing"];
 

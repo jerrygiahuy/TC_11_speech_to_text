@@ -9,14 +9,14 @@
       "doctor_id": "user_bs01",
       "age_months": 576,
       "ca": {
-        "_ghi_chu": "Hồ sơ giả mặc định cho môi trường demo.",
+        "_ghi_chu": "Ngữ cảnh giả sinh từ SYN-CARDIO-001 bằng npm run tao-du-lieu-tim-mach.",
         "dang_nhap": "user_bs01",
-        "co_so": "Cơ sở mô phỏng / Khu khám ngoại trú",
+        "co_so": "OPD - Trung tâm Tim mạch",
         "pid": "GIA-000123",
         "ma_luot_kham": "LK-GIA-0456",
         "ho_ten": "Nguyễn Thị Giả",
         "gioi_tinh": "Nữ",
-        "canh_bao_di_ung": "",
+        "canh_bao_di_ung": "Penicillin",
         "chinh_sua_cuoi": {
           "nguoi": "user_dd01",
           "luc": "09/11/2026 08:52"
@@ -28,7 +28,7 @@
           },
           {
             "nhan": "Mức độ đau",
-            "gia_tri": "4/10, tai phải"
+            "gia_tri": "Không đau"
           },
           {
             "nhan": "Nguy cơ ngã",
@@ -40,29 +40,87 @@
           }
         ],
         "sinh_hieu": {
-          "mach": 82,
-          "nhiet_do": 37.6,
-          "ha_tam_thu": 122,
-          "ha_tam_truong": 78,
+          "mach": 72,
+          "nhiet_do": 36.7,
+          "ha_tam_thu": 148,
+          "ha_tam_truong": 88,
           "spo2": 98,
           "nhip_tho": 18,
-          "chieu_cao": 160,
-          "can_nang": 56
+          "chieu_cao": 165,
+          "can_nang": 68,
+          "bmi": 25
         },
         "bac_si_kham": "BS. A",
-        "phong_kham": "Phòng khám ngoại trú",
+        "phong_kham": "PK Nội tim mạch",
         "bac_si_chinh": "BS. A",
         "trang_thai": "Đang khám",
         "lich_su": {
-          "tien_su_ban_than": [],
-          "tien_su_gia_dinh": [],
+          "tien_su_ban_than": [
+            {
+              "ngay": "20/10/2026",
+              "bac_si": "BS. B",
+              "khoa": "PK Tim mạch",
+              "noi_dung": "Tăng huyết áp đã được theo dõi"
+            }
+          ],
+          "tien_su_gia_dinh": [
+            {
+              "ngay": "20/10/2026",
+              "bac_si": "BS. B",
+              "khoa": "PK Tim mạch",
+              "noi_dung": "Gia đình có người tăng huyết áp"
+            }
+          ],
           "benh_su": [],
-          "di_ung": []
+          "di_ung": [
+            {
+              "ngay": "20/10/2026",
+              "loai_phieu": "Phiếu Đánh giá ban đầu ngoại trú",
+              "loai": "Thuốc",
+              "thong_tin": "Penicillin",
+              "nguoi": "ĐD. X (user_dd01)"
+            }
+          ],
+          "thuoc": [
+            {
+              "ten_thuoc": "Amlodipine",
+              "lieu": "5 mg, mỗi ngày một lần",
+              "duong_dung": "Uống",
+              "ngay": "20/10/2026"
+            }
+          ]
         },
-        "xet_nghiem": [],
+        "chan_doan_oh": "",
+        "xet_nghiem": [
+          {
+            "ngay": "20/10/2026",
+            "muc": [
+              {
+                "nhom": "Xét nghiệm",
+                "ten": "Creatinin máu",
+                "ket_qua": "Chức năng thận trong giới hạn được ghi nhận",
+                "thoi_gian": "20/10/2026 08:30",
+                "nguoi_tra_ket_qua": "KTV. Y (dữ liệu giả)"
+              }
+            ]
+          }
+        ],
         "chan_doan_hinh_anh": [],
-        "can_lam_sang": [],
-        "dong_bo_cls": "09/11/2026 08:40",
+        "can_lam_sang": [
+          {
+            "ngay": "20/10/2026",
+            "muc": [
+              {
+                "nhom": "Thăm dò chức năng",
+                "ten": "Điện tim thường",
+                "ket_qua": "Điện tâm đồ nhịp xoang",
+                "thoi_gian": "20/10/2026 08:30",
+                "nguoi_tra_ket_qua": "KTV. Y (dữ liệu giả)"
+              }
+            ]
+          }
+        ],
+        "dong_bo_cls": "09/11/2026 08:52",
         "gia_tri": {
           "thoi_gian_kham": "2026-11-09T09:15"
         }
@@ -75,8 +133,9 @@
       "doctor_id": "user_bs01",
       "age_months": 420,
       "ca": {
+        "_ghi_chu": "Ngữ cảnh giả sinh từ SYN-CARDIO-013 bằng npm run tao-du-lieu-tim-mach.",
         "dang_nhap": "user_bs01",
-        "co_so": "Cơ sở mô phỏng / Khu khám ngoại trú",
+        "co_so": "OPD - Trung tâm Tim mạch",
         "pid": "GIA-000456",
         "ma_luot_kham": "000123",
         "ho_ten": "Trần Văn Mô Phỏng",
@@ -84,61 +143,7 @@
         "canh_bao_di_ung": "",
         "chinh_sua_cuoi": {
           "nguoi": "user_dd01",
-          "luc": "14/11/2026 09:20"
-        },
-        "danh_gia_ban_dau": [
-          {
-            "nhan": "Mức độ đau",
-            "gia_tri": "2/10, họng"
-          }
-        ],
-        "sinh_hieu": {
-          "mach": 76,
-          "nhiet_do": 37.1,
-          "ha_tam_thu": 118,
-          "ha_tam_truong": 74,
-          "spo2": 99,
-          "nhip_tho": 16,
-          "chieu_cao": 172,
-          "can_nang": 68
-        },
-        "bac_si_kham": "BS. A",
-        "phong_kham": "Phòng khám ngoại trú",
-        "bac_si_chinh": "BS. A",
-        "trang_thai": "Đang khám",
-        "lich_su": {
-          "tien_su_ban_than": [],
-          "tien_su_gia_dinh": [],
-          "benh_su": [],
-          "di_ung": []
-        },
-        "xet_nghiem": [],
-        "chan_doan_hinh_anh": [],
-        "can_lam_sang": [],
-        "dong_bo_cls": "",
-        "gia_tri": {
-          "thoi_gian_kham": "2026-11-14T09:30"
-        }
-      }
-    },
-    {
-      "appointment_id": "LK-GIA-0457",
-      "patient_id": "GIA-000123",
-      "facility_id": "facility-prototype",
-      "doctor_id": "user_bs01",
-      "age_months": 576,
-      "ca": {
-        "_ghi_chu": "Hồ sơ giả mặc định cho môi trường demo.",
-        "dang_nhap": "user_bs01",
-        "co_so": "Cơ sở mô phỏng / Khu khám ngoại trú",
-        "pid": "GIA-000123",
-        "ma_luot_kham": "LK-GIA-0457",
-        "ho_ten": "Nguyễn Thị Giả",
-        "gioi_tinh": "Nữ",
-        "canh_bao_di_ung": "",
-        "chinh_sua_cuoi": {
-          "nguoi": "user_dd01",
-          "luc": "09/11/2026 08:52"
+          "luc": "09/11/2026 08:40"
         },
         "danh_gia_ban_dau": [
           {
@@ -147,7 +152,7 @@
           },
           {
             "nhan": "Mức độ đau",
-            "gia_tri": "4/10, tai phải"
+            "gia_tri": "3/10, vùng ngực khi gắng sức"
           },
           {
             "nhan": "Nguy cơ ngã",
@@ -159,31 +164,191 @@
           }
         ],
         "sinh_hieu": {
-          "mach": 82,
-          "nhiet_do": 37.6,
-          "ha_tam_thu": 122,
-          "ha_tam_truong": 78,
+          "mach": 80,
+          "nhiet_do": 36.8,
+          "ha_tam_thu": 132,
+          "ha_tam_truong": 82,
           "spo2": 98,
-          "nhip_tho": 18,
-          "chieu_cao": 160,
-          "can_nang": 56
+          "nhip_tho": 19,
+          "chieu_cao": 170,
+          "can_nang": 72,
+          "bmi": 24.9
         },
         "bac_si_kham": "BS. A",
-        "phong_kham": "Phòng khám ngoại trú",
+        "phong_kham": "PK Nội tim mạch",
         "bac_si_chinh": "BS. A",
         "trang_thai": "Đang khám",
         "lich_su": {
-          "tien_su_ban_than": [],
-          "tien_su_gia_dinh": [],
+          "tien_su_ban_than": [
+            {
+              "ngay": "05/10/2026",
+              "bac_si": "BS. B",
+              "khoa": "PK Tim mạch",
+              "noi_dung": "Rối loạn lipid máu"
+            }
+          ],
+          "tien_su_gia_dinh": [
+            {
+              "ngay": "05/10/2026",
+              "bac_si": "BS. B",
+              "khoa": "PK Tim mạch",
+              "noi_dung": "Gia đình có người bệnh mạch vành"
+            }
+          ],
           "benh_su": [],
-          "di_ung": []
+          "di_ung": [],
+          "thuoc": [
+            {
+              "ten_thuoc": "Atorvastatin",
+              "lieu": "20 mg, buổi tối",
+              "duong_dung": "Uống",
+              "ngay": "05/10/2026"
+            }
+          ]
         },
+        "chan_doan_oh": "",
         "xet_nghiem": [],
         "chan_doan_hinh_anh": [],
-        "can_lam_sang": [],
+        "can_lam_sang": [
+          {
+            "ngay": "05/10/2026",
+            "muc": [
+              {
+                "nhom": "Thăm dò chức năng",
+                "ten": "Điện tim thường",
+                "ket_qua": "Điện tâm đồ cần bác sĩ đối chiếu",
+                "thoi_gian": "05/10/2026 08:30",
+                "nguoi_tra_ket_qua": "KTV. Y (dữ liệu giả)"
+              }
+            ]
+          }
+        ],
         "dong_bo_cls": "09/11/2026 08:40",
         "gia_tri": {
-          "thoi_gian_kham": "2026-11-14T10:00"
+          "thoi_gian_kham": "2026-11-09T09:15"
+        }
+      }
+    },
+    {
+      "appointment_id": "LK-GIA-0457",
+      "patient_id": "GIA-000123",
+      "facility_id": "facility-prototype",
+      "doctor_id": "user_bs01",
+      "age_months": 576,
+      "ca": {
+        "_ghi_chu": "Ngữ cảnh giả sinh từ SYN-CARDIO-039 bằng npm run tao-du-lieu-tim-mach.",
+        "dang_nhap": "user_bs01",
+        "co_so": "OPD - Trung tâm Tim mạch",
+        "pid": "GIA-000123",
+        "ma_luot_kham": "LK-GIA-0457",
+        "ho_ten": "Nguyễn Thị Giả",
+        "gioi_tinh": "Nữ",
+        "canh_bao_di_ung": "Penicillin",
+        "chinh_sua_cuoi": {
+          "nguoi": "user_dd01",
+          "luc": "09/11/2026 08:55"
+        },
+        "danh_gia_ban_dau": [
+          {
+            "nhan": "Điều dưỡng đánh giá",
+            "gia_tri": "ĐD. X (user_dd01)"
+          },
+          {
+            "nhan": "Mức độ đau",
+            "gia_tri": "Không đau"
+          },
+          {
+            "nhan": "Nguy cơ ngã",
+            "gia_tri": "Thấp"
+          },
+          {
+            "nhan": "Tình trạng dinh dưỡng",
+            "gia_tri": "Bình thường"
+          }
+        ],
+        "sinh_hieu": {
+          "mach": 78,
+          "nhiet_do": 36.7,
+          "ha_tam_thu": 118,
+          "ha_tam_truong": 72,
+          "spo2": 96,
+          "nhip_tho": 20,
+          "chieu_cao": 164,
+          "can_nang": 66,
+          "bmi": 24.5
+        },
+        "bac_si_kham": "BS. A",
+        "phong_kham": "PK Nội tim mạch",
+        "bac_si_chinh": "BS. A",
+        "trang_thai": "Đang khám",
+        "lich_su": {
+          "tien_su_ban_than": [
+            {
+              "ngay": "02/10/2026",
+              "bac_si": "BS. B",
+              "khoa": "PK Tim mạch",
+              "noi_dung": "Suy tim đang theo dõi"
+            }
+          ],
+          "tien_su_gia_dinh": [],
+          "benh_su": [],
+          "di_ung": [
+            {
+              "ngay": "02/10/2026",
+              "loai_phieu": "Phiếu Đánh giá ban đầu ngoại trú",
+              "loai": "Thuốc",
+              "thong_tin": "Penicillin",
+              "nguoi": "ĐD. X (user_dd01)"
+            }
+          ],
+          "thuoc": [
+            {
+              "ten_thuoc": "Bisoprolol",
+              "lieu": "2,5 mg, mỗi ngày một lần",
+              "duong_dung": "Uống",
+              "ngay": "02/10/2026"
+            },
+            {
+              "ten_thuoc": "Furosemide",
+              "lieu": "40 mg, buổi sáng",
+              "duong_dung": "Uống",
+              "ngay": "02/10/2026"
+            }
+          ]
+        },
+        "chan_doan_oh": "",
+        "xet_nghiem": [
+          {
+            "ngay": "02/10/2026",
+            "muc": [
+              {
+                "nhom": "Xét nghiệm",
+                "ten": "Điện giải đồ, Creatinin máu",
+                "ket_qua": "Điện giải và chức năng thận cần đối chiếu",
+                "thoi_gian": "02/10/2026 08:30",
+                "nguoi_tra_ket_qua": "KTV. Y (dữ liệu giả)"
+              }
+            ]
+          }
+        ],
+        "chan_doan_hinh_anh": [
+          {
+            "ngay": "02/10/2026",
+            "muc": [
+              {
+                "nhom": "Chẩn đoán hình ảnh",
+                "ten": "Siêu âm tim, màng tim qua thành ngực",
+                "ket_qua": "Có kết quả siêu âm tim để bác sĩ xem",
+                "thoi_gian": "02/10/2026 08:30",
+                "nguoi_tra_ket_qua": "KTV. Y (dữ liệu giả)"
+              }
+            ]
+          }
+        ],
+        "can_lam_sang": [],
+        "dong_bo_cls": "09/11/2026 08:55",
+        "gia_tri": {
+          "thoi_gian_kham": "2026-11-09T09:15"
         }
       }
     },
@@ -192,50 +357,100 @@
       "patient_id": "GIA-000789",
       "facility_id": "facility-prototype",
       "doctor_id": "user_bs01",
-      "age_months": 300,
+      "age_months": 306,
       "ca": {
-        "_ghi_chu": "Hồ sơ giả mặc định cho môi trường demo.",
+        "_ghi_chu": "Ngữ cảnh giả sinh từ SYN-CARDIO-049 bằng npm run tao-du-lieu-tim-mach.",
         "dang_nhap": "user_bs01",
-        "co_so": "Cơ sở mô phỏng / Khu khám ngoại trú",
+        "co_so": "OPD - Trung tâm Tim mạch",
         "pid": "GIA-000789",
         "ma_luot_kham": "LK-GIA-0458",
         "ho_ten": "Lê Văn Mới",
         "gioi_tinh": "Nam",
-        "canh_bao_di_ung": "",
+        "canh_bao_di_ung": "Penicillin",
         "chinh_sua_cuoi": {
           "nguoi": "user_dd01",
-          "luc": "09/11/2026 08:52"
+          "luc": "09/11/2026 08:58"
         },
         "danh_gia_ban_dau": [
           {
             "nhan": "Điều dưỡng đánh giá",
             "gia_tri": "ĐD. X (user_dd01)"
+          },
+          {
+            "nhan": "Mức độ đau",
+            "gia_tri": "Không đau"
+          },
+          {
+            "nhan": "Nguy cơ ngã",
+            "gia_tri": "Thấp"
+          },
+          {
+            "nhan": "Tình trạng dinh dưỡng",
+            "gia_tri": "Bình thường"
           }
         ],
         "sinh_hieu": {
-          "mach": 82,
-          "nhiet_do": 37.6,
-          "ha_tam_thu": 122,
-          "ha_tam_truong": 78,
-          "spo2": 98,
+          "mach": 76,
+          "nhiet_do": 36.7,
+          "ha_tam_thu": 116,
+          "ha_tam_truong": 70,
+          "spo2": 99,
           "nhip_tho": 18,
-          "chieu_cao": 160,
-          "can_nang": 56
+          "chieu_cao": 163,
+          "can_nang": 58,
+          "bmi": 21.8
         },
         "bac_si_kham": "BS. A",
-        "phong_kham": "Phòng khám ngoại trú",
+        "phong_kham": "PK Nội tim mạch",
         "bac_si_chinh": "BS. A",
         "trang_thai": "Đang khám",
         "lich_su": {
-          "tien_su_ban_than": [],
-          "tien_su_gia_dinh": [],
+          "tien_su_ban_than": [
+            {
+              "ngay": "09/11/2026",
+              "bac_si": "BS. B",
+              "khoa": "PK Tim mạch",
+              "noi_dung": "Chưa ghi nhận bệnh tim mạch"
+            }
+          ],
+          "tien_su_gia_dinh": [
+            {
+              "ngay": "09/11/2026",
+              "bac_si": "BS. B",
+              "khoa": "PK Tim mạch",
+              "noi_dung": "Gia đình chưa ghi nhận đột tử sớm"
+            }
+          ],
           "benh_su": [],
-          "di_ung": []
+          "di_ung": [
+            {
+              "ngay": "09/11/2026",
+              "loai_phieu": "Phiếu Đánh giá ban đầu ngoại trú",
+              "loai": "Thuốc",
+              "thong_tin": "Penicillin",
+              "nguoi": "ĐD. X (user_dd01)"
+            }
+          ],
+          "thuoc": []
         },
+        "chan_doan_oh": "",
         "xet_nghiem": [],
         "chan_doan_hinh_anh": [],
-        "can_lam_sang": [],
-        "dong_bo_cls": "09/11/2026 08:40",
+        "can_lam_sang": [
+          {
+            "ngay": "09/11/2026",
+            "muc": [
+              {
+                "nhom": "Thăm dò chức năng",
+                "ten": "Điện tim thường",
+                "ket_qua": "Điện tâm đồ cần được đánh giá",
+                "thoi_gian": "09/11/2026 08:30",
+                "nguoi_tra_ket_qua": "KTV. Y (dữ liệu giả)"
+              }
+            ]
+          }
+        ],
+        "dong_bo_cls": "09/11/2026 08:58",
         "gia_tri": {
           "thoi_gian_kham": "2026-11-09T09:15"
         }

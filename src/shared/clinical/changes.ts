@@ -45,7 +45,7 @@ function digest(value: unknown): string {
 }
 const same = (a: unknown, b: unknown) => JSON.stringify(a) === JSON.stringify(b);
 const stableId = (run: string, ...parts: string[]) => digest([run, ...parts]).slice(0, 32);
-const FORM_FIELDS = ["ly_do_kham", "benh_su", "tien_su_ban_than", "tien_su_gia_dinh", "di_ung", "co_thuoc_dang_dung", "thuoc_dang_dung", "co_pttt", "kham_toan_than", "kham_chuyen_khoa", "kham_khac", "ghi_chu_ket_qua", "da_xu_ly", "huong_dieu_tri", "loi_dan", "hen_tai_kham", "tinh_trang_ra_vien"] as const;
+const FORM_FIELDS = ["ly_do_kham", "benh_su", "tien_su_ban_than", "tien_su_gia_dinh", "di_ung", "co_thuoc_dang_dung", "thuoc_dang_dung", "kham_toan_than", "kham_chuyen_khoa", "kham_tim_mach_ho_hap", "kham_khac", "ghi_chu_ket_qua", "da_xu_ly", "huong_dieu_tri", "loi_dan", "hen_tai_kham", "tinh_trang_ra_vien"] as const;
 
 /** Rows created by AI get ids derived from the run, so the server and the browser compute identical change sets. */
 function deterministicContext(run: ClinicalExtraction, now: string) {

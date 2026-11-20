@@ -18,7 +18,7 @@ export function Header({ provider }: { provider: string }) {
   const pathname = usePathname();
   return (
     <header className="flex flex-wrap items-center gap-x-6 gap-y-1 bg-primary px-4 py-2.5 text-white">
-      <h1 className="text-lg font-semibold">Trợ lý điền bệnh án Tim mạch – Prototype</h1>
+      <h1 className="text-lg font-semibold">CardioNote – Trung tâm Tim mạch (prototype)</h1>
       <nav className="flex flex-wrap gap-1">
         {LINKS.map((link) => {
           const active =

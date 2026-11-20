@@ -17,7 +17,8 @@ import { TroLyAi, type TabId } from "@/client/eform/TroLyAi";
 import type { DongChiDinh, DongThuoc, KetQuaDien } from "@/shared/eform/dien-phieu";
 import { demLuot } from "@/shared/eform/do-luong";
 import { ghepGoiY } from "@/shared/eform/thoi-quen";
-import type { EformData, KichBan, Nguon, Truong } from "@/shared/eform/types";
+import { ghepAiKhongGhiDe } from "@/shared/eform/ghep-ai";
+import type { DongThuocDangDung, EformData, KichBan, Nguon, Truong } from "@/shared/eform/types";
 import { approvalState, requiredApprovalScopes, type ApprovalScope } from "@/shared/clinical/approvals";
 import { projectEform } from "@/shared/clinical/eform";
 import type { Encounter } from "@/shared/clinical/types";
@@ -30,6 +31,7 @@ const TRANG_THAI_DANG_KHAM = "Đang khám";
 const TRANG_THAI_HOAN_THANH = "Hoàn thành khám";
 const KHONG_CHI_DINH: DongChiDinh[] = [];
 const KHONG_THUOC: DongThuoc[] = [];
+const KHONG_THUOC_DANG_DUNG: DongThuocDangDung[] = [];
 const EMPTY: Truong = { value: "", nguon: null };
 /** Chiều cao header và thanh dưới đáy (màn rộng), để cột Trợ lý AI ghim vừa khoảng giữa */
 const KHUNG = { "--cao-dau": "5.75rem", "--cao-day": "5.75rem" } as CSSProperties;
@@ -101,7 +103,7 @@ function trangThaiDau(data: EformData, kichBan?: KichBan) {
     const kq = { ...td.phieuMau, donThuoc: [] };
     const them = [...kq.chiDinh, ...kq.donThuoc];
     return {
-      fields: { ...fields, ...kq.truong },
+      fields: ghepAiKhongGhiDe(fields, kq.truong),
       chiDinh: kq.chiDinh,
       donThuoc: kq.donThuoc,
       ketQua: kq,
@@ -133,8 +135,9 @@ export function EformScreen({ data, kichBan, bridge }: { data: EformData; kichBa
   const [fields, setFields] = useState(dau.fields);
   const [chiDinh, setChiDinh] = useState(dau.chiDinh);
   const [donThuoc] = useState(dau.donThuoc);
+  const [thuoc, setThuoc] = useState<DongThuocDangDung[]>(KHONG_THUOC_DANG_DUNG);
   // Dữ liệu lúc Lưu gần nhất (ban đầu là lúc mở phiếu); khác tham chiếu nghĩa là có thay đổi chưa Lưu
-  const [banLuu, setBanLuu] = useState(() => ({ fields, chiDinh, donThuoc, trangThai: data.ca.trang_thai, summary: "", noServices: false, clinicalInfo: "" }));
+  const [banLuu, setBanLuu] = useState(() => ({ fields, chiDinh, donThuoc, thuoc, trangThai: data.ca.trang_thai, summary: "", noServices: false, clinicalInfo: "" }));
   const [ketQua, setKetQua] = useState<KetQuaDien | null>(dau.ketQua);
   const [dongAi, setDongAi] = useState<DongAi>(dau.dongAi);
   const [luot, setLuot] = useState<Luot>({
@@ -170,8 +173,9 @@ export function EformScreen({ data, kichBan, bridge }: { data: EformData; kichBa
     setNoServices(response.record.chi_dinh.de_cap === "khong_chi_dinh");
     setClinicalInfo(response.snapshot.chiDinhLyDo ?? "");
     setChiDinh(response.snapshot.chiDinh);
+    setThuoc(response.snapshot.thuocDangDung ?? KHONG_THUOC_DANG_DUNG);
     setTrangThai(response.snapshot.trangThai);
-    setBanLuu({ fields: response.snapshot.fields, chiDinh: response.snapshot.chiDinh, donThuoc: [], trangThai: response.snapshot.trangThai, summary: response.record.tom_tat ?? "", noServices: response.record.chi_dinh.de_cap === "khong_chi_dinh", clinicalInfo: response.snapshot.chiDinhLyDo ?? "" });
+    setBanLuu({ fields: response.snapshot.fields, chiDinh: response.snapshot.chiDinh, donThuoc: [], thuoc: response.snapshot.thuocDangDung ?? KHONG_THUOC_DANG_DUNG, trangThai: response.snapshot.trangThai, summary: response.record.tom_tat ?? "", noServices: response.record.chi_dinh.de_cap === "khong_chi_dinh", clinicalInfo: response.snapshot.chiDinhLyDo ?? "" });
     setKetQua(null);
     setDongAi({ tong: 0, khop: 0 });
     setLastEdit({ nguoi: response.record.audit.updated_by, luc: new Date(response.record.audit.updated_at).toLocaleString("vi-VN", { timeZone: "Asia/Ho_Chi_Minh" }) });
@@ -202,6 +206,8 @@ export function EformScreen({ data, kichBan, bridge }: { data: EformData; kichBa
     () => ({
       data,
       notify,
+      thuoc,
+      datThuoc: setThuoc,
       get: (id) => fields[id] ?? EMPTY,
       edit: (id, value) =>
         setFields((prev) => ({ ...prev, [id]: { value, nguon: afterEdit(prev[id]?.nguon) } })),
@@ -215,7 +221,7 @@ export function EformScreen({ data, kichBan, bridge }: { data: EformData; kichBa
           };
         }),
     }),
-    [data, fields, notify],
+    [data, fields, notify, thuoc],
   );
 
   const goTo = (id: string) => {
@@ -228,7 +234,7 @@ export function EformScreen({ data, kichBan, bridge }: { data: EformData; kichBa
     }, 50);
   };
 
-  const chuaLuu = fields !== banLuu.fields || chiDinh !== banLuu.chiDinh || trangThai !== banLuu.trangThai || summary !== banLuu.summary || noServices !== banLuu.noServices || clinicalInfo !== banLuu.clinicalInfo;
+  const chuaLuu = fields !== banLuu.fields || thuoc !== banLuu.thuoc || chiDinh !== banLuu.chiDinh || trangThai !== banLuu.trangThai || summary !== banLuu.summary || noServices !== banLuu.noServices || clinicalInfo !== banLuu.clinicalInfo;
   const bridgeSetDirty = bridge?.setDirty;
   useEffect(() => { bridgeSetDirty?.(chuaLuu); }, [chuaLuu, bridgeSetDirty]);
   const khoa = trangThai === TRANG_THAI_HOAN_THANH || record?.status === "hoan_thanh_kham";
@@ -238,7 +244,7 @@ export function EformScreen({ data, kichBan, bridge }: { data: EformData; kichBa
   const duyetDu = duyet.length > 0 && duyet.every((item) => item.state === "current");
   const printable = record && duyetDu && !chuaLuu ? record : null;
   const banInSnapshot = useMemo(() => (printable ? projectEform(printable) : null), [printable]);
-  const printApi = useMemo<EformApi>(() => (banInSnapshot ? { ...api, get: (id) => banInSnapshot.fields[id] ?? EMPTY } : api), [api, banInSnapshot]);
+  const printApi = useMemo<EformApi>(() => (banInSnapshot ? { ...api, thuoc: banInSnapshot.thuocDangDung ?? KHONG_THUOC_DANG_DUNG, get: (id) => banInSnapshot.fields[id] ?? EMPTY } : api), [api, banInSnapshot]);
 
   /** Thao tác ghi lên server: chạy một lần, cập nhật phiên bản hồ sơ và đổ lại phiếu theo kết quả. */
   const runAction = async (fallback: string, action: (current: Encounter) => Promise<ClinicalResponse>, done: string) => {
@@ -329,14 +335,17 @@ export function EformScreen({ data, kichBan, bridge }: { data: EformData; kichBa
     saveLock.current = true;
     setSaving(true);
     setClinicalError("");
-    const snapshot = { fields, chiDinh, chiDinhLyDo: clinicalInfo, chiDinhDeCap: noServices ? "khong_chi_dinh" as const : "chua_de_cap" as const, trangThai: trangThai as TrangThai };
+    const thuocLuu = thuoc.filter((row) => row.ten.trim() || row.ham_luong.trim() || row.cach_dung.trim());
+    const snapshot = { fields, thuocDangDung: thuocLuu, chiDinh, chiDinhLyDo: clinicalInfo, chiDinhDeCap: noServices ? "khong_chi_dinh" as const : "chua_de_cap" as const, trangThai: trangThai as TrangThai };
     try {
       const current = bridge.latest().record;
       const response = await luuHoSo(snapshot, { id: current.id, revision: current.revision }, summary || null);
       bridge.publish(response);
       const savedRows = response.snapshot.chiDinh;
       setChiDinh(rows => rows === snapshot.chiDinh ? savedRows : rows);
-      setBanLuu({ fields: snapshot.fields, chiDinh: savedRows, donThuoc, trangThai: snapshot.trangThai, summary, noServices, clinicalInfo });
+      const thuocDaLuu = response.snapshot.thuocDangDung ?? thuocLuu;
+      setThuoc((rows) => (rows === thuoc ? thuocDaLuu : rows));
+      setBanLuu({ fields: snapshot.fields, chiDinh: savedRows, donThuoc, thuoc: thuocDaLuu, trangThai: snapshot.trangThai, summary, noServices, clinicalInfo });
       setReviewConfirmed(false); setScopesChosen([]);
       setLastEdit({ nguoi: response.record.audit.updated_by, luc: nowText() });
       const ghiChu = await ghiLuot();

@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import fs from "node:fs";
 import path from "node:path";
-import { parseEncounter, parseAiOutput, parseTranscript, emptyEncounter } from "./schema";
+import { parseEncounter, parseAiOutput, parseTranscript, emptyEncounter, CLINICAL_SCHEMA_VERSION } from "./schema";
 
 const fixture = (name: string) => JSON.parse(fs.readFileSync(path.resolve(`docs/task-2/examples/${name}.example.json`), "utf8"));
 test("runtime parses canonical record, AI and transcript fixtures", () => {
@@ -43,9 +43,10 @@ test("empty encounter uses null, preserves uncertainty and is an unapproved draf
   parseEncounter(e);
 });
 
-test("encounter 1.2 stores recording metadata and immutable reviewed revisions", () => {
+test("encounter 2.0 stores recording metadata and immutable reviewed revisions", () => {
   const e = emptyEncounter({ id: "enc-1", patientId: "patient-demo", doctorId: "doctor-demo", now: "2026-11-12T10:00:00+07:00" });
-  assert.equal(e.schema_version, "1.2.0");
+  assert.equal(e.schema_version, "2.0.0");
+  assert.equal(CLINICAL_SCHEMA_VERSION, "2.0.0");
   assert.deepEqual(e.recording_sessions, []);
   assert.deepEqual(e.approval_versions, []);
   assert.deepEqual(e.change_decisions, []);
@@ -59,7 +60,7 @@ const recording = () => ({
 });
 test("encounter rejects duplicate sessions, reversed time, and foreign source sessions", () => {
   const e = emptyEncounter({ id: "enc-1", patientId: "patient-demo", doctorId: "doctor-demo", now: "2026-11-12T10:00:00+07:00" });
-  const valid = { ...e, schema_version: "1.2.0", recording_sessions: [recording()] };
+  const valid = { ...e, schema_version: "2.0.0", recording_sessions: [recording()] };
   assert.doesNotThrow(() => parseEncounter(valid));
   assert.throws(() => parseEncounter({ ...valid, recording_sessions: [recording(), recording()] }), /trùng/i);
   assert.throws(() => parseEncounter({ ...valid, recording_sessions: [{ ...recording(), ended_at: "2026-11-12T09:59:00+07:00" }] }), /thời gian/i);
@@ -79,7 +80,7 @@ test("approval snapshots accept nested JSON and reject executable or undefined v
 test("legacy 1.1 transcript and AI contracts retain compatibility alongside bound transcript metadata", () => {
   const legacy = fixture("transcript");
   assert.equal(parseTranscript(legacy).schema_version, "1.1.0");
-  assert.equal(parseAiOutput(fixture("ai-output")).schema_version, "1.1.0");
+  assert.equal(parseAiOutput(fixture("ai-output")).schema_version, "2.0.0");
   const binding = { encounter_id: "enc-1", recording_session_id: "session-1", generation: 1, content_revision: 1 };
   assert.deepEqual(parseTranscript({ ...legacy, binding }).binding, binding);
   assert.throws(() => parseTranscript({ ...legacy, binding: { ...binding, encounter_id: undefined } }));

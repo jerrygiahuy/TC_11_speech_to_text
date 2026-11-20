@@ -3,8 +3,9 @@
 import { useEffect, useRef } from "react";
 import { useEform } from "@/client/eform/EformContext";
 import { BTN_OUTLINE, SourceBadge } from "@/client/eform/fields";
-import { chanDoanChinh, ngayGio } from "@/client/eform/BanIn";
+import { ngayGio } from "@/client/eform/BanIn";
 import { nhanIcd } from "@/client/eform/IcdField";
+import { dongChanDoanIn } from "@/shared/eform/chan-doan-in";
 import { demChoTrong } from "@/shared/eform/mau-cau";
 
 /** Các trường "hiển thị trên BCYT", theo thứ tự xuất hiện trên form */
@@ -13,6 +14,7 @@ const TRUONG_BCYT = [
   { id: "benh_su", label: "Bệnh sử" },
   { id: "kham_toan_than", label: "Khám toàn thân" },
   { id: "kham_chuyen_khoa", label: "Khám chuyên khoa" },
+  { id: "kham_tim_mach_ho_hap", label: "Khám tim mạch, hô hấp" },
   { id: "kham_khac", label: "Khám các bộ phận khác" },
   { id: "ghi_chu_kq", label: "Xét nghiệm, thăm dò chính" },
   { id: "huong_dieu_tri", label: "Hướng điều trị" },
@@ -29,7 +31,7 @@ export function BaoCaoDialog({ onClose }: { onClose: () => void }) {
   }, []);
 
   const kemTheo = get("icd_kem_theo");
-  const chanDoan = chanDoanChinh(get);
+  const chanDoanIn = dongChanDoanIn(get, (ma) => nhanIcd(ma, data.icd10));
   const { ca } = data;
 
   return (
@@ -75,16 +77,21 @@ export function BaoCaoDialog({ onClose }: { onClose: () => void }) {
             </div>
           );
         })}
-        <div>
-          <div className="flex items-center gap-1.5 font-medium text-ef-chu">
-            {chanDoan.nhan} <SourceBadge nguon={get(chanDoan.maId).nguon} />
-          </div>
-          {chanDoan.ma || chanDoan.moTa ? (
-            <p className="whitespace-pre-wrap">{[nhanIcd(chanDoan.ma, data.icd10), chanDoan.moTa].filter(Boolean).join(". ")}</p>
-          ) : (
+        {chanDoanIn.length > 0 ? (
+          chanDoanIn.map((dong) => (
+            <div key={dong.nhan}>
+              <div className="flex items-center gap-1.5 font-medium text-ef-chu">
+                {dong.nhan} <SourceBadge nguon={get(dong.nhan === "Chẩn đoán ra viện" ? "icd_ra_vien" : "icd_ban_dau").nguon} />
+              </div>
+              <p className="whitespace-pre-wrap">{dong.noiDung}</p>
+            </div>
+          ))
+        ) : (
+          <div>
+            <div className="font-medium text-ef-chu">Chẩn đoán ban đầu</div>
             <p className="text-ef-phu">(trống)</p>
-          )}
-        </div>
+          </div>
+        )}
         <div>
           <div className="flex items-center gap-1.5 font-medium text-ef-chu">
             Chẩn đoán kèm theo <SourceBadge nguon={kemTheo.nguon} />

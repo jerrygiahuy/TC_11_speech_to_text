@@ -9,20 +9,20 @@ const noAllow: ReadonlySet<string> = new Set();
 const reasons = (s: string, known = none, allow = noAllow) => checkResidualPii(s, known, allow).reasons.map((r) => r.reason);
 
 test("R11a: giá trị đã biết còn sót (không dấu) bị chặn", () => {
-  const r = checkResidualPii("bệnh nhân tên nguyen thi gia đau tai", [{ value: "Nguyễn Thị Giả", kind: "BỆNH_NHÂN" }], noAllow);
+  const r = checkResidualPii("bệnh nhân tên nguyen thi gia đau ngực", [{ value: "Nguyễn Thị Giả", kind: "BỆNH_NHÂN" }], noAllow);
   assert.equal(r.passed, false);
   assert.ok(r.reasons.some((x) => x.reason === "R11a_gia_tri_da_biet"));
   assert.ok(r.reasons.every((x) => x.excerpt.length <= 40));
 });
 
 test("R11a: giá trị ngắn (<= 2 ký tự) bị bỏ qua", () => {
-  assert.equal(checkResidualPii("đau tai lê", [{ value: "Lê", kind: "BỆNH_NHÂN" }], noAllow).reasons.some((x) => x.reason === "R11a_gia_tri_da_biet"), false);
+  assert.equal(checkResidualPii("đau ngực lê", [{ value: "Lê", kind: "BỆNH_NHÂN" }], noAllow).reasons.some((x) => x.reason === "R11a_gia_tri_da_biet"), false);
 });
 
 test("R11b: dãy số dài, kể cả tách khoảng trắng; số trong nhãn không tính", () => {
   assert.ok(reasons("gọi 0 9 1 2 3 4 5 6 7 8 nhé").includes("R11b_day_so_dai"));
   assert.ok(reasons("mã 012-345").includes("R11b_day_so_dai"));
-  assert.equal(reasons("liên hệ [MÃ_ĐỊNH_DANH_123456] đau tai").includes("R11b_day_so_dai"), false);
+  assert.equal(reasons("liên hệ [MÃ_ĐỊNH_DANH_123456] đau ngực").includes("R11b_day_so_dai"), false);
   assert.equal(reasons("uống 500 mg ngày 2 lần, đau 3 ngày").includes("R11b_day_so_dai"), false);
 });
 
@@ -48,8 +48,8 @@ test("R11c: chữ STT có dấu, đọc liền không dấu câu không bị coi
 });
 
 test("R11c: câu lâm sàng thường qua; nhãn không bị coi là tên", () => {
-  assert.equal(checkResidualPii("thủng màng nhĩ, viêm tai giữa", none, noAllow).passed, true);
-  assert.equal(reasons("[BỆNH_NHÂN] đau tai [NGƯỜI_1] đưa đến").includes("R11c_ten_rieng_con_sot"), false);
+  assert.equal(checkResidualPii("thủng màng nhĩ, suy tim", none, noAllow).passed, true);
+  assert.equal(reasons("[BỆNH_NHÂN] đau ngực [NGƯỜI_1] đưa đến").includes("R11c_ten_rieng_con_sot"), false);
 });
 
 test("R11c: allowlist (fold) cho cụm bắt đầu bằng họ đi qua", () => {
@@ -68,7 +68,7 @@ test("R11d: email hoặc URL", () => {
 
 test("bản sạch từ bộ che qua chốt chặn", () => {
   const known: KnownIdentifier[] = [{ value: "Nguyễn Thị Giả", kind: "BỆNH_NHÂN" }];
-  const r = redactPii("chị nguyen thi gia đau tai phải ba ngày dùng amoxicillin 500 mg", known);
+  const r = redactPii("chị nguyen thi gia đau ngực phải ba ngày dùng amlodipine 5 mg", known);
   const g = checkResidualPii(r.clean, known, noAllow);
   assert.equal(g.passed, true);
   assert.equal(g.reasons.length, 0);
@@ -80,7 +80,7 @@ test("R14: không đồng ý thì chỉ chạy cục bộ", () => {
 });
 
 test("R13: nhật ký không mang bản thô", () => {
-  const raw = "chị nguyen thi gia đau tai";
+  const raw = "chị nguyen thi gia đau ngực";
   const known: KnownIdentifier[] = [{ value: "Nguyễn Thị Giả", kind: "BỆNH_NHÂN" }];
   const red = redactPii(raw, known);
   const gate = checkResidualPii(red.clean, known, noAllow);
@@ -94,17 +94,17 @@ test("R13: nhật ký không mang bản thô", () => {
   assert.equal(e.gate, true);
   const json = JSON.stringify(e).toLowerCase();
   assert.equal(json.includes("nguyen"), false);
-  assert.equal(json.includes("đau tai"), false);
+  assert.equal(json.includes("đau ngực"), false);
   assert.equal("now" in e, false);
 });
 
 const CAU_SACH = [
   "ho khan về đêm", "đau cổ họng tăng khi nuốt", "niêm mạc mũi phù nề chảy dịch", "màng nhĩ đục lõm không thủng",
-  "đau đầu do viêm xoang", "khám lại sau một tuần", "chẩn đoán viêm tai giữa", "xét nghiệm dương tính", "vì ù tai",
+  "đau đầu do viêm xoang", "khám lại sau một tuần", "chẩn đoán suy tim", "xét nghiệm dương tính", "vì ù tai",
   "nói là nghẹt mũi", "amidan sưng to có mủ", "sốt 38 độ", "không có tiền sử dị ứng", "tiền sử cao huyết áp",
-  "đau tai ba ngày nay", "uống amoxicillin 500 mg", "tái khám ngày mai", "thủng màng nhĩ, viêm tai giữa",
+  "đau ngực ba ngày nay", "uống amlodipine 5 mg", "tái khám ngày mai", "thủng màng nhĩ, suy tim",
   "nghẹt mũi hai bên chảy dịch mủ", "soi họng thấy phù nề niêm mạc", "bị cao huyết áp đang uống thuốc",
-  "tai phải đau ba ngày kèm sốt nhẹ", "chóng mặt khi đứng dậy", "hẹn tái khám sau hai tuần",
+  "ngực trái đau ba ngày kèm sốt nhẹ", "chóng mặt khi đứng dậy", "hẹn tái khám sau hai tuần",
 ];
 
 test("hồi quy: 20+ câu ENT sạch viết thường đều qua, không cần allowlist của người gọi", () => {
@@ -134,21 +134,21 @@ test("tự che phần sót R11c: tên người lạ thay bằng nhãn, nội dun
 
 test("tự che phần sót: nhiều tên, dãy số, email, URL và giá trị đã biết viết không dấu", () => {
   const known: KnownIdentifier[] = [{ value: "Nguyễn Thị Giả", kind: "BỆNH_NHÂN" }];
-  const text = "[BỆNH_NHÂN] đi cùng ngô thị lan và gặp lý hoài an, gọi 0912 345 678, gửi abc@example.test hoặc https://example.test/x, chị nguyen thi gia đau tai";
+  const text = "[BỆNH_NHÂN] đi cùng ngô thị lan và gặp lý hoài an, gọi 0912 345 678, gửi abc@example.test hoặc https://example.test/x, chị nguyen thi gia đau ngực";
   const m = maskResidualPii(text, known, noAllow);
   for (const gone of ["ngô thị lan", "lý hoài an", "0912 345 678", "abc@example.test", "https://example.test/x", "nguyen thi gia"]) {
     assert.equal(m.clean.includes(gone), false, gone);
   }
   for (const label of ["[BỆNH_NHÂN]", "[NGƯỜI_KHÁC]", "[MÃ_ĐỊNH_DANH]", "[LIÊN_HỆ]"]) assert.ok(m.clean.includes(label), label);
-  assert.ok(m.clean.endsWith("đau tai"));
+  assert.ok(m.clean.endsWith("đau ngực"));
   const kinds = new Set(m.masked.map((x) => x.reason));
   for (const r of ["R11a_gia_tri_da_biet", "R11b_day_so_dai", "R11c_ten_rieng_con_sot", "R11d_email_url"]) assert.ok(kinds.has(r as never), r);
   assert.equal(checkResidualPii(m.clean, known, noAllow).passed, true, m.clean);
 });
 
 test("tự che phần sót: bản sạch không đổi khi không còn gì sót", () => {
-  const m = maskResidualPii("[NGƯỜI_1] đưa đến, đau tai ba ngày", none, noAllow);
-  assert.equal(m.clean, "[NGƯỜI_1] đưa đến, đau tai ba ngày");
+  const m = maskResidualPii("[NGƯỜI_1] đưa đến, đau ngực ba ngày", none, noAllow);
+  assert.equal(m.clean, "[NGƯỜI_1] đưa đến, đau ngực ba ngày");
   assert.deepEqual(m.masked, []);
 });
 

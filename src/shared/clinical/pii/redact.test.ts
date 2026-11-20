@@ -11,8 +11,8 @@ test("phiên bản rule và bỏ dấu", () => {
 });
 
 test("R1: tên đã biết, viết không dấu vẫn bị che", () => {
-  const r = redactPii("chị nguyen thi gia đau tai", [{ value: "Nguyễn Thị Giả", kind: "BỆNH_NHÂN" }]);
-  assert.equal(r.clean, "chị [BỆNH_NHÂN] đau tai");
+  const r = redactPii("chị nguyen thi gia đau ngực", [{ value: "Nguyễn Thị Giả", kind: "BỆNH_NHÂN" }]);
+  assert.equal(r.clean, "chị [BỆNH_NHÂN] đau ngực");
   assert.equal(r.counts.R1, 1);
   assert.equal(r.spans[0].start, 4);
   assert.equal(r.spans[0].end, 18);
@@ -47,7 +47,7 @@ test("R3: địa chỉ và địa danh", () => {
 });
 
 test("R4: ngày tháng, giữ thời gian bệnh", () => {
-  const r = redactPii("sinh ngày 10/03/1978, đau tai 3 ngày nay", none);
+  const r = redactPii("sinh ngày 10/03/1978, đau ngực 3 ngày nay", none);
   assert.ok(r.clean.includes("[NGÀY]"));
   assert.ok(r.clean.includes("3 ngày nay"));
   assert.ok(!r.clean.includes("1978"));
@@ -76,7 +76,7 @@ test("R6: mã định danh", () => {
 
 test("R7: quốc tịch nhiều từ che trọn giá trị", () => {
   for (const c of ["việt nam", "hàn quốc", "trung quốc", "hoa kỳ"]) {
-    const r = redactPii(`quốc tịch ${c} đau tai`, []);
+    const r = redactPii(`quốc tịch ${c} đau ngực`, []);
     assert.equal(r.clean.includes(c.split(" ")[1]), false, r.clean);
   }
 });
@@ -90,12 +90,12 @@ test("R7: thông tin nhạy cảm", () => {
 
 test("R8: nội dung ngoài khám, giữ tiền sử gia đình", () => {
   assert.ok(redactPii("chuyện vay tiền nhà hàng xóm", none).clean.includes("[NỘI_DUNG_NGOÀI_KHÁM]"));
-  const keep = "mẹ tôi bị ung thư vòm họng";
+  const keep = "mẹ tôi bị ung thư phổi";
   assert.equal(redactPii(keep, none).clean, keep);
 });
 
 test("giữ nguyên thuốc, liều, bên tai, thời gian bệnh", () => {
-  const raw = "amoxicillin 500 mg ngày 2 lần, tai phải, sốt 38,5 độ, đau 3 ngày nay";
+  const raw = "amlodipine 5 mg ngày 2 lần, tai phải, sốt 38,5 độ, đau 3 ngày nay";
   const r = redactPii(raw, none);
   assert.equal(r.clean, raw);
   assert.equal(r.spans.length, 0);
@@ -122,15 +122,15 @@ test("span hợp lệ, không chồng nhau, vị trí đúng cả khi bản thô
 });
 
 test("vòng 1: R2 không nuốt từ lâm sàng sau từ chỉ người", () => {
-  for (const text of ["em bình thường không sốt", "bé đồng ý nội soi", "em tiêu hóa kém"]) assert.equal(redactPii(text, none).clean, text, text);
-  assert.equal(redactPii("anh trần văn an nghẹt mũi khàn tiếng", none).clean, "anh [NGƯỜI_1] nghẹt mũi khàn tiếng");
-  assert.equal(redactPii("anh nguyen van a dau tai", none).clean, "anh [NGƯỜI_1] dau tai");
+  for (const text of ["em bình thường không sốt", "bé đồng ý làm điện tim", "em tiêu hóa kém"]) assert.equal(redactPii(text, none).clean, text, text);
+  assert.equal(redactPii("anh trần văn an khó thở hồi hộp", none).clean, "anh [NGƯỜI_1] khó thở hồi hộp");
+  assert.equal(redactPii("anh nguyen van a dau nguc", none).clean, "anh [NGƯỜI_1] dau nguc");
 });
 
 test("vòng 1: đầu văn bản không che chẩn đoán", () => {
-  for (const text of ["lý do vào viện đau tai phải", "ung thư vòm họng giai đoạn hai"]) assert.equal(redactPii(text, none).clean, text, text);
+  for (const text of ["lý do vào viện đau ngực phải", "ung thư phổi giai đoạn hai"]) assert.equal(redactPii(text, none).clean, text, text);
   assert.equal(redactPii("mã bệnh nhân 2026001234", none).clean, "mã bệnh nhân [MÃ_ĐỊNH_DANH_1]");
-  assert.equal(redactPii("nguyễn thị giả đau tai", none).clean, "[NGƯỜI_1] đau tai");
+  assert.equal(redactPii("nguyễn thị giả đau ngực", none).clean, "[NGƯỜI_1] đau ngực");
 });
 
 test("vòng 1: R3 không che giải phẫu, phẫu thuật", () => {
@@ -146,11 +146,11 @@ test("vòng 1: span chồng nhau không để lọt mảnh", () => {
 test("vòng 1: tên người thân không cần từ 'tên', giữ tiền sử", () => {
   const r = redactPii("mẹ là phạm thị mai bị viêm xoang", none);
   assert.equal(r.clean, "mẹ là [NGƯỜI_1] bị viêm xoang");
-  assert.equal(redactPii("mẹ tôi bị ung thư vòm họng", none).clean, "mẹ tôi bị ung thư vòm họng");
+  assert.equal(redactPii("mẹ tôi bị ung thư phổi", none).clean, "mẹ tôi bị ung thư phổi");
 });
 
 test("vòng 2: đuôi tên không dừng ở tên riêng trùng từ dừng không dấu", () => {
-  assert.equal(redactPii("bé lê thị hoa đau tai", none).clean, "bé [NGƯỜI_1] đau tai");
+  assert.equal(redactPii("bé lê thị hoa đau ngực", none).clean, "bé [NGƯỜI_1] đau ngực");
   assert.equal(redactPii("bé hoàng văn nam sốt cao", none).clean, "bé [NGƯỜI_1] sốt cao");
 });
 
@@ -194,12 +194,12 @@ test("R2: đuôi tên dừng sau tên gọi, không nuốt chữ lâm sàng", ()
     ["chị võ thị hằng thai ba tháng", "võ thị hằng"],
     ["anh trần nam hút thuốc", "trần nam"],
     ["bà nguyen thi tam di ung penicillin", "nguyen thi tam"],
-    ["em tên là phạm ngọc anh thư bị viêm họng", "phạm ngọc anh thư"],
-    ["cháu bùi gia bảo amidan to", "bùi gia bảo"],
+    ["em tên là phạm ngọc anh thư bị tăng huyết áp", "phạm ngọc anh thư"],
+    ["cháu bùi gia bảo hồi hộp", "bùi gia bảo"],
     ["chị nguyễn thị minh khai ở nhà", "nguyễn thị minh khai"],
-    ["anh đỗ quốc việt nghẹt mũi", "đỗ quốc việt"],
-    ["cô trần thu hà khàn tiếng", "trần thu hà"],
-    ["bé nguyễn minh khôi chảy mũi xanh", "nguyễn minh khôi"],
+    ["anh đỗ quốc việt khó thở", "đỗ quốc việt"],
+    ["cô trần thu hà hồi hộp", "trần thu hà"],
+    ["bé nguyễn minh khôi phù chân", "nguyễn minh khôi"],
   ];
   for (const [text, name] of cases)
     assert.deepEqual(redactPii(text, none).spans.filter(s => s.rule === "R2").map(s => text.slice(s.start, s.end)), [name], text);

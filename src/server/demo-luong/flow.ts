@@ -12,7 +12,7 @@ import { parseTranscript } from "@/shared/clinical/schema";
 import type { ClinicalExtraction } from "@/shared/clinical/api";
 import type { RecordingSession, Transcript } from "@/shared/clinical/types";
 import type { DemoEvent, DemoPhieu, DemoSource, KichBan } from "@/shared/demo-luong/types";
-import { extractClinical } from "@/server/clinical/extraction";
+import { contextFromVitals, extractClinical } from "@/server/clinical/extraction";
 import { ClinicalError } from "@/server/clinical/repository";
 import { getDemoClinicalActor } from "@/server/clinical/encounter-context";
 import { demoAllowlist, doanForPhien, loadKichBan } from "./kich-ban";
@@ -131,7 +131,7 @@ export async function* runDemoFlow(store: DemoStore, input: DemoFlowInput, now: 
   let run: ClinicalExtraction;
   try {
     run = await extractClinical("demo", {
-      approvedTranscript: () => transcript, binding, directory: store.root, noCache: true, provider: "mock",
+      approvedTranscript: () => transcript, binding, directory: store.root, noCache: true, provider: "mock", context: contextFromVitals(record.sinh_hieu),
       deidentification: { policy_version: PII_POLICY_VERSION, gate_passed: true, consent: dong_y.trang_thai },
     });
   } catch (error) {

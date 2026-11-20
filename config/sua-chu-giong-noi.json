@@ -18,10 +18,7 @@
     "ml",
     "g",
     "gam",
-    "mi",
-    "nhỏ tai",
-    "nhỏ mũi",
-    "xịt mũi"
+    "mi"
   ],
   "thay": [
     {
@@ -101,12 +98,6 @@
     },
     {
       "sai": [
-        "niên mạc"
-      ],
-      "dung": "niêm mạc"
-    },
-    {
-      "sai": [
         "xung huyết"
       ],
       "dung": "sung huyết"
@@ -171,6 +162,62 @@
         "i bu prô phen",
         "i bu pờ rô phen",
         "ibu fe"
+      ]
+    },
+    {
+      "dung": "Amlodipine",
+      "doc": [
+        "am lô đi pin",
+        "am lô đi panh"
+      ]
+    },
+    {
+      "dung": "Atorvastatin",
+      "doc": [
+        "a tô va xta tin",
+        "a tô vát xta tin"
+      ]
+    },
+    {
+      "dung": "Rosuvastatin",
+      "doc": [
+        "rô su va xta tin",
+        "rô du va xta tin"
+      ]
+    },
+    {
+      "dung": "Aspirin",
+      "doc": [
+        "as pi rin",
+        "a xpi rin"
+      ]
+    },
+    {
+      "dung": "Bisoprolol",
+      "doc": [
+        "bi xô prô lôl",
+        "bi sô prô lôl"
+      ]
+    },
+    {
+      "dung": "Furosemide",
+      "doc": [
+        "phu rô xê mít",
+        "phu rô xê mai"
+      ]
+    },
+    {
+      "dung": "Apixaban",
+      "doc": [
+        "a pi xa ban",
+        "a pi xa băn"
+      ]
+    },
+    {
+      "dung": "Losartan",
+      "doc": [
+        "lô xác tan",
+        "lô sác tan"
       ]
     }
   ]

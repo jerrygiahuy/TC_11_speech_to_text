@@ -44,7 +44,7 @@ src/
       errors.ts, http.ts  lỗi có mã HTTP, bọc GET (no-store)
     du-lieu/              đọc/ghi đĩa
       config.ts           nạp config/ và data/cases
-      danh-muc.ts         ghép danh mục bệnh viện (data/catalog/) với danh mục thật (data/tham-khao/), ICD10; nhớ theo giờ sửa file
+      danh-muc.ts         đọc danh mục Tim mạch soạn tay (data/catalog/, data/eform/icd10.json, mock); chưa ghép danh mục thật
       eform.ts            nạp data/eform/ cho trang eForm
       sessions.ts         ghi/đọc data/sessions/
 
@@ -88,7 +88,7 @@ Có hai loại "AI", đặt ở hai nơi khác nhau vì chạy ở hai nơi khá
 | Loại | Thư mục | Chạy ở | Gồm |
 |---|---|---|---|
 | **AI thật** (gọi LLM, chạy model) | `src/server/ai/` | server | tách văn bản thành nháp (`pipeline.ts` → `llm/*`), nhận dạng giọng nói (`asr.ts`) |
-| **AI bằng rule** (mock, không gọi LLM) | `src/shared/eform/` | trình duyệt (và server lúc nạp trang) | tóm tắt lịch sử (`tom-tat.ts`), gợi ý ICD10 (`icd.ts`), gợi ý mẫu câu (`mau-cau.ts`), gợi ý theo chẩn đoán (`goi-y.ts`) và theo thói quen từng bác sĩ (`thoi-quen.ts`), đổ kết quả AI vào phiếu (`dien-phieu.ts`); sửa chữ sau nhận dạng giọng nói ở `src/shared/giong-noi/sua-chu.ts` |
+| **AI bằng rule** (mock, không gọi LLM) | `src/shared/eform/` | trình duyệt (và server lúc nạp trang) | tóm tắt lịch sử (`tom-tat.ts`), gợi ý ICD10 (`icd.ts`), thư viện câu khám Tim mạch và chèn câu (`mau-cau.ts`), dòng chẩn đoán in (`chan-doan-in.ts`), ghép AI không ghi đè ô đã nhập (`ghep-ai.ts`), gợi ý theo chẩn đoán (`goi-y.ts`) và theo thói quen từng bác sĩ (`thoi-quen.ts`), đổ kết quả AI vào phiếu (`dien-phieu.ts`); sửa chữ sau nhận dạng giọng nói ở `src/shared/giong-noi/sua-chu.ts` |
 
 `src/server/ai/llm/rules.ts` cũng là rule nhưng nằm ở server vì nó là một "nhà cung cấp" của pipeline (dùng cho `mock` và `--rule-only`).
 

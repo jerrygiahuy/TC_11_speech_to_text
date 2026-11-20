@@ -57,8 +57,10 @@ const ANH_XA: { tu: string; den: string; nhan: string }[] = [
   { tu: "ly_do_kham", den: "ly_do", nhan: "Lý do đến khám" },
   { tu: "benh_su", den: "benh_su", nhan: "Bệnh sử" },
   { tu: "tien_su", den: "tien_su_ban_than", nhan: "Tiền sử bản thân" },
+  { tu: "tien_su_gia_dinh", den: "tien_su_gia_dinh", nhan: "Tiền sử gia đình" },
   { tu: "kham_toan_than", den: "kham_toan_than", nhan: "Khám toàn thân" },
   { tu: "kham_chuyen_khoa", den: "kham_chuyen_khoa", nhan: "Khám chuyên khoa" },
+  { tu: "kham_tim_mach_ho_hap", den: "kham_tim_mach_ho_hap", nhan: "Khám tim mạch, hô hấp" },
   { tu: "huong_dieu_tri", den: "huong_dieu_tri", nhan: "Hướng điều trị" },
   { tu: "loi_dan", den: "loi_dan", nhan: "Lời dặn & theo dõi" },
 ];
@@ -83,8 +85,8 @@ function nguonDong(match: MatchResult | undefined): Nguon {
   return !match || match.status === "khop" ? "ai" : "xem";
 }
 
-/** Ô chọn Có/Không mặc định "Không" chưa phải chữ ai gõ: phiếu mẫu vẫn được điền, trừ khi bác sĩ đã chọn */
-const O_CHON_MAC_DINH = new Set(["hen_tai_kham"]);
+/** Ô chọn có mặc định "Không" chưa phải chữ ai gõ. Phiếu Tim mạch không có mặc định nào: chưa chọn là chưa chọn (02, B5). */
+const O_CHON_MAC_DINH = new Set<string>();
 
 export interface TuyChonDien {
   /** Current scope: clinical note/services only; do not duplicate an initial diagnosis at discharge. */
@@ -129,10 +131,15 @@ export function dienPhieu(
     const ma = tuyChon.icd || (goiYIcd(chanDoan, data.icd10, data.quyTac)[0]?.item.ma ?? "");
     dat("mo_ta_ban_dau", "Mô tả chẩn đoán ban đầu", chanDoan, "ai");
     dat("icd_ban_dau", "Chẩn đoán ban đầu (ICD10)", ma, "xem");
-    if (!tuyChon.clinicalOnly) {
-      dat("mo_ta_ra_vien", "Mô tả chẩn đoán ra viện", chanDoan, "ai");
-      dat("icd_ra_vien", "Chẩn đoán ra viện (ICD10)", ma, "xem");
-    }
+  }
+
+  // Chẩn đoán ra viện chỉ từ mục AI gắn rõ giai_doan "ra_vien"; không bao giờ chép từ chẩn đoán ban đầu (02, B4).
+  const raVien = ((draft as { chan_doan?: Values[] }).chan_doan ?? []).find((row) => row.giai_doan === "ra_vien" && chu(row.mo_ta));
+  if (raVien) {
+    const moTa = chu(raVien.mo_ta);
+    dat("mo_ta_ra_vien", "Mô tả chẩn đoán ra viện", moTa, "ai");
+    // `tuyChon.icd` là mã của chẩn đoán chính trong phiếu mẫu, chỉ thuộc ô ban đầu; ra viện luôn gợi ý theo chính mô tả ra viện.
+    dat("icd_ra_vien", "Chẩn đoán ra viện (ICD10)", goiYIcd(moTa, data.icd10, data.quyTac)[0]?.item.ma ?? "", "xem");
   }
 
   const kemTheo = chu(pk.chan_doan_kem);

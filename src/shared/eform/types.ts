@@ -22,6 +22,13 @@ export interface DongLichSu {
   noi_dung: string;
 }
 
+/** Một dòng thuốc người bệnh đang dùng, bác sĩ nhập trên phiếu (nút "+ Thêm thuốc") */
+export interface DongThuocDangDung {
+  ten: string;
+  ham_luong: string;
+  cach_dung: string;
+}
+
 export interface DongDiUng {
   ngay: string;
   loai_phieu: string;
@@ -30,20 +37,40 @@ export interface DongDiUng {
   nguoi: string;
 }
 
+/** Thiếu số đo thì để null (chưa đo), không đoán. */
 export interface SinhHieu {
-  mach: number;
-  nhiet_do: number;
-  ha_tam_thu: number;
-  ha_tam_truong: number;
-  spo2: number;
-  nhip_tho: number;
-  chieu_cao: number;
-  can_nang: number;
+  mach: number | null;
+  nhiet_do: number | null;
+  ha_tam_thu: number | null;
+  ha_tam_truong: number | null;
+  spo2: number | null;
+  nhip_tho: number | null;
+  chieu_cao: number | null;
+  can_nang: number | null;
+  bmi: number | null;
+}
+
+/** Một dòng thuốc trong lịch sử dùng thuốc của người bệnh (bảng Excel "lich_su_thuoc"). */
+export interface DongThuocLichSu {
+  ten_thuoc: string;
+  lieu: string;
+  duong_dung: string;
+  ngay: string;
 }
 
 export interface KetQuaTheoNgay {
   ngay: string;
-  muc: { ten: string; ket_qua: string }[];
+  muc: Array<{
+    nhom?: string;
+    bo_xet_nghiem?: string;
+    ten: string;
+    ket_qua: string;
+    tham_chieu?: string;
+    don_vi?: string;
+    thoi_gian?: string;
+    nguoi_tra_ket_qua?: string;
+    ket_luan?: string;
+  }>;
 }
 
 export interface CaGia {
@@ -66,7 +93,10 @@ export interface CaGia {
     tien_su_gia_dinh: DongLichSu[];
     benh_su: DongLichSu[];
     di_ung: DongDiUng[];
+    thuoc: DongThuocLichSu[];
   };
+  /** Chẩn đoán xác định ở bảng ra viện của lượt khám trước (hiển thị, không phải chẩn đoán của phiếu này) */
+  chan_doan_oh: string;
   xet_nghiem: KetQuaTheoNgay[];
   chan_doan_hinh_anh: KetQuaTheoNgay[];
   can_lam_sang: KetQuaTheoNgay[];
@@ -90,16 +120,11 @@ export interface TuyChon {
   loai_di_ung: string[];
 }
 
-export type VungKham = "tai" | "mui" | "vom" | "hong";
+export type VungKham = "toan_than" | "tim_mach_ho_hap";
 
+/** Thư viện câu khám, mỗi vùng một danh sách câu (nạp từ data/cardiology/exam-library.json) */
 export interface MauCauData {
-  mac_dinh: Partial<Record<VungKham, string[]>>;
-  nhom: {
-    id: string;
-    ten: string;
-    tu_khoa: string[];
-    mau: Partial<Record<VungKham, string[]>>;
-  }[];
+  theoVung: Record<VungKham, string[]>;
 }
 
 export interface QuyTacAi {

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useEform } from "@/client/eform/EformContext";
 import { BTN_AI, BTN_OUTLINE, SourceBadge, TD, TH, inputClass } from "@/client/eform/fields";
 import { tomTatLichSu, type KetQuaTomTat } from "@/shared/eform/tom-tat";
-import type { DongLichSu } from "@/shared/eform/types";
+import type { DongLichSu, DongThuocLichSu } from "@/shared/eform/types";
 
 interface Props {
   targetId: string;
@@ -89,6 +89,49 @@ export function LichSuBlock({ targetId, targetLabel, rows, columnLabel = "Nội 
                 <td className={TD}>{row.noi_dung}</td>
                 <td className={`${TD} text-right`}>
                   <button type="button" className={BTN_OUTLINE} onClick={() => append(targetId, row.noi_dung, "cu")}>
+                    Copy
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
+/** Thông tin khai thác các thuốc đã dùng trên hệ thống (bảng Excel lich_su_thuoc). Copy thêm dòng vào danh sách thuốc đang dùng. */
+export function LichSuThuoc({ onCopy }: { onCopy: (row: DongThuocLichSu) => void }) {
+  const { data } = useEform();
+  const rows = data.ca.lich_su.thuoc;
+  if (rows.length === 0) return null;
+  return (
+    <div className="mt-1">
+      <div className="mb-1 flex flex-wrap items-center gap-2">
+        <span className="text-xs font-semibold text-ef-phu">Thông tin khai thác các thuốc đã dùng trên hệ thống</span>
+        <SourceBadge nguon="cu" />
+      </div>
+      <div className="overflow-x-auto rounded-md border border-ef-vien">
+        <table className="w-full min-w-[32rem] border-collapse text-[13px]">
+          <thead>
+            <tr>
+              <th className={`${TH} whitespace-nowrap`}>Ngày</th>
+              <th className={TH}>Tên thuốc</th>
+              <th className={TH}>Liều</th>
+              <th className={TH}>Đường dùng</th>
+              <th className={TH} />
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((row) => (
+              <tr key={`${row.ngay}-${row.ten_thuoc}`} className="[&:last-child>td]:border-b-0">
+                <td className={`${TD} whitespace-nowrap tabular-nums`}>{row.ngay}</td>
+                <td className={TD}>{row.ten_thuoc}</td>
+                <td className={TD}>{row.lieu}</td>
+                <td className={TD}>{row.duong_dung}</td>
+                <td className={`${TD} text-right`}>
+                  <button type="button" className={BTN_OUTLINE} onClick={() => onCopy(row)}>
                     Copy
                   </button>
                 </td>

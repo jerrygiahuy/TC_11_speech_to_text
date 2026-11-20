@@ -52,7 +52,7 @@ test("loadKichBan chặn id lạ bằng 404", () => {
 
 test("allowlist chứa cụm lâm sàng bắt buộc, và câu sạch chứa chúng qua chốt chặn", () => {
   const allow = demoAllowlist();
-  for (const p of ["dịch nhầy", "phù thanh quản", "sốt cao", "cao liên tục", "co giật", "cổ chướng", "mạc treo", "ung thư", "cao huyết áp", "huyết áp cao"]) {
+  for (const p of ["triệu chứng", "tâm thu", "tâm trương", "đau thắt ngực", "sốt cao", "co giật", "cổ chướng", "ung thư", "cao huyết áp", "huyết áp cao"]) {
     assert.ok(allow.has(foldVietnamese(p)), p);
     const sentence = `bệnh nhân ghi nhận ${p} từ hai ngày nay`;
     const g = checkResidualPii(sentence, [], allow);

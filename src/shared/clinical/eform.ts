@@ -7,19 +7,23 @@ import { emptyDefinition, parseEncounter } from "./schema";
 
 const TEXT_FIELDS = {
   ly_do: "ly_do_kham", benh_su: "benh_su", tien_su_ban_than: "tien_su_ban_than",
-  tien_su_gia_dinh: "tien_su_gia_dinh", kham_toan_than: "kham_toan_than", kham_khac: "kham_khac",
+  tien_su_gia_dinh: "tien_su_gia_dinh", kham_toan_than: "kham_toan_than", kham_chuyen_khoa: "kham_chuyen_khoa",
+  kham_tim_mach_ho_hap: "kham_tim_mach_ho_hap", kham_khac: "kham_khac",
   ghi_chu_kq: "ghi_chu_ket_qua", huong_dieu_tri: "huong_dieu_tri", loi_dan: "loi_dan",
 } as const;
-const IDS = new Set([...Object.keys(TEXT_FIELDS), "thoi_gian_kham", "noi_gioi_thieu", "di_ung", "di_ung_loai", "di_ung_mo_ta", "thuoc_dang_dung", "co_pttt", "kham_chuyen_khoa", "icd_ban_dau", "mo_ta_ban_dau", "icd_ra_vien", "mo_ta_ra_vien", "icd_kem_theo", "giai_doan_kem_theo", "da_xu_ly", "hen_tai_kham", "ngay_tai_kham", "tinh_trang_ra_vien", "bs_uy_quyen", "chuyen_noi_soi", "xn_benh_tat", "xn_bhxh", "xn_me"]);
+const IDS = new Set([...Object.keys(TEXT_FIELDS), "thoi_gian_kham", "noi_gioi_thieu", "di_ung", "di_ung_loai", "di_ung_mo_ta", "thuoc_dang_dung", "icd_ban_dau", "mo_ta_ban_dau", "icd_ra_vien", "mo_ta_ra_vien", "icd_kem_theo", "da_xu_ly", "hen_tai_kham", "ngay_tai_kham", "tinh_trang_ra_vien", "bs_uy_quyen", "chuyen_noi_soi", "xn_benh_tat", "xn_bhxh"]);
 const STATUS = {
   "Đang khám": "dang_kham", "Chờ KQ CLS": "cho_kq_cls", "Hoàn thành khám": "hoan_thanh_kham",
   "Nhập nội trú": "nhap_noi_tru", "Chuyển cấp cứu": "chuyen_cap_cuu", "Chuyển CSKCB BHYT": "chuyen_cskcb_bhyt", "Không khám": "khong_kham",
 } as const;
 const OUTCOME = { "Khỏi": "khoi", "Đỡ, giảm": "do_giam", "Chưa thay đổi": "chua_thay_doi", "Nặng hơn": "nang_hon", "Khác": "khac" } as const;
+const medicationRow = z.object({ ten: z.string().max(500), ham_luong: z.string().max(500), cach_dung: z.string().max(500) }).strict();
 const fieldSchema = z.object({ value: z.string().max(20000), nguon: z.enum(["cu", "ai", "xem", "sua", "bs"]).nullable() }).strict();
 const snapshotSchema = z.object({
   chiDinhLyDo: z.string().max(10000).optional(),
   chiDinhDeCap: z.enum(["chua_de_cap", "khong_chi_dinh", "co_chi_dinh"]).optional(),
+  /** Danh sách thuốc đang dùng, giữ thứ tự dòng; ghi chú của bảng Excel gộp vào `cach_dung`. */
+  thuocDangDung: z.array(medicationRow).max(50).optional(),
   fields: z.record(z.string().refine(key => IDS.has(key), "Trường không thuộc phiếu khám."), fieldSchema),
   chiDinh: z.array(z.object({
     id: z.string().max(100).optional(), ma: z.string().max(200), ten: z.string().trim().min(1).max(1000),
@@ -36,12 +40,6 @@ const csv = (value: string) => value.split(",").map(item => item.trim()).filter(
 const yesNo = (value: string): boolean | null => value === "Có" || value === "NB có" ? true : value === "Không" || value === "NB không có" ? false : null;
 const localTime = (iso: string) => new Date(new Date(iso).getTime() + 7 * 3600000).toISOString().slice(0, 16);
 const nguon = (source: Source | undefined): Truong["nguon"] => !source ? "cu" : source.nguon === "ai" ? (["chap_nhan", "da_sua"].includes(source.review.trang_thai) ? "ai" : "xem") : source.nguon === "nhap_tay" ? "bs" : "cu";
-
-export function specialistText(note: Encounter["phieu_kham"]["kham_chuyen_khoa"]): string {
-  if (note.mo_ta) return note.mo_ta;
-  return ([["tai", "Tai"], ["mui", "Mũi"], ["vom", "Vòm"], ["hong", "Họng"]] as const)
-    .filter(([key]) => note[key]).map(([key, label]) => `${label}: ${note[key]}`).join("\n");
-}
 
 /** Full snapshot of the two supported screens; preserves non-UI structured fields in base. */
 export function applyEformSnapshot(base: Encounter, input: EformSnapshot, context: { now: string; newId: () => string; services: CatalogItem[]; icd?: { ma: string; ten: string }[] }): Encounter {
@@ -66,12 +64,23 @@ export function applyEformSnapshot(base: Encounter, input: EformSnapshot, contex
     if (!/^\d{4}-\d\d-\d\dT\d\d:\d\d$/.test(time)) throw new Error("Thời gian khám không hợp lệ.");
     result.encounter_at = `${time}:00+07:00`;
   }
-  if ("noi_gioi_thieu" in fields) result.referral_source = get("noi_gioi_thieu") === "Tự đến" ? "tu_den" : get("noi_gioi_thieu") === "Cơ quan y tế" ? "co_quan_y_te" : null;
-  for (const id of ["co_pttt", "da_xu_ly"] as const) if (id in fields) { note[id] = yesNo(get(id)); record(id, `/phieu_kham/${id}`); }
+  if ("noi_gioi_thieu" in fields) {
+    result.referral_source = get("noi_gioi_thieu") === "Tự đến" ? "tu_den" : get("noi_gioi_thieu") === "Cơ quan y tế" ? "co_quan_y_te" : null;
+    record("noi_gioi_thieu", "/referral_source");
+  }
+  if ("da_xu_ly" in fields) { note.da_xu_ly = yesNo(get("da_xu_ly")); record("da_xu_ly", "/phieu_kham/da_xu_ly"); }
   if ("thuoc_dang_dung" in fields) {
     note.co_thuoc_dang_dung = yesNo(get("thuoc_dang_dung"));
     if (note.co_thuoc_dang_dung === false) note.thuoc_dang_dung = [];
     record("thuoc_dang_dung", "/phieu_kham/co_thuoc_dang_dung");
+  }
+  if (input.thuocDangDung) {
+    const old = base.phieu_kham.thuoc_dang_dung;
+    note.thuoc_dang_dung = input.thuocDangDung.map((row, index) => ({
+      ten: text(row.ten), ham_luong: text(row.ham_luong), cach_dung: text(row.cach_dung),
+      trang_thai: old[index] && (old[index].ten ?? "") === row.ten.trim() ? old[index].trang_thai : null,
+    }));
+    record("thuocDangDung", "/phieu_kham/thuoc_dang_dung");
   }
   if ("di_ung" in fields) {
     note.di_ung.trang_thai = ({ "Có": "co", "Không": "khong", "Không xác định": "khong_xac_dinh" } as const)[get("di_ung")] ?? "chua_de_cap";
@@ -86,10 +95,6 @@ export function applyEformSnapshot(base: Encounter, input: EformSnapshot, contex
     if ("di_ung_loai" in fields) { note.di_ung.loai = csv(get("di_ung_loai")); record("di_ung_loai", "/phieu_kham/di_ung/loai"); }
     if ("di_ung_mo_ta" in fields) { note.di_ung.mo_ta = text(get("di_ung_mo_ta")); record("di_ung_mo_ta", "/phieu_kham/di_ung/mo_ta"); }
   }
-  if ("kham_chuyen_khoa" in fields && get("kham_chuyen_khoa") !== specialistText(note.kham_chuyen_khoa)) {
-    note.kham_chuyen_khoa = { mo_ta: text(get("kham_chuyen_khoa")), tai: null, mui: null, vom: null, hong: null };
-    record("kham_chuyen_khoa", "/phieu_kham/kham_chuyen_khoa");
-  }
   if ("hen_tai_kham" in fields) {
     note.hen_tai_kham.co_hen = yesNo(get("hen_tai_kham"));
     if (note.hen_tai_kham.co_hen === false) note.hen_tai_kham = { co_hen: false, nguyen_van: null, sau_bao_lau: { value: null, unit: null }, ngay_cu_the: null };
@@ -102,7 +107,7 @@ export function applyEformSnapshot(base: Encounter, input: EformSnapshot, contex
     record("ngay_tai_kham", "/phieu_kham/hen_tai_kham/ngay_cu_the");
   }
   if ("tinh_trang_ra_vien" in fields) note.tinh_trang_ra_vien = OUTCOME[get("tinh_trang_ra_vien") as keyof typeof OUTCOME] ?? null;
-  for (const id of ["chuyen_noi_soi", "xn_benh_tat", "xn_bhxh", "xn_me"] as const) if (id in fields) { result.thong_tin_khac[id] = yesNo(get(id)); record(id, `/thong_tin_khac/${id}`); }
+  for (const id of ["chuyen_noi_soi", "xn_benh_tat", "xn_bhxh"] as const) if (id in fields) { result.thong_tin_khac[id] = yesNo(get(id)); record(id, `/thong_tin_khac/${id}`); }
   // Delegation is not accepted from client fields; session/HIS will own that relation.
   const diagnosis = (stage: "ban_dau" | "ra_vien" | "chua_ro", code: string, description: string, role: "chinh" | "kem_theo" = "chinh") => {
     const previous = result.chan_doan.find(item => item.noi_dung.giai_doan === stage && item.noi_dung.vai_tro === role && (role === "chinh" || item.icd.code === code))
@@ -122,22 +127,17 @@ export function applyEformSnapshot(base: Encounter, input: EformSnapshot, contex
   for (const [stage, codeId, textId] of [["ban_dau", "icd_ban_dau", "mo_ta_ban_dau"], ["ra_vien", "icd_ra_vien", "mo_ta_ra_vien"]] as const) {
     if (!(codeId in fields) && !(textId in fields)) continue;
     const row = (get(codeId) || get(textId)) ? diagnosis(stage, get(codeId), get(textId)) : null;
-    result.chan_doan = result.chan_doan.filter(item => item.id !== row?.id && !(item.noi_dung.giai_doan === stage && item.noi_dung.vai_tro === "chinh"));
+    // Dòng AI chưa rõ giai đoạn đang hiện ở ô ban đầu thì được thay khi bác sĩ sửa/xóa ô, không để hiện lại.
+    const hienTam = stage === "ban_dau" && !result.chan_doan.some(item => item.noi_dung.giai_doan === "ban_dau" && item.noi_dung.vai_tro === "chinh")
+      ? result.chan_doan.find(item => item.noi_dung.giai_doan === "chua_ro" && item.noi_dung.vai_tro !== "kem_theo")?.id : undefined;
+    result.chan_doan = result.chan_doan.filter(item => item.id !== row?.id && item.id !== hienTam && !(item.noi_dung.giai_doan === stage && item.noi_dung.vai_tro === "chinh"));
     if (row) result.chan_doan.push(row);
   }
   if ("icd_kem_theo" in fields) {
     const rows = [...new Set(csv(get("icd_kem_theo")))].map(code => {
       const existing = result.chan_doan.find(item => item.noi_dung.vai_tro === "kem_theo" && item.icd.code === code);
-      const stage = ({ "Ban đầu": "ban_dau", "Ra viện": "ra_vien", "Chưa rõ": "chua_ro" } as const)[get("giai_doan_kem_theo")];
-      if (existing) {
-        const row = structuredClone(existing);
-        if (stage && stage !== row.noi_dung.giai_doan) {
-          row.noi_dung.giai_doan = stage;
-          row.review = { trang_thai: "chua_duyet", reviewer_id: null, reviewed_at: null };
-        }
-        return row;
-      }
-      return diagnosis(stage ?? "chua_ro", code, context.icd?.find(item => item.ma === code)?.ten ?? "", "kem_theo");
+      if (existing) return structuredClone(existing);
+      return diagnosis("chua_ro", code, context.icd?.find(item => item.ma === code)?.ten ?? "", "kem_theo");
     });
     result.chan_doan = result.chan_doan.filter(item => item.noi_dung.vai_tro !== "kem_theo" || !item.icd.code).concat(rows);
   }
@@ -206,24 +206,24 @@ export function projectEform(record: Encounter): EformSnapshot {
   const note = record.phieu_kham;
   for (const [id, key] of Object.entries(TEXT_FIELDS)) set(id, note[key as typeof TEXT_FIELDS[keyof typeof TEXT_FIELDS]], `/phieu_kham/${key}`);
   set("thoi_gian_kham", localTime(record.encounter_at));
-  set("noi_gioi_thieu", record.referral_source === "tu_den" ? "Tự đến" : record.referral_source === "co_quan_y_te" ? "Cơ quan y tế" : null);
+  set("noi_gioi_thieu", record.referral_source === "tu_den" ? "Tự đến" : record.referral_source === "co_quan_y_te" ? "Cơ quan y tế" : null, "/referral_source");
   set("di_ung", ({ co: "Có", khong: "Không", khong_xac_dinh: "Không xác định", chua_de_cap: "" })[note.di_ung.trang_thai]);
   set("di_ung_loai", note.di_ung.loai.join(","), "/phieu_kham/di_ung/loai"); set("di_ung_mo_ta", note.di_ung.mo_ta, "/phieu_kham/di_ung/mo_ta");
   const boolText = (value: boolean | null) => value === null ? "" : value ? "Có" : "Không";
-  for (const id of ["co_pttt", "da_xu_ly"] as const) set(id, boolText(note[id]));
+  set("da_xu_ly", boolText(note.da_xu_ly));
   set("thuoc_dang_dung", note.co_thuoc_dang_dung === null ? null : note.co_thuoc_dang_dung ? "NB có" : "NB không có", "/phieu_kham/co_thuoc_dang_dung");
-  set("kham_chuyen_khoa", specialistText(note.kham_chuyen_khoa));
   set("hen_tai_kham", boolText(note.hen_tai_kham.co_hen)); set("ngay_tai_kham", note.hen_tai_kham.ngay_cu_the, "/phieu_kham/hen_tai_kham/ngay_cu_the");
   set("tinh_trang_ra_vien", Object.entries(OUTCOME).find(([, value]) => value === note.tinh_trang_ra_vien)?.[0] ?? null);
-  for (const id of ["chuyen_noi_soi", "xn_benh_tat", "xn_bhxh", "xn_me"] as const) set(id, boolText(record.thong_tin_khac[id]));
+  for (const id of ["chuyen_noi_soi", "xn_benh_tat", "xn_bhxh"] as const) set(id, boolText(record.thong_tin_khac[id]), `/thong_tin_khac/${id}`);
   for (const [stage, codeId, textId] of [["ban_dau", "icd_ban_dau", "mo_ta_ban_dau"], ["ra_vien", "icd_ra_vien", "mo_ta_ra_vien"]] as const) {
+    // Chẩn đoán AI chưa rõ giai đoạn (giai_doan = chua_ro) chỉ hiện ở ô ban đầu, tuyệt đối không chép sang ra viện.
     const dx = record.chan_doan.find(item => item.noi_dung.giai_doan === stage && item.noi_dung.vai_tro === "chinh")
-      ?? record.chan_doan.find(item => item.noi_dung.giai_doan === stage && item.noi_dung.vai_tro === "chua_ro");
+      ?? record.chan_doan.find(item => item.noi_dung.giai_doan === stage && item.noi_dung.vai_tro === "chua_ro")
+      ?? (stage === "ban_dau" ? record.chan_doan.find(item => item.noi_dung.giai_doan === "chua_ro" && item.noi_dung.vai_tro !== "kem_theo") : undefined);
     set(codeId, dx?.icd.code ?? null); set(textId, dx?.noi_dung.mo_ta ?? null);
   }
   set("icd_kem_theo", record.chan_doan.filter(item => item.noi_dung.vai_tro === "kem_theo").map(item => item.icd.code).filter(Boolean).join(","));
-  const stages = new Set(record.chan_doan.filter(item => item.noi_dung.vai_tro === "kem_theo").map(item => item.noi_dung.giai_doan));
-  set("giai_doan_kem_theo", stages.size === 1 ? ({ ban_dau: "Ban đầu", ra_vien: "Ra viện", chua_ro: "Chưa rõ" })[[...stages][0]] : null);
   const rows: DongChiDinh[] = record.chi_dinh.items.map(item => ({ id: item.id, ma: item.danh_muc.code ?? "", ten: item.danh_muc.display ?? item.noi_dung.ten_dich_vu ?? "Dịch vụ chưa có tên", vi_tri: item.noi_dung.vi_tri ?? "", ben: item.noi_dung.ben, so_luong: item.noi_dung.so_luong === null ? "" : String(item.noi_dung.so_luong), ghi_chu: item.noi_dung.ghi_chu ?? "", nguon: item.review.trang_thai === "chua_duyet" ? "xem" : "bs", ung_vien: [] }));
-  return parseEformSnapshot({ fields, chiDinh: rows, chiDinhLyDo: record.chi_dinh.groups.at(-1)?.chan_doan_lich_su_lam_sang ?? "", chiDinhDeCap: record.chi_dinh.de_cap, trangThai: Object.entries(STATUS).find(([, value]) => value === record.status)?.[0] ?? "Đang khám" });
+  const thuocDangDung = note.thuoc_dang_dung.map(item => ({ ten: item.ten ?? "", ham_luong: item.ham_luong ?? "", cach_dung: item.cach_dung ?? "" }));
+  return parseEformSnapshot({ fields, thuocDangDung, chiDinh: rows, chiDinhLyDo: record.chi_dinh.groups.at(-1)?.chan_doan_lich_su_lam_sang ?? "", chiDinhDeCap: record.chi_dinh.de_cap, trangThai: Object.entries(STATUS).find(([, value]) => value === record.status)?.[0] ?? "Đang khám" });
 }

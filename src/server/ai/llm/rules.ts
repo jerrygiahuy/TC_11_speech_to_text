@@ -85,14 +85,8 @@ function parseServices(segment: string): Values[] {
 
 const ROUTES: [RegExp, string][] = [
   [/\buống\b/iu, "Uống"],
-  [/ngậm/iu, "Ngậm"],
-  [/xịt mũi/iu, "Xịt mũi"],
-  [/nhỏ mũi/iu, "Nhỏ mũi"],
-  [/rửa mũi/iu, "Rửa mũi"],
-  [/nhỏ tai/iu, "Nhỏ tai"],
-  [/súc họng/iu, "Súc họng"],
-  [/khí dung/iu, "Khí dung"],
-  [/\bbôi\b/iu, "Bôi"],
+  [/ngậm dưới lưỡi/iu, "Ngậm dưới lưỡi"],
+  [/\btiêm\b/iu, "Tiêm"],
 ];
 
 const TIMING =
@@ -110,7 +104,7 @@ function parseDrug(line: string, catalogs: Catalogs, vietTat: VietTat): Values |
   const beforeNumber = firstNumber >= 0 ? line.slice(0, firstNumber) : line;
   let name = clean(beforeNumber.split(",")[0]).replace(/\s+(?:uống|trái|phải)\s*$/iu, "");
   if (findExact(name, catalogs["thuoc"] ?? [], vietTat).length === 0) {
-    name = name.replace(/\s+(?:uống|ngậm|xịt mũi|nhỏ mũi|rửa mũi|nhỏ tai|súc họng|nhỏ)(?:\s+(?:trái|phải))?\s*$/iu, "").trim();
+    name = name.replace(/\s+(?:uống|ngậm dưới lưỡi|ngậm|tiêm)(?:\s+(?:trái|phải))?\s*$/iu, "").trim();
   }
   if (!name) return null;
 
@@ -138,7 +132,8 @@ export function ruleExtract(
     form.mode === "rows"
       ? [{ formId: form.id, keywords: form.mock_keywords ?? [] }]
       : form.fields
-          .filter((field) => field.ai_fill && field.mock_keywords?.length)
+          // Trường không ai_fill nhưng có từ khóa là "điểm dừng": cắt đoạn trước đó, nội dung bị bỏ.
+          .filter((field) => field.mock_keywords?.length)
           .map((field) => ({ formId: form.id, fieldId: field.id, keywords: field.mock_keywords ?? [] })),
   );
 
@@ -160,6 +155,7 @@ export function ruleExtract(
     const form = forms.find((f) => f.id === hit.target.formId);
     if (!form) return;
     if (hit.target.fieldId) {
+      if (!form.fields.find((field) => field.id === hit.target.fieldId)?.ai_fill) return;
       (draft[form.id] as Values)[hit.target.fieldId] = capitalize(clean(segment)) || null;
     } else if (form.fields.some((field) => field.catalog === "thuoc")) {
       draft[form.id] = segment

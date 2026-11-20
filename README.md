@@ -163,6 +163,8 @@ Kết quả trên giọng máy ngày 2026-11-11: WER 21,4% thành 10,5%, Mã 7/4
 
 **Luồng mới:** sửa `config/clinical/*.schema.json`, chạy `npm run clinical:types` và `npm run clinical:check`. Các config/forms và eval bên dưới là bộ thử pipeline cũ, không còn là hợp đồng endpoint trích xuất hiện tại.
 
+`clinical:check` phần thứ hai gọi `python3 docs/task-2/verify.py` và cần gói Python `jsonschema`. Nếu thiếu, lệnh báo `ModuleNotFoundError: jsonschema`. Cài bằng `python3 -m pip install jsonschema` (hoặc dùng môi trường Python đã có sẵn gói này).
+
 Các trường AI tách ra nằm trong JSON ở `config/forms/`. Schema gửi cho LLM, prompt, chế độ `mock` và eval đều sinh từ các file này.
 
 **Giao diện eForm không sinh từ JSON.** Thêm trường mới vào JSON thì AI sẽ tách được ngay (thấy trong eval), nhưng muốn trường hiện trên phiếu thì phải nối thêm: trường phiếu khám vào bảng `ANH_XA` trong `src/shared/eform/dien-phieu.ts` và vào ô tương ứng ở `src/client/eform/EformForm.tsx`; cột chỉ định, thuốc vào `dienPhieu` và `ChiDinhTab.tsx` / `DonThuocTab.tsx`.

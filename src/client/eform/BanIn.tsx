@@ -14,15 +14,6 @@ export function ngayGio(value: string): string {
   return `${found[3]}/${found[2]}/${found[1]}${found[4] ? ` ${found[4]}` : ""}`;
 }
 
-/** Chẩn đoán chính: ưu tiên chẩn đoán ra viện, chưa có thì lấy chẩn đoán ban đầu */
-export function chanDoanChinh(get: (id: string) => { value: string }) {
-  const raVien = get("icd_ra_vien").value || get("mo_ta_ra_vien").value;
-  const [nhan, maId, moTaId] = raVien
-    ? ["Chẩn đoán ra viện", "icd_ra_vien", "mo_ta_ra_vien"]
-    : ["Chẩn đoán ban đầu", "icd_ban_dau", "mo_ta_ban_dau"];
-  return { nhan, maId, ma: get(maId).value, moTa: get(moTaId).value };
-}
-
 function Muc({ nhan, children }: { nhan: string; children: ReactNode }) {
   return (
     <div className="break-inside-avoid">

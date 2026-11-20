@@ -4,6 +4,25 @@ Mỗi thay đổi, dù nhỏ, đều có một mục ở đây. Mục mới nh�
 
 ## 2026-11-20
 
+### Dọn chữ TMH, cảnh báo thiếu thông tin và sửa nhãn (nhóm B sau review giữa kỳ)
+- **Loại:** Giao diện, Cấu hình, Sửa lỗi, Dọn dẹp
+- **Thay đổi:**
+  - Nút "Thử hội thoại tổng hợp" trên eForm nạp hội thoại Tăng huyết áp (rút từ SYN-CARDIO-001) thay cho viêm họng.
+  - Đường dùng của đơn thuốc còn Uống, Ngậm dưới lưỡi, Tiêm (bỏ xịt mũi, nhỏ mũi, rửa mũi, nhỏ tai, súc họng, khí dung, bôi). Giá trị "Tiêm" khớp với `rules.ts`.
+  - Trang trình diễn gán chẩn đoán I10 thay H66.1 (mã có trong `icd10.json`).
+  - Thêm cảnh báo nhẹ (chữ `text-xem`, không chặn lưu): chưa chọn tiền sử dị ứng; chọn "NB có thuốc đang dùng" nhưng danh sách trống; chọn hẹn tái khám "Có" nhưng chưa nhập ngày.
+  - Ô Khám chuyên khoa có nút "Mở thư viện tham khảo" (khóa `kham_chuyen_khoa` có sẵn trong thư viện).
+  - Bản xem trước báo cáo y tế hiện chẩn đoán ban đầu và chẩn đoán ra viện riêng (dùng `dongChanDoanIn`); bỏ hàm `chanDoanChinh` không còn nơi gọi.
+  - Màn xem lại đổi nhãn "Ghi chú kết quả" thành "Các xét nghiệm, thăm dò chính".
+  - Bỏ `giai_doan_kem_theo` khỏi danh sách phạm vi duyệt ban đầu (trường đã bỏ khỏi phiếu).
+  - Bỏ import `BTN_AI` không dùng ở `EformForm.tsx` (hết cảnh báo lint).
+  - `clinical:check` gọi `python3` thay `python` (máy Mac không có lệnh `python`); README ghi phụ thuộc `jsonschema`. Không tự cài gói.
+  - `tsconfig.json` loại trừ `temp-1/` (bản sao gitignore gây 110 lỗi tsc giả).
+- **Lý do:** Review giữa kỳ CardioNote, các mục I6, M2, M4, M5, M9, M11: còn chữ TMH trong UI và config không có chủ, thiếu cảnh báo khi thiếu thông tin, và vài nhãn/import còn sót.
+- **File:** `src/client/eform/{TroLyAi,EformForm,BaoCaoDialog,BanIn}.tsx`, `config/forms/ke-don.json`, `src/server/du-lieu/trinh-dien.ts`, `src/shared/clinic/projection.ts`, `src/shared/clinical/approvals.ts`, `package.json`, `tsconfig.json`, `README.md`, `docs/CHANGELOG.md`
+- **Kiểm tra:** `npm run lint`: 0 lỗi, 8 cảnh báo (trước là 9; hết cảnh báo BTN_AI). `npx tsc --noEmit -p .`: sạch. `npm test`: không có test nào mới đỏ trong file của nhóm B; `projection_has_every_saved_clinical_part_and_no_ai_or_transcript` vẫn đỏ từ nền (fixture `data/clinic/history` còn ca ENT, thuộc nhóm A). Chưa kiểm trên trình duyệt (không chạy `next dev`).
+- **Ảnh hưởng:** Trang trình diễn hiện mã I10 thay H66.1. Chưa kiểm: nút thư viện của Khám chuyên khoa và các cảnh báo mới trên giao diện thật.
+
 ### Giao diện eForm, bản in và tên CardioNote (Task 4 CardioNote)
 - **Loại:** Giao diện, Tính năng, Cấu hình, Dọn dẹp
 - **Thay đổi:** eForm theo Excel: ô Khám chuyên khoa thành ô chữ thường, thêm ô Khám tim mạch, hô hấp; hai ô khám (toàn thân, tim mạch hô hấp) có hộp thư viện câu (Chọn tất cả, Chọn, Hủy; câu chèn thành dòng `- ...`, không ghi đè); Thuốc đang dùng có nhãn đầy đủ, danh sách thuốc và nút "+ Thêm thuốc" (lưu qua `thuocDangDung` của snapshot, thêm `thuoc`/`datThuoc` vào `EformContext`); "Ghi chú kết quả" đổi thành "Các xét nghiệm, thăm dò chính"; hiện chẩn đoán xác định từ OH; bỏ `co_pttt`, `xn_me`, `giai_doan_kem_theo`; bảng thuốc đã dùng (`LichSuThuoc`, cùng cờ ẩn khai thác với các bảng lịch sử khác). `BanIn` in riêng hai dòng chẩn đoán (hàm thuần `dongChanDoanIn`), thêm Thuốc đang dùng và Khám tim mạch, hô hấp, sinh hiệu null không in. `EformHeader`: sinh hiệu null hiện "chưa đo", BMI trống khi thiếu chiều cao hoặc cân nặng; `service.ts` sửa BMI tương tự (hết lỗi tsc). Thư viện câu nạp từ `data/cardiology/exam-library.json` (`VungKham = toan_than | tim_mach_ho_hap`), xóa `data/eform/mau-cau.json` và logic mẫu câu TMH. Ô AI rỗng không ghi đè giá trị bác sĩ đã nhập (`ghepAiKhongGhiDe`). `config/forms/phieu-kham.json`: thêm trường `kham_tim_mach_ho_hap` (từ khóa mock "khám tim phổi", "khám tim mạch", "tim", "phổi"); `data/cases/ca-11-tim-mach.json`: phần khám tim phổi chuyển sang `kham_tim_mach_ho_hap`. Đổi tên sản phẩm thành CardioNote ở `Header.tsx`, `layout.tsx` (title, description), tab `/` và `/dashboard`; `DemoPhieuPanel`, `BaoCaoDialog`, `GoiYIcdPanel` thêm ô Khám tim mạch, hô hấp.

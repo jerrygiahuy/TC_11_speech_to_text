@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { MO_PHONG, useEform } from "@/client/eform/EformContext";
 import {
-  BTN_AI,
   BTN_OUTLINE,
   FieldLabel,
   NHOM,
@@ -133,6 +132,7 @@ function ThuocDangDung() {
           <button type="button" className={BTN_OUTLINE} onClick={() => { datThuoc([...thuoc, { ...TRONG_THUOC }]); if (!co) edit("thuoc_dang_dung", "NB có"); }}>
             + Thêm thuốc
           </button>
+          {co && thuoc.length === 0 && <p className="text-xs text-xem">⚠ Đã chọn NB có thuốc đang dùng nhưng danh sách còn trống.</p>}
         </div>
       )}
       {HIEN_THONG_TIN_KHAI_THAC && (
@@ -184,6 +184,7 @@ function DanhGiaChung() {
 
       <div className="space-y-2">
         <RadioField id="di_ung" label="Tiền sử dị ứng" options={["Có", "Không", "Không xác định"]} />
+        {!diUng.value && <p className="text-xs text-xem">⚠ Chưa chọn tiền sử dị ứng.</p>}
         {diUng.value === "Có" && (
           <>
             <fieldset>
@@ -257,7 +258,7 @@ function DanhGiaChung() {
       <div className={NHOM}>
         <FieldLabel label="Khám lâm sàng" bcyt />
         <OKhamCoThuVien id="kham_toan_than" label="Khám toàn thân" vung="toan_than" />
-        <TextBox id="kham_chuyen_khoa" label="Khám chuyên khoa" rows={3} />
+        <TextBox id="kham_chuyen_khoa" label="Khám chuyên khoa" rows={3} actions={<ThuVienButton id="kham_chuyen_khoa" />} />
         <OKhamCoThuVien id="kham_tim_mach_ho_hap" label="Khám tim mạch, hô hấp" vung="tim_mach_ho_hap" />
         <TextBox id="kham_khac" label="Khám các bộ phận khác" actions={<ThuVienButton id="kham_khac" />} />
       </div>
@@ -316,7 +317,12 @@ function DieuTri() {
       <TextBox id="loi_dan" label="Lời dặn & theo dõi" bcyt actions={<ThuVienButton id="loi_dan" />} />
       <div className="grid gap-4 md:grid-cols-2">
         <RadioField id="hen_tai_kham" label="Hẹn tái khám" options={CO_KHONG} />
-        {get("hen_tai_kham").value === "Có" && <DateField id="ngay_tai_kham" label="Ngày tái khám" type="date" />}
+        {get("hen_tai_kham").value === "Có" && (
+          <div className="space-y-1">
+            <DateField id="ngay_tai_kham" label="Ngày tái khám" type="date" />
+            {!get("ngay_tai_kham").value && <p className="text-xs text-xem">⚠ Đã chọn hẹn tái khám nhưng chưa nhập ngày.</p>}
+          </div>
+        )}
       </div>
       <RadioField id="tinh_trang_ra_vien" label="Tình trạng ra viện" options={data.tuyChon.tinh_trang_ra_vien} />
     </Section>

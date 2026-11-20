@@ -98,7 +98,7 @@ export function projectHistoricalEncounter(record: Encounter, ctx: ProjectionCon
       rows: rows([["Khám toàn thân", note.kham_toan_than], ["Khám chuyên khoa", note.kham_chuyen_khoa], ["Khám tim mạch, hô hấp", note.kham_tim_mach_ho_hap], ["Khám khác", note.kham_khac]]),
     },
     { id: "chan-doan", title: "Chẩn đoán", rows: diagnoses },
-    { id: "ket-qua", title: "Kết quả cận lâm sàng", rows: [...results, ...rows([["Ghi chú kết quả", note.ghi_chu_ket_qua]])] },
+    { id: "ket-qua", title: "Kết quả cận lâm sàng", rows: [...results, ...rows([["Các xét nghiệm, thăm dò chính", note.ghi_chu_ket_qua]])] },
     { id: "chi-dinh", title: "Chỉ định", rows: orders },
     {
       id: "ket-luan",

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "clinical:types": "node scripts/generate-clinical-types.mjs",
-    "clinical:check": "node scripts/generate-clinical-types.mjs --check && python docs/task-2/verify.py",
+    "clinical:check": "node scripts/generate-clinical-types.mjs --check && python3 docs/task-2/verify.py",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",

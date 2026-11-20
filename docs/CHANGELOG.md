@@ -4,6 +4,14 @@ Mỗi thay đổi, dù nhỏ, đều có một mục ở đây. Mục mới nh�
 
 ## 2026-11-20
 
+### Bệnh nhân của kịch bản demo mang đúng context của hội thoại (sửa Task 8)
+- **Loại:** Dữ liệu, Kiểm thử
+- **Thay đổi:** `scripts/tao-du-lieu-tim-mach.ts` sinh 5 context thay vì 4: LK-GIA-0458 (GIA-000789) nay mang SYN-CARDIO-013, thêm context SYN-CARDIO-049 cho GIA-000456 gắn lịch LK-GIA-0461 (đặt cuối danh sách vì demo lấy context mới nhất của bệnh nhân). Lịch LK-GIA-0458 thành "khó chịu vùng ngực khi gắng sức, khám lần đầu", LK-GIA-0461 trở lại "một lần ngất thoáng qua". Thêm test `bệnh nhân của kịch bản mang đúng context...`; sửa danh sách context trong `encounter-context.test.ts`. Cờ đồng ý và `benh_nhan_id` của kịch bản giữ nguyên.
+- **Lý do:** ca-tu-che (hội thoại 013) chạy trên GIA-000789 và ca-chua-dong-y (hội thoại 049) trên GIA-000456, nhưng context mới nhất của hai bệnh nhân là của ca khác nên demo lệch sinh hiệu và dị ứng.
+- **File:** `scripts/tao-du-lieu-tim-mach.ts`, `data/eform/encounter-contexts.json`, `data/clinic/appointments.json`, `src/server/clinical/encounter-context.test.ts`, `src/server/demo-luong/kich-ban.test.ts`
+- **Kiểm tra:** `npm test` 476/476 pass (kèm test mới), `tsc` sạch, lint 0 lỗi, `tao-du-lieu-tim-mach --check` khớp 9 file.
+- **Ảnh hưởng:** lý do khám "đánh trống ngực" không còn lịch riêng (còn 9 lý do trong 10 lịch). GIA-000123 vẫn lấy context 039 làm mới nhất nên ca-chuan (001) còn lệch sinh hiệu.
+
 ### Chuyển fixture, kịch bản demo, ca eval sang Tim mạch; `npm test` về 0 fail (Task 8 CardioNote)
 - **Loại:** Dữ liệu, Kiểm thử, Sửa lỗi
 - **Thay đổi:**

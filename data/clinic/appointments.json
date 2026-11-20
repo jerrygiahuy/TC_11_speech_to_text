@@ -56,7 +56,7 @@
     "doctor_id": "user_bs01",
     "starts_at": "2026-11-16T14:00:00+07:00",
     "ends_at": null,
-    "content": "Bệnh nhân mới, một lần ngất thoáng qua, khám lần đầu (dữ liệu giả)",
+    "content": "Bệnh nhân mới, khó chịu vùng ngực khi gắng sức, khám lần đầu (dữ liệu giả)",
     "scheduling_status": "scheduled"
   },
   {
@@ -86,7 +86,7 @@
     "doctor_id": "user_bs01",
     "starts_at": "2026-11-17T09:00:00+07:00",
     "ends_at": null,
-    "content": "Đánh trống ngực từng cơn, lịch ngày mai (dữ liệu giả)",
+    "content": "Một lần ngất thoáng qua, lịch ngày mai (dữ liệu giả)",
     "scheduling_status": "scheduled"
   },
   {

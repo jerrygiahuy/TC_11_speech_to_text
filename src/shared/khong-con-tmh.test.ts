@@ -12,7 +12,7 @@ const DUOI_README = [".md"];
 const FILE_NAY = relative(GOC, resolve(__dirname, "khong-con-tmh.test.ts"));
 
 const MAU_TMH =
-  /TMH|[Tt]ai [Mm]ũi [Hh]ọng|viêm tai|amidan|màng nhĩ|viêm xoang|[Hh]ọng|nhỏ tai|xịt mũi|\bH6[0-9]\.|"tai"|"mui"|"vom"|"hong"|[Mm]ũi|[Đđ]au tai|khe giữa|ngạt mũi|sổ mũi|speech-to-navigation/;
+  /TMH|[Tt]ai [Mm]ũi [Hh]ọng|viêm tai|amidan|màng nhĩ|viêm xoang|[Hh]ọng|nhỏ tai|xịt mũi|\bH6[0-9]\.|"tai"|"mui"|"vom"|"hong"|[Mm]ũi|[Đđ]au tai|khe giữa|ngạt mũi|sổ mũi|speech-to-navigation|[Tt]ai (phải|trái)|\b[Vv][Tt][Gg]\b/;
 
 /**
  * Ngoại lệ có chủ đích, hẹp: chỉ bỏ qua dòng ở đúng file mà chứa đúng chuỗi này (không bỏ cả file, không đổi regex).

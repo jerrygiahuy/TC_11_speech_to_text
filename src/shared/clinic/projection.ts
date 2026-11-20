@@ -1,7 +1,6 @@
 // Chiếu một phiếu khám đã lưu sang dạng chỉ đọc để xem lại. Hàm thuần: không I/O, không mutate input.
 // Chỉ lấy nội dung lâm sàng đã lưu; không có transcript, lần chạy AI hay nguồn dữ liệu. Không bịa dữ liệu thiếu.
 import { approvalState, requiredApprovalScopes } from "../clinical/approvals";
-import { specialistText } from "../clinical/eform";
 import type { Encounter, Quantity } from "../clinical/types";
 import { formatClinicDate } from "./format";
 import { displayStatus } from "./schedule";
@@ -96,7 +95,7 @@ export function projectHistoricalEncounter(record: Encounter, ctx: ProjectionCon
     {
       id: "kham",
       title: "Khám",
-      rows: rows([["Khám toàn thân", note.kham_toan_than], ["Khám chuyên khoa", specialistText(note.kham_chuyen_khoa)], ["Khám khác", note.kham_khac]]),
+      rows: rows([["Khám toàn thân", note.kham_toan_than], ["Khám chuyên khoa", note.kham_chuyen_khoa], ["Khám tim mạch, hô hấp", note.kham_tim_mach_ho_hap], ["Khám khác", note.kham_khac]]),
     },
     { id: "chan-doan", title: "Chẩn đoán", rows: diagnoses },
     { id: "ket-qua", title: "Kết quả cận lâm sàng", rows: [...results, ...rows([["Ghi chú kết quả", note.ghi_chu_ket_qua]])] },

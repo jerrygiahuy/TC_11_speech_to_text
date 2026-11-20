@@ -47,7 +47,8 @@ test("legacy approval never certifies new scopes and latest approval wins", () =
 
 test("scope mapping explicitly covers clinical form fields and refuses unknown paths", () => {
   assert.equal(typeof approvals.approvalScopeForPath, "function");
-  for (const path of ["/phieu_kham/benh_su", "/phieu_kham/di_ung/mo_ta", "/phieu_kham/co_pttt", "/sinh_hieu/mach/value", "/referral_source", "/thong_tin_khac/xn_me", "/chi_dinh/de_cap", "/chan_doan/ban_dau/0/icd/code"]) assert.equal(approvals.approvalScopeForPath(path), "initial_note", path);
+  for (const path of ["/phieu_kham/benh_su", "/phieu_kham/di_ung/mo_ta", "/phieu_kham/kham_tim_mach_ho_hap", "/sinh_hieu/mach/value", "/referral_source", "/thong_tin_khac/xn_bhxh", "/chi_dinh/de_cap", "/chan_doan/ban_dau/0/icd/code"]) assert.equal(approvals.approvalScopeForPath(path), "initial_note", path);
+  for (const path of ["/phieu_kham/co_pttt", "/thong_tin_khac/xn_me"]) assert.throws(() => approvals.approvalScopeForPath(path), path);
   for (const path of ["/phieu_kham/ghi_chu_ket_qua", "/phieu_kham/da_xu_ly", "/phieu_kham/huong_dieu_tri", "/phieu_kham/loi_dan", "/phieu_kham/hen_tai_kham/ngay_cu_the", "/phieu_kham/tinh_trang_ra_vien", "/chan_doan/ra_vien/0/icd/code", "/ket_qua/0/ket_qua_text"]) assert.equal(approvals.approvalScopeForPath(path), "conclusion", path);
   assert.equal(approvals.approvalScopeForPath("/tom_tat"), "summary");
   assert.equal(approvals.approvalScopeForPath("/chi_dinh/items/0/noi_dung/so_luong", "stable-order"), "service_order:stable-order");

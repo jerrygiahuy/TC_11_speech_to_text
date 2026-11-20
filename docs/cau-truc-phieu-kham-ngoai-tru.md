@@ -1,5 +1,7 @@
 # Cấu trúc form "Phiếu khám ngoại trú" – EMR Vinmec (Bệnh án điện tử)
 
+> Khảo sát tại PK Tai Mũi Họng (09/11/2026); cấu trúc màn EMR dùng chung các khoa, giữ làm tham khảo cho CardioNote.
+
 > Nguồn: ảnh chụp màn hình eForm tại PK Tai Mũi Họng, Times City (OPD – Liên chuyên khoa), ngày 09/11/2026.
 > Tài liệu chỉ mô tả **cấu trúc trường**. Không chứa họ tên, PID, mã lượt khám, CCCD, tài khoản bác sĩ hay nội dung lâm sàng của bệnh nhân.
 

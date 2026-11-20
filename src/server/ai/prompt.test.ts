@@ -3,7 +3,7 @@ import { test } from "node:test";
 import type { Draft } from "@/shared/types";
 import { buildUserPrompt } from "./prompt";
 
-const MAU: Draft = { phieu_kham: { benh_su: "Đau tai [phải|trái] [số] ngày" }, chi_dinh: [], ke_don: [] };
+const MAU: Draft = { phieu_kham: { benh_su: "Phù chân [phải|trái] [số] ngày" }, chi_dinh: [], ke_don: [] };
 
 test("không có mẫu thì prompt như cũ", () => {
   assert.equal(buildUserPrompt("abc"), "<tom_tat>\nabc\n</tom_tat>");

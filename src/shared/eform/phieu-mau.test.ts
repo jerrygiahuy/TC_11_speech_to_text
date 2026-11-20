@@ -89,25 +89,25 @@ test("gợi ý không chạy với chữ quá ngắn hoặc quá dài", () => {
 
 test("điền bên và số", () => {
   assert.equal(
-    dienChoTrong("Đau tai [phải|trái|2 bên] [số] ngày, sốt [số] độ", "bên T, 3n, sốt 38,5", VT),
-    "Đau tai trái 3 ngày, sốt 38,5 độ",
+    dienChoTrong("Phù chân [phải|trái|2 bên] [số] ngày, sốt [số] độ", "bên T, 3n, sốt 38,5", VT),
+    "Phù chân trái 3 ngày, sốt 38,5 độ",
   );
 });
 
 test("không hiểu thì giữ nguyên chỗ trống", () => {
-  assert.equal(dienChoTrong("Đau tai [phải|trái] [số] ngày", "đau nhiều về đêm", VT), "Đau tai [phải|trái] [số] ngày");
+  assert.equal(dienChoTrong("Phù chân [phải|trái] [số] ngày", "đau nhiều về đêm", VT), "Phù chân [phải|trái] [số] ngày");
 });
 
 test("hai lựa chọn cùng có thì giữ nguyên", () => {
-  assert.equal(dienChoTrong("tai [phải|trái]", "phải đỡ, trái đau", VT), "tai [phải|trái]");
+  assert.equal(dienChoTrong("chân [phải|trái]", "phải đỡ, trái đau", VT), "chân [phải|trái]");
 });
 
 test("dienChoTrongNhap không sửa mẫu gốc", () => {
-  const nhap: Draft = { phieu_kham: { benh_su: "Đau tai [phải|trái] [số] ngày" }, ke_don: [{ ten_thuoc: "Paracetamol", so_ngay: 3 }] };
+  const nhap: Draft = { phieu_kham: { benh_su: "Phù chân [phải|trái] [số] ngày" }, ke_don: [{ ten_thuoc: "Paracetamol", so_ngay: 3 }] };
   const ra = dienChoTrongNhap(nhap, "bên P, 5n", VT);
-  assert.equal((ra.phieu_kham as Record<string, unknown>).benh_su, "Đau tai phải 5 ngày");
+  assert.equal((ra.phieu_kham as Record<string, unknown>).benh_su, "Phù chân phải 5 ngày");
   assert.deepEqual(ra.ke_don, [{ ten_thuoc: "Paracetamol", so_ngay: 3 }]);
-  assert.equal((nhap.phieu_kham as Record<string, unknown>).benh_su, "Đau tai [phải|trái] [số] ngày");
+  assert.equal((nhap.phieu_kham as Record<string, unknown>).benh_su, "Phù chân [phải|trái] [số] ngày");
 });
 
 test("điền số giờ và cân nặng", () => {
@@ -129,36 +129,36 @@ test("nhiệt độ ngoài khoảng thân nhiệt thì bỏ qua", () => {
 });
 
 test("động từ 'phải' không bị hiểu là bên phải", () => {
-  assert.equal(dienChoTrong("Mủ khe giữa [phải|trái|2 bên].", "vmx cấp, 7n, phải nhỏ mũi", VT), "Mủ khe giữa [phải|trái|2 bên].");
+  assert.equal(dienChoTrong("Phù chân [phải|trái|2 bên].", "tha cấp, 7n, phải uống thuốc", VT), "Phù chân [phải|trái|2 bên].");
 });
 
 test("'hai bên' khớp lựa chọn '2 bên'", () => {
-  assert.equal(dienChoTrong("Ngạt mũi [phải|trái|2 bên].", "ngạt mũi hai bên, bảy ngày", VT), "Ngạt mũi 2 bên.");
+  assert.equal(dienChoTrong("Phù chân [phải|trái|2 bên].", "phù chân hai bên, bảy ngày", VT), "Phù chân 2 bên.");
 });
 
 test("bên đứng riêng một vế vẫn nhận", () => {
-  assert.equal(dienChoTrong("Tai [phải|trái].", "tha cấp, phải, 3n", VT), "Tai phải.");
+  assert.equal(dienChoTrong("Chân [phải|trái].", "tha cấp, phải, 3n", VT), "Chân phải.");
 });
 
 test("ketQuaTheoQuyTac điền chỗ trống trên mẫu đã khớp mã, giữ mã", () => {
   const m: PhieuMau = {
     ...M[0],
     ketQua: {
-      draft: { phieu_kham: { benh_su: "Đau tai [phải|trái] [số] ngày" }, ke_don: [{ ma_thuoc: "TH-001", ten_thuoc: "Augmentin" }] },
+      draft: { phieu_kham: { benh_su: "Phù chân [phải|trái] [số] ngày" }, ke_don: [{ ma_thuoc: "TH-001", ten_thuoc: "Amlodipine" }] },
       matches: {},
       provider: "mau",
       duration_ms: 0,
     },
   };
   const kq = ketQuaTheoQuyTac(m, "bên T, 3n", VT);
-  assert.equal((kq.draft.phieu_kham as Record<string, unknown>).benh_su, "Đau tai trái 3 ngày");
-  assert.deepEqual(kq.draft.ke_don, [{ ma_thuoc: "TH-001", ten_thuoc: "Augmentin" }]);
-  assert.equal((m.ketQua.draft.phieu_kham as Record<string, unknown>).benh_su, "Đau tai [phải|trái] [số] ngày");
+  assert.equal((kq.draft.phieu_kham as Record<string, unknown>).benh_su, "Phù chân trái 3 ngày");
+  assert.deepEqual(kq.draft.ke_don, [{ ma_thuoc: "TH-001", ten_thuoc: "Amlodipine" }]);
+  assert.equal((m.ketQua.draft.phieu_kham as Record<string, unknown>).benh_su, "Phù chân [phải|trái] [số] ngày");
 });
 
 test("icdTheoMau giữ mã mẫu khi chẩn đoán vẫn là bệnh của mẫu", () => {
-  const m: PhieuMau = { ...M[0], icd: "I10", ketQua: { ...M[0].ketQua, draft: { phieu_kham: { chan_doan_chinh: "Tăng huyết áp độ 1 tai [phải|trái|2 bên]" } } } };
-  assert.equal(icdTheoMau(m, { phieu_kham: { chan_doan_chinh: "Tăng huyết áp độ 1 tai trái" } }), "I10");
+  const m: PhieuMau = { ...M[0], icd: "I10", ketQua: { ...M[0].ketQua, draft: { phieu_kham: { chan_doan_chinh: "Tăng huyết áp độ 1 phù chân [phải|trái|2 bên]" } } } };
+  assert.equal(icdTheoMau(m, { phieu_kham: { chan_doan_chinh: "Tăng huyết áp độ 1 phù chân trái" } }), "I10");
 });
 
 test("icdTheoMau bỏ mã mẫu khi LLM đổi chẩn đoán", () => {

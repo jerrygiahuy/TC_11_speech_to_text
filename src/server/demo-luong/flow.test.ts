@@ -181,7 +181,7 @@ test("audio: chế độ dictation, gọi transcribe, bản sạch che tên bệ
   let called = 0;
   const events = await run(store, {
     encounterId: p.encounter_id, source: { kind: "audio" }, audio: new Uint8Array([82, 73, 70, 70]),
-    transcribe: async () => { called++; return { text: "chị nguyễn thị giả đau tai phải ba ngày", engine: "zipformer-gia", audio_ms: 3200 }; },
+    transcribe: async () => { called++; return { text: "chị nguyễn thị giả đau ngực phải ba ngày", engine: "zipformer-gia", audio_ms: 3200 }; },
   });
   assert.equal(called, 1);
   assert.deepEqual(events.map((e) => e.buoc), ["stt", "ban_tho", "che", "ai", "luu"]);

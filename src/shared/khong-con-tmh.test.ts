@@ -11,7 +11,7 @@ const DUOI_STT = [".py"];
 const FILE_NAY = relative(GOC, resolve(__dirname, "khong-con-tmh.test.ts"));
 
 const MAU_TMH =
-  /TMH|[Tt]ai [Mm]ũi [Hh]ọng|viêm tai|amidan|màng nhĩ|viêm xoang|họng|nhỏ tai|xịt mũi|\bH6[0-9]\.|"tai"|"mui"|"vom"|"hong"/;
+  /TMH|[Tt]ai [Mm]ũi [Hh]ọng|viêm tai|amidan|màng nhĩ|viêm xoang|[Hh]ọng|nhỏ tai|xịt mũi|\bH6[0-9]\.|"tai"|"mui"|"vom"|"hong"|[Mm]ũi|[Đđ]au tai|khe giữa|ngạt mũi|sổ mũi|speech-to-navigation/;
 
 /**
  * Ngoại lệ có chủ đích, hẹp: chỉ bỏ qua dòng ở đúng file mà chứa đúng chuỗi này (không bỏ cả file, không đổi regex).
@@ -60,7 +60,12 @@ function duyet(thuMuc: string, duoi: string[], ketQua: string[], goc = thuMuc) {
 }
 
 /** Quét toàn bộ các gốc; ngưỡng tối thiểu số file mỗi gốc (thấp hơn số hiện tại) để test không xanh khi quét hụt. */
-const GOC_QUET: [string, string[], number][] = [["src", DUOI_CHUNG, 200], ["config", DUOI_CHUNG, 10], ["data", DUOI_CHUNG, 5], ["stt", DUOI_STT, 20]];
+const DUOI_TS = [".ts", ".tsx"];
+const DUOI_JSON = [".json"];
+const GOC_QUET: [string, string[], number][] = [
+  ["src", DUOI_CHUNG, 200], ["config", DUOI_CHUNG, 10], ["data", DUOI_CHUNG, 5], ["stt", DUOI_STT, 20],
+  ["lib", DUOI_TS, 3], [join("docs", "task-2", "examples"), DUOI_JSON, 5],
+];
 function quetTatCa(): string[] {
   const khop: string[] = [];
   soFileQuet.clear();

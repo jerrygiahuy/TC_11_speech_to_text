@@ -84,10 +84,10 @@ const phieuWith = (sources: DemoPhieu["sources"]) => ({ sources } as DemoPhieu);
 
 test("mergeSession: ô bác sĩ sửa giữ nguyên, AI nói khác thì cờ xung đột; ô khác ghi nguồn AI phiên", () => {
   const before = snap({ ly_do: "BS sửa", benh_su: "cũ", loi_dan: "" });
-  const afterSnap = snap({ ly_do: "đau tai", benh_su: "mới", loi_dan: "" });
+  const afterSnap = snap({ ly_do: "đau ngực", benh_su: "mới", loi_dan: "" });
   const r = mergeSession(phieuWith({ ly_do: { nguon: "bac_si", phien: null }, benh_su: { nguon: "ai", phien: 1 } }), before, afterSnap, 2);
   assert.equal(r.snapshot.fields.ly_do.value, "BS sửa");
-  assert.deepEqual(r.sources.ly_do, { nguon: "bac_si", phien: null, xung_dot: { phien: 2, gia_tri_ai: "đau tai" } });
+  assert.deepEqual(r.sources.ly_do, { nguon: "bac_si", phien: null, xung_dot: { phien: 2, gia_tri_ai: "đau ngực" } });
   assert.equal(r.snapshot.fields.benh_su.value, "mới");
   assert.deepEqual(r.sources.benh_su, { nguon: "ai", phien: 2 });
   assert.equal(r.sources.loi_dan, undefined);

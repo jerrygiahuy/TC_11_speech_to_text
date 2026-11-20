@@ -30,7 +30,7 @@ export interface BangSuaChu {
   nguong_giong: number;
   /**
    * Tên thuốc chỉ được thay khi một trong vài từ ngay sau là dấu hiệu kê đơn (uống, viên, mg, số…)
-   * hoặc từ ngay trước là "đơn", "thuốc". Không có điều kiện này thì "thanh quản" bị thay thành "Tanakan".
+   * hoặc từ ngay trước là "đơn", "thuốc". Không có điều kiện này thì một cụm từ thường nói có âm gần giống tên thuốc bị thay nhầm thành tên thuốc.
    */
   dau_hieu_thuoc: string[];
 }

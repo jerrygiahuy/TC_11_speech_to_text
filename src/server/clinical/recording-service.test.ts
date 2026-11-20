@@ -79,7 +79,7 @@ test("content attaches after stop, invalidation rejects stale tickets, discard r
   record = f.service.updateRecordingContent(f.actor, invalidate).record;
   assert.equal(record.recording_sessions[0].content_revision, 1);
   const binding = { encounter_id: record.id, recording_session_id: a.session.id, generation: a.session.generation, content_revision: 1 };
-  const preview = f.tickets.check("BS: Họng đỏ.", "dictation", { known: [], allowlist: new Set(), consent: true, binding });
+  const preview = f.tickets.check("BS: Tim đều.", "dictation", { known: [], allowlist: new Set(), consent: true, binding });
   const attach = { ...base, expected_revision: record.revision, content_revision: 1, client_request_id: "attach-1", action: "attach_reviewed" as const, transcript_ticket: preview.ticket! };
   record = f.service.updateRecordingContent(f.actor, attach).record;
   assert.equal(record.recording_sessions[0].content_state, "reviewed");

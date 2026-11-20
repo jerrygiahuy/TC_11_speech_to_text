@@ -1,9 +1,9 @@
 {
   "schema_version": "2.0.0",
-  "tom_tat": "Đau họng ba ngày, không sốt. Bác sĩ ghi nhận họng đỏ, chẩn đoán ban đầu viêm họng cấp; chưa chỉ định dịch vụ và hẹn tái khám sau ba ngày. Dữ liệu giả lập.",
+  "tom_tat": "Đau ngực ba ngày, không khó thở. Bác sĩ ghi nhận tim đều, chẩn đoán ban đầu tăng huyết áp; chưa chỉ định dịch vụ và hẹn tái khám sau ba ngày. Dữ liệu giả lập.",
   "phieu_kham": {
-    "ly_do_kham": "Đau họng",
-    "benh_su": "Đau họng ba ngày, không sốt.",
+    "ly_do_kham": "Đau ngực",
+    "benh_su": "Đau ngực ba ngày, không khó thở.",
     "tien_su_ban_than": null,
     "tien_su_gia_dinh": null,
     "di_ung": {
@@ -15,12 +15,12 @@
     "thuoc_dang_dung": [],
     "kham_toan_than": null,
     "kham_chuyen_khoa": null,
-    "kham_tim_mach_ho_hap": null,
-    "kham_khac": "Họng đỏ.",
+    "kham_tim_mach_ho_hap": "Tim đều.",
+    "kham_khac": null,
     "chan_doan": [
       {
         "giai_doan": "ban_dau",
-        "mo_ta": "Viêm họng cấp",
+        "mo_ta": "Tăng huyết áp",
         "muc_do_khang_dinh": "xac_dinh",
         "vai_tro": "chua_ro"
       }
@@ -51,7 +51,7 @@
       "segment_ids": [
         "seg-2"
       ],
-      "trich_doan": "Khám thấy họng đỏ. Chẩn đoán ban đầu viêm họng cấp. Chưa cần chỉ định dịch vụ.",
+      "trich_doan": "Khám thấy tim đều. Chẩn đoán ban đầu tăng huyết áp. Chưa cần chỉ định dịch vụ.",
       "vai_tro": "bac_si"
     },
     {
@@ -59,7 +59,7 @@
       "segment_ids": [
         "seg-1"
       ],
-      "trich_doan": "Tôi đau họng ba ngày, không sốt. Chưa biết mình có dị ứng thuốc không.",
+      "trich_doan": "Tôi đau ngực ba ngày, không khó thở. Chưa biết mình có dị ứng thuốc không.",
       "vai_tro": "benh_nhan"
     },
     {
@@ -67,7 +67,7 @@
       "segment_ids": [
         "seg-1"
       ],
-      "trich_doan": "đau họng ba ngày",
+      "trich_doan": "đau ngực ba ngày",
       "vai_tro": "benh_nhan"
     },
     {
@@ -75,7 +75,7 @@
       "segment_ids": [
         "seg-1"
       ],
-      "trich_doan": "đau họng ba ngày, không sốt",
+      "trich_doan": "đau ngực ba ngày, không khó thở",
       "vai_tro": "benh_nhan"
     },
     {
@@ -87,11 +87,11 @@
       "vai_tro": "benh_nhan"
     },
     {
-      "field_path": "/phieu_kham/kham_khac",
+      "field_path": "/phieu_kham/kham_tim_mach_ho_hap",
       "segment_ids": [
         "seg-2"
       ],
-      "trich_doan": "Khám thấy họng đỏ.",
+      "trich_doan": "Khám thấy tim đều.",
       "vai_tro": "bac_si"
     },
     {
@@ -99,7 +99,7 @@
       "segment_ids": [
         "seg-2"
       ],
-      "trich_doan": "Chẩn đoán ban đầu viêm họng cấp.",
+      "trich_doan": "Chẩn đoán ban đầu tăng huyết áp.",
       "vai_tro": "bac_si"
     },
     {

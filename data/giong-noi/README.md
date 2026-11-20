@@ -9,7 +9,7 @@ npm run tao-am-thanh-mau            # mỗi ca trong data/cases/ thành <id>.tts
 npm run tao-am-thanh-mau -- --ghi-de  # tạo lại
 ```
 
-Giọng "Microsoft An" của Windows đọc câu `input_noi`, tên thuốc được đổi sang cách bác sĩ đọc (cách đọc đầu tiên trong `config/sua-chu-giong-noi.json`). Giọng máy khác người thật nhiều (đọc "tai" nghe như "thai"), nên điểm trên file này chỉ để so trước và sau một lần sửa.
+Giọng "Microsoft An" của Windows đọc câu `input_noi`, tên thuốc được đổi sang cách bác sĩ đọc (cách đọc đầu tiên trong `config/sua-chu-giong-noi.json`). Giọng máy khác người thật nhiều (phát âm lệch ở nhiều âm), nên điểm trên file này chỉ để so trước và sau một lần sửa.
 
 ## Tự ghi âm (nên làm)
 

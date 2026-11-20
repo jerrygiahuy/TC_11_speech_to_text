@@ -5,7 +5,7 @@
   "patient_id": "patient-demo-001",
   "appointment_id": "appt-demo-001",
   "facility_id": "facility-demo",
-  "department_id": "tmh",
+  "department_id": "tim-mach",
   "room_id": "room-demo",
   "bed_id": null,
   "examiner_id": "doctor-demo-001",
@@ -57,8 +57,8 @@
     "source_record_id": null
   },
   "phieu_kham": {
-    "ly_do_kham": "Đau họng",
-    "benh_su": "Đau họng ba ngày, không sốt.",
+    "ly_do_kham": "Đau ngực",
+    "benh_su": "Đau ngực ba ngày, không khó thở.",
     "tien_su_ban_than": null,
     "tien_su_gia_dinh": null,
     "di_ung": {
@@ -70,8 +70,8 @@
     "thuoc_dang_dung": [],
     "kham_toan_than": null,
     "kham_chuyen_khoa": null,
-    "kham_tim_mach_ho_hap": null,
-    "kham_khac": "Họng đỏ.",
+    "kham_tim_mach_ho_hap": "Tim đều.",
+    "kham_khac": null,
     "ghi_chu_ket_qua": null,
     "da_xu_ly": null,
     "huong_dieu_tri": null,
@@ -92,7 +92,7 @@
       "id": "dx-demo-001",
       "noi_dung": {
         "giai_doan": "ban_dau",
-        "mo_ta": "Viêm họng cấp",
+        "mo_ta": "Tăng huyết áp",
         "muc_do_khang_dinh": "xac_dinh",
         "vai_tro": "chua_ro"
       },
@@ -186,7 +186,7 @@
       "source_system": "ai-extraction"
     },
     {
-      "field_path": "/phieu_kham/kham_khac",
+      "field_path": "/phieu_kham/kham_tim_mach_ho_hap",
       "nguon": "ai",
       "source_record_id": null,
       "ai_run_id": "run-demo-001",
@@ -284,7 +284,7 @@
     "approved_at": null,
     "approved_by": null
   },
-  "tom_tat": "Đau họng ba ngày, không sốt. Bác sĩ ghi nhận họng đỏ, chẩn đoán ban đầu viêm họng cấp; chưa chỉ định dịch vụ và hẹn tái khám sau ba ngày. Dữ liệu giả lập.",
+  "tom_tat": "Đau ngực ba ngày, không khó thở. Bác sĩ ghi nhận tim đều, chẩn đoán ban đầu tăng huyết áp; chưa chỉ định dịch vụ và hẹn tái khám sau ba ngày. Dữ liệu giả lập.",
   "recording_sessions": [],
   "approval_versions": [],
   "change_decisions": []

@@ -5,7 +5,7 @@
   "patient_id": "patient-demo-001",
   "appointment_id": "appt-demo-001",
   "facility_id": "facility-demo",
-  "department_id": "tmh",
+  "department_id": "tim-mach",
   "room_id": "room-demo",
   "bed_id": null,
   "examiner_id": "doctor-demo-001",

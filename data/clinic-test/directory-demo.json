@@ -1,7 +1,7 @@
 {
   "facilities": [
-    { "id": "CS01", "name": "Phòng khám Tai Mũi Họng Mẫu 1 (dữ liệu giả)" },
-    { "id": "CS02", "name": "Phòng khám Tai Mũi Họng Mẫu 2 (dữ liệu giả)" }
+    { "id": "CS01", "name": "Phòng khám Tim mạch Mẫu 1 (dữ liệu giả)" },
+    { "id": "CS02", "name": "Phòng khám Tim mạch Mẫu 2 (dữ liệu giả)" }
   ],
   "doctors": [
     { "id": "BS01", "name": "BS. Mẫu Một" },

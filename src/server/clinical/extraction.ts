@@ -192,7 +192,7 @@ export function mockClinicalExtraction(transcript: Transcript, context?: MockCon
       if (segment.vai_tro !== "bac_si") {
         if (/(?:chẩn đoán|chỉ định|tái khám|khám thấy)/iu.test(text)) {
           output.can_xem_lai.push({ field_path: "/phieu_kham/chan_doan", loai: "khong_ro_nguoi_noi", mo_ta: "Cần bác sĩ xác nhận vai trò và quyết định lâm sàng.", segment_ids: [segment.id] });
-        } else if (/(?:đau ngực|đau đầu|tức ngực|nặng ngực|khó thở|hồi hộp|đánh trống ngực|chóng mặt|choáng|ngất|phù\b|hụt hơi|mệt|ho\b)/iu.test(text)) {
+        } else if (/(?:đau ngực|đau đầu|tức ngực|nặng ngực|khó thở|hồi hộp|đánh trống ngực|chóng mặt|choáng|ngất|(?<!\p{L})phù(?!\p{L})|hụt hơi|mệt|(?<!\p{L})ho(?!\p{L}))/iu.test(text)) {
           set("benh_su", text, segment); set("ly_do_kham", text, segment);
           summarize(text, segment);
         }

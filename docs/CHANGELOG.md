@@ -4,6 +4,25 @@ Mỗi thay đổi, dù nhỏ, đều có một mục ở đây. Mục mới nh�
 
 ## 2026-11-20
 
+### Chuyển fixture, kịch bản demo, ca eval sang Tim mạch; `npm test` về 0 fail (Task 8 CardioNote)
+- **Loại:** Dữ liệu, Kiểm thử, Sửa lỗi
+- **Thay đổi:**
+  - `data/cases/`: xóa `ca-11-tim-mach.json`, thêm 10 ca `ca-01-tang-huyet-ap` … `ca-10-kham-truoc-thu-thuat` (SYN-CARDIO-001, 007, 013, 019, 025, 031, 037, 043, 049, 055; mỗi chẩn đoán chính một ca, bản `COMPLETE`). `expected` lấy theo từng mục hội thoại và `02`: chỉ định, đơn thuốc để rỗng; "Không rõ tiền sử gia đình" giữ nguyên câu. Mỗi ca có `mau_id` (10 phiếu mẫu) và `input_mau`. `CA_MAU` trong `src/server/du-lieu/eform.ts` trỏ `ca-01-tang-huyet-ap`.
+  - `data/demo-luong/kich-ban/`: ca-chuan dùng hội thoại SYN-CARDIO-001 (phiên 1 hỏi bệnh và thông tin định danh, phiên 2 khám và kết luận), ca-tu-che dùng SYN-CARDIO-013, ca-chua-dong-y dùng SYN-CARDIO-049. Giữ nguyên bệnh nhân gắn kịch bản (GIA-000123, GIA-000789, GIA-000456) vì đồng ý xử lý AI của từng người được nhiều test dựa vào.
+  - `data/clinic-test/*.json`: nội dung lịch hẹn, tóm tắt lượt khám, tên cơ sở chuyển sang Tim mạch (id, giờ, trạng thái giữ nguyên).
+  - `data/pii-eval/cau-stt.json`: thay phần lâm sàng của 45 trong 71 câu bằng câu Tim mạch. Giữ 71 câu, 44 chuỗi phải che, 84 chuỗi không được che.
+  - `scripts/tao-du-lieu-tim-mach.ts`: lịch LK-GIA-0458 đổi nội dung thành "một lần ngất thoáng qua" cho khớp context SYN-CARDIO-049 của chính nó; lịch LK-GIA-0461 đổi thành "đánh trống ngực từng cơn" để vẫn đủ 10 lý do khám. Lượt LK-GIA-0458 đã có context từ Task 7 nên mở phiếu được; chỉ nội dung lịch lệch với context.
+  - Sửa lỗi code tìm thấy khi sửa test: (a) `approveClinicalForActor` đòi giai đoạn cho cả chẩn đoán kèm theo, nên phiếu có `icd_kem_theo` không duyệt được từ khi `giai_doan_kem_theo` bị bỏ (02: không thấy trên ảnh); nay chỉ chẩn đoán chính phải có giai đoạn. (b) Mock trích xuất dùng `\bho\b` và `\bphù\b` nên "thoại", "phù" dính chữ có dấu bị nhận nhầm là triệu chứng (lý do khám thành câu "tôi tên là ... số điện thoại"); đổi sang `(?<!\p{L})…(?!\p{L})`.
+  - Test: `pipeline.test.ts`, `known-identifiers.test.ts`, `service.test.ts`, `flow.test.ts`, `projection.test.ts`, `clinic/service.test.ts` đổi dữ liệu và kỳ vọng sang Tim mạch (phù chân thay đau tai, Amlodipine thay Paracetamol, I10 thay H66.1, điện tim thay nội soi). `stt/tests/test_ner.py` thay câu "đau họng" bằng "đau ngực khi gắng sức". Test `real form fixture` nay tự nhập lý do khám và dị ứng vì ca giả Tim mạch chỉ có thời gian khám; test duyệt phiếu kiểm thêm bước thiếu lý do và bệnh sử.
+  - Không xóa test nào: không còn test kiểm hành vi TMH nào tồn tại.
+  - README mục "Thêm ca mẫu" cập nhật theo bộ 10 ca.
+- **Lý do:** Task 8 plan CardioNote: đưa dữ liệu demo, eval, fixture sang Tim mạch và đưa `npm test` về 0 fail. 7 test đang đỏ đều do fixture hoặc kỳ vọng còn TMH, riêng hai lỗi code ở trên là lỗi thật.
+- **File:** `data/cases/*`, `data/demo-luong/kich-ban/*`, `data/clinic-test/*`, `data/clinic/appointments.json`, `data/pii-eval/cau-stt.json`, `scripts/tao-du-lieu-tim-mach.ts`, `src/server/du-lieu/eform.ts`, `src/shared/eform/types.ts` (chú thích), `src/server/clinical/{service,extraction}.ts`, các test kể trên, `stt/tests/test_ner.py`, `README.md`
+- **Kiểm tra:** `npm test` 476/476 pass, 0 fail (trước: 469 pass, 7 fail). `npx tsc --noEmit -p .` sạch. `npm run lint` 0 lỗi (8 cảnh báo cũ). `npm run tao-du-lieu-tim-mach -- --check` khớp 9 file. `npm run eval-pii`: câu STT bắt được 18/44, che nhầm 0/84 (không đổi so với trước), kịch bản 13/13, che nhầm 0/8. `.venv-stt/bin/python -m pytest stt/tests/test_ner.py` pass.
+  - `npm run eval -- --rule-only` (10 ca x 2 kiểu nhập): Phiếu khám nói 86,1%, gõ tắt 85,1% (trước, 1 ca: nói 80,0%, gõ tắt 0,0%). Chỉ định và đơn thuốc "Thừa" vì bộ tách quy tắc cũ đọc "Thuốc đang dùng", "chỉ định cận lâm sàng" thành dòng.
+  - `npm run eval-mau`: 10/10 ca có mẫu; mức 1 và mức 2 chính xác chung 39,4% (trước: 0/1 ca có mẫu, chưa có điểm).
+- **Ảnh hưởng:** `eval-mau` thấp vì phiếu mẫu (`data/eform/phieu-mau.json`) đặt khám tim phổi ở `kham_chuyen_khoa`, có chỉ định mà `expected` (theo 02) để rỗng, và chưa có `tien_su`. Chưa sửa vì ngoài phạm vi Task 8. `npm run clinical:check` chưa chạy được trên máy này (thiếu gói Python `jsonschema`); không đổi schema trong task này.
+
 ### Sửa logic sau review giữa kỳ (nhóm A CardioNote)
 - **Loại:** Sửa lỗi, Cấu hình, Dữ liệu, Kiểm thử
 - **Thay đổi:**

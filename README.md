@@ -213,20 +213,20 @@ Tạo file JSON mới trong `data/cases/`, chép từ một ca có sẵn:
 
 ```json
 {
-  "id": "ca-11",
+  "id": "ca-01-tang-huyet-ap",
   "ten": "Tên hiển thị của ca",
   "hanh_chinh": { "ho_ten": "Tên giả", "tuoi": 30, "gioi": "Nam", "can_nang": 60 },
   "input_noi": "Câu bác sĩ nói tự nhiên...",
   "input_go_tat": "Phiên bản gõ tắt...",
   "expected": {
     "phieu_kham": { "ly_do_kham": "...", "chan_doan_chinh": "..." },
-    "chi_dinh": [ { "ma_dich_vu": "DV-TMH-002", "ten_dich_vu": "Nội soi Tai Mũi Họng" } ],
+    "chi_dinh": [ { "ma_dich_vu": "DV-TM-001", "ten_dich_vu": "Điện tim thường" } ],
     "ke_don": []
   }
 }
 ```
 
-Ca mới tự vào eval. Trang eForm chỉ dùng câu mẫu của `ca-11` (cùng bệnh nhân giả, nút "Thử câu mẫu"); `hanh_chinh` hiện không dùng. Trong `expected`, trường không được nói thì bỏ qua; với dòng khớp danh mục thì ghi đúng tên và mã theo danh mục.
+Ca mới tự vào eval. Bộ có 10 ca Tim mạch (`ca-01-tang-huyet-ap` … `ca-10-kham-truoc-thu-thuat`), mỗi chẩn đoán chính một ca, dựng từ bản `COMPLETE` đầu tiên của nhóm trong `data/cardiology/synthetic-cases.jsonl`; `expected` theo bảng ánh xạ `handoff/claude/02-bang-anh-xa.md` (chỉ định và đơn thuốc để rỗng vì hội thoại không kê mới). Trang eForm chỉ dùng câu mẫu của `ca-01-tang-huyet-ap` (cùng bệnh nhân giả, nút "Thử câu mẫu"); `hanh_chinh` hiện không dùng. Trong `expected`, trường không được nói thì bỏ qua; với dòng khớp danh mục thì ghi đúng tên và mã theo danh mục.
 
 ## Đo lường
 

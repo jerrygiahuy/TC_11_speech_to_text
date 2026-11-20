@@ -38,6 +38,6 @@ test("patient missing from fixture falls back to encounter identifiers and no co
 
 test("clinical allowlist contains catalog drug names and clinical terms", () => {
   const allow = clinicalAllowlist();
-  assert.ok(allow.has(foldVietnamese("Paracetamol")) || [...allow].some(item => item.startsWith("paracetamol")));
+  assert.ok(allow.has(foldVietnamese("Amlodipine")) || [...allow].some(item => item.startsWith("amlodipine")));
   assert.ok(allow.size > 10);
 });

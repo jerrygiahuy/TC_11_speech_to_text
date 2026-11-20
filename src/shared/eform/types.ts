@@ -169,7 +169,7 @@ export interface EformData {
   goiY: MauGoiY[];
   /** Nhà cung cấp AI đang dùng (mock, anthropic, openai, gemini) */
   provider: string;
-  /** Câu mẫu của ca giả này (lấy từ data/cases/ca-11-*.json) để demo nhanh; id ghi vào số đo lượt thử */
+  /** Câu mẫu của ca giả này (lấy từ data/cases/ca-01-tang-huyet-ap.json) để demo nhanh; id ghi vào số đo lượt thử */
   cauMau: { id: string; noi: string; goTat: string };
   /** Bảng sửa chữ nhận dạng giọng nói (config/sua-chu-giong-noi.json), áp vào từng câu trước khi đưa vào ô nhập */
   suaChu: BangSuaChu;

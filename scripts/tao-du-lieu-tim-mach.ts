@@ -194,10 +194,10 @@ const APPOINTMENTS = [
   lich("LK-GIA-0456", "GIA-000123", "user_bs01", "2026-11-16T08:00:00+07:00", "2026-11-16T08:30:00+07:00", "Tái khám tăng huyết áp theo hẹn"),
   lich("LK-GIA-0457", "GIA-000123", "user_bs01", "2026-11-16T09:30:00+07:00", null, "Lượt thứ hai cùng bệnh nhân, tái khám suy tim"),
   lich("000123", "GIA-000456", "user_bs01", "2026-11-16T10:00:00+07:00", null, "Khó chịu vùng ngực khi gắng sức, mã lượt chỉ gồm chữ số"),
-  lich("LK-GIA-0458", "GIA-000789", "user_bs01", "2026-11-16T14:00:00+07:00", null, "Bệnh nhân mới, đánh trống ngực từng cơn, khám lần đầu"),
+  lich("LK-GIA-0458", "GIA-000789", "user_bs01", "2026-11-16T14:00:00+07:00", null, "Bệnh nhân mới, một lần ngất thoáng qua, khám lần đầu"),
   lich("LK-GIA-0459", "GIA-000456", "user_bs01", "2026-11-16T15:00:00+07:00", null, "Khó thở khi gắng sức, bệnh nhân hủy hẹn", "cancelled"),
   lich("LK-GIA-0460", "GIA-000123", "user_bs02", "2026-11-16T16:00:00+07:00", null, "Tái khám rối loạn nhịp, lịch của bác sĩ khác cùng cơ sở"),
-  lich("LK-GIA-0461", "GIA-000456", "user_bs01", "2026-11-17T09:00:00+07:00", null, "Một lần ngất thoáng qua, lịch ngày mai"),
+  lich("LK-GIA-0461", "GIA-000456", "user_bs01", "2026-11-17T09:00:00+07:00", null, "Đánh trống ngực từng cơn, lịch ngày mai"),
   lich("LK-GIA-0462", "GIA-000789", "user_bs01", "2026-11-17T10:30:00+07:00", null, "Đánh giá tim mạch trước thủ thuật"),
 ];
 

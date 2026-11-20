@@ -158,7 +158,7 @@ test("patient_page_history_is_saved_encounters_sorted_and_excludes_selected", ()
   // Không bịa: thiếu summary thì dùng lý do khám của lịch, không có lịch thì nói rõ chưa có.
   assert.equal(
     p.history.find((h) => h.id === "enc-LK-000001")!.summary,
-    "Khám nội soi tai mũi họng theo hẹn (dữ liệu giả)",
+    "Tái khám tăng huyết áp theo hẹn (dữ liệu giả)",
   );
   assert.equal(p.history.find((h) => h.id === "enc-demo-000123-b")!.summary, "Chưa có tóm tắt");
   assert.deepEqual(p.eligibleAppointments.map((i) => i.appointment.id), ["LK-000005"]);

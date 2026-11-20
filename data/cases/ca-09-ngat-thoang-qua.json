@@ -1,0 +1,25 @@
+{
+  "id": "ca-09-ngat-thoang-qua",
+  "ten": "Một lần ngất thoáng qua (SYN-CARDIO-049, giả lập)",
+  "hanh_chinh": {},
+  "input_noi": "Người bệnh đến khám vì một lần ngất thoáng qua. Bệnh sử: Ngất trong thời gian ngắn khi đang đứng, tỉnh lại tự nhiên, chưa ghi nhận co giật. Tiền sử bản thân: Chưa ghi nhận bệnh tim mạch. Tiền sử gia đình: Gia đình chưa ghi nhận đột tử sớm. Dị ứng: Penicillin. Thuốc đang dùng: không dùng thuốc thường xuyên. Sinh hiệu: mạch 76 lần mỗi phút, huyết áp 116 trên 70 mi li mét thủy ngân, SpO2 99 phần trăm. Toàn thân tỉnh táo, tiếp xúc tốt. Khám tim phổi: Mạch đều, tiếng tim rõ, chưa ghi nhận âm thổi. Phổi trong, không ran. Kết quả chính: Chưa có kết quả xét nghiệm mới; Điện tâm đồ cần được đánh giá. Chẩn đoán: Ngất và trụy. Hướng điều trị: Đánh giá thêm nguyên nhân ngất theo chỉ định của bác sĩ. Lời dặn: Tránh tự lái xe cho đến khi được đánh giá và quay lại nếu tái diễn. Hẹn tái khám sau 7 ngày.",
+  "input_go_tat": "ld: một lần ngất thoáng qua. bs: Ngất trong thời gian ngắn khi đang đứng, tỉnh lại tự nhiên, chưa ghi nhận co giật. ts: Chưa ghi nhận bệnh tim mạch. tiền sử gia đình: Gia đình chưa ghi nhận đột tử sớm. khám tim phổi: Mạch đều, tiếng tim rõ, chưa ghi nhận âm thổi. Phổi trong, không ran. chẩn đoán: Ngất và trụy. hướng điều trị: Đánh giá thêm nguyên nhân ngất theo chỉ định của bác sĩ. lời dặn: Tránh tự lái xe cho đến khi được đánh giá và quay lại nếu tái diễn. hẹn tái khám: 7 ngày.",
+  "mau_id": "ngat-thoang-qua",
+  "input_mau": "ngat, tái khám sau 7 ngày",
+  "expected": {
+    "phieu_kham": {
+      "ly_do_kham": "một lần ngất thoáng qua",
+      "benh_su": "Ngất trong thời gian ngắn khi đang đứng, tỉnh lại tự nhiên, chưa ghi nhận co giật",
+      "tien_su": "Chưa ghi nhận bệnh tim mạch",
+      "tien_su_gia_dinh": "Gia đình chưa ghi nhận đột tử sớm",
+      "kham_toan_than": "Tỉnh táo, tiếp xúc tốt",
+      "kham_tim_mach_ho_hap": "Mạch đều, tiếng tim rõ, chưa ghi nhận âm thổi. Phổi trong, không ran",
+      "chan_doan_chinh": "Ngất và trụy",
+      "huong_dieu_tri": "Đánh giá thêm nguyên nhân ngất theo chỉ định của bác sĩ",
+      "loi_dan": "Tránh tự lái xe cho đến khi được đánh giá và quay lại nếu tái diễn",
+      "hen_tai_kham": "7 ngày"
+    },
+    "chi_dinh": [],
+    "ke_don": []
+  }
+}

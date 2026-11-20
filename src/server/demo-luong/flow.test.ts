@@ -52,7 +52,7 @@ test("ca chuẩn phiên 1: đủ 5 bước, lưu một phiên, nhật ký một 
   assert.equal(luu.du_lieu.phieu.sources.ly_do?.nguon, "ai");
   assert.equal(luu.du_lieu.phieu.sources.ly_do?.phien, 1);
   const lyDo = luu.du_lieu.phieu.snapshot.fields.ly_do.value;
-  assert.match(lyDo, /hồi hộp/);
+  assert.match(lyDo, /đau đầu nhẹ/);
   assert.equal(lyDo.includes("["), false, lyDo);
   const record = store.repo.read(p.encounter_id);
   assert.equal(record.recording_sessions.length, 1);
@@ -81,10 +81,12 @@ test("phiên 2 sau khi bác sĩ sửa và duyệt: ô bác sĩ giữ nguyên, ph
   assert.deepEqual(phieu.sessions.map((s) => s.sequence), [1, 2]);
   assert.equal(phieu.duyet, null);
   assert.equal(store.repo.read(p.encounter_id).audit.approved_at, null);
-  // Phiên 2 (khám, chỉ định) phải thêm được dữ liệu vào phiếu.
+  // Phiên 2 (khám tim phổi, lời dặn) phải thêm được dữ liệu vào phiếu.
   assert.ok(Object.values(phieu.sources).some((s) => s.phien === 2), JSON.stringify(phieu.sources));
-  assert.equal(phieu.sources.kham_chuyen_khoa?.phien, 2);
-  assert.ok(phieu.snapshot.chiDinh.length >= 1);
+  assert.equal(phieu.sources.kham_tim_mach_ho_hap?.phien, 2);
+  assert.equal(phieu.sources.loi_dan?.phien, 2);
+  // SYN-CARDIO-001 không có chỉ định mới (02: kết quả đã có không sinh chỉ định): không được tự tạo dòng chỉ định.
+  assert.equal(phieu.snapshot.chiDinh.length, 0);
   // Phiên 2 của ca chuẩn không nói lý do khám: không có cờ xung đột.
   if (phieu.sources.ly_do.xung_dot) assert.equal(phieu.sources.ly_do.xung_dot.phien, 2);
 });

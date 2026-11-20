@@ -50,11 +50,11 @@ Nguồn sự thật danh sách trường là `config/forms/phieu-kham-ngoai-tru.
 |---|---|---|---|
 | ✅ 0. Chuẩn bị nhánh, dọn file " 2", ghi nền test | Session chính + anh | – | – |
 | ✅ 1. Hợp đồng dữ liệu 2.0.0 + test phủ trường Excel | Sonnet, medium | 0 | – |
-| 2. Bộ chuyển Encounter ↔ eForm và điền nháp AI | Sonnet, medium | 1 | 3, 5, 6, 7 |
-| 3. Ngữ cảnh lượt khám và bộ sinh fixture từ 60 ca | Sonnet, medium | 1 | 2, 5, 6, 7 |
+| ✅ 2. Bộ chuyển Encounter ↔ eForm và điền nháp AI | Sonnet, medium | 1 | 3, 5, 6, 7 |
+| ✅ 3. Ngữ cảnh lượt khám và bộ sinh fixture từ 60 ca | Sonnet, medium | 1 | 2, 5, 6, 7 |
 | 4. Giao diện eForm và bản in theo Excel | Sonnet, medium | 2, 3 | 6, 7 |
-| 5. Danh mục và thư viện câu Tim mạch (dữ liệu mock) | Haiku, medium | 1 | 2, 3, 6, 7 |
-| 6. Từ điển ngôn ngữ trong code + bộ trích mock | Sonnet, medium | 1 | 2, 3, 5, 7 |
+| ✅ 5. Danh mục và thư viện câu Tim mạch (dữ liệu mock) | Haiku, medium | 1 | 2, 3, 6, 7 |
+| ✅ 6. Từ điển ngôn ngữ trong code + bộ trích mock | Sonnet, medium | 1 | 2, 3, 5, 7 |
 | ✅ 7. Từ vựng STT | Haiku, medium | 0 | 1–6 |
 | **Review giữa kỳ** sau Task 1–7 | Opus | 1–7 | – |
 | 8. Kịch bản demo, ca eval, fixture test; về 0 test fail | Sonnet, medium | review giữa kỳ | – |
@@ -179,15 +179,15 @@ Session chính chỉ điều phối:
   - Chẩn đoán ra viện chỉ lấy từ `chan_doan[]` có `giai_doan === "ra_vien"`.
   - Câu khám về tim, phổi, mạch ngoại vi, tĩnh mạch cổ, lồng ngực đi vào `kham_tim_mach_ho_hap`.
 
-- [ ] **Bước 1: Viết test fail:**
+- [x] **Bước 1: Viết test fail:**
   - `thieu_thong_tin_khong_chon_nut_nao` (Review Focus 1): AI output có `di_ung.trang_thai = "chua_de_cap"`, `co_thuoc_dang_dung = null`, `hen_tai_kham.co_hen = null`. Kỳ vọng sau `aiEformPatch`: `fields.di_ung.value === ""`, `fields.thuoc_dang_dung.value === ""`, `fields.hen_tai_kham.value === ""`.
   - `ra_vien_trong_khi_chi_co_ban_dau` (Review Focus 2): `chan_doan = [{ giai_doan: "ban_dau", vai_tro: "chinh", mo_ta: "Tăng huyết áp độ II", ... }]`. Kỳ vọng `mo_ta_ban_dau === "Tăng huyết áp độ II"` và `mo_ta_ra_vien === ""`.
   - `ai_khong_ghi_de_sinh_hieu` (Review Focus 5): encounter có `sinh_hieu.ha_tam_thu` = 132. AI output có `can_xem_lai` gồm `{ field_path: "/sinh_hieu/ha_tam_thu", loai: "mau_thuan", ... }`. Kỳ vọng sau `applyAiDraft`: `sinh_hieu` giữ nguyên (`deepStrictEqual` với bản trước). Việc mock sinh ra mục `mau_thuan` khi nghe "huyết áp 150 trên 90" thì Task 6 kiểm.
   - `luu_doc_lai_du_truong_tim_mach`: snapshot có đủ `kham_tim_mach_ho_hap`, `noi_gioi_thieu = "Tự đến"`, 2 dòng `thuocDangDung` (một dòng có `"2,5 mg"`), `chuyen_noi_soi = "Có"`. Chạy `applyEformSnapshot` rồi `projectEform` → kết quả bằng nguyên snapshot (`deepStrictEqual`).
-- [ ] **Bước 2:** `npm test 2>&1 | grep -E 'eform|apply-ai|dien-phieu'` → các test mới FAIL.
-- [ ] **Bước 3:** sửa 3 file chính theo Interfaces và `02` mục B3–B5, B9. Sửa các file gọi tới `specialistText`.
-- [ ] **Bước 4:** test bước 1 PASS. Test cũ trong 3 file test này vỡ vì dữ liệu TMH: viết lại bằng câu và giá trị Tim mạch lấy từ SYN-CARDIO-001.
-- [ ] **Bước 5:** ghi CHANGELOG, commit `feat(eform): bộ chuyển phiếu khám Tim mạch 2.0.0`.
+- [x] **Bước 2:** `npm test 2>&1 | grep -E 'eform|apply-ai|dien-phieu'` → các test mới FAIL. *(Xong 20/11: RED 17/29.)*
+- [x] **Bước 3:** sửa 3 file chính theo Interfaces và `02` mục B3–B5, B9. Sửa các file gọi tới `specialistText`. *(Xong 20/11. `aiEformPatch` giờ trả cả ô rỗng, nơi nhận phải bỏ qua ô rỗng.)*
+- [x] **Bước 4:** test bước 1 PASS. Test cũ trong 3 file test này vỡ vì dữ liệu TMH: viết lại bằng câu và giá trị Tim mạch lấy từ SYN-CARDIO-001. *(Xong 20/11: 42/42 PASS ở 5 file (thêm `approvals`, `changes`).)*
+- [x] **Bước 5:** ghi CHANGELOG, commit `feat(eform): bộ chuyển phiếu khám Tim mạch 2.0.0`. *(Xong 20/11: commit `b076172`.)*
 
 ---
 
@@ -217,18 +217,18 @@ Session chính chỉ điều phối:
   - Lịch sử và kết quả cận lâm sàng dựng theo `05` mục 1.
 - Produces: `appointments.json` có 10 lịch hẹn, nội dung theo `05` mục 1, kèm `(dữ liệu giả)`. Giữ các lịch đặc thù đang được test dùng: hủy hẹn, bác sĩ khác, ngày mai, mã lượt toàn chữ số.
 
-- [ ] **Bước 1: Viết test fail:**
+- [x] **Bước 1: Viết test fail:**
   - `ngu_canh_tim_mach_mac_dinh`: `listEncounterContexts(actor)[0].ca.phong_kham === "PK Nội tim mạch"`.
   - `ngu_canh_tim_mach_mac_dinh`, tiếp: `JSON.stringify(contexts)` không chứa `"tai phải"`, `"họng"`, `"TMH"`.
   - `duong_ngu_canh_ton_tai` (trong `excel-coverage.test.ts`): với mọi mục `noi === "ngu_canh"` của `EXCEL_MAP`, đường dẫn đọc được trên `ca` của context đầu (`!== undefined`).
   - `sinh_hieu_null_hop_le`: context có `sinh_hieu.nhiet_do = null` vẫn qua `validateEncounterContexts`.
-- [ ] **Bước 2:** chạy hai file test → FAIL.
-- [ ] **Bước 3:**
+- [x] **Bước 2:** chạy hai file test → FAIL. *(Xong 20/11.)*
+- [x] **Bước 3:** *(Xong 20/11. Khác plan: thêm `lich_su.thuoc`, `chan_doan_oh`, `sinh_hieu.bmi` vào `CaGia` cho khớp `EXCEL_MAP`; thêm lịch LK-GIA-0462 cho đủ 10; LK-GIA-0458 mất context (lịch vẫn còn). Sửa thêm tên lệnh trong README và CLAUDE.md.)*
   - Sửa kiểu và validator.
   - Viết `tao-du-lieu-tim-mach.ts`: đọc `data/cardiology/synthetic-cases.jsonl`, chạy xác định, không dùng mạng. Cờ `--check` so file trên đĩa với file sẽ sinh.
   - Chạy `npm run tao-du-lieu-tim-mach`.
-- [ ] **Bước 4:** test bước 1 PASS. `npm run tao-du-lieu-tim-mach -- --check` PASS.
-- [ ] **Bước 5:** ghi CHANGELOG, commit `feat(du-lieu): ngữ cảnh lượt khám Tim mạch sinh từ bộ 60 ca`.
+- [x] **Bước 4:** test bước 1 PASS. `npm run tao-du-lieu-tim-mach -- --check` PASS. *(Xong 20/11: 12/12 PASS; `--check` khớp 9 file.)*
+- [x] **Bước 5:** ghi CHANGELOG, commit `feat(du-lieu): ngữ cảnh lượt khám Tim mạch sinh từ bộ 60 ca`. *(Xong 20/11: commit `db80d8f`.)*
 
 ---
 
@@ -293,13 +293,13 @@ Session chính chỉ điều phối:
 - Consumes: không cần gì từ task khác ngoài schema đã chốt.
 - Produces: mọi mục danh mục có `"mock": true` để giao diện gắn nhãn mock (`05`, "Nhãn nguồn"). `icd_ten` trong phiếu mẫu khớp đúng tên trong `icd10.json`.
 
-- [ ] **Bước 1: Sửa test** cho khớp yêu cầu mới, chạy để thấy FAIL:
+- [x] **Bước 1: Sửa test** cho khớp yêu cầu mới, chạy để thấy FAIL: *(Xong 20/11.)*
   - `phieu-mau.test.ts`: "có ít nhất 30 mẫu" thành `có đúng 10 mẫu, id không trùng`, và mọi `icd_ten` có trong `icd10.json`.
   - `icd.test.ts`: gợi ý cho "tăng huyết áp" có `I10` đứng đầu; gợi ý cho "đau họng" trả mảng rỗng.
-- [ ] **Bước 2:** `npm test 2>&1 | grep -E 'phieu-mau|icd'` → FAIL.
-- [ ] **Bước 3:** thay dữ liệu và sửa `danh-muc.ts` theo Files.
-- [ ] **Bước 4:** test PASS. `npm run eval-mau` chạy không lỗi; ghi điểm vào CHANGELOG.
-- [ ] **Bước 5:** commit `feat(danh-muc): danh mục và thư viện câu Tim mạch (mock)`.
+- [x] **Bước 2:** `npm test 2>&1 | grep -E 'phieu-mau|icd'` → FAIL. *(Xong 20/11.)*
+- [x] **Bước 3:** thay dữ liệu và sửa `danh-muc.ts` theo Files. *(Xong 20/11. `quy-tac.json` giữ nguyên vì không có từ khóa TMH; `thu-vien.json` không gắn `mock` từng câu (giữ shape).)*
+- [x] **Bước 4:** test PASS. `npm run eval-mau` chạy không lỗi; ghi điểm vào CHANGELOG. *(Xong 20/11: test PASS. `eval-mau` chạy được nhưng chưa có điểm (0/1 ca có `mau_id`), chờ 10 ca mới ở Task 8.)*
+- [x] **Bước 5:** commit `feat(danh-muc): danh mục và thư viện câu Tim mạch (mock)`. *(Xong 20/11: commit `2912878`.)*
 
 ---
 
@@ -321,18 +321,18 @@ Session chính chỉ điều phối:
 - Consumes: `phieuKham` 2.0.0 (Task 1).
 - Produces: `mockClinicalExtraction(transcript)` trả `AiOutput` 2.0.0. Câu chứa "tim", "T1", "T2", "âm thổi", "phổi", "ran", "tĩnh mạch cổ", "mỏm tim" đi vào `kham_tim_mach_ho_hap`. Câu "bụng mềm…" đi vào `kham_chuyen_khoa`, dòng đầu là `Khám bụng:`.
 
-- [ ] **Bước 1: Viết test fail:**
+- [x] **Bước 1: Viết test fail:**
   - `pii_giu_thuat_ngu_tim_mach` (Review Focus 4): `chePii("Bệnh nhân dùng Bisoprolol 2,5 mg, Apixaban 5 mg. Điện tim nhịp xoang, nghi rung nhĩ, tĩnh mạch cổ không nổi.")` → text sau che **bằng nguyên văn**, không có nhãn che nào.
   - `mock_tach_kham_tim_phoi`: transcript có "Tiếng T1, T2 đều rõ, không âm thổi. Phổi trong, không ran. Bụng mềm." → `kham_tim_mach_ho_hap` chứa 2 câu đầu, `kham_chuyen_khoa === "Khám bụng:\n- Bụng mềm"`.
   - `mock_lech_sinh_hieu`: transcript có "huyết áp 150 trên 90". Ngữ cảnh lượt khám có `ha_tam_thu` = 132. `can_xem_lai` có mục `loai === "mau_thuan"`, `field_path === "/sinh_hieu/ha_tam_thu"`.
   - `vai_tro_tim_mach`: câu "anh có đau ngực khi leo cầu thang không" → BS; "dạ tôi thấy hồi hộp đánh trống ngực" → BN.
-- [ ] **Bước 2:** chạy các file test → FAIL.
-- [ ] **Bước 3:** sửa từ điển và mock theo Files. Viết lại các test TMH trong các file này bằng câu Tim mạch, lấy từ `conversation_text` của bộ 60 ca.
-- [ ] **Bước 4:**
+- [x] **Bước 2:** chạy các file test → FAIL. *(Xong 20/11.)*
+- [x] **Bước 3:** sửa từ điển và mock theo Files. Viết lại các test TMH trong các file này bằng câu Tim mạch, lấy từ `conversation_text` của bộ 60 ca. *(Xong 20/11. Khác plan: `mockClinicalExtraction(transcript, context?)` nhận sinh hiệu để phát hiện lệch; validator chấp nhận `can_xem_lai` trỏ `/sinh_hieu/*`; sửa "triệu chứng" bị che nhầm (họ "Triệu").)*
+- [x] **Bước 4:** *(Xong 20/11: test PASS. Eval mock trước = sau: rule-only 77,8%; eval-pii che nhầm 0/84 và 0/8. Chưa nơi nào truyền sinh hiệu vào `extractClinical`.)*
   - Test PASS.
   - `npm run eval -- --rule-only` chạy được; ghi điểm trước và sau vào CHANGELOG.
   - `npm run eval-pii` không tăng số che nhầm.
-- [ ] **Bước 5:** commit `feat(ngon-ngu): từ điển và bộ trích mock Tim mạch`.
+- [x] **Bước 5:** commit `feat(ngon-ngu): từ điển và bộ trích mock Tim mạch`. *(Xong 20/11: commit `d0fdd9c`.)*
 
 ---
 

@@ -115,3 +115,16 @@ test("completion rejects changed approved note and requires meaningful summary a
   assert.equal(completed.record.status, "hoan_thanh_kham");
   assert.deepEqual(completed.record.approval_versions.slice(0, 2), history);
 });
+
+test("approveScopes chặn mọi phạm vi khi chỉ định co_chi_dinh chưa có dịch vụ, đổi trạng thái thì duyệt được", async () => {
+  const { approveScopes } = await service(); const { actor, store, record } = setup();
+  const empty = store.update(record.id, 1, draft => { draft.chi_dinh.items = []; draft.chi_dinh.de_cap = "co_chi_dinh"; return draft; }, actor.doctorId, new Date().toISOString());
+  for (const scope of ["initial_note", "conclusion", "summary"] as const) {
+    assert.throws(() => approveScopes(actor, { id: record.id, expected_revision: empty.revision, scopes: [scope], acknowledged_issues: true }, store),
+      (error: unknown) => status(422)(error) && /chưa có dịch vụ nào/.test((error as Error).message), scope);
+  }
+  assert.equal(store.read(record.id).revision, empty.revision);
+  assert.equal(store.read(record.id).approval_versions.length, 0);
+  const fixed = store.update(record.id, empty.revision, draft => { draft.chi_dinh.de_cap = "khong_chi_dinh"; return draft; }, actor.doctorId, new Date().toISOString());
+  assert.equal(approveScopes(actor, { id: record.id, expected_revision: fixed.revision, scopes: ["initial_note"], acknowledged_issues: true }, store).record.approval_versions.length, 1);
+});

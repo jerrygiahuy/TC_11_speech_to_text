@@ -4,6 +4,13 @@ Mỗi thay đổi, dù nhỏ, đều có một mục ở đây. Mục mới nh�
 
 ## 2026-11-20
 
+### Sửa review: lịch `000123` mang context ca đánh trống ngực, thêm test chặn duyệt `approveScopes`
+- **Loại:** Dữ liệu, Kiểm thử
+- **Thay đổi:** generator gắn context của lịch `000123` (GIA-000456, lý do "đánh trống ngực từng cơn") sang SYN-CARDIO-007 (đánh trống ngực, không dị ứng, điện tâm đồ chưa ghi nhận rối loạn nhịp) thay cho ca 013; sinh lại `encounter-contexts.json`. `LK-GIA-0458` giữ ca 013, `LK-GIA-0461` (ca 049) vẫn là context mới nhất của GIA-000456, `LK-GIA-0456` (ca 001) vẫn mới nhất của GIA-000123. Thêm test `approveScopes` chặn cả ba phạm vi khi `co_chi_dinh` chưa có dịch vụ (422, revision và lịch sử duyệt không đổi), đổi trạng thái thì duyệt được; test `000123` kiểm context là SYN-CARDIO-007.
+- **Lý do:** review: lịch và hồ sơ mẫu của `000123` lệch lý do; guard `approveScopes` chưa có test riêng.
+- **File:** `scripts/tao-du-lieu-tim-mach.ts`, `data/eform/encounter-contexts.json`, `src/server/clinical/{approval-service.test,encounter-context.test}.ts`, `docs/CHANGELOG.md`
+- **Kiểm tra:** `tao-du-lieu-tim-mach` và `--check` khớp 9 file; `npm test` 491/491; lint 0 lỗi; tsc sạch ngoài `.next/`.
+
 ### Sửa lịch hẹn đúng 10 lý do theo 05 (điểm 2)
 - **Loại:** Dữ liệu, Kiểm thử
 - **Thay đổi:** `data/clinic/appointments.json` còn đúng 10 lịch, mỗi lý do khám một lịch theo `handoff/claude/05` mục 1. Bỏ lịch `LK-GIA-0463` (trùng lý do tăng huyết áp); lịch `000123` đổi nội dung thành "Đánh trống ngực từng cơn" (trước đó trùng lý do khó chịu vùng ngực với `LK-GIA-0458`). Để context SYN-CARDIO-001 vẫn là mới nhất của GIA-000123 mà không cần lịch thêm, generator đặt context 001 (`LK-GIA-0456`) sau context 039 trong `encounter-contexts.json` (5 context thay vì 6); `ca-gia.json` vẫn là context `LK-GIA-0456`. Cờ đồng ý và `benh_nhan_id` kịch bản giữ nguyên.

@@ -9,7 +9,7 @@
       "doctor_id": "user_bs01",
       "age_months": 420,
       "ca": {
-        "_ghi_chu": "Ngữ cảnh giả sinh từ SYN-CARDIO-013 bằng npm run tao-du-lieu-tim-mach.",
+        "_ghi_chu": "Ngữ cảnh giả sinh từ SYN-CARDIO-007 bằng npm run tao-du-lieu-tim-mach.",
         "dang_nhap": "user_bs01",
         "co_so": "OPD - Trung tâm Tim mạch",
         "pid": "GIA-000456",
@@ -28,7 +28,7 @@
           },
           {
             "nhan": "Mức độ đau",
-            "gia_tri": "3/10, vùng ngực khi gắng sức"
+            "gia_tri": "Không đau"
           },
           {
             "nhan": "Nguy cơ ngã",
@@ -40,15 +40,15 @@
           }
         ],
         "sinh_hieu": {
-          "mach": 80,
-          "nhiet_do": 36.8,
-          "ha_tam_thu": 132,
-          "ha_tam_truong": 82,
-          "spo2": 98,
-          "nhip_tho": 19,
-          "chieu_cao": 170,
-          "can_nang": 72,
-          "bmi": 24.9
+          "mach": 93,
+          "nhiet_do": 36.6,
+          "ha_tam_thu": 128,
+          "ha_tam_truong": 78,
+          "spo2": 99,
+          "nhip_tho": 18,
+          "chieu_cao": 160,
+          "can_nang": 56,
+          "bmi": 21.9
         },
         "bac_si_kham": "BS. A",
         "phong_kham": "PK Nội tim mạch",
@@ -60,7 +60,7 @@
               "ngay": "05/10/2026",
               "bac_si": "BS. B",
               "khoa": "PK Tim mạch",
-              "noi_dung": "Rối loạn lipid máu"
+              "noi_dung": "Chưa ghi nhận bệnh tim mạch"
             }
           ],
           "tien_su_gia_dinh": [
@@ -68,19 +68,12 @@
               "ngay": "05/10/2026",
               "bac_si": "BS. B",
               "khoa": "PK Tim mạch",
-              "noi_dung": "Gia đình có người bệnh mạch vành"
+              "noi_dung": "Chưa ghi nhận tiền sử gia đình liên quan"
             }
           ],
           "benh_su": [],
           "di_ung": [],
-          "thuoc": [
-            {
-              "ten_thuoc": "Atorvastatin",
-              "lieu": "20 mg, buổi tối",
-              "duong_dung": "Uống",
-              "ngay": "05/10/2026"
-            }
-          ]
+          "thuoc": []
         },
         "chan_doan_oh": "",
         "xet_nghiem": [],
@@ -92,7 +85,7 @@
               {
                 "nhom": "Thăm dò chức năng",
                 "ten": "Điện tim thường",
-                "ket_qua": "Điện tâm đồ cần bác sĩ đối chiếu",
+                "ket_qua": "Điện tâm đồ tại thời điểm khám chưa ghi nhận rối loạn nhịp",
                 "thoi_gian": "05/10/2026 08:30",
                 "nguoi_tra_ket_qua": "KTV. Y (dữ liệu giả)"
               }

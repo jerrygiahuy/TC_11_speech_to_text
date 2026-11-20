@@ -4,7 +4,7 @@ import { EncounterWorkspace } from "@/client/eform/EncounterWorkspace";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "eForm ngoại trú",
+  title: "eForm ngoại trú – CardioNote",
   description: "Mô phỏng phiếu khám ngoại trú có điểm AI hỗ trợ. Chỉ dùng dữ liệu giả.",
 };
 

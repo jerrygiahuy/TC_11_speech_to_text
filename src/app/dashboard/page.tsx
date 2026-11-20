@@ -11,7 +11,7 @@ import { loadDashboard } from "@/server/clinic/service";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Lịch khám – Prototype",
+  title: "Lịch khám – CardioNote",
   description: "Lịch khám theo ngày của bác sĩ. Chỉ dùng dữ liệu giả.",
 };
 

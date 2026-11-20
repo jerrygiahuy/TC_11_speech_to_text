@@ -22,6 +22,13 @@ export interface DongLichSu {
   noi_dung: string;
 }
 
+/** Một dòng thuốc người bệnh đang dùng, bác sĩ nhập trên phiếu (nút "+ Thêm thuốc") */
+export interface DongThuocDangDung {
+  ten: string;
+  ham_luong: string;
+  cach_dung: string;
+}
+
 export interface DongDiUng {
   ngay: string;
   loai_phieu: string;
@@ -113,16 +120,11 @@ export interface TuyChon {
   loai_di_ung: string[];
 }
 
-export type VungKham = "tai" | "mui" | "vom" | "hong";
+export type VungKham = "toan_than" | "tim_mach_ho_hap";
 
+/** Thư viện câu khám, mỗi vùng một danh sách câu (nạp từ data/cardiology/exam-library.json) */
 export interface MauCauData {
-  mac_dinh: Partial<Record<VungKham, string[]>>;
-  nhom: {
-    id: string;
-    ten: string;
-    tu_khoa: string[];
-    mau: Partial<Record<VungKham, string[]>>;
-  }[];
+  theoVung: Record<VungKham, string[]>;
 }
 
 export interface QuyTacAi {

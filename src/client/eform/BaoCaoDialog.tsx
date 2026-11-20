@@ -13,6 +13,7 @@ const TRUONG_BCYT = [
   { id: "benh_su", label: "Bệnh sử" },
   { id: "kham_toan_than", label: "Khám toàn thân" },
   { id: "kham_chuyen_khoa", label: "Khám chuyên khoa" },
+  { id: "kham_tim_mach_ho_hap", label: "Khám tim mạch, hô hấp" },
   { id: "kham_khac", label: "Khám các bộ phận khác" },
   { id: "ghi_chu_kq", label: "Xét nghiệm, thăm dò chính" },
   { id: "huong_dieu_tri", label: "Hướng điều trị" },

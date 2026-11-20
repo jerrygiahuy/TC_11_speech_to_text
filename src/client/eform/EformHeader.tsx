@@ -13,17 +13,24 @@ interface Props {
 
 const KY_HIEU_GIOI: Record<string, string> = { Nam: "♂", Nữ: "♀" };
 
+/** Số đo null là chưa đo: hiện "chưa đo", không hiện số 0 hay "null" */
+const soDo = (value: number | null): string => (value === null ? "chưa đo" : String(value));
+
+/** BMI để trống khi thiếu chiều cao hoặc cân nặng */
 function computeBmi(sinhHieu: SinhHieu): string {
-  const metres = sinhHieu.chieu_cao / 100;
-  return (sinhHieu.can_nang / (metres * metres)).toFixed(1);
+  const { chieu_cao, can_nang } = sinhHieu;
+  if (!chieu_cao || !can_nang || chieu_cao <= 0 || can_nang <= 0) return "";
+  const metres = chieu_cao / 100;
+  return (can_nang / (metres * metres)).toFixed(1);
 }
 
 function ChiSo({ nhan, giaTri, donVi, title }: { nhan: string; giaTri: string; donVi?: string; title: string }) {
+  const chuaDo = giaTri === "chưa đo";
   return (
     <span className="flex items-baseline gap-1 whitespace-nowrap" title={title}>
       <span className="text-xs text-ef-phu">{nhan}</span>
-      <span className="font-semibold tabular-nums text-ef-chu">{giaTri}</span>
-      {donVi && <span className="text-[11px] text-ef-phu">{donVi}</span>}
+      <span className={chuaDo ? "text-xs italic text-ef-phu" : "font-semibold tabular-nums text-ef-chu"}>{giaTri}</span>
+      {donVi && !chuaDo && giaTri !== "" && <span className="text-[11px] text-ef-phu">{donVi}</span>}
     </span>
   );
 }
@@ -94,13 +101,13 @@ export function EformHeader({ lastEdit, expanded, onToggleExpand }: Props) {
 
       <div className="flex flex-wrap items-center gap-x-5 gap-y-1.5 border-t border-ef-vien/70 bg-ef-nen/60 px-5 py-1.5 text-[13px]">
         <span className="flex flex-wrap items-center gap-x-4 gap-y-1" aria-label="Sinh hiệu từ phiếu điều dưỡng">
-          <ChiSo nhan="Mạch" giaTri={String(sh.mach)} donVi="l/ph" title="Mạch (nhịp/phút)" />
-          <ChiSo nhan="Nhiệt" giaTri={String(sh.nhiet_do)} donVi="°C" title="Nhiệt độ (°C)" />
-          <ChiSo nhan="HA" giaTri={`${sh.ha_tam_thu}/${sh.ha_tam_truong}`} donVi="mmHg" title="Huyết áp (mmHg)" />
-          <ChiSo nhan="SpO2" giaTri={String(sh.spo2)} donVi="%" title="SpO2 (%)" />
-          <ChiSo nhan="Nhịp thở" giaTri={String(sh.nhip_tho)} donVi="l/ph" title="Nhịp thở (lần/phút)" />
-          <ChiSo nhan="Cao" giaTri={String(sh.chieu_cao)} donVi="cm" title="Chiều cao (cm)" />
-          <ChiSo nhan="Nặng" giaTri={String(sh.can_nang)} donVi="kg" title="Cân nặng (kg)" />
+          <ChiSo nhan="Mạch" giaTri={soDo(sh.mach)} donVi="l/ph" title="Mạch (nhịp/phút)" />
+          <ChiSo nhan="Nhiệt" giaTri={soDo(sh.nhiet_do)} donVi="°C" title="Nhiệt độ (°C)" />
+          <ChiSo nhan="HA" giaTri={sh.ha_tam_thu === null || sh.ha_tam_truong === null ? "chưa đo" : `${sh.ha_tam_thu}/${sh.ha_tam_truong}`} donVi="mmHg" title="Huyết áp (mmHg)" />
+          <ChiSo nhan="SpO2" giaTri={soDo(sh.spo2)} donVi="%" title="SpO2 (%)" />
+          <ChiSo nhan="Nhịp thở" giaTri={soDo(sh.nhip_tho)} donVi="l/ph" title="Nhịp thở (lần/phút)" />
+          <ChiSo nhan="Cao" giaTri={soDo(sh.chieu_cao)} donVi="cm" title="Chiều cao (cm)" />
+          <ChiSo nhan="Nặng" giaTri={soDo(sh.can_nang)} donVi="kg" title="Cân nặng (kg)" />
           <ChiSo nhan="BMI" giaTri={computeBmi(sh)} title="BMI (tự tính)" />
         </span>
 

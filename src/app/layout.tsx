@@ -10,8 +10,8 @@ import { getProviderName, loadTheme } from "@/server/du-lieu/config";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Trợ lý điền bệnh án Tim mạch",
-  description: "Prototype nhập một lần, điền ba chỗ. Chỉ dùng dữ liệu giả.",
+  title: "CardioNote",
+  description: "CardioNote: prototype trợ lý điền bệnh án cho Trung tâm Tim mạch. Bác sĩ nói hoặc gõ tắt, AI điền nháp. Chỉ dùng dữ liệu giả.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

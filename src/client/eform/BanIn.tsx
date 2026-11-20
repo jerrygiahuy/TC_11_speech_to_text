@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { useEform } from "@/client/eform/EformContext";
 import { moTaLieu } from "@/client/eform/DonThuocTab";
 import { nhanIcd } from "@/client/eform/IcdField";
+import { dongChanDoanIn } from "@/shared/eform/chan-doan-in";
 import type { DongChiDinh, DongThuoc } from "@/shared/eform/dien-phieu";
 
 /** "2026-11-09T09:15" → "09/11/2026 09:15"; giá trị lạ thì giữ nguyên */
@@ -39,11 +40,14 @@ const TD_IN = "border border-black/60 px-1.5 py-0.5 align-top";
  * Trên màn hình bị ẩn; khi in thì chỉ khối này hiện (phần còn lại của trang có print:hidden).
  */
 export function BanIn({ chiDinh, donThuoc, trangThai, summary, followUpText, duyet }: { chiDinh: DongChiDinh[]; donThuoc: DongThuoc[]; trangThai: string; summary?: string; followUpText?: string; duyet?: string }) {
-  const { data, get } = useEform();
+  const { data, get, thuoc } = useEform();
   const { ca } = data;
   const sh = ca.sinh_hieu;
+  const bmi = sh.chieu_cao && sh.can_nang ? (sh.can_nang / (sh.chieu_cao / 100) ** 2).toFixed(1) : "";
   const v = (id: string) => get(id).value.trim();
-  const chanDoan = chanDoanChinh(get);
+  const thuocIn = v("thuoc_dang_dung") === "NB không có"
+    ? "Không có"
+    : thuoc.map((row) => [row.ten, row.ham_luong, row.cach_dung].map((x) => x.trim()).filter(Boolean).join(" – ")).filter(Boolean).join("; ");
   const diUng = v("di_ung") === "Có" ? [v("di_ung_loai"), v("di_ung_mo_ta")].filter(Boolean).join(": ") || "Có" : v("di_ung");
 
   const truong: { nhan: string; noiDung: string }[] = [
@@ -53,11 +57,13 @@ export function BanIn({ chiDinh, donThuoc, trangThai, summary, followUpText, duy
     { nhan: "Tiền sử bản thân", noiDung: v("tien_su_ban_than") },
     { nhan: "Tiền sử gia đình", noiDung: v("tien_su_gia_dinh") },
     { nhan: "Tiền sử dị ứng", noiDung: diUng },
+    { nhan: "Thuốc đang dùng", noiDung: thuocIn },
     { nhan: "Khám toàn thân", noiDung: v("kham_toan_than") },
     { nhan: "Khám chuyên khoa", noiDung: v("kham_chuyen_khoa") },
+    { nhan: "Khám tim mạch, hô hấp", noiDung: v("kham_tim_mach_ho_hap") },
     { nhan: "Khám các bộ phận khác", noiDung: v("kham_khac") },
     { nhan: "Xét nghiệm, thăm dò chính", noiDung: v("ghi_chu_kq") },
-    { nhan: chanDoan.nhan, noiDung: [nhanIcd(chanDoan.ma, data.icd10), chanDoan.moTa].filter(Boolean).join(". ") },
+    ...dongChanDoanIn(get, (ma) => nhanIcd(ma, data.icd10)),
     { nhan: "Chẩn đoán kèm theo", noiDung: nhanIcd(v("icd_kem_theo"), data.icd10) },
     { nhan: "Hướng điều trị", noiDung: v("huong_dieu_tri") },
     { nhan: "Lời dặn & theo dõi", noiDung: v("loi_dan") },
@@ -94,8 +100,18 @@ export function BanIn({ chiDinh, donThuoc, trangThai, summary, followUpText, duy
       {ca.canh_bao_di_ung && <p className="mt-1 font-bold">⚠ Cảnh báo dị ứng: {ca.canh_bao_di_ung}</p>}
       <p className="mt-1">
         <span className="font-semibold">Sinh hiệu: </span>
-        Mạch {sh.mach} l/ph · Nhiệt độ {sh.nhiet_do} °C · HA {sh.ha_tam_thu}/{sh.ha_tam_truong} mmHg · SpO2 {sh.spo2}% · Nhịp thở{" "}
-        {sh.nhip_tho} l/ph · Cao {sh.chieu_cao} cm · Nặng {sh.can_nang} kg
+        {[
+          sh.mach !== null && `Mạch ${sh.mach} l/ph`,
+          sh.nhiet_do !== null && `Nhiệt độ ${sh.nhiet_do} °C`,
+          sh.ha_tam_thu !== null && sh.ha_tam_truong !== null && `HA ${sh.ha_tam_thu}/${sh.ha_tam_truong} mmHg`,
+          sh.spo2 !== null && `SpO2 ${sh.spo2}%`,
+          sh.nhip_tho !== null && `Nhịp thở ${sh.nhip_tho} l/ph`,
+          sh.chieu_cao !== null && `Cao ${sh.chieu_cao} cm`,
+          sh.can_nang !== null && `Nặng ${sh.can_nang} kg`,
+          bmi && `BMI ${bmi}`,
+        ]
+          .filter(Boolean)
+          .join(" · ") || "chưa đo"}
       </p>
 
       <div className="mt-3 space-y-1.5">

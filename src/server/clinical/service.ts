@@ -27,7 +27,7 @@ function seed(context: EncounterContext, now: string): Encounter {
   const units = { mach: "/min", nhiet_do: "Cel", ha_tam_thu: "mm[Hg]", ha_tam_truong: "mm[Hg]", spo2: "%", nhip_tho: "/min", chieu_cao: "cm", can_nang: "kg" } as const;
   for (const [key, unit] of Object.entries(units)) base.sinh_hieu[key as keyof typeof units] = { value: data.ca.sinh_hieu[key as keyof typeof units], unit };
   const { can_nang, chieu_cao } = data.ca.sinh_hieu;
-  if (chieu_cao > 0 && can_nang > 0) base.sinh_hieu.bmi = { value: Math.round(can_nang / ((chieu_cao / 100) ** 2) * 10) / 10, unit: "kg/m2" };
+  if (chieu_cao !== null && can_nang !== null && chieu_cao > 0 && can_nang > 0) base.sinh_hieu.bmi = { value: Math.round(can_nang / ((chieu_cao / 100) ** 2) * 10) / 10, unit: "kg/m2" };
   base.danh_gia_ban_dau = data.ca.danh_gia_ban_dau.map(item => ({ ...item, source_record_id: context.appointmentId }));
   for (const group of ["tien_su_ban_than", "tien_su_gia_dinh", "benh_su"] as const) for (const item of data.ca.lich_su[group]) {
     const row = emptyDefinition<History>("history");

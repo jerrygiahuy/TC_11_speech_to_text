@@ -71,6 +71,20 @@
       ]
     },
     {
+      "id": "kham_tim_mach_ho_hap",
+      "label": "Khám tim mạch, hô hấp",
+      "type": "textarea",
+      "required": false,
+      "hint": "Kết quả khám tim mạch và hô hấp được ghi nhận",
+      "ai_fill": true,
+      "mock_keywords": [
+        "khám tim phổi",
+        "khám tim mạch",
+        "tim",
+        "phổi"
+      ]
+    },
+    {
       "id": "chan_doan_chinh",
       "label": "Chẩn đoán chính",
       "type": "text",

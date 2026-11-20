@@ -7,10 +7,17 @@ import { loadIcd10 } from "./danh-muc";
 import { loadPhieuMau } from "./phieu-mau";
 import { docThoiQuen, MAU_TAI_KHOAN } from "./thoi-quen";
 import { khopBoMau, type MauGoiYGoc } from "@/shared/eform/goi-y";
-import type { CaGia, EformData, MauCauData, QuyTacAi, TuyChon } from "@/shared/eform/types";
+import { docThuVienTimMach } from "@/shared/eform/mau-cau";
+import type { CaGia, EformData, QuyTacAi, TuyChon } from "@/shared/eform/types";
 
 /** Ca mẫu trùng bệnh nhân giả của trang eForm; ở chế độ mock câu này trả kết quả soạn sẵn */
 const CA_MAU = "ca-11";
+
+/** Thư viện câu khám Tim mạch nằm ở data/cardiology/, dùng chung với các bước khác của dự án */
+function docThuVienKham() {
+  const file = path.join(/*turbopackIgnore: true*/ process.cwd(), "data", "cardiology", "exam-library.json");
+  return docThuVienTimMach(JSON.parse(fs.readFileSync(file, "utf8")));
+}
 
 function readJson<T>(name: string): T {
   const file = path.join(/*turbopackIgnore: true*/ process.cwd(), "data", "eform", name);
@@ -31,7 +38,7 @@ export function loadEformData(taiKhoan?: string): EformData {
     thuVien: readJson<Record<string, string[]>>("thu-vien.json"),
     tuyChon: readJson<TuyChon>("tuy-chon.json"),
     quyTac: readJson<QuyTacAi>("quy-tac.json"),
-    mauCau: readJson<MauCauData>("mau-cau.json"),
+    mauCau: docThuVienKham(),
     danhMuc,
     vietTat,
     canhBao: loadRules(),

@@ -30,7 +30,7 @@ export interface BangSuaChu {
   nguong_giong: number;
   /**
    * Tên thuốc chỉ được thay khi một trong vài từ ngay sau là dấu hiệu kê đơn (uống, viên, mg, số…)
-   * hoặc từ ngay trước là "đơn", "thuốc". Không có điều kiện này thì một cụm từ thường nói có âm gần giống tên thuốc bị thay nhầm thành tên thuốc.
+   * hoặc từ ngay trước là "đơn", "thuốc", hoặc hai từ ngay trước là "dị ứng". Không có điều kiện này thì một cụm từ thường nói có âm gần giống tên thuốc bị thay nhầm thành tên thuốc.
    */
   dau_hieu_thuoc: string[];
 }
@@ -132,6 +132,7 @@ function thayTuChuyenKhoa(tu: string[], bang: BangSuaChu): string[] {
   const laDauHieu = (t: string) => dauHieu.has(t) || /\d/.test(t) || t in CHU_SO;
   const coNguCanh = (dau: number, cuoi: number) =>
     ["đơn", "thuốc"].includes(thuong(tu[dau - 1] ?? "")) ||
+    (thuong(tu[dau - 2] ?? "") === "dị" && thuong(tu[dau - 1] ?? "") === "ứng") ||
     tu.slice(cuoi, cuoi + CUA_SO_THUOC).some((t) => laDauHieu(thuong(t)));
   // Tìm mọi cụm liên tiếp giống một cách đọc, rồi chọn cụm điểm cao trước, không chồng lên nhau
   const ungVien: { dau: number; cuoi: number; dung: string; diem: number }[] = [];

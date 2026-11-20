@@ -23,7 +23,7 @@ export async function extractForRecording(actor: ClinicalActor, ticket: string, 
   }
   const pii = tickets.pii(ticket, binding);
   const run = await extractClinical(ticket, {
-    binding, provider: "mock", directory: options.runDirectory, context: contextFromVitals(source.record.sinh_hieu),
+    binding, provider: "mock", directory: options.runDirectory, context: contextFromVitals(source.record.sinh_hieu, source.record.encounter_at),
     approvedTranscript: value => tickets.approved(value, binding),
     deidentification: { policy_version: PII_POLICY_VERSION, gate_passed: true, consent: pii.consent },
   });

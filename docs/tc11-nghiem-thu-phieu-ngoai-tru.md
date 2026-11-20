@@ -9,3 +9,8 @@ Bảng ánh xạ và kỳ vọng chi tiết nằm trong bản bàn giao Claude t
 | SYN-CARDIO-039 | Đọc bổ sung. Giữ liều dạng thập phân, hiển thị từng đề xuất thay đổi và bảo toàn nội dung bác sĩ đã sửa. |
 
 Mỗi ca cần kiểm tra qua đầu ra AI, eForm, phiên bản đã duyệt, bản lưu đọc lại và bản in. Cả ba ca giữ chẩn đoán ra viện trống nếu nguồn chỉ có chẩn đoán ban đầu. Sinh hiệu lấy từ fixture lượt khám. Trường Khám tim mạch, hô hấp hiển thị riêng với Khám chuyên khoa. Quy tắc bắt buộc khi duyệt và cách hiểu “chưa ghi nhận” chờ bác sĩ xác nhận.
+
+## Nghiệm thu tự động 3 ca
+
+Chạy: `npx tsx --conditions=react-server --test src/server/clinical/nghiem-thu-tim-mach.test.ts` (hoặc `npm test`). Mỗi ca chạy `conversation_text` (ca 039 giai đoạn B thêm `recovery_dictation`) qua mock, kiểm tra bằng chứng, rồi so từng ô của gói điền nháp với `data/cardiology/nghiem-thu/<mã ca>.expected.json`. Ô mong đợi trống phải bằng `""`; mọi ô AI điền ở trạng thái `xem`. Kết quả hiện tại: 3 ca PASS. Lệch với `04`: ca 013 chưa tạo `de_cap = co_chi_dinh` khi không có dòng dịch vụ (schema không cho), chỉ bảo đảm không sinh dòng chỉ định.
+

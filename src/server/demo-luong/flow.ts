@@ -131,7 +131,7 @@ export async function* runDemoFlow(store: DemoStore, input: DemoFlowInput, now: 
   let run: ClinicalExtraction;
   try {
     run = await extractClinical("demo", {
-      approvedTranscript: () => transcript, binding, directory: store.root, noCache: true, provider: "mock", context: contextFromVitals(record.sinh_hieu),
+      approvedTranscript: () => transcript, binding, directory: store.root, noCache: true, provider: "mock", context: contextFromVitals(record.sinh_hieu, record.encounter_at),
       deidentification: { policy_version: PII_POLICY_VERSION, gate_passed: true, consent: dong_y.trang_thai },
     });
   } catch (error) {

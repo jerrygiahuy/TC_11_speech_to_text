@@ -179,3 +179,28 @@ test("lưu phiếu không đổi trạng thái vòng đời: chờ/hoàn tất c
     assert.equal(saved.snapshot.trangThai, "Đang khám");
   }
 });
+
+test("duyet_chan_chinh_chua_ro_giai_doan_van_bi_chan: chỉ chẩn đoán kèm theo được miễn giai đoạn", () => {
+  const store = new ClinicalRepository(fs.mkdtempSync(path.join(os.tmpdir(), "clinical-approve-chua-ro-")));
+  const data = loadEformData();
+  const fields = Object.fromEntries(Object.entries(data.ca.gia_tri).map(([key, value]) => [key, { value, nguon: "bs" }]));
+  fields.ly_do = { value: "tái khám tăng huyết áp", nguon: "bs" };
+  fields.benh_su = { value: "Theo dõi huyết áp tại nhà", nguon: "bs" };
+  fields.mo_ta_ban_dau = { value: "Tăng huyết áp vô căn", nguon: "bs" };
+  fields.icd_ban_dau = { value: "I10", nguon: "bs" };
+  fields.icd_kem_theo = { value: data.icd10.find(item => item.ma !== "I10")!.ma, nguon: "bs" };
+  const saved = saveClinical({ snapshot: { fields, chiDinh: [], trangThai: "Đang khám", chiDinhDeCap: "khong_chi_dinh" } }, store);
+  // Chẩn đoán chính chưa rõ giai đoạn phải bị chặn; sau khi đặt giai đoạn, chẩn đoán kèm theo (vẫn chua_ro) không cản duyệt.
+  const dich = store.update(saved.record.id, saved.record.revision, draft => {
+    const chinh = draft.chan_doan.find(item => item.noi_dung.vai_tro === "chinh")!;
+    chinh.noi_dung.giai_doan = "chua_ro";
+    return draft;
+  }, saved.record.examiner_id, new Date().toISOString());
+  assert.throws(() => approveClinical({ id: saved.record.id, expected_revision: dich.revision, acknowledged_issues: true }, store), /giai đoạn/u);
+  const sua = store.update(saved.record.id, dich.revision, draft => {
+    draft.chan_doan.find(item => item.noi_dung.vai_tro === "chinh")!.noi_dung.giai_doan = "ban_dau";
+    return draft;
+  }, saved.record.examiner_id, new Date().toISOString());
+  assert.equal(sua.chan_doan.find(item => item.noi_dung.vai_tro === "kem_theo")?.noi_dung.giai_doan, "chua_ro");
+  assert.ok(approveClinical({ id: saved.record.id, expected_revision: sua.revision, acknowledged_issues: true }, store).record.audit.approved_at);
+});

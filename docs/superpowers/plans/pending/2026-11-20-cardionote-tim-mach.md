@@ -49,13 +49,13 @@ Nguồn sự thật danh sách trường là `config/forms/phieu-kham-ngoai-tru.
 | Task | Agent | Phụ thuộc | Chạy song song với |
 |---|---|---|---|
 | ✅ 0. Chuẩn bị nhánh, dọn file " 2", ghi nền test | Session chính + anh | – | – |
-| 1. Hợp đồng dữ liệu 2.0.0 + test phủ trường Excel | Sonnet, medium | 0 | – |
+| ✅ 1. Hợp đồng dữ liệu 2.0.0 + test phủ trường Excel | Sonnet, medium | 0 | – |
 | 2. Bộ chuyển Encounter ↔ eForm và điền nháp AI | Sonnet, medium | 1 | 3, 5, 6, 7 |
 | 3. Ngữ cảnh lượt khám và bộ sinh fixture từ 60 ca | Sonnet, medium | 1 | 2, 5, 6, 7 |
 | 4. Giao diện eForm và bản in theo Excel | Sonnet, medium | 2, 3 | 6, 7 |
 | 5. Danh mục và thư viện câu Tim mạch (dữ liệu mock) | Haiku, medium | 1 | 2, 3, 6, 7 |
 | 6. Từ điển ngôn ngữ trong code + bộ trích mock | Sonnet, medium | 1 | 2, 3, 5, 7 |
-| 7. Từ vựng STT | Haiku, medium | 0 | 1–6 |
+| ✅ 7. Từ vựng STT | Haiku, medium | 0 | 1–6 |
 | **Review giữa kỳ** sau Task 1–7 | Opus | 1–7 | – |
 | 8. Kịch bản demo, ca eval, fixture test; về 0 test fail | Sonnet, medium | review giữa kỳ | – |
 | 9. Nghiệm thu tự động 3 ca của `04` | Sonnet, medium | 8 | 10 |
@@ -140,18 +140,18 @@ Session chính chỉ điều phối:
   - `noi: "giao_dien"` dành cho trường chỉ có trên giao diện, ví dụ `mau_cau_da_chon`.
 - Produces: `export function excelKeys(config: CauHinhPhieu): string[]` liệt kê mọi khóa như trên, từ `src/shared/phieu-kham-ngoai-tru/config.ts`.
 
-- [ ] **Bước 1: Viết test fail** trong `excel-coverage.test.ts`:
+- [x] **Bước 1: Viết test fail** trong `excel-coverage.test.ts`:
   - `moi_truong_excel_co_trong_map`: `excelKeys(CAU_HINH_PHIEU)` khác rỗng, và mọi khóa có trong `EXCEL_MAP`.
   - `duong_encounter_ton_tai`: với mọi mục `noi === "encounter"`, pointer đọc được trên `emptyEncounter({...})` (giá trị `!== undefined`).
   - `khong_con_vung_tmh`: `JSON.stringify(emptyEncounter(...).phieu_kham)` không chứa `"tai"`, `"mui"`, `"vom"`, `"hong"`, `"co_pttt"`.
   - Trong `schema.test.ts`: `schema_version === "2.0.0"`. Trong `migrations.test.ts`: hồ sơ `1.2.0` bị từ chối với đúng thông báo ở Global Constraints.
-- [ ] **Bước 2:** `npm test 2>&1 | grep -E 'excel|schema|migration'` → FAIL.
-- [ ] **Bước 3: Sửa schema** như Interfaces, chạy `npm run clinical:types`, sửa `schema.ts` và `migrations.ts`, viết `EXCEL_MAP` đủ 49 trường và 41 cột theo `02` mục A1–A7.
-- [ ] **Bước 4:**
+- [x] **Bước 2:** `npm test 2>&1 | grep -E 'excel|schema|migration'` → FAIL. *(Xong 20/11: RED đúng như dự kiến.)*
+- [x] **Bước 3: Sửa schema** như Interfaces, chạy `npm run clinical:types`, sửa `schema.ts` và `migrations.ts`, viết `EXCEL_MAP` đủ 49 trường và 41 cột theo `02` mục A1–A7. *(Xong 20/11: config đúng 49 trường + 41 cột, `EXCEL_MAP` 90 khóa. Cột `ghi_chu` của thuốc đang dùng gộp vào `thuoc_dang_dung[]` (chờ Task 2 xác nhận).)*
+- [x] **Bước 4:** *(Xong 20/11: 17/17 test mới PASS. 73 test mới vỡ, đã ghi danh sách trong báo cáo cho Task 2/8. `clinical:check`: phần types PASS; `verify.py` cần `python` + `jsonschema`, chạy bằng venv ngoài repo thì PASS.)*
   - `npm run clinical:check` PASS.
   - Test ở bước 1 PASS.
   - Test khác vỡ vì đổi schema thì **chỉ ghi danh sách** vào báo cáo, không sửa. Task 2 và Task 8 sẽ sửa.
-- [ ] **Bước 5:** ghi CHANGELOG, commit `feat(clinical): hợp đồng dữ liệu 2.0.0 theo phiếu khám Tim mạch`.
+- [x] **Bước 5:** ghi CHANGELOG, commit `feat(clinical): hợp đồng dữ liệu 2.0.0 theo phiếu khám Tim mạch`. *(Xong 20/11: commit `e43bf4b`. Mục CHANGELOG của Task 1 bị gom vào commit `40ee550` của Task 7.)*
 
 ---
 
@@ -247,6 +247,7 @@ Session chính chỉ điều phối:
 - Sửa: `src/client/eform/MauCauPanel.tsx`, `src/shared/eform/mau-cau.ts`, `src/shared/eform/types.ts` (`VungKham`, `MauCauData`)
 - Sửa: `src/server/du-lieu/eform.ts` (nạp thư viện từ `data/cardiology/exam-library.json`)
 - Sửa: `src/client/eform/LichSuBlock.tsx` (thêm bảng thuốc đã dùng), `src/client/eform/BanIn.tsx`, `src/client/demo-luong/DemoPhieuPanel.tsx`
+- Sửa tên sản phẩm thành **CardioNote**: `src/client/chung/Header.tsx` (dòng 21 "Trợ lý điền bệnh án Tim mạch – Prototype" → "CardioNote – Trung tâm Tim mạch (prototype)"), `src/app/layout.tsx` (`title` = "CardioNote", `description` nêu Trung tâm Tim mạch, dữ liệu giả), `src/app/dashboard/page.tsx` (`title` = "Lịch khám – CardioNote"); grep `"Trợ lý điền bệnh án"` trong `src/` để sửa nốt chỗ còn lại. *(Thêm 20/11 theo yêu cầu anh.)*
 - Xóa: `data/eform/mau-cau.json`
 - Test: `src/shared/eform/mau-cau.test.ts` (tạo), `src/client/eform/*` không có test DOM, nên kiểm bằng trình duyệt ở bước 4
 
@@ -267,7 +268,7 @@ Session chính chỉ điều phối:
 - [ ] **Bước 4: Kiểm trên trình duyệt.**
   - Chạy `npx next dev -p 3100`, mở `/` bằng Chrome headless hoặc playwright, chụp ảnh toàn trang và bản in.
   - Kiểm có đủ "Nơi giới thiệu", "Khám tim mạch, hô hấp", "+ Thêm thuốc", hai dòng chẩn đoán.
-  - Kiểm không còn chữ "Tai", "Mũi", "Vòm", "Họng", "TMH".
+  - Kiểm không còn chữ "Tai", "Mũi", "Vòm", "Họng", "TMH"; header và tab trình duyệt hiện "CardioNote".
   - Lưu rồi tải lại thì giữ đủ giá trị. Tắt dev server.
 - [ ] **Bước 5:** ghi CHANGELOG, cập nhật `README.md` mục eForm. Commit `feat(eform): giao diện và bản in phiếu khám Tim mạch`.
 
@@ -347,13 +348,13 @@ Session chính chỉ điều phối:
 - Sửa: `src/client/giong-bac-si/DangKyGiong.tsx`: câu đọc mẫu thứ 5 bỏ "súc họng nước muối"; dùng 3 câu Tim mạch ở `05` mục 6.
 - Sửa: `stt/tests/test_terminology.py`, `stt/tests/test_stt.py`, `stt/ner_probe.py` (câu ví dụ)
 
-- [ ] **Bước 1: Sửa test Python** để kỳ vọng hotword Tim mạch, ví dụ `"rung nhĩ" in hotwords` và `"amidan" not in hotwords`. Chạy `.venv-stt/bin/python -m pytest stt/tests/test_terminology.py -q` → FAIL.
-- [ ] **Bước 2:** sửa 3 file config và câu đọc mẫu.
-- [ ] **Bước 3:**
+- [x] **Bước 1: Sửa test Python** để kỳ vọng hotword Tim mạch, ví dụ `"rung nhĩ" in hotwords` và `"amidan" not in hotwords`. Chạy `.venv-stt/bin/python -m pytest stt/tests/test_terminology.py -q` → FAIL. *(Xong 20/11.)*
+- [x] **Bước 2:** sửa 3 file config và câu đọc mẫu. *(Xong 20/11. Khác plan: không thêm `"mock": true` vào `viet-tat.json` vì file là bảng từ→nghĩa, khóa `mock` sẽ bung chữ "mock" thành "true". 05 mục 5 chỉ có 8 thuốc khác nhau nên thêm 8. Bỏ thêm quy tắc "nhỏ mũi" và "niên mạc".)*
+- [x] **Bước 3:** *(Xong 20/11: pytest terminology + stt PASS; 11 test `test_denoise` lỗi sẵn do venv thiếu scipy. grep config sạch. `stt/tests/test_ner.py` còn câu "đau họng", để Task 8/11 xử lý.)*
   - `.venv-stt/bin/python -m pytest stt/tests -q` PASS.
   - `npm test` không có fail mới.
   - `grep -nE 'tai|mũi|họng|amidan|xoang' config/*.json` không còn cụm TMH. "Nhịp xoang" được phép.
-- [ ] **Bước 4:** ghi CHANGELOG, cập nhật `docs/STT.md` mục hotword. Commit `feat(stt): từ vựng Tim mạch`.
+- [x] **Bước 4:** ghi CHANGELOG, cập nhật `docs/STT.md` mục hotword. Commit `feat(stt): từ vựng Tim mạch`. *(Xong 20/11: commit `40ee550`.)*
 
 ---
 

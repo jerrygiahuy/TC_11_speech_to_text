@@ -59,13 +59,13 @@ function buildText(raw: string): Text {
 const STOP_WORDS = [
   "bị", "đau", "ho", "sốt", "khám", "và", "thì", "nên", "có", "không", "đã", "rồi", "ạ", "nhưng", "cũng", "hay", "với",
   "ở", "tại", "là", "đến", "vì", "mà", "anh", "chị", "ông", "bà", "cô", "chú", "bác", "em", "con", "cháu", "tôi", "nói",
-  "bảo", "đang", "sẽ", "muốn", "cần", "xin", "ơi", "nhờ", "hỏi", "thấy", "nghe", "ngứa", "chảy", "nhức", "ù", "tai", "mũi",
-  "họng", "ngày", "tuần", "tháng", "năm", "nay", "qua", "từ", "trong", "khi", "lúc", "sau", "trước", "này", "đó", "kia",
+  "bảo", "đang", "sẽ", "muốn", "cần", "xin", "ơi", "nhờ", "hỏi", "thấy", "nghe", "nhức", "ngực", "tim", "phổi",
+  "ngày", "tuần", "tháng", "năm", "nay", "qua", "từ", "trong", "khi", "lúc", "sau", "trước", "này", "đó", "kia",
   "ấy", "nhé", "nha", "vậy", "thế", "nữa", "rất", "hơi", "khá", "quá", "lắm", "đây", "nhà", "xa", "gần", "sĩ",
   // triệu chứng, từ lâm sàng thường đứng sau từ chỉ người
-  "viêm", "nghẹt", "khàn", "chóng", "mặt", "tiếng", "khó", "thở", "mệt", "mỏi", "nhẹ", "nặng", "tăng", "giảm", "đỡ",
-  "hết", "lành", "tốt", "khô", "ướt", "mủ", "máu", "sưng", "kém", "thường", "nôn", "buồn", "mất", "ngạt", "hắt",
-  "nhiễm", "đồng", "ý", "hóa", "nội", "ngoại", "soi", "phẫu", "mổ", "điếc",
+  "viêm", "chóng", "mặt", "tiếng", "khó", "thở", "mệt", "mỏi", "nhẹ", "nặng", "tăng", "giảm", "đỡ",
+  "hết", "lành", "tốt", "khô", "ướt", "máu", "sưng", "kém", "thường", "nôn", "buồn", "mất", "ngất", "choáng",
+  "nhiễm", "đồng", "ý", "hóa", "nội", "ngoại", "phẫu", "mổ", "hồi", "hộp", "mạch", "huyết", "áp", "nhịp", "ran",
   // động từ hay đứng ngay sau tên ("Đỗ Quốc Việt mua thuốc"): đuôi tên dừng ở đây, không che lố
   "mua", "đưa", "dẫn", "gọi", "lấy", "uống", "dùng", "kê", "đi", "về",
   // hư từ hay đứng sau chữ trùng họ trong lời kể liền mạch từ STT ("mỡ máu hơi cao còn tiểu đường")
@@ -81,6 +81,7 @@ const STOP_FOLD = new Set(STOP_WORDS.map(w => foldVietnamese(w)).filter(w => w.l
 const COMMON_AFTER_HO = new Set([
   "bình thường", "đồng ý", "tiêu hóa", "tiêu chảy", "bình phục", "đào thải", "tăng huyết", "lâm sàng", "phù nề",
   "phù hợp", "sử dụng", "thân nhiệt", "tiết dịch", "tiết niệu", "cao huyết", "lý do", "ung thư", "mã bệnh",
+  "triệu chứng", "tâm thu", "tâm trương", "tâm nhĩ", "tâm thất", "hồi hộp", "đo huyết", "đo điện", "đo abi", "đánh trống", "phù chân", "ran ẩm", "ran nổ", "ran rít",
 ]);
 /** Họ phổ biến: đầu câu không có từ chỉ người thì chỉ nhận các họ này hoặc khi có đệm văn/thị. */
 export const COMMON_HO_FOLD: ReadonlySet<string> = new Set(["nguyen", "tran", "le", "pham", "hoang", "huynh", "vo", "vu", "dang", "bui", "ngo", "do", "dinh", "trinh"]);

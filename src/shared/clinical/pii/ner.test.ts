@@ -3,7 +3,7 @@ import { test } from "node:test";
 import { chePii, locNer } from "./index";
 import { nhanNer } from "./nhan";
 
-const ALLOW = new Set(["viêm tai giữa"]);
+const ALLOW = new Set(["tăng huyết áp"]);
 
 test("không có NER thì kết quả giống hệt bản cũ", () => {
   const t = "chị Nguyễn Thị Lan đau họng 3 ngày";
@@ -34,7 +34,7 @@ test("NER không gỡ được đoạn rule đã che, chồng một phần thì 
 });
 
 test("bỏ đoạn dưới ngưỡng, nhãn lâm sàng, trong allowlist, vị trí sai", () => {
-  const t = "viêm tai giữa phải, sốt cao";
+  const t = "tăng huyết áp nặng, sốt cao";
   const spans = [[
     { start: 0, end: 13, nhan: "NAME", diem: 0.99 },
     { start: 20, end: 27, nhan: "SYMPTOM_AND_DISEASE", diem: 0.99 },

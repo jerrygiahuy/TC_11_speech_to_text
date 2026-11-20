@@ -15,8 +15,8 @@ test("chePii: nhiều đoạn, span tính trên bản thô nối \n, tự che ph
 });
 
 test("chePii: một chuỗi giống một đoạn; không còn gì sót thì không tự che", () => {
-  const r = chePii("đau tai phải ba ngày", [], none);
-  assert.equal(r.clean, "đau tai phải ba ngày");
+  const r = chePii("đau ngực phải ba ngày", [], none);
+  assert.equal(r.clean, "đau ngực phải ba ngày");
   assert.equal(r.auto_masked.length, 0);
   assert.equal(r.counts.R2, 0);
 });

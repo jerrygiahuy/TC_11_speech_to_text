@@ -9,52 +9,37 @@ import { chamDiem, doanVaiTro, ganVaiTroChoDoan, ghepTheoNguoiNoi, noiChu, type 
  * Mỗi hội thoại: [vai, câu]. Test đổi vai thành Người nói 1/2 theo cả hai chiều để chắc không phụ thuộc thứ tự.
  */
 const HOI_THOAI: Record<string, ["BS" | "BN", string][]> = {
-  "viêm họng cấp": [
-    ["BN", "chào bác sĩ em bị đau họng mấy hôm nay nuốt đau lắm"],
-    ["BS", "đau từ khi nào có sốt không"],
-    ["BN", "dạ từ hôm thứ hai em hơi sốt về đêm có tự mua thuốc ở hiệu thuốc uống mà không đỡ"],
-    ["BS", "có dị ứng thuốc gì không"],
-    ["BN", "dạ không ạ"],
-    ["BS", "há miệng to nói a để tôi khám họng thành sau họng đỏ amidan sung huyết không có mủ"],
-    ["BS", "chẩn đoán viêm họng cấp tôi kê đơn paracetamol năm trăm miligam uống ngày ba lần sau ăn trong năm ngày súc họng nước muối hẹn tái khám nếu sốt cao"],
-    ["BN", "em có phải kiêng gì không bác sĩ"],
-    ["BS", "uống đủ nước tránh đồ lạnh nhé"],
+  "tái khám tăng huyết áp": [
+    ["BN", "chào bác sĩ em đến tái khám huyết áp ạ"],
+    ["BS", "dạo này huyết áp tại nhà bao nhiêu có đau ngực hay khó thở không"],
+    ["BN", "dạ em đo ở nhà một trăm bốn mươi lăm trên tám mươi lăm thỉnh thoảng hơi đau đầu chứ không đau ngực ạ"],
+    ["BS", "có dị ứng thuốc gì không đang uống thuốc gì"],
+    ["BN", "dạ em dị ứng penicillin đang uống amlodipine năm miligam mỗi sáng"],
+    ["BS", "để tôi khám tiếng T1 T2 đều rõ không âm thổi phổi trong không ran chẩn đoán tăng huyết áp vô căn tiếp tục thuốc hiện tại ghi nhật ký huyết áp hẹn tái khám sau ba mươi ngày"],
     ["BN", "dạ em cảm ơn bác sĩ"],
   ],
-  "viêm tai giữa ở trẻ, mẹ nói thay": [
-    ["BN", "bác sĩ ơi cháu nó kêu đau tai phải từ tối qua quấy khóc cả đêm"],
-    ["BS", "bé có sốt không có chảy mủ không"],
-    ["BN", "dạ có sốt ba tám độ chưa thấy chảy mủ ạ trước đó cháu bị sổ mũi mấy ngày"],
-    ["BS", "cho bé ngồi yên nghiêng đầu để tôi soi tai màng nhĩ phải đỏ phồng mất nón sáng tai trái bình thường"],
-    ["BS", "chẩn đoán viêm tai giữa cấp tai phải điều trị nội khoa ngoại trú kê amoxicillin dạng gói uống ngày hai lần sau ăn trong bảy ngày"],
-    ["BN", "có nặng không bác sĩ bao giờ thì khỏi ạ"],
-    ["BS", "không sao đâu uống thuốc đều nhé hẹn khám lại sau bảy ngày nếu chảy mủ tai thì quay lại ngay"],
+  "đau ngực khi gắng sức": [
+    ["BS", "anh đau ngực khi leo cầu thang phải không"],
+    ["BN", "dạ tôi thấy nặng ngực khi đi nhanh nghỉ thì đỡ tôi không bị ngất"],
+    ["BS", "có tiền sử rối loạn lipid máu hay gia đình có ai bị bệnh mạch vành không"],
+    ["BN", "dạ có mỡ máu cao em đang uống atorvastatin buổi tối bố tôi từng bị mạch vành"],
+    ["BS", "huyết áp một trăm ba mươi hai trên tám mươi hai mạch tám mươi tĩnh mạch cổ không nổi tiếng tim đều không rung miu phổi trong chẩn đoán đau ngực cần đánh giá nguyên nhân tim mạch chỉ định làm điện tâm đồ hẹn tái khám sau bảy ngày"],
+    ["BN", "có nguy hiểm không bác sĩ"],
   ],
-  "viêm mũi xoang, bệnh nhân nói nhiều": [
-    ["BS", "anh vào khám vì gì"],
-    ["BN", "tôi bị nghẹt mũi chảy nước mũi vàng mấy tuần nay rồi đau nhức vùng trán nhất là buổi sáng tôi ngủ không được tôi có uống thuốc kháng sinh mua ngoài nhà thuốc mà không thấy đỡ dạo này còn hay nhức đầu nữa"],
-    ["BS", "có hắt hơi nhiều không tiền sử có viêm mũi dị ứng không"],
-    ["BN", "tôi hay hắt hơi buổi sáng vợ tôi bảo tôi ngủ ngáy to lắm tôi có sao không bác sĩ"],
-    ["BS", "nội soi mũi xoang thấy niêm mạc phù nề cuốn dưới quá phát khe giữa có dịch mủ"],
-    ["BS", "chẩn đoán viêm mũi xoang cấp chỉ định chụp ct mũi xoang kê augmentin một gam uống ngày hai lần sau ăn rửa mũi nước muối sinh lý tái khám sau mười ngày"],
-    ["BN", "dạ vâng"],
+  "hồi hộp đánh trống ngực": [
+    ["BN", "bác sĩ ơi dạo này tôi hay hồi hộp đánh trống ngực mấy bữa nay cứ tối là bị"],
+    ["BS", "mỗi lần kéo dài bao lâu có chóng mặt hay ngất thoáng qua không"],
+    ["BN", "dạ khoảng mười phút có hơi choáng nhưng tôi không ngất ạ tôi uống nhiều cà phê"],
+    ["BS", "điện tim nhịp không đều nghi rung nhĩ tôi chỉ định holter điện tim và siêu âm tim kê apixaban hẹn tái khám sau hai tuần"],
+    ["BN", "dạ vâng tôi sẽ làm theo ạ"],
   ],
-  "khàn tiếng, bác sĩ nói ít": [
-    ["BN", "em bị khàn tiếng gần một tháng nay em làm giáo viên nói nhiều lắm sáng dậy thì đỡ hơn chiều thì mất tiếng em có uống thuốc nam mà không đỡ"],
-    ["BS", "có hút thuốc không có ợ chua không"],
-    ["BN", "dạ em không hút thuốc thỉnh thoảng có ợ chua sau ăn ạ"],
-    ["BS", "nội soi thanh quản dây thanh hai bên có hạt xơ nhỏ chẩn đoán hạt xơ dây thanh chỉ định nghỉ nói kê thuốc chống trào ngược hẹn tái khám sau hai tuần"],
+  "phù chân, suy tim": [
+    ["BN", "thưa bác sĩ ông nhà tôi mấy hôm nay phù hai mắt cá chân khó thở khi nằm"],
+    ["BS", "để tôi khám mỏm tim lệch ngoài có ran ẩm hai đáy phổi tĩnh mạch cổ nổi phù mắt cá chân hai bên"],
+    ["BS", "chẩn đoán suy tim mạn tái khám sau một tuần xét nghiệm NT-proBNP siêu âm tim hạn chế muối nhé"],
+    ["BN", "dạ có nặng không bác sĩ ông nhà tôi có phải nhập viện không"],
+    ["BS", "theo dõi cân nặng mỗi sáng nhớ uống thuốc đều"],
   ],
-  "dị vật tai": [
-    ["BN", "bác sĩ ơi con em nhét hạt đậu vào tai trái từ chiều nay em lấy không được"],
-    ["BS", "bé có đau không có chảy máu không"],
-    ["BN", "dạ cháu kêu đau ít không thấy chảy máu ạ"],
-    ["BS", "cho bé ngồi yên để bác khám ống tai trái có dị vật hạt đậu màng nhĩ không thấy được tôi làm thủ thuật lấy dị vật luôn"],
-    ["BS", "lấy được dị vật ống tai ngoài không trầy xước kê thuốc nhỏ tai ngày hai lần trong năm ngày nếu đau nhiều hoặc chảy mủ thì quay lại khám"],
-    ["BN", "dạ em cảm ơn bác sĩ"],
-  ],
-  "trình diễn eForm (viêm tai giữa mạn)": JSON.parse(fs.readFileSync(path.join(process.cwd(), "data/eform/trinh-dien.json"), "utf8"))
-    .hoi_thoai.map((d: { ai: "BS" | "BN"; cau: string }) => [d.ai, d.cau]),
 };
 
 function thanhLuot(hoiThoai: ["BS" | "BN", string][], soBacSi: number): LuotNoi[] {
@@ -71,15 +56,29 @@ for (const [ten, hoiThoai] of Object.entries(HOI_THOAI)) {
   });
 }
 
-test("bác sĩ tự đọc (10 ca mẫu, một giọng) được gán BS", () => {
-  const thuMuc = path.join(process.cwd(), "data/cases");
-  const tep = fs.readdirSync(thuMuc).filter((t) => /^ca-.*\.json$/.test(t));
-  assert.ok(tep.length >= 10);
-  for (const t of tep) {
-    const ca = JSON.parse(fs.readFileSync(path.join(thuMuc, t), "utf8")) as { input_noi: string };
-    const ketQua = doanVaiTro([{ speaker: 1, text: ca.input_noi }]);
-    assert.equal(ketQua.vaiTro.get(1), "BS", `${t}: ${ketQua.lyDo}`);
+test("bác sĩ tự đọc (10 ca Tim mạch tổng hợp, một giọng) được gán BS", () => {
+  const dong = fs.readFileSync(path.join(process.cwd(), "data/cardiology/synthetic-cases.jsonl"), "utf8").split("\n").filter(Boolean).slice(0, 10);
+  assert.equal(dong.length, 10);
+  for (const d of dong) {
+    const ca = JSON.parse(d) as { scenario_id: string; conversation_text: string };
+    const ketQua = doanVaiTro([{ speaker: 1, text: ca.conversation_text }]);
+    assert.equal(ketQua.vaiTro.get(1), "BS", `${ca.scenario_id}: ${ketQua.lyDo}`);
   }
+});
+
+test("vai_tro_tim_mach: câu hỏi triệu chứng là bác sĩ, câu kể hồi hộp là bệnh nhân", () => {
+  const bs = chamDiem("anh có đau ngực khi leo cầu thang không");
+  const bn = chamDiem("dạ tôi thấy hồi hộp đánh trống ngực");
+  assert.ok(bs.bacSi > bs.benhNhan, JSON.stringify(bs));
+  assert.ok(bn.benhNhan > bn.bacSi, JSON.stringify(bn));
+  const ketQua = doanVaiTro([
+    { speaker: 1, text: "anh có đau ngực khi leo cầu thang không" },
+    { speaker: 2, text: "dạ tôi thấy hồi hộp đánh trống ngực" },
+    { speaker: 1, text: "để tôi khám tiếng T1 T2 đều rõ không âm thổi phổi trong không ran chẩn đoán rung nhĩ" },
+    { speaker: 2, text: "dạ tôi cảm ơn bác sĩ" },
+  ]);
+  assert.equal(ketQua.vaiTro.get(1), "BS");
+  assert.equal(ketQua.vaiTro.get(2), "BN");
 });
 
 test("chưa đủ dấu hiệu thì không gán", () => {
@@ -92,10 +91,10 @@ test("chưa đủ dấu hiệu thì không gán", () => {
 });
 
 test("hơn hai giọng hoặc chỉ có lượt chưa rõ thì không gán", () => {
-  assert.equal(doanVaiTro([{ speaker: null, text: "chẩn đoán viêm họng cấp kê đơn" }]).vaiTro.size, 0);
+  assert.equal(doanVaiTro([{ speaker: null, text: "chẩn đoán tăng huyết áp kê đơn" }]).vaiTro.size, 0);
   const ba = doanVaiTro([
-    { speaker: 1, text: "chẩn đoán viêm họng cấp kê đơn paracetamol uống ngày ba lần sau ăn hẹn tái khám" },
-    { speaker: 2, text: "em bị đau họng mấy hôm nay" },
+    { speaker: 1, text: "chẩn đoán tăng huyết áp kê đơn amlodipine uống ngày một lần sau ăn hẹn tái khám" },
+    { speaker: 2, text: "em bị đau ngực mấy hôm nay" },
     { speaker: 3, text: "cháu nó sốt cả đêm" },
   ]);
   assert.equal(ba.vaiTro.size, 0);
@@ -103,8 +102,8 @@ test("hơn hai giọng hoặc chỉ có lượt chưa rõ thì không gán", () 
 
 test("bệnh nhân nhắc lại tên bệnh không đủ để bị coi là bác sĩ", () => {
   const ketQua = doanVaiTro(thanhLuot([
-    ["BN", "em bị viêm xoang mấy năm nay rồi bác sĩ ạ dạo này nghẹt mũi lắm"],
-    ["BS", "chẩn đoán viêm mũi xoang mạn đợt cấp chỉ định nội soi mũi xoang kê đơn rửa mũi ngày hai lần tái khám sau hai tuần"],
+    ["BN", "em bị suy tim mấy năm nay rồi bác sĩ ạ dạo này khó thở lắm"],
+    ["BS", "chẩn đoán suy tim mạn đợt cấp chỉ định siêu âm tim kê đơn furosemide ngày một lần tái khám sau hai tuần"],
   ], 2));
   assert.equal(ketQua.vaiTro.get(2), "BS");
 });
@@ -112,15 +111,15 @@ test("bệnh nhân nhắc lại tên bệnh không đủ để bị coi là bác
 test("chấm điểm theo cụm từ nguyên vẹn, không khớp nửa từ", () => {
   assert.equal(chamDiem("mạch máu").dauHieu.includes("mạch"), true);
   assert.equal(chamDiem("mạchh").bacSi, 0);
-  assert.ok(chamDiem("Chẩn đoán: viêm họng cấp.").dauHieu.includes("chẩn đoán"));
+  assert.ok(chamDiem("Chẩn đoán: tăng huyết áp.").dauHieu.includes("chẩn đoán"));
 });
 
 test("đổi nhãn tạm Người nói N thành BS/BN trong đoạn ghi âm", () => {
   const doan = [
-    "Người nói 2: chào bác sĩ em bị đau họng mấy hôm nay nuốt đau lắm có tự mua thuốc uống mà không đỡ",
-    "Người nói 1: đau từ khi nào có sốt không há miệng to để tôi khám họng thành sau họng đỏ",
+    "Người nói 2: chào bác sĩ em bị đau ngực mấy hôm nay đau lắm có tự mua thuốc uống mà không đỡ",
+    "Người nói 1: đau từ khi nào có khó thở không ngồi yên để tôi khám tim phổi tiếng tim đều",
     "câu chưa rõ người nói",
-    "Người nói 1: chẩn đoán viêm họng cấp kê đơn paracetamol uống ngày ba lần sau ăn hẹn tái khám",
+    "Người nói 1: chẩn đoán tăng huyết áp kê đơn amlodipine uống ngày một lần sau ăn hẹn tái khám",
     "Người nói 2: dạ em cảm ơn bác sĩ",
   ].join("\n");
   const { text, ketQua } = ganVaiTroChoDoan(doan);
@@ -155,7 +154,7 @@ test("ghép từ theo lượt: đổi người nói thì xuống dòng có nhãn
 
 test("máy gộp hai người thành một giọng thì không gán cả đoạn cho một vai", () => {
   // Chữ thật từ máy chủ với hội thoại tổng hợp cùng một giọng máy đọc: phân tách trả về một người nói.
-  const gop = "chào bác sĩ em bị đau họng mấy hôm nay nốt đau lắm đau từ khi nào rồi có xuất không dạ từ hôm thứ hai em hơi sốt về đêm em có tự mua thuốc ở hiệu thuốc uống mà không đỡ có dị ứng thuốc gì không dạ không ạ há miệng to nói a để tôi khám họng thành sau hàm đỏ mịn sung huyết không có mủ chẩn đoán viêm họng cấp tôi kê đơn vạ sẽ tạo một năm trăm miligam uống ngày ba lần sau ăn trong năm ngày xúc họng nước muối hẹn khám nếu sốt cao em có phải kiêng gì không bác sĩ uống đủ nước tránh đổ lạnh nhé dạ em cảm ơn bác sĩ";
+  const gop = "chào bác sĩ em bị đau ngực mấy hôm nay đau lắm đau từ khi nào rồi có khó thở không dạ từ hôm thứ hai em hơi hồi hộp về đêm em có tự mua thuốc ở hiệu thuốc uống mà không đỡ có dị ứng thuốc gì không dạ không ạ ngồi yên để tôi khám tiếng tim đều phổi trong không ran chẩn đoán tăng huyết áp tôi kê đơn amlodipine năm miligam uống ngày một lần sau ăn hẹn khám nếu đau ngực em có phải kiêng gì không bác sĩ uống đủ nước nhớ uống thuốc đều nhé dạ em cảm ơn bác sĩ";
   const ketQua = doanVaiTro([{ speaker: 1, text: gop }]);
   assert.equal(ketQua.vaiTro.size, 0);
   assert.match(ketQua.lyDo, /chưa tách được hai người/);
@@ -175,9 +174,9 @@ test("giọng bác sĩ đã đăng ký: ưu tiên giọng khi nội dung chưa �
 
 test("giọng khớp nhưng nội dung chắc chắn là bệnh nhân thì không gán; giọng không có trong đoạn thì dùng nội dung", () => {
   const doan = [
-    "Người nói 1: chào bác sĩ em bị đau họng mấy hôm nay nuốt đau lắm có tự mua thuốc uống mà không đỡ",
-    "Người nói 2: đau từ khi nào có sốt không há miệng to để tôi khám họng thành sau họng đỏ",
-    "Người nói 2: chẩn đoán viêm họng cấp kê đơn paracetamol uống ngày ba lần sau ăn hẹn tái khám",
+    "Người nói 1: chào bác sĩ em bị đau ngực mấy hôm nay đau lắm có tự mua thuốc uống mà không đỡ",
+    "Người nói 2: đau từ khi nào có khó thở không ngồi yên để tôi khám tim phổi tiếng tim đều",
+    "Người nói 2: chẩn đoán tăng huyết áp kê đơn amlodipine uống ngày một lần sau ăn hẹn tái khám",
     "Người nói 1: dạ em cảm ơn bác sĩ",
   ].join("\n");
   const mauThuan = ganVaiTroChoDoan(doan, 1);

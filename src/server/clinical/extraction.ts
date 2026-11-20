@@ -13,7 +13,7 @@ import { ClinicalError } from "./repository";
 import { privacyTickets } from "./privacy";
 import { assertDataUseAllowed, classifyData, DATA_POLICY_VERSION, type DeidentificationProof } from "@/shared/clinical/data-policy";
 
-export const CLINICAL_PROMPT_VERSION = "clinical-extractive-1";
+export const CLINICAL_PROMPT_VERSION = "clinical-tim-mach-1";
 const schema = resolveClinicalSchema(aiSchema);
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const directoryDefault = () => path.join(/*turbopackIgnore: true*/ process.cwd(), "data", "clinical");
@@ -52,6 +52,7 @@ function isPrescription(text: string): boolean {
 }
 
 const doctorPath = (field: string) => /^\/(?:chi_dinh(?:\/|$)|phieu_kham\/(?:kham_toan_than|kham_chuyen_khoa|kham_khac|chan_doan|ghi_chu_ket_qua|da_xu_ly|huong_dieu_tri|loi_dan|hen_tai_kham|tinh_trang_ra_vien)(?:\/|$))/u.test(field);
+const VITALS_FLAG_PATH = /^\/sinh_hieu\/(?:ha_tam_thu|ha_tam_truong)$/u;
 const clinicalPath = (field: string) => /^\/(?:phieu_kham|chi_dinh|tom_tat)(?:\/|$)/u.test(field);
 function pointer(root: unknown, field: string): unknown {
   if (!/^\/(?:[^~]|~[01])*$/u.test(field)) fail();
@@ -65,6 +66,16 @@ function pointer(root: unknown, field: string): unknown {
 }
 function covers(evidence: Evidence, field: string) {
   return field === evidence.field_path || field.startsWith(`${evidence.field_path}/`);
+}
+
+/** Mỗi dòng của trường nhiều dòng phải nằm trong một trích dẫn; tên nhóm "Khám bụng:" của khám chuyên khoa do mock đặt, được miễn. */
+function extractive(field: string, item: string, evidence: Evidence[]) {
+  const quotes = evidence.map(source => normalize(source.trich_doan));
+  if (quotes.some(quote => quote.includes(normalize(item)))) return true;
+  const lines = item.split("\n").map(line => line.replace(/^\s*-\s*/u, "").trim()).filter(Boolean);
+  if (lines.length < 2) return false;
+  return lines.every((line, i) => (i === 0 && field === "/phieu_kham/kham_chuyen_khoa" && /^khám [^:]+:$/iu.test(line))
+    || quotes.some(quote => quote.includes(normalize(line.replace(/[.!?;]+$/u, "")))));
 }
 
 /** Schema validates shape; this layer verifies actual transcript sources and authority. */
@@ -85,8 +96,11 @@ export function validateClinicalExtraction(value: unknown, transcript: Transcrip
     if (!historicalSource && (isPrescription(evidence.trich_doan) || selected.some(segment => segment!.text.split(/[.!?;\n]/u).some(clause => normalize(clause).includes(normalize(evidence.trich_doan).replace(/[.!?;]+$/u, "")) && isPrescription(clause))))) fail();
   }
   for (const issue of output.can_xem_lai) {
-    if (!clinicalPath(issue.field_path)) fail();
-    pointer(output, issue.field_path);
+    // Cờ lệch sinh hiệu trỏ vào sinh hiệu của lượt khám (không nằm trong AiOutput): không có trường để kiểm tra con trỏ.
+    if (!VITALS_FLAG_PATH.test(issue.field_path)) {
+      if (!clinicalPath(issue.field_path)) fail();
+      pointer(output, issue.field_path);
+    }
     if (issue.segment_ids.some(id => !segments.has(id)) || isPrescription(issue.mo_ta)) fail();
   }
   const walk = (item: unknown, field: string, node: Record<string, unknown>) => {
@@ -121,7 +135,7 @@ export function validateClinicalExtraction(value: unknown, transcript: Transcrip
       if (isPrescription(item) && !historicalMedication) fail();
       if (!node.enum) preserveDetails(item, quotes);
       // Narrative values remain extractive. Enumerations represent normalized schema states.
-      if (field !== "/tom_tat" && !node.enum && !evidence.some(source => normalize(source.trich_doan).includes(normalize(item)))) fail();
+      if (field !== "/tom_tat" && !node.enum && !extractive(field, item, evidence)) fail();
     }
   };
   for (const key of ["tom_tat", "phieu_kham", "chi_dinh"] as const) walk(output[key], `/${key}`, (schema.properties?.[key] ?? {}) as Record<string, unknown>);
@@ -129,12 +143,24 @@ export function validateClinicalExtraction(value: unknown, transcript: Transcrip
 }
 
 function emptyOutput(): AiOutput {
-  return { schema_version: "1.1.0", tom_tat: null, phieu_kham: emptyDefinition("phieuKham"), chi_dinh: emptyDefinition("serviceGroupMention"), bang_chung: [], can_xem_lai: [] };
+  return { schema_version: "2.0.0", tom_tat: null, phieu_kham: emptyDefinition("phieuKham"), chi_dinh: emptyDefinition("serviceGroupMention"), bang_chung: [], can_xem_lai: [] };
 }
 
+/** Ngữ cảnh lượt khám cho bộ trích mock: sinh hiệu đã có sẵn (fixture), AI chỉ đối chiếu, không ghi đè. */
+export interface MockContext {
+  sinh_hieu?: { ha_tam_thu?: number | null; ha_tam_truong?: number | null };
+}
+
+const TIM_PHOI = /(?:\btim\b|\bT1\b|\bT2\b|âm thổi|phổi|\bran\b|tĩnh mạch cổ|mỏm tim|mạch quay|lồng ngực|rung miu)/iu;
+const KHONG_PHAI_KHAM_TIM = /(?:điện tim|điện tâm đồ|siêu âm|holter|chỉ định|chẩn đoán|kết quả|tái khám|theo dõi|lời dặn|dặn|hướng điều trị|nhịp tim theo)/iu;
+const NHOM_KHAM: [RegExp, string][] = [[/^(?:bụng|gan\b|lách)/iu, "Khám bụng"], [/^(?:thần kinh|phản xạ|liệt)/iu, "Khám thần kinh"]];
+const HUYET_AP = /huyết áp\s+(?:tâm thu\s+)?(\d{2,3})\s*(?:trên|\/)\s*(\d{2,3})/iu;
+
 /** Conservative offline demo: copy explicit clauses, never infer a diagnosis from symptoms. */
-export function mockClinicalExtraction(transcript: Transcript): AiOutput {
+export function mockClinicalExtraction(transcript: Transcript, context?: MockContext): AiOutput {
   const output = emptyOutput();
+  const nhomKham = new Map<string, string[]>();
+  const addLine = (current: string | null, text: string) => (current === null ? text : `${current}\n${text}`);
   const summary: string[] = [];
   const summarize = (text: string, segment: Transcript["segments"][number]) => {
     if (!summary.includes(text)) { summary.push(text); add("/tom_tat", text, segment); }
@@ -147,10 +173,19 @@ export function mockClinicalExtraction(transcript: Transcript): AiOutput {
     const clauses = segment.text.split(/(?<=[.!?;])\s+/u);
     for (const text of clauses) {
       if (!text.trim() || isPrescription(text)) continue;
+      const bp = HUYET_AP.exec(text);
+      if (bp && context?.sinh_hieu) {
+        for (const [key, said, label] of [["ha_tam_thu", Number(bp[1]), "tâm thu"], ["ha_tam_truong", Number(bp[2]), "tâm trương"]] as const) {
+          const known = context.sinh_hieu[key];
+          if (known !== null && known !== undefined && known !== said) {
+            output.can_xem_lai.push({ field_path: `/sinh_hieu/${key}`, loai: "mau_thuan", mo_ta: `Hội thoại nói huyết áp ${label} ${said}, khác sinh hiệu đã ghi ${known}. Giữ theo sinh hiệu đã ghi, bác sĩ kiểm tra lại.`, segment_ids: [segment.id] });
+          }
+        }
+      }
       if (segment.vai_tro !== "bac_si") {
         if (/(?:chẩn đoán|chỉ định|tái khám|khám thấy)/iu.test(text)) {
           output.can_xem_lai.push({ field_path: "/phieu_kham/chan_doan", loai: "khong_ro_nguoi_noi", mo_ta: "Cần bác sĩ xác nhận vai trò và quyết định lâm sàng.", segment_ids: [segment.id] });
-        } else if (/(?:đau|sốt|ho\b|nghẹt|ù tai|chóng mặt|chảy mũi|khó thở)/iu.test(text)) {
+        } else if (/(?:đau ngực|đau đầu|tức ngực|nặng ngực|khó thở|hồi hộp|đánh trống ngực|chóng mặt|choáng|ngất|phù\b|hụt hơi|mệt|ho\b)/iu.test(text)) {
           set("benh_su", text, segment); set("ly_do_kham", text, segment);
           summarize(text, segment);
         }
@@ -175,8 +210,15 @@ export function mockClinicalExtraction(transcript: Transcript): AiOutput {
         output.phieu_kham.chan_doan.push({ giai_doan: diagnosis[1]?.toLocaleLowerCase("vi") === "ban đầu" ? "ban_dau" : diagnosis[1]?.toLocaleLowerCase("vi") === "ra viện" ? "ra_vien" : "chua_ro", mo_ta: diagnosis[2], muc_do_khang_dinh: null, vai_tro: "chua_ro" });
         add(`/phieu_kham/chan_doan/${output.phieu_kham.chan_doan.length - 1}`, text, segment);
         summarize(text, segment);
-      } else if (/^(?:khám|nội soi)(?:\s|:)/iu.test(text)) {
-        if (output.phieu_kham.kham_chuyen_khoa.mo_ta === null) { output.phieu_kham.kham_chuyen_khoa.mo_ta = text; add("/phieu_kham/kham_chuyen_khoa/mo_ta", text, segment); }
+      } else if (TIM_PHOI.test(text) && !KHONG_PHAI_KHAM_TIM.test(text)) {
+        output.phieu_kham.kham_tim_mach_ho_hap = addLine(output.phieu_kham.kham_tim_mach_ho_hap, text.trim());
+        add("/phieu_kham/kham_tim_mach_ho_hap", text.trim(), segment);
+        summarize(text, segment);
+      } else if (NHOM_KHAM.some(([pattern]) => pattern.test(text.trim())) || /^(?:khám|nội soi)(?:\s|:)/iu.test(text)) {
+        const clean = text.trim().replace(/[.!?;]+$/u, "");
+        const nhom = NHOM_KHAM.find(([pattern]) => pattern.test(clean))?.[1] ?? "Khám chuyên khoa";
+        nhomKham.set(nhom, [...(nhomKham.get(nhom) ?? []), clean]);
+        add("/phieu_kham/kham_chuyen_khoa", clean, segment);
         summarize(text, segment);
       } else if (/tái khám/iu.test(text)) {
         if (output.phieu_kham.hen_tai_kham.co_hen === null) {
@@ -189,6 +231,9 @@ export function mockClinicalExtraction(transcript: Transcript): AiOutput {
         summarize(text, segment);
       }
     }
+  }
+  if (nhomKham.size) {
+    output.phieu_kham.kham_chuyen_khoa = [...nhomKham].map(([nhom, dong]) => `${nhom}:\n${dong.map(d => `- ${d}`).join("\n")}`).join("\n");
   }
   output.tom_tat = summary.length ? summary.join(" ") : null;
   return output;
@@ -206,6 +251,8 @@ export interface ClinicalExtractionOptions {
   directory?: string;
   /** Chỉ phía máy chủ, phải do chốt chặn R11 (pii-auto-2) cấp; không bao giờ nhận từ body request. Đồng ý của bệnh nhân lấy từ proof. */
   deidentification?: DeidentificationProof;
+  /** Ngữ cảnh lượt khám (sinh hiệu đã có) để mock đối chiếu và cờ mau_thuan; chỉ phía máy chủ. */
+  context?: MockContext;
   /** Bỏ đọc cache bộ nhớ và run-index; vẫn ghi file lượt chạy. */
   noCache?: boolean;
 }
@@ -265,7 +312,7 @@ export async function extractClinical(ticket: string, options: ClinicalExtractio
   }
   const model = "clinical-rules-2";
   if (!model) throw new ClinicalError("Chưa cấu hình model cho nhà cung cấp AI.", 503);
-  const inputDigest = createHash("sha256").update(JSON.stringify({ transcript, provider, model, prompt: CLINICAL_PROMPT_VERSION, policy: DATA_POLICY_VERSION, system: SYSTEM, schema, ...(options.deidentification ? { level } : {}) })).digest("hex");
+  const inputDigest = createHash("sha256").update(JSON.stringify({ transcript, provider, model, prompt: CLINICAL_PROMPT_VERSION, policy: DATA_POLICY_VERSION, system: SYSTEM, schema, ...(options.context ? { context: options.context } : {}), ...(options.deidentification ? { level } : {}) })).digest("hex");
   const directory = options.directory ?? directoryDefault();
   const noCache = options.noCache === true;
   const key = noCache ? `${directory}:${inputDigest}:${randomUUID()}` : `${directory}:${inputDigest}`;
@@ -278,7 +325,7 @@ export async function extractClinical(ticket: string, options: ClinicalExtractio
   const operation = (async () => {
     const started = Date.now();
     let draft: AiOutput;
-    try { draft = validateClinicalExtraction(mockClinicalExtraction(transcript), transcript); }
+    try { draft = validateClinicalExtraction(mockClinicalExtraction(transcript, options.context), transcript); }
     catch { fail(); }
     const result: ClinicalExtraction = { run_id: randomUUID(), draft: draft!, transcript, provider, model, prompt_version: CLINICAL_PROMPT_VERSION, created_at: new Date().toISOString(), input_digest: inputDigest, duration_ms: Date.now() - started,
       ...(transcript.binding ? { binding: structuredClone(transcript.binding) } : {}) };

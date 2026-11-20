@@ -1,0 +1,31 @@
+{
+  "_nguon": "handoff/claude/02-bang-anh-xa.md; dựng từ nội dung hội thoại của kịch bản ca-tu-che (SYN-CARDIO-013), không từ đầu ra của mock. Hội thoại không nhắc dị ứng, khám toàn thân, hướng điều trị, lời dặn nên các ô đó để trống.",
+  "kich_ban": "ca-tu-che",
+  "benh_nhan_id": "GIA-000789",
+  "fields": {
+    "ly_do": "khó chịu vùng ngực khi gắng sức",
+    "benh_su": "nặng ngực khi đi nhanh giảm khi nghỉ không ngất",
+    "tien_su_ban_than": "rối loạn lipid máu",
+    "tien_su_gia_dinh": "gia đình có người bệnh mạch vành",
+    "di_ung": "",
+    "thuoc_dang_dung": "NB có",
+    "kham_toan_than": "",
+    "kham_tim_mach_ho_hap": "tiếng T1 T2 rõ không rung miu phổi trong không ran",
+    "kham_chuyen_khoa": "",
+    "ghi_chu_kq": "",
+    "mo_ta_ban_dau": "đau ngực cần đánh giá nguyên nhân tim mạch",
+    "icd_ban_dau": "",
+    "icd_kem_theo": "",
+    "mo_ta_ra_vien": "",
+    "icd_ra_vien": "",
+    "huong_dieu_tri": "",
+    "loi_dan": "",
+    "da_xu_ly": "",
+    "tinh_trang_ra_vien": "",
+    "hen_tai_kham": "Có"
+  },
+  "tai_kham_sau_ngay": 7,
+  "thuocDangDung": [{ "ten": "atorvastatin", "ham_luong": "20 mg", "cach_dung": "buổi tối" }],
+  "chiDinh": [],
+  "sinh_hieu": { "mach": 80, "ha_tam_thu": 132, "ha_tam_truong": 82, "spo2": 98 }
+}

@@ -51,8 +51,10 @@ test("ca chuẩn phiên 1: đủ 5 bước, lưu một phiên, nhật ký một 
   assert.match(luu.du_lieu.sha256, /^[a-f0-9]{64}$/);
   assert.equal(luu.du_lieu.phieu.sources.ly_do?.nguon, "ai");
   assert.equal(luu.du_lieu.phieu.sources.ly_do?.phien, 1);
+  // Lý do khám là lời đáp câu hỏi "hôm nay chị khám vì sao"; "đau đầu nhẹ" là bệnh sử.
   const lyDo = luu.du_lieu.phieu.snapshot.fields.ly_do.value;
-  assert.match(lyDo, /đau đầu nhẹ/);
+  assert.equal(lyDo, "tái khám tăng huyết áp");
+  assert.match(luu.du_lieu.phieu.snapshot.fields.benh_su.value, /đau đầu nhẹ/);
   assert.equal(lyDo.includes("["), false, lyDo);
   const record = store.repo.read(p.encounter_id);
   assert.equal(record.recording_sessions.length, 1);

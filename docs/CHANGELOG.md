@@ -4,6 +4,14 @@ Mỗi thay đổi, dù nhỏ, đều có một mục ở đây. Mục mới nh�
 
 ## 2026-11-20
 
+### Sửa: bộ trích mock đọc hội thoại không nhãn của kịch bản demo
+- **Loại:** Sửa lỗi, Kiểm thử, Tài liệu
+- **Thay đổi:** kịch bản demo là chữ kiểu STT thật (viết thường, không dấu hai chấm) nên mock cũ chỉ bắt được phần có nhãn: ca chuẩn ra `ly_do` là câu bệnh sử, còn tiền tố "khám tim phổi", "lời dặn", thiếu dị ứng, thuốc đang dùng, tiền sử, kết quả cận lâm sàng, hướng điều trị, mã ICD. `extraction.ts`: đoạn không có nhãn được tách ở từng cụm mở đầu mục (lý do khám/khám vì, tiền sử, gia đình có, dị ứng, tôi/đang uống|dùng, toàn thân, khám tim phổi, kết quả, chẩn đoán, hướng điều trị, lời dặn, hẹn tái khám), bỏ cụm khỏi giá trị; câu hỏi (gì, sao, nào, ạ, không/chưa ở cuối) không thành mục; lời đáp của người bệnh sau câu bác sĩ hỏi lý do khám là `ly_do`, câu kể sau đó là `benh_su`; "đã được theo dõi/chẩn đoán", "từng bị" là tiền sử bản thân; cụm "tôi tên [che] bị ..." bỏ phần đã che. Tách thuốc nhận "amlodipine 5 mg mỗi ngày một lần" không dấu phẩy. Validator: `laTienSuThuoc` nhận thêm "tôi uống/dùng" của người bệnh; `khaiBenhKhongPhaiDon` cho lời khai (dị ứng, tiền sử, bệnh sử, lý do) không bị coi là đơn thuốc chỉ vì nằm cạnh câu có liều thuốc; guard kê đơn (`DAU_HIEU_KE_DON`, `isPrescription`), `laTienSuThuoc` cho bác sĩ, kiểm ngày hẹn, "không chỉ định" giữ nguyên. `apply-ai.ts`: `context.icd` tùy chọn, chẩn đoán AI được gán mã qua `matchCatalog` chỉ khi khớp chắc một mã (ca chuẩn ra I10, "đau ngực cần đánh giá..." để trống); `flow.ts` truyền danh mục ICD. Thêm `data/demo-luong/kich-ban/expected/{ca-chuan,ca-tu-che,ca-chua-dong-y}.expected.json` (dựng từ nội dung hội thoại, theo `02-bang-anh-xa.md`) và `src/server/demo-luong/kich-ban-phieu.test.ts` chạy từng kịch bản qua `runDemoFlow` với kho tạm. `flow.test.ts`: `ly_do` của ca chuẩn nay là "tái khám tăng huyết áp" (bản cũ khẳng định câu bệnh sử, là lỗi).
+- **Lý do:** demo `/demo-luong` phải điền phiếu đúng với kịch bản trông như STT thật (việc thêm sau review cuối, anh đồng ý 20/11).
+- **File:** `src/server/clinical/extraction.ts`, `src/shared/clinical/apply-ai.ts`, `src/server/demo-luong/{flow,flow.test,kich-ban-phieu.test}.ts`, `data/demo-luong/kich-ban/expected/*.json`, `docs/CLINICAL-WORKFLOW.md`, `docs/CHANGELOG.md`
+- **Kiểm tra:** test viết trước, RED (ca chuẩn lệch 11 ô, ca tự che 9 ô, ca chưa đồng ý 5 ô), sau sửa `npm test` 482/482 pass (3 test nghiệm thu Task 9 giữ nguyên), lint 0 lỗi, tsc sạch phần `src/`. `eval --rule-only`: giọng nói 86,1% và gõ tắt 85,1% (trước 86,1% và 85,1%, không đổi); `eval-mau` 76,0% (trước 76,0%); `eval-pii` che nhầm 0/84.
+- **Ảnh hưởng:** ca chưa đồng ý vẫn chạy mock cục bộ (`ai_route = local_only`, không gọi AI ngoài) như trước, nên có nháp từ mock; test chỉ khẳng định route, nhà cung cấp và vài ô chắc chắn.
+
 ### Sửa review cuối CardioNote (I1, I2, m1 đến m8)
 - **Loại:** Sửa lỗi, Kiểm thử, Tài liệu, Dọn dẹp
 - **Thay đổi:**

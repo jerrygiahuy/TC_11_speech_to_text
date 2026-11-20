@@ -158,7 +158,7 @@ export async function* runDemoFlow(store: DemoStore, input: DemoFlowInput, now: 
         reviewed_transcripts: [{ content_revision: 1, digest: cleanDigest, transcript_id: transcript.transcript_id, transcript_revision: transcript.revision, artifact_id: `${run.run_id}.json`, reviewed_at: savedAt, reviewed_by: PII_POLICY_VERSION }],
         requests: [], discarded_at: null, discarded_by: null,
       };
-      const drafted = applyAiDraft(current, run, { newId: randomUUID, now: savedAt, services: demoCatalog().services });
+      const drafted = applyAiDraft(current, run, { newId: randomUUID, now: savedAt, services: demoCatalog().services, icd: demoCatalog().icd });
       drafted.recording_sessions.push(session);
       const beforeSnap = projectEform(current), afterSnap = projectEform(drafted);
       merged = mergeSession(before, beforeSnap, afterSnap, sequence);

@@ -61,7 +61,7 @@ const DAU_HIEU_KE_DON = /(?:\bkê\s+|cho (?:uống|dùng)|đổi thuốc|tăng l
  * Bác sĩ đọc lại (lời đọc bổ sung): chỉ nhận mục có nhãn "Thuốc đang dùng:" hoặc cụm "đang dùng/đang uống", và không có dấu hiệu kê đơn.
  */
 function laTienSuThuoc(quote: string, vaiTro: string): boolean {
-  if (vaiTro !== "bac_si") return /(?:đang|đã|trước|tiền sử|từng|tôi\s+(?:vẫn\s+)?(?:uống|dùng))/iu.test(quote);
+  if (vaiTro !== "bac_si") return /(?:đang|đã|trước|tiền sử|từng|tôi\s+(?:vẫn\s+)?(?:uống|dùng))/iu.test(quote) && !DAU_HIEU_KE_DON.test(quote);
   return (/^\s*thuốc đang dùng\s*:/iu.test(quote) || /đang\s+(?:dùng|uống)/iu.test(quote)) && !DAU_HIEU_KE_DON.test(quote);
 }
 /**
@@ -227,15 +227,30 @@ const MUC_TRAN: [RegExp, NhomMuc, boolean][] = [
   [/^toàn thân\s+/iu, "toan_than", true], [/^khám tim phổi\s+/iu, "tim_phoi", true], [/^kết quả\s+/iu, "ket_qua", true],
   [/^hướng điều trị\s+/iu, "huong_dieu_tri", true], [/^lời dặn\s+/iu, "loi_dan", true],
 ];
-/** Tách lời nói không nhãn thành các câu: ngắt ở dấu câu và ở mỗi cụm mở đầu mục. */
-function tachCauTran(text: string): string[] {
-  const diem = new Set<number>();
-  for (const m of text.matchAll(DAU_MUC_TRAN)) diem.add(m.index!);
-  for (const m of text.matchAll(/(?<=[.!?;])\s+/gu)) diem.add(m.index! + m[0].length);
-  const cat = [0, ...[...diem].filter(i => i > 0).sort((a, b) => a - b), text.length];
-  return cat.slice(0, -1).map((a, i) => text.slice(a, cat[i + 1]).trim().replace(/[\s,]+$/u, "")).filter(Boolean);
+/** Cụm mở đầu mục chỉ bác sĩ nói; lời người bệnh không bao giờ bị cắt ở đây. */
+const DAU_MUC_BAC_SI = /^(?:toàn thân|khám tim phổi|kết quả|hướng điều trị|lời dặn|hẹn tái khám|chẩn đoán|sinh hiệu)/iu;
+/** Từ nối cuối mệnh đề: chỗ cắt sau chúng sẽ để lại mẩu cụt ("..., bác sĩ ở viện khác có"). */
+const TU_NOI_CUOI = /(?<![\p{L}\d])(?:có|nên|và|là|vì|mà|thì|nhưng|hoặc|rồi|để|do|bởi|với|của|khi|nếu|tại|theo|như)$/iu;
+/**
+ * Tách lời nói không nhãn thành các câu: ngắt ở dấu câu và ở cụm mở đầu mục. Lời bác sĩ cắt ở mọi cụm; lời người bệnh chỉ cắt ở cụm
+ * của người bệnh (dị ứng, tiền sử, gia đình có, tôi uống/dùng, khám vì), không cắt ở "chẩn đoán", "kết quả"... Không cắt nếu phần đứng trước
+ * kết thúc bằng từ nối (để không lẫn mẩu cụt).
+ */
+function tachCauTran(text: string, laBacSi: boolean): string[] {
+  const dau = [...text.matchAll(DAU_MUC_TRAN)].filter(m => laBacSi || !DAU_MUC_BAC_SI.test(m[0])).map(m => m.index!);
+  const cau = [...text.matchAll(/(?<=[.!?;])\s+/gu)].map(m => m.index! + m[0].length);
+  const diem = new Set<number>(cau);
+  const moc = [0, ...[...new Set([...dau, ...cau])].filter(i => i > 0).sort((x, y) => x - y)];
+  let truoc = 0;
+  for (const i of moc.slice(1)) {
+    if (!diem.has(i) && TU_NOI_CUOI.test(text.slice(truoc, i).trim().replace(/[\s,]+$/u, ""))) continue;
+    diem.add(i); truoc = i;
+  }
+  const cat = [0, ...[...diem].filter(i => i > 0).sort((x, y) => x - y), text.length];
+  return cat.slice(0, -1).map((x, i) => text.slice(x, cat[i + 1]).trim().replace(/[\s,]+$/u, "")).filter(Boolean);
 }
 const LA_CAU_HOI = /(?:(?<![\p{L}\d])(?:gì|sao|nào|bao nhiêu)(?![\p{L}\d])|(?<![\p{L}\d])(?:không|chưa)\s*ạ?\s*$|(?<![\p{L}\d])ạ\s*$)/iu;
+const TRIEU_CHUNG = /(?:đau ngực|đau đầu|tức ngực|nặng ngực|khó thở|hồi hộp|đánh trống ngực|chóng mặt|choáng|ngất|khó chịu|(?<!\p{L})phù(?!\p{L})|hụt hơi|mệt|(?<!\p{L})ho(?!\p{L}))/iu;
 const HOI_LY_DO = /(?:khám vì|lý do|đến khám|khám gì|bị gì|không khỏe|có gì)/iu;
 const TIEN_SU_DA_CO = /(?:đã được\s+(?:theo dõi|chẩn đoán|điều trị|mổ|phẫu thuật)|từng\s+(?:bị|được|mổ))/iu;
 /**
@@ -346,7 +361,7 @@ export function mockClinicalExtraction(transcript: Transcript, context?: MockCon
     });
     let con = 0;
     // Không có nhãn nào trong đoạn: lời nói kiểu STT thật, tách thêm ở từng cụm mở đầu mục.
-    const clauses = khongNhan ? tachCauTran(segment.text) : segment.text.split(/(?<=[.!?;])\s+/u);
+    const clauses = khongNhan ? tachCauTran(segment.text, segment.vai_tro === "bac_si") : segment.text.split(/(?<=[.!?;])\s+/u);
     for (const text of clauses) {
       const vi = segment.text.indexOf(text, con); con = vi >= 0 ? vi + text.length : con;
       if (vi >= 0 && daLay.some(([a, b]) => vi >= a && vi < b)) continue;
@@ -380,9 +395,9 @@ export function mockClinicalExtraction(transcript: Transcript, context?: MockCon
         }
         if (TIEN_SU_DA_CO.test(text) && !LA_CAU_HOI.test(text)) {
           ghiMuc("tien_su_ban_than", text, text.trim());
-        } else if (/(?:chẩn đoán|chỉ định|tái khám|khám thấy)/iu.test(text)) {
+        } else if (/^(?:chẩn đoán|chỉ định|tái khám|khám thấy)/iu.test(text) || (!TRIEU_CHUNG.test(text) && /(?:chẩn đoán|chỉ định|tái khám|khám thấy)/iu.test(text))) {
           output.can_xem_lai.push({ field_path: "/phieu_kham/chan_doan", loai: "khong_ro_nguoi_noi", mo_ta: "Cần bác sĩ xác nhận vai trò và quyết định lâm sàng.", segment_ids: [segment.id] });
-        } else if (/(?:đau ngực|đau đầu|tức ngực|nặng ngực|khó thở|hồi hộp|đánh trống ngực|chóng mặt|choáng|ngất|khó chịu|(?<!\p{L})phù(?!\p{L})|hụt hơi|mệt|(?<!\p{L})ho(?!\p{L}))/iu.test(text)) {
+        } else if (TRIEU_CHUNG.test(text)) {
           const kq = lamSachLoiKe(text);
           if (kq) {
             // Câu đầu vừa là lý do vừa là bệnh sử; câu kể sau thay cho bản sao đó, không chồng lên bệnh sử đã có.

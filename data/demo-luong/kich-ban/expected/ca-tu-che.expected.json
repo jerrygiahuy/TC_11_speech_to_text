@@ -1,6 +1,7 @@
 {
   "_nguon": "handoff/claude/02-bang-anh-xa.md; dựng từ nội dung hội thoại của kịch bản ca-tu-che (SYN-CARDIO-013), không từ đầu ra của mock. Hội thoại không nhắc dị ứng, khám toàn thân, hướng điều trị, lời dặn nên các ô đó để trống.",
   "kich_ban": "ca-tu-che",
+  "_ghi_chu_icd": "icd_ban_dau để trống là cố ý: \"đau ngực cần đánh giá nguyên nhân tim mạch\" không khớp chắc một mã (02, B4), bác sĩ chọn mã.",
   "benh_nhan_id": "GIA-000789",
   "fields": {
     "ly_do": "khó chịu vùng ngực khi gắng sức",

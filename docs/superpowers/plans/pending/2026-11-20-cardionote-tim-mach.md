@@ -52,7 +52,7 @@ Nguồn sự thật danh sách trường là `config/forms/phieu-kham-ngoai-tru.
 | ✅ 1. Hợp đồng dữ liệu 2.0.0 + test phủ trường Excel | Sonnet, medium | 0 | – |
 | ✅ 2. Bộ chuyển Encounter ↔ eForm và điền nháp AI | Sonnet, medium | 1 | 3, 5, 6, 7 |
 | ✅ 3. Ngữ cảnh lượt khám và bộ sinh fixture từ 60 ca | Sonnet, medium | 1 | 2, 5, 6, 7 |
-| 4. Giao diện eForm và bản in theo Excel | Sonnet, medium | 2, 3 | 6, 7 |
+| ✅ 4. Giao diện eForm và bản in theo Excel | Sonnet, medium | 2, 3 | 6, 7 |
 | ✅ 5. Danh mục và thư viện câu Tim mạch (dữ liệu mock) | Haiku, medium | 1 | 2, 3, 6, 7 |
 | ✅ 6. Từ điển ngôn ngữ trong code + bộ trích mock | Sonnet, medium | 1 | 2, 3, 5, 7 |
 | ✅ 7. Từ vựng STT | Haiku, medium | 0 | 1–6 |
@@ -259,18 +259,18 @@ Session chính chỉ điều phối:
   - `MauCauPanel` có `Chọn tất cả`, `Chọn`, `Hủy`; câu được tick chèn vào ô đích thành các dòng `- …` (Excel, dòng `mau_cau_da_chon`).
 - Produces: `BanIn` in riêng hai dòng "Chẩn đoán ban đầu" và "Chẩn đoán ra viện", dòng nào trống thì bỏ (B6). Bản in thêm "Thuốc đang dùng" và "Khám tim mạch, hô hấp" (B7).
 
-- [ ] **Bước 1: Viết test fail** `mau-cau.test.ts`:
+- [x] **Bước 1: Viết test fail** `mau-cau.test.ts`:
   - `thu_vien_tim_mach`: `theoVung.tim_mach_ho_hap.length === 13`, `theoVung.toan_than.length === 7`.
   - `chen_mau_cau`: chèn 2 câu vào ô rỗng → `"- Lồng ngực cân đối hai bên\n- Phổi trong, không ran"`. Chèn vào ô đã có chữ thì nối thêm dòng mới, không ghi đè.
   - `chanDoanIn`: thay bằng test cho hàm thuần mới `dongChanDoanIn(get)`, trả về mảng nhãn và nội dung. Chỉ có ban đầu thì mảng có đúng 1 phần tử.
-- [ ] **Bước 2:** chạy test → FAIL.
-- [ ] **Bước 3:** sửa giao diện theo Interfaces và B6–B10. Thứ tự hiển thị đúng thứ tự `config/forms/phieu-kham-ngoai-tru.json`.
-- [ ] **Bước 4: Kiểm trên trình duyệt.**
+- [x] **Bước 2:** chạy test → FAIL. *(Xong 20/11.)*
+- [x] **Bước 3:** sửa giao diện theo Interfaces và B6–B10. Thứ tự hiển thị đúng thứ tự `config/forms/phieu-kham-ngoai-tru.json`. *(Xong 20/11. Thêm theo điều phối: mục B1 (`config/forms/phieu-kham.json` thêm `kham_tim_mach_ho_hap`, eval rule-only 70,0% → 77,8%), BMI ở `service.ts`, chặn ô AI rỗng ghi đè ô bác sĩ (`ghepAiKhongGhiDe`). Bảng thuốc đã dùng nằm sau cờ `HIEN_THONG_TIN_KHAI_THAC` (đang tắt).)*
+- [x] **Bước 4: Kiểm trên trình duyệt.** *(Xong 20/11: Chrome qua playwright cổng 3100, đủ mục, lưu rồi tải lại giữ đủ giá trị, bản in tách 2 dòng chẩn đoán; header hiện CardioNote.)*
   - Chạy `npx next dev -p 3100`, mở `/` bằng Chrome headless hoặc playwright, chụp ảnh toàn trang và bản in.
   - Kiểm có đủ "Nơi giới thiệu", "Khám tim mạch, hô hấp", "+ Thêm thuốc", hai dòng chẩn đoán.
   - Kiểm không còn chữ "Tai", "Mũi", "Vòm", "Họng", "TMH"; header và tab trình duyệt hiện "CardioNote".
   - Lưu rồi tải lại thì giữ đủ giá trị. Tắt dev server.
-- [ ] **Bước 5:** ghi CHANGELOG, cập nhật `README.md` mục eForm. Commit `feat(eform): giao diện và bản in phiếu khám Tim mạch`.
+- [x] **Bước 5:** ghi CHANGELOG, cập nhật `README.md` mục eForm. Commit `feat(eform): giao diện và bản in phiếu khám Tim mạch`. *(Xong 20/11: commit `a620f4c`.)*
 
 ---
 

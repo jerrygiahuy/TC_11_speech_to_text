@@ -1,12 +1,50 @@
-# CardioNote – Prototype phiếu khám ngoại trú
+# CardioNote – Trợ lý AI giọng nói điền phiếu khám ngoại trú Tim mạch
 
-> **CardioNote** là prototype trợ lý điền Phiếu khám ngoại trú và Chỉ định dịch vụ cho **Trung tâm Tim mạch** (100% Tim mạch, không còn nội dung Tai Mũi Họng; test `src/shared/khong-con-tmh.test.ts` chặn lại). Bác sĩ nói hoặc gõ tắt, máy che thông tin cá nhân, AI (mặc định `mock`) điền nháp, bác sĩ sửa, lưu, duyệt và in. Hồ sơ dùng schema `2.0.0`; hồ sơ schema `1.x` (bản Tai Mũi Họng cũ) bị từ chối.
->
+**CardioNote** là trợ lý AI giọng nói điền **phiếu khám ngoại trú Tim mạch** cho Trung tâm Tim mạch. Nhận dạng giọng nói chạy cục bộ trên máy, âm thanh không gửi ra ngoài.
+
+Bác sĩ **nói** hoặc **gõ tắt** một đoạn tóm tắt; AI tách ra và điền nháp **Phiếu khám và Chỉ định dịch vụ** sau bước kiểm tra riêng tư; bác sĩ duyệt, sửa rồi xác nhận. Kê đơn ngoài phạm vi, do bác sĩ làm riêng.
+
+> **Chỉ dùng dữ liệu giả, không nhập thông tin bệnh nhân thật.**
+> **Danh mục thật (ICD-10, kỹ thuật, thuốc lưu hành) chỉ để tham khảo; danh mục bệnh viện, liều thuốc và bộ mẫu là dữ liệu minh họa. Không dùng cho lâm sàng.**
+
+## Giao diện
+
+Chạy `npm run dev` rồi mở các trang sau (chi tiết cài đặt ở mục "Cài đặt và chạy").
+
+| Đường dẫn | Màn hình | Người dùng làm gì |
+|---|---|---|
+| `/` | eForm Phiếu khám ngoại trú | Chọn lượt khám ở thanh **Lượt khám**, nói hoặc gõ vào cột Trợ lý AI, **Áp dụng** đề xuất vào hai tab **Phiếu khám** và **Chỉ định dịch vụ**, sửa, **Lưu phiếu & chỉ định**, duyệt theo từng phần rồi in. |
+| `/dashboard` | Lịch khám | Xem lịch hẹn trong ngày (dạng **Danh sách** hoặc **Lịch theo giờ**), đổi ngày, mở phiếu của một lịch hẹn. |
+| `/benh-nhan/<PID>` | Hồ sơ bệnh nhân | Xem thông tin hành chính, bảo hiểm và lịch sử các lượt khám; bấm **Tạo mới phiếu khám** để mở phiếu mới. |
+| `/demo-luong` | Demo luồng dữ liệu | Trình diễn từng bước ghi âm, bản thô, bản đã che PII, AI và phiếu đã lưu. |
+| `/giong-bac-si` | Đăng ký giọng bác sĩ | Bấm **Bắt đầu thu**, đọc đoạn mẫu khoảng 30 giây để máy nhận ra giọng bác sĩ (gắn nhãn BS/BN). |
+| `/stt` | Thử nghiệm STT tiếng Việt | Nói vào micro hoặc tải file âm thanh để xem văn bản nhận dạng và thời gian suy luận. |
+| `/ket-qua` | Kết quả thử nghiệm | Xem số đo các lượt thử (ghi khi bấm Lưu trên eForm) và xuất CSV. |
+| `/trinh-dien` | Trình diễn (tạm ẩn) | Hiện trả 404; code còn giữ, bật lại sau. |
+
+**Luồng dùng:** chọn lượt khám (ở thanh **Lượt khám** hoặc từ `/dashboard`) → nói hoặc gõ hội thoại → máy che thông tin cá nhân, AI điền nháp → bấm **Áp dụng** → sửa trên phiếu → **Lưu** → **Duyệt** từng phần → **In**. Thiếu thông tin thì để trống, không nút nào được chọn.
+
+## Cài đặt và chạy
+
+Cần Node.js 20.12 trở lên.
+
+```bash
+npm install
+npm run dev
+```
+
+Mở http://localhost:3000 bằng Chrome: trang đầu là **Mô phỏng eForm ngoại trú** (link cũ `/eform` tự chuyển về đây). Thanh trên cùng có link sang **Kết quả thử nghiệm** (`/ket-qua`). Mặc định chạy chế độ `mock`, không cần internet hay API key.
+
+
+**Chạy trên macOS (không có PowerShell):** `npm run stt:setup` và `stt:start` là PowerShell nên làm tay: `uv venv --python 3.12 .venv-stt`, `uv pip install --python .venv-stt/bin/python -r stt/requirements-lock.txt`, tải model bằng `.venv-stt/bin/python -m stt.download_model` (cùng `download_diarization`, `download_vad`), rồi `PYTHONUTF8=1 HF_HUB_OFFLINE=1 .venv-stt/bin/python -m uvicorn stt.api:app --host 127.0.0.1 --port 8765` và `npm run dev`. Mô hình NER PhoBERT chưa có nếu chưa huấn luyện, khi đó bộ che PII chạy bằng rule.
+
+## Kỹ thuật
+
+> **CardioNote** là sản phẩm trợ lý điền Phiếu khám ngoại trú và Chỉ định dịch vụ cho **Trung tâm Tim mạch** (100% Tim mạch, không còn nội dung Tai Mũi Họng; test `src/shared/khong-con-tmh.test.ts` chặn lại). Bác sĩ nói hoặc gõ tắt, máy che thông tin cá nhân, AI (mặc định `mock`) điền nháp, bác sĩ sửa, lưu, duyệt và in. Hồ sơ dùng schema `2.0.0`; hồ sơ schema `1.x` (bản Tai Mũi Họng cũ) bị từ chối.
+
 > **Dữ liệu TC-11:** bộ 60 ca giả lập nằm tại [data/cardiology](data/cardiology/README.md). Danh mục chính thức của Trung tâm Tim mạch chưa được nạp: ICD-10, dịch vụ, thuốc đều là danh mục mock (xem mục "Cấu hình khác" ở phần Thêm hoặc sửa trường form).
 
 **Luồng CardioNote:** chọn lượt khám (hoặc từ `/dashboard`) → gõ hội thoại hoặc ghi âm → bộ che PII → AI mock điền nháp → bác sĩ **Áp dụng**, sửa → **Lưu** → **Duyệt** → **In**. Thiếu thông tin thì để trống, không nút nào được chọn.
-
-**Chạy trên macOS (không có PowerShell):** `npm run stt:setup` và `stt:start` là PowerShell nên làm tay: `uv venv --python 3.12 .venv-stt`, `uv pip install --python .venv-stt/bin/python -r stt/requirements-lock.txt`, tải model bằng `.venv-stt/bin/python -m stt.download_model` (cùng `download_diarization`, `download_vad`), rồi `PYTHONUTF8=1 HF_HUB_OFFLINE=1 .venv-stt/bin/python -m uvicorn stt.api:app --host 127.0.0.1 --port 8765` và `npm run dev`. Mô hình NER PhoBERT chưa có nếu chưa huấn luyện, khi đó bộ che PII chạy bằng rule.
 
 **Luồng hiện tại (17/11/2026):** STT → máy chủ che PII tự động (R1–R14, chốt chặn R11) → AI tạo JSON phiếu khám và chỉ định → bác sĩ sửa, lưu, duyệt và in. **Kê đơn ngoài scope**, do bác sĩ làm riêng. Hướng dẫn đầy đủ: [docs/CLINICAL-WORKFLOW.md](docs/CLINICAL-WORKFLOW.md). Sơ đồ draw.io hai luồng chính (nói → phiếu khám, gõ tắt) và bước lọc dữ liệu nhạy cảm R1–R14: [docs/so-do/luong-chinh.drawio](docs/so-do/luong-chinh.drawio). Mở bằng app.diagrams.net hoặc draw.io desktop. eForm và `/demo-luong` cùng gọi một hàm che `chePii` (`src/shared/clinical/pii/pipeline.ts`); `/stt` chỉ nhận dạng giọng nói, không che. Thử nhanh một câu hay một file transcript qua đúng hàm đó: `npm run thu-che-pii -- "câu cần thử"` hoặc `npm run thu-che-pii -- --file temp-1/x.txt`.
 
@@ -87,20 +125,6 @@ File mẫu có sẵn tại `models/stt/zipformer-vi/test_wavs/` sau khi setup. C
 
 Bác sĩ **nói** hoặc **gõ tắt** một đoạn tóm tắt; AI tách ra và điền nháp **Phiếu khám và Chỉ định dịch vụ** sau bước kiểm tra riêng tư; bác sĩ duyệt, sửa rồi xác nhận.
 
-> **Chỉ dùng dữ liệu giả, không nhập thông tin bệnh nhân thật.**
-> **Danh mục thật (ICD-10, kỹ thuật, thuốc lưu hành) chỉ để tham khảo; danh mục bệnh viện, liều thuốc và bộ mẫu là dữ liệu minh họa. Không dùng cho lâm sàng.**
-
-## Cài đặt và chạy
-
-Cần Node.js 20.12 trở lên.
-
-```bash
-npm install
-npm run dev
-```
-
-Mở http://localhost:3000 bằng Chrome: trang đầu là **Mô phỏng eForm ngoại trú** (link cũ `/eform` tự chuyển về đây). Thanh trên cùng có link sang **Kết quả thử nghiệm** (`/ket-qua`). Mặc định chạy chế độ `mock`, không cần internet hay API key.
-
 ## Đổi nhà cung cấp AI
 
 Sao chép `.env.example` thành `.env.local`, rồi sửa:
@@ -126,7 +150,7 @@ Có hai chế độ, chọn bằng `ASR_PROVIDER` trong `.env.local`:
 | `ASR_PROVIDER` | Cách chạy | Ghi chú |
 |---|---|---|
 | `web` (mặc định) | Web Speech API của Chrome (`vi-VN`), hiện chữ ngay khi đang nói | **Gửi âm thanh lên Google, cần internet.** Trình duyệt không hỗ trợ thì nút 🎤 tự ẩn |
-| `zipformer` | Trình duyệt gửi âm thanh mỗi 0,4 giây lên `/api/asr` của chính prototype; model Zipformer tiếng Việt (`csukuangfj/sherpa-onnx-zipformer-vi-int8-2025-04-20`, encoder ~70 MB, ở `models/stt/zipformer-vi/`, dùng chung với trang `/stt`) nhận dạng trên máy. Đang nói thì hiện chữ tạm (in nghiêng dưới nút); ngắt nghỉ ~0,5 giây thì Silero VAD chốt câu và đưa vào ô | **Âm thanh không ra khỏi máy và không được lưu**, không cần internet. Tối đa 10 phút mỗi lần bấm |
+| `zipformer` | Trình duyệt gửi âm thanh mỗi 0,4 giây lên `/api/asr` của chính ứng dụng; model Zipformer tiếng Việt (`csukuangfj/sherpa-onnx-zipformer-vi-int8-2025-04-20`, encoder ~70 MB, ở `models/stt/zipformer-vi/`, dùng chung với trang `/stt`) nhận dạng trên máy. Đang nói thì hiện chữ tạm (in nghiêng dưới nút); ngắt nghỉ ~0,5 giây thì Silero VAD chốt câu và đưa vào ô | **Âm thanh không ra khỏi máy và không được lưu**, không cần internet. Tối đa 10 phút mỗi lần bấm |
 
 Bật `zipformer`:
 

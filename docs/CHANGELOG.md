@@ -4,6 +4,13 @@ Mỗi thay đổi, dù nhỏ, đều có một mục ở đây. Mục mới nh�
 
 ## 2026-11-21
 
+### README mở đầu bằng giao diện, bỏ chữ "prototype"
+- **Loại:** Tài liệu
+- **Thay đổi:** Tiêu đề README thành "CardioNote – Trợ lý AI giọng nói điền phiếu khám ngoại trú Tim mạch", bỏ "prototype" (kể cả ở bảng nhà cung cấp ASR). Mở đầu bằng mục `## Giao diện` (bảng 8 đường dẫn kèm việc người dùng làm, và đoạn "Luồng dùng"), sau đó `## Cài đặt và chạy` (có hướng dẫn macOS), rồi dồn phần kỹ thuật xuống dưới `## Kỹ thuật` và các mục `##` cũ. Chỉ sắp xếp lại, không xóa lệnh, số liệu, đường dẫn.
+- **Lý do:** Chủ dự án muốn gọi đúng sản phẩm chạy được (không phải giao diện mẫu) và để người đọc thấy giao diện trước.
+- **File:** `README.md`, `docs/CHANGELOG.md`
+- **Kiểm tra:** `npm test` 493 pass, 0 fail (gồm `khong-con-tmh.test.ts`, hai câu ngoại lệ giữ nguyên chữ); lint 0 lỗi; mọi đường dẫn trang trong README có thư mục tương ứng ở `src/app`; so dòng trước/sau chỉ mất 4 dòng đã được viết lại có chủ ý (tiêu đề, câu mở đầu).
+
 ### Dọn nốt dấu vết Tai Mũi Họng (đợt 2)
 - **Loại:** Tài liệu, Test
 - **Thay đổi:** Đổi "tai phải" thành "phù chân phải" trong `redact.test.ts`; chú thích `sua-chu.ts` dùng ví dụ có thật trong bảng ("lời dạng" → "lời dặn", "chẩn" không thay khi sau là "đoán"/"trị"); bỏ chữ TMH ở `CLINICAL-WORKFLOW.md` và `tc11-kho-luu-local.md`; xóa ba file khảo sát màn EMR chụp ở PK Tai Mũi Họng (`cau-truc-man-chi-dinh-dich-vu.md`, `cau-truc-man-ke-don-oh.md`, `cau-truc-phieu-kham-ngoai-tru.md`); `docs/task-2/README.md`, `CLAUDE.md`, `README.md` bỏ dẫn tới chúng; regex `khong-con-tmh.test.ts` thêm `[Tt]ai (phải|trái)` và `\b[Vv][Tt][Gg]\b`.

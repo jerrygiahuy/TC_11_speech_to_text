@@ -1,0 +1,11 @@
+{
+  "facilities": [
+    { "id": "CS01", "name": "Phòng khám Tim mạch Mẫu 1 (dữ liệu giả)" },
+    { "id": "CS02", "name": "Phòng khám Tim mạch Mẫu 2 (dữ liệu giả)" }
+  ],
+  "doctors": [
+    { "id": "BS01", "name": "BS. Mẫu Một" },
+    { "id": "BS02", "name": "BS. Mẫu Hai" },
+    { "id": "BS03", "name": "BS. Mẫu Ba" }
+  ]
+}

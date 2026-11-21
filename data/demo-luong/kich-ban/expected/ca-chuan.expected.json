@@ -1,0 +1,33 @@
+{
+  "_nguon": "bảng ánh xạ trường; dựng từ nội dung hội thoại của kịch bản ca-chuan (SYN-CARDIO-001), không từ đầu ra của mock. Trống nghĩa là chưa chọn / ô trống.",
+  "kich_ban": "ca-chuan",
+  "benh_nhan_id": "GIA-000123",
+  "fields": {
+    "ly_do": "tái khám tăng huyết áp",
+    "benh_su": "tôi theo dõi huyết áp tại nhà thỉnh thoảng đau đầu nhẹ không đau ngực không khó thở",
+    "tien_su_ban_than": "tăng huyết áp đã được theo dõi",
+    "tien_su_gia_dinh": "gia đình có người tăng huyết áp",
+    "di_ung": "Có",
+    "di_ung_mo_ta": "penicillin",
+    "thuoc_dang_dung": "NB có",
+    "kham_toan_than": "tỉnh táo tiếp xúc tốt",
+    "kham_tim_mach_ho_hap": "mạch quay đều rõ tiếng T1 T2 đều rõ không âm thổi phổi trong không ran",
+    "kham_chuyen_khoa": "",
+    "kham_khac": "",
+    "ghi_chu_kq": "chức năng thận trong giới hạn được ghi nhận điện tâm đồ nhịp xoang",
+    "mo_ta_ban_dau": "tăng huyết áp vô căn",
+    "icd_ban_dau": "I10",
+    "icd_kem_theo": "",
+    "mo_ta_ra_vien": "",
+    "icd_ra_vien": "",
+    "huong_dieu_tri": "tiếp tục theo dõi huyết áp và dùng thuốc theo đơn hiện tại",
+    "loi_dan": "ghi nhật ký huyết áp",
+    "da_xu_ly": "",
+    "tinh_trang_ra_vien": "",
+    "hen_tai_kham": "Có"
+  },
+  "tai_kham_sau_ngay": 30,
+  "thuocDangDung": [{ "ten": "amlodipine", "ham_luong": "5 mg", "cach_dung": "mỗi ngày một lần" }],
+  "chiDinh": [],
+  "sinh_hieu": { "mach": 72, "ha_tam_thu": 148, "ha_tam_truong": 88, "spo2": 98 }
+}

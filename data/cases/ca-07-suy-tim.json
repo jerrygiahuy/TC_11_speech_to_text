@@ -1,0 +1,25 @@
+{
+  "id": "ca-07-suy-tim",
+  "ten": "Tái khám suy tim (SYN-CARDIO-037, giả lập)",
+  "hanh_chinh": {},
+  "input_noi": "Người bệnh đến khám vì tái khám suy tim. Bệnh sử: Khó thở khi gắng sức mức độ ổn định, không khó thở khi nghỉ. Tiền sử bản thân: Suy tim đang theo dõi. Tiền sử gia đình: Không rõ tiền sử gia đình. Dị ứng: chưa ghi nhận. Thuốc đang dùng: Bisoprolol 2,5 mg, mỗi ngày một lần; Furosemide 40 mg, buổi sáng. Sinh hiệu: mạch 76 lần mỗi phút, huyết áp 118 trên 72 mi li mét thủy ngân, SpO2 96 phần trăm. Toàn thân tỉnh táo, tiếp xúc tốt. Khám tim phổi: Tĩnh mạch cổ không nổi. Tiếng tim rõ. Phổi chưa ghi nhận ran. Phù mắt cá chân nhẹ hai bên. Kết quả chính: Điện giải và chức năng thận cần đối chiếu; Có kết quả siêu âm tim để bác sĩ xem. Chẩn đoán: Suy tim, không đặc hiệu. Hướng điều trị: Tiếp tục điều trị và theo dõi cân nặng theo hướng dẫn của bác sĩ. Lời dặn: Theo dõi khó thở, phù và cân nặng hằng ngày. Hẹn tái khám sau 14 ngày.",
+  "input_go_tat": "ld: tái khám suy tim. bs: Khó thở khi gắng sức mức độ ổn định, không khó thở khi nghỉ. ts: Suy tim đang theo dõi. tiền sử gia đình: Không rõ tiền sử gia đình. khám tim phổi: Tĩnh mạch cổ không nổi. Tiếng tim rõ. Phổi chưa ghi nhận ran. Phù mắt cá chân nhẹ hai bên. chẩn đoán: Suy tim, không đặc hiệu. hướng điều trị: Tiếp tục điều trị và theo dõi cân nặng theo hướng dẫn của bác sĩ. lời dặn: Theo dõi khó thở, phù và cân nặng hằng ngày. hẹn tái khám: 14 ngày.",
+  "mau_id": "suy-tim",
+  "input_mau": "st, tái khám sau 14 ngày",
+  "expected": {
+    "phieu_kham": {
+      "ly_do_kham": "tái khám suy tim",
+      "benh_su": "Khó thở khi gắng sức mức độ ổn định, không khó thở khi nghỉ",
+      "tien_su": "Suy tim đang theo dõi",
+      "tien_su_gia_dinh": "Không rõ tiền sử gia đình",
+      "kham_toan_than": "Tỉnh táo, tiếp xúc tốt",
+      "kham_tim_mach_ho_hap": "Tĩnh mạch cổ không nổi. Tiếng tim rõ. Phổi chưa ghi nhận ran. Phù mắt cá chân nhẹ hai bên",
+      "chan_doan_chinh": "Suy tim, không đặc hiệu",
+      "huong_dieu_tri": "Tiếp tục điều trị và theo dõi cân nặng theo hướng dẫn của bác sĩ",
+      "loi_dan": "Theo dõi khó thở, phù và cân nặng hằng ngày",
+      "hen_tai_kham": "14 ngày"
+    },
+    "chi_dinh": [],
+    "ke_don": []
+  }
+}

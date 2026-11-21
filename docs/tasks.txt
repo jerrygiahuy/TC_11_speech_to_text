@@ -1,0 +1,54 @@
+Tasks:
+1. Thu âm & chuyển thể thành text
+- Hoạt động chưa tốt phân tách giong
+- Cần test thêm trong trường hợp khám bệnh thực tế, để biết được STT hoạt động bước đầu có ổn không
+	-> Cần file ghi âm buổi khám thực tế trong môi trường phong khám, để đo thử trong môi trường thực tế có rất nhiều tiếng động nhiều: em bé 	khóc, tiếng ồn loạt soạt từ dung cụ....
+
+2. Xây dựng cấu trúc data cần thu thập
+- Format: json
+- Tổng hợp các trường từ màn phiếu khám và màn chỉ định dịch vụ đã thu thập trước đó.
+- Loại phần kê đơn thuốc khỏi scope task 2, 3, 4. Bác sĩ tự kê đơn bằng quy trình riêng.
+- Vẫn ghi nhận dị ứng và thuốc bệnh nhân đang dùng trong bệnh sử/tiền sử; đây không phải đơn thuốc mới.
+
+3. Tóm tắt, convert toàn bộ từ text thu âm raw sang dạng text map với cấu trúc
+- Chỉ trích xuất nội dung phiếu khám và chỉ định dịch vụ sau khi lọc thông tin nhạy cảm.
+- AI không trích xuất, gợi ý, tạo hoặc điền đơn thuốc; không đưa nội dung kê đơn vào hướng điều trị/lời dặn để thay thế đơn thuốc.
+
+4. Xử lý hiển thị dữ liệu lên từng màn hình
+- Chỉ map và hiển thị dữ liệu AI lên màn phiếu khám và màn chỉ định dịch vụ.
+- Màn kê đơn và việc in đơn thuộc quy trình bác sĩ tự thực hiện, ngoài scope task 2, 3, 4.
+5. Xây dựng cơ chế màng lọc toàn bỏ thông tin nhạy cảm của bệnh nhân cũng như bác sĩ trong quá trình khám bệnh:
+- Thông tin nhạy cảm được hiểu là: tên(của bệnh nhân và bác sĩ), địa chỉ, số điện thoại, số căn cước công dân, số bảo hiểm bảo lãnh hoặc y tế, địa chỉ email, những thông tin nằm ngoài phạm vi khám bệnh như chuyện gia đình, chuyện cá nhân...
+- Loại bỏ hoặc convert tất cả những thông tin nhạy cảm sang dạng chung chung ví dụ: tên convert sang Bệnh Nhân 1, Bác Sĩ A, số điện thoại chuyển sang dạng xxxxx, các thông tin ngoài phạm vi khám bệnh cần phải loại bỏ
+- Thời điểm loại bỏ: ngay khi nhận kết quả text/transcript từ quá trình Speech-to-text. Cần phải xử lý ở giai đoạn này để có data an toàn rồi mới chuyển cho Ai model tóm tắt ở task 3.
+
+Luồng hoạt động sơ bộ của ung dung:
+1. Bác sĩ đăng nhập vào hệ thống
+2. Chọn lịch khám bệnh nhân:
+- Màn Lịch Khám: toàn bộ thông tin lịch khám bệnh hnay sẽ hiển thị lên để bác sĩ chọn lựa
+- Màn Lịch khám chi tiêt: bước này sẽ có thông tin của bệnh nhân, tên, ngày sinh, hôm nay khám gì?
+
+3. Bác sĩ ấn nút "bắt đầu khám bệnh"
+- Nút này sẽ kích hoạt ghi âm để bắt đầu khám
+
+4. Bác sĩ review lại toàn bộ kết quả khám sau khi ghi âm:
+- Tóm tắt sơ bộ quá trình giao tiếp
+- Dịch vụ chỉ định khám AI đã xác định đúng chưa?
+- Review lại toàn bộ các trường thông tin trong phiếu khám xem đã on chưa? có cần chỉnh sửa lại gì không?
+- Phần kê đơn do bác sĩ tự thực hiện riêng, không nằm trong kết quả AI cần review.
+
+5. Submit thông tin và in kết quả
+- Data sẽ được lưu trữ vào database
+- Báo cáo y tế chưa kết luật của bác sĩ
+- Bác sĩ tự kê và in đơn thuốc qua quy trình riêng, ngoài scope task 2, 3, 4.
+
+
+Tiến độ prototype cập nhật 12/11/2026:
+- Task 1a: tiếp tục hoãn cải tiến phân tách giọng theo quyết định ban đầu.
+- Task 1b: chờ người dùng cung cấp ghi âm thực tế.
+- Task 2: đã triển khai schema runtime, types, mapping và kho JSON có revision.
+- Task 3: đã triển khai trích xuất JSON qua privacy ticket, kiểm bằng chứng/vai trò, hỗ trợ mock và adapter model cấu hình. Chưa đánh giá model thật trên ghi âm phòng khám.
+- Task 4: đã nối hai màn phiếu khám/chỉ định, lưu/tải, bác sĩ duyệt và chặn in bản chưa duyệt.
+- Task 5: đã có lọc cục bộ/server và kiểm tra thủ công bắt buộc trước model. Bộ lọc quy tắc có thể bỏ sót; chưa phải khử định danh tự động đã được kiểm định.
+- Kê đơn nằm ngoài task 2, 3, 4; bác sĩ tự thực hiện riêng.
+- Chỉ dùng dữ liệu giả; hướng dẫn và giới hạn tại docs/CLINICAL-WORKFLOW.md.

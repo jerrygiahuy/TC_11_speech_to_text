@@ -1,0 +1,25 @@
+{
+  "id": "ca-02-danh-trong-nguc",
+  "ten": "Đánh trống ngực từng cơn (SYN-CARDIO-007, giả lập)",
+  "hanh_chinh": {},
+  "input_noi": "Người bệnh đến khám vì đánh trống ngực từng cơn. Bệnh sử: Đánh trống ngực vài phút, tự hết, không ngất, không đau ngực. Tiền sử bản thân: Chưa ghi nhận bệnh tim mạch. Tiền sử gia đình: Chưa ghi nhận tiền sử gia đình liên quan. Dị ứng: chưa ghi nhận. Thuốc đang dùng: không dùng thuốc thường xuyên. Sinh hiệu: mạch 93 lần mỗi phút, huyết áp 128 trên 78 mi li mét thủy ngân, SpO2 99 phần trăm. Toàn thân tỉnh táo, tiếp xúc tốt. Khám tim phổi: Mạch quay đều. Tiếng T1, T2 rõ, chưa ghi nhận âm thổi. Phổi trong, không ran. Kết quả chính: Điện tâm đồ tại thời điểm khám chưa ghi nhận rối loạn nhịp. Chẩn đoán: Đánh trống ngực. Hướng điều trị: Theo dõi triệu chứng và thực hiện thăm dò nhịp tim theo chỉ định. Lời dặn: Quay lại sớm nếu cơn kéo dài hoặc có ngất. Hẹn tái khám sau 14 ngày.",
+  "input_go_tat": "ld: đánh trống ngực từng cơn. bs: Đánh trống ngực vài phút, tự hết, không ngất, không đau ngực. ts: Chưa ghi nhận bệnh tim mạch. tiền sử gia đình: Chưa ghi nhận tiền sử gia đình liên quan. khám tim phổi: Mạch quay đều. Tiếng T1, T2 rõ, chưa ghi nhận âm thổi. Phổi trong, không ran. chẩn đoán: Đánh trống ngực. hướng điều trị: Theo dõi triệu chứng và thực hiện thăm dò nhịp tim theo chỉ định. lời dặn: Quay lại sớm nếu cơn kéo dài hoặc có ngất. hẹn tái khám: 14 ngày.",
+  "mau_id": "danh-trong-nguc",
+  "input_mau": "dtn, tái khám sau 14 ngày",
+  "expected": {
+    "phieu_kham": {
+      "ly_do_kham": "đánh trống ngực từng cơn",
+      "benh_su": "Đánh trống ngực vài phút, tự hết, không ngất, không đau ngực",
+      "tien_su": "Chưa ghi nhận bệnh tim mạch",
+      "tien_su_gia_dinh": "Chưa ghi nhận tiền sử gia đình liên quan",
+      "kham_toan_than": "Tỉnh táo, tiếp xúc tốt",
+      "kham_tim_mach_ho_hap": "Mạch quay đều. Tiếng T1, T2 rõ, chưa ghi nhận âm thổi. Phổi trong, không ran",
+      "chan_doan_chinh": "Đánh trống ngực",
+      "huong_dieu_tri": "Theo dõi triệu chứng và thực hiện thăm dò nhịp tim theo chỉ định",
+      "loi_dan": "Quay lại sớm nếu cơn kéo dài hoặc có ngất",
+      "hen_tai_kham": "14 ngày"
+    },
+    "chi_dinh": [],
+    "ke_don": []
+  }
+}

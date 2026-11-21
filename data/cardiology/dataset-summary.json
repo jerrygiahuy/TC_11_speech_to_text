@@ -1,0 +1,16 @@
+{
+  "dataset_version": "1.0.0",
+  "synthetic": true,
+  "domain": "CARDIOLOGY_OPD",
+  "record_count": 60,
+  "status_counts": {
+    "COMPLETE": 20,
+    "MISSING": 20,
+    "RECOVERED": 20
+  },
+  "visit_type_counts": {
+    "NEW": 30,
+    "FOLLOW_UP": 30
+  },
+  "measurement_fields_populated": false
+}

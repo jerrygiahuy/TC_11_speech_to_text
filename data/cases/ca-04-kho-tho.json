@@ -1,0 +1,25 @@
+{
+  "id": "ca-04-kho-tho",
+  "ten": "Khó thở khi gắng sức (SYN-CARDIO-019, giả lập)",
+  "hanh_chinh": {},
+  "input_noi": "Người bệnh đến khám vì khó thở khi gắng sức. Bệnh sử: Khó thở tăng khi đi cầu thang, không sốt, không đau ngực. Tiền sử bản thân: Chưa ghi nhận bệnh tim mạch. Tiền sử gia đình: Không rõ tiền sử gia đình. Dị ứng: chưa ghi nhận. Thuốc đang dùng: không dùng thuốc thường xuyên. Sinh hiệu: mạch 84 lần mỗi phút, huyết áp 126 trên 76 mi li mét thủy ngân, SpO2 97 phần trăm. Toàn thân tỉnh táo, tiếp xúc tốt. Khám tim phổi: Không co kéo cơ hô hấp phụ. Tiếng tim rõ. Phổi thông khí hai bên, chưa ghi nhận ran. Kết quả chính: Chưa có kết quả chẩn đoán hình ảnh. Chẩn đoán: Khó thở. Hướng điều trị: Đánh giá nguyên nhân khó thở theo chỉ định của bác sĩ. Lời dặn: Theo dõi mức độ khó thở và tái khám theo hẹn. Hẹn tái khám sau 14 ngày.",
+  "input_go_tat": "ld: khó thở khi gắng sức. bs: Khó thở tăng khi đi cầu thang, không sốt, không đau ngực. ts: Chưa ghi nhận bệnh tim mạch. tiền sử gia đình: Không rõ tiền sử gia đình. khám tim phổi: Không co kéo cơ hô hấp phụ. Tiếng tim rõ. Phổi thông khí hai bên, chưa ghi nhận ran. chẩn đoán: Khó thở. hướng điều trị: Đánh giá nguyên nhân khó thở theo chỉ định của bác sĩ. lời dặn: Theo dõi mức độ khó thở và tái khám theo hẹn. hẹn tái khám: 14 ngày.",
+  "mau_id": "kho-tho",
+  "input_mau": "kt, tái khám sau 14 ngày",
+  "expected": {
+    "phieu_kham": {
+      "ly_do_kham": "khó thở khi gắng sức",
+      "benh_su": "Khó thở tăng khi đi cầu thang, không sốt, không đau ngực",
+      "tien_su": "Chưa ghi nhận bệnh tim mạch",
+      "tien_su_gia_dinh": "Không rõ tiền sử gia đình",
+      "kham_toan_than": "Tỉnh táo, tiếp xúc tốt",
+      "kham_tim_mach_ho_hap": "Không co kéo cơ hô hấp phụ. Tiếng tim rõ. Phổi thông khí hai bên, chưa ghi nhận ran",
+      "chan_doan_chinh": "Khó thở",
+      "huong_dieu_tri": "Đánh giá nguyên nhân khó thở theo chỉ định của bác sĩ",
+      "loi_dan": "Theo dõi mức độ khó thở và tái khám theo hẹn",
+      "hen_tai_kham": "14 ngày"
+    },
+    "chi_dinh": [],
+    "ke_don": []
+  }
+}

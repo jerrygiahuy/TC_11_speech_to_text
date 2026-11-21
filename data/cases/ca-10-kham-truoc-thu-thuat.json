@@ -1,0 +1,25 @@
+{
+  "id": "ca-10-kham-truoc-thu-thuat",
+  "ten": "Đánh giá tim mạch trước thủ thuật (SYN-CARDIO-055, giả lập)",
+  "hanh_chinh": {},
+  "input_noi": "Người bệnh đến khám vì đánh giá tim mạch trước thủ thuật. Bệnh sử: Không đau ngực, không khó thở khi sinh hoạt thông thường. Tiền sử bản thân: Tăng huyết áp đang theo dõi. Tiền sử gia đình: Không rõ tiền sử gia đình. Dị ứng: chưa ghi nhận. Thuốc đang dùng: Losartan 50 mg, mỗi ngày một lần. Sinh hiệu: mạch 72 lần mỗi phút, huyết áp 138 trên 82 mi li mét thủy ngân, SpO2 99 phần trăm. Toàn thân tỉnh táo, tiếp xúc tốt. Khám tim phổi: Mạch đều. Tiếng T1, T2 rõ, không âm thổi. Phổi trong, không ran. Kết quả chính: Có kết quả xét nghiệm tiền thủ thuật; Điện tâm đồ nhịp xoang. Chẩn đoán: Khám chuyên khoa xác định khác. Hướng điều trị: Hoàn thiện đánh giá tim mạch theo hồ sơ thủ thuật. Lời dặn: Thực hiện hướng dẫn dùng thuốc trước thủ thuật của bác sĩ phụ trách. Hẹn tái khám sau 7 ngày.",
+  "input_go_tat": "ld: đánh giá tim mạch trước thủ thuật. bs: Không đau ngực, không khó thở khi sinh hoạt thông thường. ts: THA đang theo dõi. tiền sử gia đình: Không rõ tiền sử gia đình. khám tim phổi: Mạch đều. Tiếng T1, T2 rõ, không âm thổi. Phổi trong, không ran. chẩn đoán: Khám chuyên khoa xác định khác. hướng điều trị: Hoàn thiện đánh giá tim mạch theo hồ sơ thủ thuật. lời dặn: Thực hiện hướng dẫn dùng thuốc trước thủ thuật của bác sĩ phụ trách. hẹn tái khám: 7 ngày.",
+  "mau_id": "kham-truoc-thu-thuat",
+  "input_mau": "truoc thu thuat, tái khám sau 7 ngày",
+  "expected": {
+    "phieu_kham": {
+      "ly_do_kham": "đánh giá tim mạch trước thủ thuật",
+      "benh_su": "Không đau ngực, không khó thở khi sinh hoạt thông thường",
+      "tien_su": "Tăng huyết áp đang theo dõi",
+      "tien_su_gia_dinh": "Không rõ tiền sử gia đình",
+      "kham_toan_than": "Tỉnh táo, tiếp xúc tốt",
+      "kham_tim_mach_ho_hap": "Mạch đều. Tiếng T1, T2 rõ, không âm thổi. Phổi trong, không ran",
+      "chan_doan_chinh": "Khám chuyên khoa xác định khác",
+      "huong_dieu_tri": "Hoàn thiện đánh giá tim mạch theo hồ sơ thủ thuật",
+      "loi_dan": "Thực hiện hướng dẫn dùng thuốc trước thủ thuật của bác sĩ phụ trách",
+      "hen_tai_kham": "7 ngày"
+    },
+    "chi_dinh": [],
+    "ke_don": []
+  }
+}

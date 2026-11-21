@@ -1,0 +1,18 @@
+{
+  "facilities": [
+    {
+      "id": "facility-prototype",
+      "name": "Cơ sở mô phỏng / Khu khám Tim mạch (dữ liệu giả)"
+    }
+  ],
+  "doctors": [
+    {
+      "id": "user_bs01",
+      "name": "BS. A"
+    },
+    {
+      "id": "user_bs02",
+      "name": "BS. B"
+    }
+  ]
+}

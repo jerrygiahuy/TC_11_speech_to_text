@@ -1,0 +1,44 @@
+{
+  "_nguon": "bộ ca nghiệm thu, Ca 1. Giá trị theo khóa trường eForm; trống nghĩa là chuỗi rỗng (chưa chọn).",
+  "ca": "SYN-CARDIO-013",
+  "thoi_gian_kham": "2026-11-19T09:00",
+  "sinh_hieu_fixture": {
+    "mach": 80,
+    "ha_tam_thu": 132,
+    "ha_tam_truong": 82,
+    "spo2": 98
+  },
+  "fields": {
+    "kham_chuyen_khoa": "",
+    "kham_khac": "",
+    "mo_ta_ra_vien": "",
+    "icd_ra_vien": "",
+    "da_xu_ly": "",
+    "tinh_trang_ra_vien": "",
+    "ly_do": "khó chịu vùng ngực khi gắng sức",
+    "benh_su": "Cảm giác nặng ngực khi đi nhanh, giảm khi nghỉ, không ngất",
+    "tien_su_ban_than": "Rối loạn lipid máu",
+    "tien_su_gia_dinh": "Gia đình có người bệnh mạch vành",
+    "di_ung": "Không",
+    "thuoc_dang_dung": "NB có",
+    "kham_toan_than": "Tỉnh táo, tiếp xúc tốt",
+    "kham_tim_mach_ho_hap": "Lồng ngực cân đối. Tiếng T1, T2 rõ, không rung miu. Phổi trong, không ran",
+    "mo_ta_ban_dau": "Đau ngực cần đánh giá nguyên nhân tim mạch",
+    "icd_ban_dau": "",
+    "icd_kem_theo": "",
+    "ghi_chu_kq": "Chưa có kết quả xét nghiệm mới; Điện tâm đồ cần bác sĩ đối chiếu",
+    "huong_dieu_tri": "Đánh giá thêm theo chỉ định cận lâm sàng của bác sĩ",
+    "loi_dan": "Hạn chế gắng sức cho đến khi hoàn tất đánh giá",
+    "hen_tai_kham": "Có",
+    "ngay_tai_kham": "2026-11-26"
+  },
+  "thuocDangDung": [
+    {
+      "ten": "Atorvastatin",
+      "ham_luong": "20 mg",
+      "cach_dung": "buổi tối"
+    }
+  ],
+  "chiDinhDeCap": "co_chi_dinh",
+  "chiDinh": []
+}

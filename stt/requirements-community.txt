@@ -1,0 +1,6 @@
+# Optional isolated CPU worker; do not install into .venv-stt.
+torch==2.8.0
+torchaudio==2.8.0
+torchcodec==0.7.0
+pyannote.audio==4.0.7
+soundfile>=0.13,<1

@@ -1,0 +1,5 @@
+-r requirements.txt
+pytest>=8,<10
+httpx>=0.27,<1
+# clinical:check (docs/task-2/verify.py); ghim đúng bản đã xác minh trên PyPI 20/11/2026
+jsonschema==4.26.0

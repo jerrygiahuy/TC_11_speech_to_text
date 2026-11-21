@@ -1,0 +1,2 @@
+# Optional CPU denoiser; native DeepFilterNet executable is installed separately.
+scipy>=1.11,<2

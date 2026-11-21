@@ -1,0 +1,222 @@
+{
+  "schema_version": "2.0.0",
+  "id": "enc-prn-001",
+  "revision": 1,
+  "patient_id": "patient-demo-001",
+  "appointment_id": "appt-demo-001",
+  "facility_id": "facility-demo",
+  "department_id": "tim-mach",
+  "room_id": "room-demo",
+  "bed_id": null,
+  "examiner_id": "doctor-demo-001",
+  "primary_doctor_id": "doctor-demo-001",
+  "delegated_doctor_id": null,
+  "encounter_at": "2026-11-12T09:00:00+07:00",
+  "referral_source": null,
+  "status": "dang_kham",
+  "tuoi_thang_tai_kham": null,
+  "sinh_hieu": {
+    "mach": {
+      "value": null,
+      "unit": null
+    },
+    "nhiet_do": {
+      "value": null,
+      "unit": null
+    },
+    "ha_tam_thu": {
+      "value": null,
+      "unit": null
+    },
+    "ha_tam_truong": {
+      "value": null,
+      "unit": null
+    },
+    "spo2": {
+      "value": null,
+      "unit": null
+    },
+    "nhip_tho": {
+      "value": null,
+      "unit": null
+    },
+    "chieu_cao": {
+      "value": null,
+      "unit": null
+    },
+    "can_nang": {
+      "value": null,
+      "unit": null
+    },
+    "bmi": {
+      "value": null,
+      "unit": null
+    },
+    "measured_at": null,
+    "source_system": null,
+    "source_record_id": null
+  },
+  "phieu_kham": {
+    "ly_do_kham": null,
+    "benh_su": null,
+    "tien_su_ban_than": null,
+    "tien_su_gia_dinh": null,
+    "di_ung": {
+      "trang_thai": "chua_de_cap",
+      "loai": [],
+      "mo_ta": null
+    },
+    "co_thuoc_dang_dung": null,
+    "thuoc_dang_dung": [],
+    "kham_toan_than": null,
+    "kham_chuyen_khoa": null,
+    "kham_tim_mach_ho_hap": null,
+    "kham_khac": null,
+    "ghi_chu_ket_qua": null,
+    "da_xu_ly": null,
+    "huong_dieu_tri": null,
+    "loi_dan": null,
+    "hen_tai_kham": {
+      "co_hen": null,
+      "nguyen_van": null,
+      "sau_bao_lau": {
+        "value": null,
+        "unit": null
+      },
+      "ngay_cu_the": null
+    },
+    "tinh_trang_ra_vien": null
+  },
+  "chan_doan": [],
+  "lich_su": [],
+  "danh_gia_ban_dau": [],
+  "ket_qua": [],
+  "dong_bo_cls_luc": null,
+  "chi_dinh": {
+    "de_cap": "co_chi_dinh",
+    "groups": [
+      {
+        "id": "group-demo-001",
+        "chan_doan_lich_su_lam_sang": null,
+        "room_id": "room-demo",
+        "bed_id": null,
+        "created_at": "2026-11-12T09:00:00+07:00",
+        "requester_id": "doctor-demo-001"
+      }
+    ],
+    "items": [
+      {
+        "id": "svc-demo-001",
+        "noi_dung": {
+          "ten_dich_vu": "Dịch vụ mẫu B",
+          "so_luong": 1,
+          "ghi_chu": null,
+          "vi_tri": null,
+          "ben": "trai",
+          "ly_do_chi_dinh": null,
+          "muc_do_khan": null,
+          "hanh_dong": "de_nghi_moi"
+        },
+        "danh_muc": {
+          "catalog_id": null,
+          "code_system": null,
+          "code": null,
+          "display": null,
+          "catalog_version": null,
+          "trang_thai": "chua_khop",
+          "ung_vien_ids": []
+        },
+        "trang_thai": "nhap",
+        "group_id": "group-demo-001",
+        "package_id": null,
+        "package_version": null,
+        "thay_the_order_id": null,
+        "chan_doan_ids": [],
+        "requester_id": null,
+        "requested_at": null,
+        "billing": {
+          "don_gia": {
+            "amount": null,
+            "currency": "VND"
+          },
+          "thanh_tien": {
+            "amount": null,
+            "currency": "VND"
+          },
+          "chon_bhyt": null,
+          "dieu_kien_bhyt": "chua_danh_gia",
+          "can_cu": null,
+          "danh_gia_luc": null,
+          "nguon_tra": []
+        },
+        "review": {
+          "trang_thai": "chua_duyet",
+          "reviewer_id": null,
+          "reviewed_at": null
+        }
+      }
+    ]
+  },
+  "thong_tin_khac": {
+    "chuyen_noi_soi": null,
+    "xn_benh_tat": null,
+    "xn_bhxh": null
+  },
+  "ai_runs": [
+    {
+      "id": "run-prn-001",
+      "transcript_id": "tr-prn-001",
+      "transcript_revision": 1,
+      "model": "example-only",
+      "prompt_version": "draft-v1",
+      "schema_version": "2.0.0",
+      "input_digest": "synthetic-example",
+      "created_at": "2026-11-12T09:00:00+07:00",
+      "output_artifact_id": "ai-output-service.example.json"
+    }
+  ],
+  "nguon_du_lieu": [
+    {
+      "field_path": "/tom_tat",
+      "nguon": "ai",
+      "source_record_id": null,
+      "ai_run_id": "run-prn-001",
+      "evidence_indexes": [
+        0
+      ],
+      "review": {
+        "trang_thai": "chua_duyet",
+        "reviewer_id": null,
+        "reviewed_at": null
+      },
+      "source_system": "ai-extraction"
+    },
+    {
+      "field_path": "/chi_dinh/items/0/noi_dung",
+      "nguon": "ai",
+      "source_record_id": null,
+      "ai_run_id": "run-prn-001",
+      "evidence_indexes": [
+        1
+      ],
+      "review": {
+        "trang_thai": "chua_duyet",
+        "reviewer_id": null,
+        "reviewed_at": null
+      },
+      "source_system": "ai-extraction"
+    }
+  ],
+  "audit": {
+    "created_at": "2026-11-12T09:00:00+07:00",
+    "created_by": "doctor-demo-001",
+    "updated_at": "2026-11-12T09:00:00+07:00",
+    "updated_by": "doctor-demo-001",
+    "approved_at": null,
+    "approved_by": null
+  },
+  "tom_tat": "Bác sĩ chỉ định dịch vụ mẫu B một lần, bên trái. Ví dụ giả lập.",
+  "recording_sessions": [],
+  "approval_versions": [],
+  "change_decisions": []
+}

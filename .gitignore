@@ -1,0 +1,90 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+/temp-1
+/.superpowers
+/.playwright-mcp
+/models
+
+# misc
+.DS_Store
+/.claude/settings.local.json
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files (can opt-in for committing if needed)
+.env*
+!.env.example
+
+# kết quả các lượt thử (tự sinh)
+/data/sessions/*
+!/data/sessions/.gitkeep
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# Local STT runtime and downloaded weights
+/.venv-stt/
+/.tmp/
+/models/stt/
+/models/diarization/
+# NER che PII: dữ liệu PhoNER_COVID19 (cấm phân phối lại), trọng số fine-tune, VnCoreNLP, môi trường huấn luyện
+/models/ner/
+/.venv-ner-train/
+/.cache-ner/
+/.cache-stt/
+/logs/
+__pycache__/
+.pytest_cache/
+# âm thanh để đo nhận dạng giọng nói (tự sinh hoặc tự ghi, nặng)
+/data/giong-noi/*
+!/data/giong-noi/README.md
+# Đặc trưng giọng bác sĩ đã đăng ký (dữ liệu sinh trắc học): chỉ ở máy chạy prototype, không commit
+/data/giong-bac-si
+
+# đơn bác sĩ đã kê để gợi ý theo thói quen (tự sinh khi bấm Lưu)
+/data/thoi-quen/*
+
+# Clinical prototype records, revision history and private identity stores
+/data/clinical/
+/data/private/
+/.tmp-*.log
+
+# Optional local Community-1 worker
+/.venv-community/
+/models/community-1/
+
+# Optional native denoiser and implementation scratch artifacts
+/models/denoise/
+/.superpowers/
+
+# Dữ liệu chạy demo luồng dữ liệu (kịch bản mẫu được commit)
+/data/demo-luong/*
+!/data/demo-luong/kich-ban/

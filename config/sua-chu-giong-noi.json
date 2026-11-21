@@ -1,0 +1,290 @@
+{
+  "nguong_giong": 0.72,
+  "dau_hieu_thuoc": [
+    "uống",
+    "nhỏ",
+    "xịt",
+    "ngậm",
+    "bôi",
+    "súc",
+    "viên",
+    "gói",
+    "siro",
+    "ống",
+    "chai",
+    "lọ",
+    "giọt",
+    "mg",
+    "ml",
+    "g",
+    "gam",
+    "mi"
+  ],
+  "thay": [
+    {
+      "sai": [
+        "thủy ngân có hai",
+        "thuỷ ngân có hai",
+        "thủy ngân por hai",
+        "thuỷ ngân por hai",
+        "thủy ngânpor hai",
+        "thuỷ ngânpor hai"
+      ],
+      "dung": "thủy ngân SpO2"
+    },
+    {
+      "sai": [
+        "por hai",
+        "pô hai",
+        "xờ pê ô hai",
+        "sờ pê ô hai",
+        "ét pê ô hai"
+      ],
+      "dung": "SpO2"
+    },
+    {
+      "sai": [
+        "mi li mét thủy ngân",
+        "mi li mét thuỷ ngân",
+        "milimet thủy ngân",
+        "milimet thuỷ ngân",
+        "dạm limet thủy ngân",
+        "dạm limet thuỷ ngân",
+        "limet thủy ngân",
+        "limet thuỷ ngân"
+      ],
+      "dung": "mmHg"
+    },
+    {
+      "sai": [
+        "tiếng một thứ hai",
+        "tiếng t một t hai",
+        "tiếng tê một tê hai"
+      ],
+      "dung": "tiếng T1 T2"
+    },
+    {
+      "sai": [
+        "phổi trong không gian"
+      ],
+      "dung": "phổi trong không ran"
+    },
+    {
+      "sai": [
+        "lời dạng"
+      ],
+      "dung": "lời dặn"
+    },
+    {
+      "sai": [
+        "chạy máu"
+      ],
+      "dung": "chảy máu"
+    },
+    {
+      "sai": [
+        "chẩn"
+      ],
+      "dung": "chẩn đoán",
+      "tru_khi_sau": [
+        "đoán",
+        "trị"
+      ]
+    },
+    {
+      "sai": [
+        "ít quang",
+        "ích quang",
+        "ít x quang",
+        "ích x quang",
+        "ít quan",
+        "ích quan"
+      ],
+      "dung": "X-quang"
+    },
+    {
+      "sai": [
+        "suốt"
+      ],
+      "dung": "sốt",
+      "chi_khi_sau": [
+        "một",
+        "hai",
+        "ba",
+        "bốn",
+        "nhẹ",
+        "cao",
+        "trên"
+      ]
+    },
+    {
+      "sai": [
+        "mi li gam",
+        "mi li gram",
+        "mi lim",
+        "miligam",
+        "miligram"
+      ],
+      "dung": "mg"
+    },
+    {
+      "sai": [
+        "mi li lít",
+        "mi li lit",
+        "mililít"
+      ],
+      "dung": "ml"
+    },
+    {
+      "sai": [
+        "xen ti mét",
+        "xăng ti mét",
+        "centi mét",
+        "xen ti met"
+      ],
+      "dung": "cm"
+    },
+    {
+      "sai": [
+        "phần trăm"
+      ],
+      "dung": "%"
+    },
+    {
+      "sai": [
+        "xung huyết"
+      ],
+      "dung": "sung huyết"
+    },
+    {
+      "sai": [
+        "mãn tính"
+      ],
+      "dung": "mạn tính"
+    },
+    {
+      "sai": [
+        "tiên sử"
+      ],
+      "dung": "tiền sử"
+    },
+    {
+      "sai": [
+        "gì ứng"
+      ],
+      "dung": "dị ứng"
+    },
+    {
+      "sai": [
+        "chức ăn"
+      ],
+      "dung": "trước ăn"
+    },
+    {
+      "sai": [
+        "tiểu sâu"
+      ],
+      "dung": "tiểu phẫu"
+    },
+    {
+      "sai": [
+        "cấp chỉ"
+      ],
+      "dung": "cắt chỉ"
+    }
+  ],
+  "tu_chuyen_khoa": [
+    {
+      "dung": "Paracetamol",
+      "doc": [
+        "pa ra xê ta mon",
+        "pa ra xê ta môn",
+        "pa ra xê ta mol",
+        "ha ceamon"
+      ]
+    },
+    {
+      "dung": "Hapacol",
+      "doc": [
+        "ha pa côn",
+        "ha pa con"
+      ]
+    },
+    {
+      "dung": "Ibuprofen",
+      "doc": [
+        "i bu prô phen",
+        "i bu pờ rô phen",
+        "ibu fe"
+      ]
+    },
+    {
+      "dung": "Amlodipine",
+      "doc": [
+        "am lô đi pin",
+        "am lô đi panh",
+        "amlodi"
+      ]
+    },
+    {
+      "dung": "Atorvastatin",
+      "doc": [
+        "a tô va xta tin",
+        "a tô vát xta tin"
+      ]
+    },
+    {
+      "dung": "Rosuvastatin",
+      "doc": [
+        "rô su va xta tin",
+        "rô du va xta tin"
+      ]
+    },
+    {
+      "dung": "Aspirin",
+      "doc": [
+        "as pi rin",
+        "a xpi rin"
+      ]
+    },
+    {
+      "dung": "Bisoprolol",
+      "doc": [
+        "bi xô prô lôl",
+        "bi sô prô lôl"
+      ]
+    },
+    {
+      "dung": "Furosemide",
+      "doc": [
+        "phu rô xê mít",
+        "phu rô xê mai"
+      ]
+    },
+    {
+      "dung": "Apixaban",
+      "doc": [
+        "a pi xa ban",
+        "a pi xa băn"
+      ]
+    },
+    {
+      "dung": "Losartan",
+      "doc": [
+        "lô xác tan",
+        "lô sác tan"
+      ]
+    },
+    {
+      "dung": "Penicillin",
+      "doc": [
+        "pê ni xi lin",
+        "pen ni xi lin",
+        "pen xi lin",
+        "pen si lin",
+        "pensilin",
+        "penixilin"
+      ]
+    }
+  ]
+}

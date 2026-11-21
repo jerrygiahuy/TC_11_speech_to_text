@@ -1,0 +1,32 @@
+{
+  "mau": [
+    {
+      "id": "tang-huyet-ap",
+      "ten": "Tăng huyết áp",
+      "icd": [
+        "I10"
+      ],
+      "chi_dinh": [
+        {
+          "ten": "Điện tim thường"
+        }
+      ],
+      "don_thuoc": [],
+      "mock": true
+    },
+    {
+      "id": "suy-tim",
+      "ten": "Suy tim",
+      "icd": [
+        "I50.9"
+      ],
+      "chi_dinh": [
+        {
+          "ten": "Siêu âm tim, màng tim qua thành ngực"
+        }
+      ],
+      "don_thuoc": [],
+      "mock": true
+    }
+  ]
+}

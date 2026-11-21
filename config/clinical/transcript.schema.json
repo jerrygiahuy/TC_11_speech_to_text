@@ -1,0 +1,200 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Sanitized transcript input v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "request_id",
+    "transcript_id",
+    "revision",
+    "language",
+    "privacy",
+    "context",
+    "segments"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.1.0"
+    },
+    "request_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "transcript_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "language": {
+      "const": "vi"
+    },
+    "privacy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "trang_thai",
+        "policy_version",
+        "processed_at"
+      ],
+      "properties": {
+        "trang_thai": {
+          "enum": [
+            "pending",
+            "passed",
+            "blocked"
+          ]
+        },
+        "policy_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "processed_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "tuoi_thang",
+        "gioi_tinh",
+        "can_nang_kg"
+      ],
+      "properties": {
+        "tuoi_thang": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "gioi_tinh": {
+          "enum": [
+            "nam",
+            "nu",
+            "khac",
+            "chua_ro",
+            null
+          ]
+        },
+        "can_nang_kg": {
+          "anyOf": [
+            {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "segments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "sequence",
+          "utterance_ref",
+          "speaker_id",
+          "vai_tro",
+          "nguon_vai_tro",
+          "start_ms",
+          "end_ms",
+          "text",
+          "is_final"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sequence": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "utterance_ref": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "speaker_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "vai_tro": {
+            "enum": [
+              "bac_si",
+              "benh_nhan",
+              "nguoi_nha",
+              "khac",
+              "chua_ro"
+            ]
+          },
+          "nguon_vai_tro": {
+            "enum": [
+              "bac_si_gan",
+              "he_thong",
+              "chua_ro"
+            ]
+          },
+          "start_ms": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "end_ms": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1
+          },
+          "is_final": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "binding": {
+      "$ref": "common.schema.json#/$defs/recordingContext"
+    }
+  }
+}

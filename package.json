@@ -1,0 +1,52 @@
+{
+  "name": "prototype-1",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "clinical:types": "node scripts/generate-clinical-types.mjs",
+    "clinical:check": "node scripts/generate-clinical-types.mjs --check && python3 docs/task-2/verify.py",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "stt:setup": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/setup-stt.ps1",
+    "stt:denoise:setup": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/setup-denoise.ps1",
+    "ner:tai-du-lieu": ".venv-stt\\Scripts\\python -m stt.download_phoner",
+    "ner:setup-train": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/setup-ner-train.ps1",
+    "ner:train": ".venv-ner-train\\Scripts\\python -m stt.ner_train",
+    "stt:start": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/start-stt.ps1",
+    "test": "tsx --conditions=react-server --test \"src/**/*.test.ts\" \"lib/**/*.test.ts\"",
+    "eval": "tsx --conditions=react-server scripts/eval.ts",
+    "eval-mau": "tsx --conditions=react-server scripts/eval-mau.ts",
+    "tai-model-giong-noi": "tsx scripts/tai-model-giong-noi.ts",
+    "tao-am-thanh-mau": "tsx --conditions=react-server scripts/tao-am-thanh-mau.ts",
+    "tao-du-lieu-tim-mach": "tsx --conditions=react-server scripts/tao-du-lieu-tim-mach.ts",
+    "eval-giong-noi": "tsx --conditions=react-server scripts/eval-giong-noi.ts",
+    "thu-che-pii": "tsx --conditions=react-server scripts/thu-che-pii.ts",
+    "eval-pii": "tsx --conditions=react-server scripts/eval-pii.ts"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.6.0",
+    "@fontsource/be-vietnam-pro": "^5.3.0",
+    "@google/genai": "^3.0.0",
+    "fuse.js": "^7.5.0",
+    "next": "16.4.5",
+    "openai": "^7.53.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "server-only": "^0.0.1",
+    "sherpa-onnx-node": "^2.0.1",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@tailwindcss/turbopack": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.4.5",
+    "tailwindcss": "^4",
+    "tsx": "^4.23.15",
+    "typescript": "^5"
+  }
+}

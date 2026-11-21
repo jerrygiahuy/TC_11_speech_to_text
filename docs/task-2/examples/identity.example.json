@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.1.0",
+  "patient": {
+    "id": "patient-demo-001",
+    "external_patient_id": null,
+    "ho_ten": "Bệnh Nhân 1",
+    "ngay_sinh": null,
+    "gioi_tinh": null,
+    "dia_chi": null,
+    "dien_thoai": null,
+    "email": null,
+    "giay_to": [],
+    "nguoi_dai_dien": null
+  },
+  "practitioners": [
+    {
+      "id": "doctor-demo-001",
+      "display_name": "Bác Sĩ A",
+      "ma_nguoi_hanh_nghe": null,
+      "login_account": null
+    }
+  ],
+  "coverages": []
+}

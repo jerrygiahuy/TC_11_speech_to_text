@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.1.0",
+  "request_id": "req-demo-001",
+  "transcript_id": "tr-demo-001",
+  "revision": 1,
+  "language": "vi",
+  "privacy": {
+    "trang_thai": "passed",
+    "policy_version": "synthetic-demo-v1",
+    "processed_at": "2026-11-12T09:00:00+07:00"
+  },
+  "context": {
+    "tuoi_thang": null,
+    "gioi_tinh": null,
+    "can_nang_kg": null
+  },
+  "segments": [
+    {
+      "id": "seg-1",
+      "sequence": 0,
+      "utterance_ref": "u-1",
+      "speaker_id": "spk-1",
+      "vai_tro": "benh_nhan",
+      "nguon_vai_tro": "bac_si_gan",
+      "start_ms": null,
+      "end_ms": null,
+      "text": "Tôi đau ngực ba ngày, không khó thở. Chưa biết mình có dị ứng thuốc không.",
+      "is_final": true
+    },
+    {
+      "id": "seg-2",
+      "sequence": 1,
+      "utterance_ref": "u-2",
+      "speaker_id": "spk-2",
+      "vai_tro": "bac_si",
+      "nguon_vai_tro": "bac_si_gan",
+      "start_ms": null,
+      "end_ms": null,
+      "text": "Khám thấy tim đều. Chẩn đoán ban đầu tăng huyết áp. Chưa cần chỉ định dịch vụ. Thuốc mẫu A 500 mg, uống mỗi lần một viên, ngày hai lần sáng tối, sau ăn, trong ba ngày. Tái khám sau ba ngày.",
+      "is_final": true
+    }
+  ]
+}

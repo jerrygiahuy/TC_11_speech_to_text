@@ -1,0 +1,42 @@
+{
+  "id": "ca-tu-che",
+  "ten": "Ca tự che thêm (SYN-CARDIO-013, khám mới): tên người lạ còn sót, hệ thống tự che rồi gửi AI",
+  "benh_nhan_id": "GIA-000789",
+  "mode": "conversation",
+  "doan": [
+    {
+      "vai_tro": "benh_nhan",
+      "text": "tôi tên lê văn mới bị khó chịu vùng ngực khi gắng sức"
+    },
+    {
+      "vai_tro": "benh_nhan",
+      "text": "hôm qua đỗ quốc việt mua thuốc giúp nhưng tôi vẫn nặng ngực khi đi nhanh giảm khi nghỉ không ngất"
+    },
+    {
+      "vai_tro": "benh_nhan",
+      "text": "tiền sử rối loạn lipid máu gia đình có người bệnh mạch vành tôi uống atorvastatin 20 mg buổi tối"
+    },
+    {
+      "vai_tro": "bac_si",
+      "text": "sinh hiệu mạch 80 lần mỗi phút huyết áp 132 trên 82 mi li mét thủy ngân SpO2 98 phần trăm khám tim phổi tiếng T1 T2 rõ không rung miu phổi trong không ran"
+    },
+    {
+      "vai_tro": "bac_si",
+      "text": "chẩn đoán đau ngực cần đánh giá nguyên nhân tim mạch hẹn tái khám sau 7 ngày"
+    }
+  ],
+  "expected": {
+    "phai_che": [
+      "lê văn mới",
+      "đỗ quốc việt"
+    ],
+    "phai_giu": [
+      "khó chịu vùng ngực",
+      "atorvastatin 20 mg"
+    ],
+    "bi_chan": false,
+    "tu_che": [
+      "R11c_ten_rieng_con_sot"
+    ]
+  }
+}

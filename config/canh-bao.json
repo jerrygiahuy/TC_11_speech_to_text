@@ -1,0 +1,15 @@
+{
+  "tuoi_tre_em_duoi": 16,
+  "truong_tuoi": "tuoi",
+  "truong_can_nang": "can_nang",
+  "form_kiem_tra_can_nang": "ke_don",
+  "thong_bao_thieu_can_nang": "Trẻ em có kê đơn nhưng chưa có cân nặng để kiểm tra liều.",
+  "tinh_tong": {
+    "form": "ke_don",
+    "truong_tong": "tong_so_luong",
+    "truong_lieu": "lieu_moi_lan",
+    "truong_so_lan": "so_lan_ngay",
+    "truong_so_ngay": "so_ngay",
+    "don_vi_dem": ["viên", "gói", "ống"]
+  }
+}

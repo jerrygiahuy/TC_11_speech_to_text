@@ -1,0 +1,201 @@
+{
+  "id": "phieu_kham",
+  "title": "Phiếu khám",
+  "system": "EMR",
+  "mode": "single",
+  "fields": [
+    {
+      "id": "ly_do_kham",
+      "label": "Lý do đến khám",
+      "type": "text",
+      "required": true,
+      "hint": "Triệu chứng chính khiến bệnh nhân đi khám",
+      "ai_fill": true,
+      "mock_keywords": [
+        "lý do đến khám",
+        "lý do khám",
+        "đến khám vì",
+        "ld"
+      ]
+    },
+    {
+      "id": "benh_su",
+      "label": "Bệnh sử",
+      "type": "textarea",
+      "required": true,
+      "hint": "Diễn biến bệnh từ khi khởi phát đến nay",
+      "ai_fill": true,
+      "mock_keywords": [
+        "bệnh sử",
+        "diễn biến",
+        "bs"
+      ]
+    },
+    {
+      "id": "tien_su",
+      "label": "Tiền sử",
+      "type": "textarea",
+      "required": false,
+      "hint": "Tiền sử bản thân (dị ứng, thuốc đang dùng và tiền sử gia đình ghi riêng)",
+      "ai_fill": true,
+      "mock_keywords": [
+        "tiền sử bản thân",
+        "tiền sử",
+        "ts"
+      ]
+    },
+    {
+      "id": "tien_su_gia_dinh",
+      "label": "Tiền sử gia đình",
+      "type": "textarea",
+      "required": false,
+      "hint": "Tiền sử gia đình, ghi riêng với tiền sử bản thân",
+      "ai_fill": true,
+      "mock_keywords": [
+        "tiền sử gia đình"
+      ]
+    },
+    {
+      "id": "diem_dung_di_ung",
+      "label": "Điểm dừng: dị ứng",
+      "type": "text",
+      "required": false,
+      "hint": "Chỉ để bộ tách quy tắc cắt đúng chỗ, không điền vào phiếu",
+      "ai_fill": false,
+      "mock_keywords": [
+        "dị ứng:"
+      ]
+    },
+    {
+      "id": "diem_dung_thuoc_dang_dung",
+      "label": "Điểm dừng: thuốc đang dùng",
+      "type": "text",
+      "required": false,
+      "hint": "Chỉ để bộ tách quy tắc cắt đúng chỗ, không điền vào phiếu",
+      "ai_fill": false,
+      "mock_keywords": [
+        "thuốc đang dùng:"
+      ]
+    },
+    {
+      "id": "diem_dung_sinh_hieu",
+      "label": "Điểm dừng: sinh hiệu",
+      "type": "text",
+      "required": false,
+      "hint": "Chỉ để bộ tách quy tắc cắt đúng chỗ, không điền vào phiếu",
+      "ai_fill": false,
+      "mock_keywords": [
+        "sinh hiệu:"
+      ]
+    },
+    {
+      "id": "kham_toan_than",
+      "label": "Khám toàn thân",
+      "type": "textarea",
+      "required": false,
+      "hint": "Tình trạng chung, dấu hiệu sinh tồn",
+      "ai_fill": true,
+      "mock_keywords": [
+        "khám toàn thân",
+        "toàn thân",
+        "tt"
+      ]
+    },
+    {
+      "id": "kham_chuyen_khoa",
+      "label": "Khám chuyên khoa",
+      "type": "textarea",
+      "required": false,
+      "hint": "Kết quả khám chuyên khoa được ghi nhận",
+      "ai_fill": true,
+      "mock_keywords": [
+        "khám chuyên khoa",
+        "khám thấy"
+      ]
+    },
+    {
+      "id": "kham_tim_mach_ho_hap",
+      "label": "Khám tim mạch, hô hấp",
+      "type": "textarea",
+      "required": false,
+      "hint": "Kết quả khám tim mạch và hô hấp được ghi nhận",
+      "ai_fill": true,
+      "mock_keywords": [
+        "khám tim phổi",
+        "khám tim mạch",
+        "khám tim",
+        "nghe tim",
+        "khám phổi",
+        "tiếng tim",
+        "mỏm tim",
+        "tĩnh mạch cổ",
+        "âm thổi",
+        "phổi trong"
+      ]
+    },
+    {
+      "id": "chan_doan_chinh",
+      "label": "Chẩn đoán chính",
+      "type": "text",
+      "required": true,
+      "hint": "Đúng theo lời bác sĩ, AI không tự suy luận",
+      "ai_fill": true,
+      "mock_keywords": [
+        "chẩn đoán chính",
+        "chẩn đoán",
+        "cđ"
+      ]
+    },
+    {
+      "id": "chan_doan_kem",
+      "label": "Chẩn đoán kèm theo",
+      "type": "text",
+      "required": false,
+      "hint": "",
+      "ai_fill": true,
+      "mock_keywords": [
+        "chẩn đoán kèm theo",
+        "kèm theo",
+        "cđ kèm"
+      ]
+    },
+    {
+      "id": "huong_dieu_tri",
+      "label": "Hướng điều trị",
+      "type": "textarea",
+      "required": false,
+      "hint": "",
+      "ai_fill": true,
+      "mock_keywords": [
+        "hướng điều trị",
+        "hướng xử trí",
+        "đt"
+      ]
+    },
+    {
+      "id": "loi_dan",
+      "label": "Lời dặn & theo dõi",
+      "type": "textarea",
+      "required": false,
+      "hint": "",
+      "ai_fill": true,
+      "mock_keywords": [
+        "lời dặn",
+        "dặn"
+      ]
+    },
+    {
+      "id": "hen_tai_kham",
+      "label": "Hẹn tái khám",
+      "type": "text",
+      "required": false,
+      "hint": "Ví dụ: Sau 5 ngày",
+      "ai_fill": true,
+      "mock_keywords": [
+        "hẹn tái khám",
+        "tái khám",
+        "hẹn"
+      ]
+    }
+  ]
+}

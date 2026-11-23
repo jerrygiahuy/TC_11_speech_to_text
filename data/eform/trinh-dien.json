@@ -1,0 +1,53 @@
+{
+  "_ghi_chu": "Trình diễn trên tình huống ngoại trú Tim mạch giả lập.",
+  "kieu": [
+    {
+      "so": 1,
+      "ten": "Máy điền sẵn",
+      "giong_nhu": "Như điều dưỡng đã điền sẵn phiếu",
+      "luc_nao": "Khám xong, ngồi lại hoàn thiện phiếu",
+      "bac_si_lam": "Ghi nhận nội dung ca Tim mạch giả lập theo cách nhập đã chọn.",
+      "may_lam": "Hiển thị bản nháp để bác sĩ kiểm tra và chỉnh sửa.",
+      "kiem_tra": "Đối chiếu lý do khám, bệnh sử và nội dung ghi nhận."
+    },
+    {
+      "so": 2,
+      "ten": "Bấm một lần",
+      "giong_nhu": "Như đơn mẫu, nhưng tự hiện ra đúng bệnh",
+      "luc_nao": "Đã chọn chẩn đoán, sang kê đơn",
+      "bac_si_lam": "Ghi nhận nội dung ca Tim mạch giả lập theo cách nhập đã chọn.",
+      "may_lam": "Hiển thị bản nháp để bác sĩ kiểm tra và chỉnh sửa.",
+      "kiem_tra": "Đối chiếu lý do khám, bệnh sử và nội dung ghi nhận."
+    },
+    {
+      "so": 3,
+      "ten": "Nói một câu",
+      "giong_nhu": "Như dặn điều dưỡng: \"kê như mọi khi, thêm…\"",
+      "luc_nao": "Bất cứ lúc nào, nói hoặc gõ một câu ngắn",
+      "bac_si_lam": "Ghi nhận nội dung ca Tim mạch giả lập theo cách nhập đã chọn.",
+      "may_lam": "Hiển thị bản nháp để bác sĩ kiểm tra và chỉnh sửa.",
+      "kiem_tra": "Đối chiếu lý do khám, bệnh sử và nội dung ghi nhận."
+    },
+    {
+      "so": 4,
+      "ten": "Nghe cả buổi khám",
+      "giong_nhu": "Như có người ngồi cạnh ghi hộ",
+      "luc_nao": "Bấm một lần lúc bắt đầu khám, khám bình thường",
+      "bac_si_lam": "Ghi nhận nội dung ca Tim mạch giả lập theo cách nhập đã chọn.",
+      "may_lam": "Hiển thị bản nháp để bác sĩ kiểm tra và chỉnh sửa.",
+      "kiem_tra": "Đối chiếu lý do khám, bệnh sử và nội dung ghi nhận."
+    }
+  ],
+  "lenh": "Người bệnh đến khám vì tái khám tăng huyết áp. Bệnh sử: Theo dõi huyết áp tại nhà, thỉnh thoảng đau đầu nhẹ, không đau ngực, không khó thở. Tiền sử bản thân: Tăng huyết áp đã được theo dõi. Tiền sử gia đình: Gia đình có người tăng huyết áp. Dị ứng: Penicillin. Thuốc đang dùng: Amlodipine 5 mg, mỗi ngày một lần. Sinh hiệu: mạch 72 lần mỗi phút, huyết áp 148 trên 88 mi li mét thủy ngân, SpO2 98 phần trăm. Toàn thân tỉnh táo, tiếp xúc tốt. Khám tim phổi: Mạch quay đều, rõ. Tiếng T1, T2 đều rõ, không âm thổi. Phổi trong, không ran. Kết quả chính: Chức năng thận trong giới hạn được ghi nhận; Điện tâm đồ nhịp xoang. Chẩn đoán: Tăng huyết áp vô căn. Hướng điều trị: Tiếp tục theo dõi huyết áp và dùng thuốc theo đơn hiện tại. Lời dặn: Ghi nhật ký huyết áp, tái khám sau 30 ngày. Hẹn tái khám sau 30 ngày.",
+  "hoi_thoai": [
+    {
+      "ai": "BS",
+      "cau": "Hôm nay anh đến khám vì lý do gì?"
+    },
+    {
+      "ai": "BN",
+      "cau": "tái khám tăng huyết áp. Theo dõi huyết áp tại nhà, thỉnh thoảng đau đầu nhẹ, không đau ngực, không khó thở"
+    }
+  ],
+  "thoi_quen": []
+}

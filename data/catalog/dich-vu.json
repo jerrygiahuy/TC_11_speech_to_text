@@ -1,0 +1,79 @@
+[
+  {
+    "ma": "DV-TM-001",
+    "ten": "Điện tim thường",
+    "ten_khac": [
+      "Điện tâm đồ"
+    ],
+    "mock": true
+  },
+  {
+    "ma": "DV-TM-002",
+    "ten": "Siêu âm tim, màng tim qua thành ngực",
+    "ten_khac": [
+      "Siêu âm tim"
+    ],
+    "mock": true
+  },
+  {
+    "ma": "DV-TM-003",
+    "ten": "Đo chỉ số ABI (chỉ số cổ chân/cánh tay)",
+    "ten_khac": [
+      "ABI"
+    ],
+    "mock": true
+  },
+  {
+    "ma": "DV-TM-004",
+    "ten": "Holter điện tâm đồ 24 giờ",
+    "ten_khac": [
+      "Holter ECG 24 giờ"
+    ],
+    "mock": true
+  },
+  {
+    "ma": "DV-TM-005",
+    "ten": "Holter huyết áp 24 giờ",
+    "ten_khac": [
+      "Holter HA 24 giờ"
+    ],
+    "mock": true
+  },
+  {
+    "ma": "DV-TM-006",
+    "ten": "Nghiệm pháp gắng sức",
+    "ten_khac": [
+      "Test gắng sức"
+    ],
+    "mock": true
+  },
+  {
+    "ma": "DV-TM-007",
+    "ten": "Xét nghiệm bộ mỡ máu (Cholesterol, Triglycerid, HDL-C, LDL-C)",
+    "ten_khac": [
+      "Bộ mỡ máu"
+    ],
+    "mock": true
+  },
+  {
+    "ma": "DV-TM-008",
+    "ten": "Creatinin máu / điện giải đồ",
+    "ten_khac": [
+      "Điện giải đồ"
+    ],
+    "mock": true
+  },
+  {
+    "ma": "DV-TM-009",
+    "ten": "NT-proBNP",
+    "mock": true
+  },
+  {
+    "ma": "DV-TM-010",
+    "ten": "X-quang ngực thẳng",
+    "ten_khac": [
+      "XQ ngực thẳng"
+    ],
+    "mock": true
+  }
+]

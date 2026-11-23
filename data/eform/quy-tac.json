@@ -1,0 +1,20 @@
+{
+  "tom_tat": {
+    "nguong_giong": 0.6,
+    "so_y_toi_da": 7,
+    "bo_qua": ["không có gì đặc biệt", "bình thường"]
+  },
+  "icd": {
+    "diem_manh": 3,
+    "diem_vua": 1,
+    "he_so": 2,
+    "tran_tin_cay": 0.95,
+    "nguong_tin_cay": 0.3,
+    "so_goi_y": 3
+  },
+  "phu_dinh": {
+    "tu": ["không", "chưa", "hết"],
+    "ngoai_le": ["không đỡ", "chưa đỡ", "không giảm", "chưa giảm", "không rõ"],
+    "cua_so": 3
+  }
+}

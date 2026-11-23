@@ -1,0 +1,125 @@
+[
+  {
+    "id": "GIA-000123",
+    "facility_id": "facility-prototype",
+    "full_name": "Nguyễn Thị Giả",
+    "date_of_birth": "1978-03-10",
+    "gender": "nữ",
+    "insurance": {
+      "bhyt": {
+        "known": true,
+        "enrolled": true,
+        "provider": "BHYT Mẫu",
+        "plan": "Mức 80%",
+        "member_code": "MAU-0123",
+        "valid_from": "2026-01-01",
+        "valid_to": "2026-12-31"
+      },
+      "bao_lanh": {
+        "known": true,
+        "enrolled": false,
+        "provider": null,
+        "plan": null,
+        "member_code": null,
+        "valid_from": null,
+        "valid_to": null
+      }
+    },
+    "dong_y_xu_ly_ai": {
+      "trang_thai": true,
+      "luc": "2026-11-01T09:00:00+07:00"
+    },
+    "nguoi_nha": [
+      {
+        "ho_ten": "Trần Văn Phụ",
+        "quan_he": "chồng",
+        "dien_thoai": "0900000321"
+      }
+    ],
+    "noi_lam_viec": "Công ty TNHH Mô Phỏng",
+    "dia_chi": "số 12 đường Mẫu, phường Giả, quận Thử",
+    "dien_thoai": "0900000123"
+  },
+  {
+    "id": "GIA-000456",
+    "facility_id": "facility-prototype",
+    "full_name": "Trần Văn Mô Phỏng",
+    "date_of_birth": "1991-07-22",
+    "gender": "nam",
+    "insurance": {
+      "bhyt": {
+        "known": true,
+        "enrolled": false,
+        "provider": null,
+        "plan": null,
+        "member_code": null,
+        "valid_from": null,
+        "valid_to": null
+      },
+      "bao_lanh": {
+        "known": true,
+        "enrolled": true,
+        "provider": "Bảo lãnh Mẫu",
+        "plan": "Gói cơ bản",
+        "member_code": "BL-0456",
+        "valid_from": "2026-06-01",
+        "valid_to": "2026-10-31"
+      }
+    },
+    "dong_y_xu_ly_ai": {
+      "trang_thai": false,
+      "luc": "2026-11-01T09:05:00+07:00"
+    },
+    "nguoi_nha": [
+      {
+        "ho_ten": "Phạm Thị Thử",
+        "quan_he": "vợ",
+        "dien_thoai": "0900000654"
+      }
+    ],
+    "noi_lam_viec": "Xưởng Giả Lập",
+    "dia_chi": "số 34 ngõ Thử, phường Mô, quận Phỏng",
+    "dien_thoai": "0900000456"
+  },
+  {
+    "id": "GIA-000789",
+    "facility_id": "facility-prototype",
+    "full_name": "Lê Văn Mới",
+    "date_of_birth": "2001-05-02",
+    "gender": "nam",
+    "insurance": {
+      "bhyt": {
+        "known": false,
+        "enrolled": null,
+        "provider": null,
+        "plan": null,
+        "member_code": null,
+        "valid_from": null,
+        "valid_to": null
+      },
+      "bao_lanh": {
+        "known": false,
+        "enrolled": null,
+        "provider": null,
+        "plan": null,
+        "member_code": null,
+        "valid_from": null,
+        "valid_to": null
+      }
+    },
+    "dong_y_xu_ly_ai": {
+      "trang_thai": true,
+      "luc": "2026-11-02T10:00:00+07:00"
+    },
+    "nguoi_nha": [
+      {
+        "ho_ten": "Hoàng Thị Mẫu",
+        "quan_he": "mẹ",
+        "dien_thoai": "0900000987"
+      }
+    ],
+    "noi_lam_viec": "Trường Mẫu Giả",
+    "dia_chi": "số 56 phố Giả, phường Thử, quận Mẫu",
+    "dien_thoai": "0900000789"
+  }
+]

@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AI extraction draft v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "tom_tat",
+    "phieu_kham",
+    "chi_dinh",
+    "bang_chung",
+    "can_xem_lai"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "2.0.0"
+    },
+    "tom_tat": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "phieu_kham": {
+      "$ref": "common.schema.json#/$defs/phieuKham"
+    },
+    "chi_dinh": {
+      "$ref": "common.schema.json#/$defs/serviceGroupMention"
+    },
+    "bang_chung": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/evidence"
+      }
+    },
+    "can_xem_lai": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/issue"
+      }
+    }
+  }
+}

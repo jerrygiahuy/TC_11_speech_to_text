@@ -1,0 +1,132 @@
+{
+  "schema_version": "2.0.0",
+  "tom_tat": "Đau ngực ba ngày, không khó thở. Bác sĩ ghi nhận tim đều, chẩn đoán ban đầu tăng huyết áp; chưa chỉ định dịch vụ và hẹn tái khám sau ba ngày. Dữ liệu giả lập.",
+  "phieu_kham": {
+    "ly_do_kham": "Đau ngực",
+    "benh_su": "Đau ngực ba ngày, không khó thở.",
+    "tien_su_ban_than": null,
+    "tien_su_gia_dinh": null,
+    "di_ung": {
+      "trang_thai": "khong_xac_dinh",
+      "loai": [],
+      "mo_ta": null
+    },
+    "co_thuoc_dang_dung": null,
+    "thuoc_dang_dung": [],
+    "kham_toan_than": null,
+    "kham_chuyen_khoa": null,
+    "kham_tim_mach_ho_hap": "Tim đều.",
+    "kham_khac": null,
+    "chan_doan": [
+      {
+        "giai_doan": "ban_dau",
+        "mo_ta": "Tăng huyết áp",
+        "muc_do_khang_dinh": "xac_dinh",
+        "vai_tro": "chua_ro"
+      }
+    ],
+    "ghi_chu_ket_qua": null,
+    "da_xu_ly": null,
+    "huong_dieu_tri": null,
+    "loi_dan": null,
+    "hen_tai_kham": {
+      "co_hen": true,
+      "nguyen_van": "Tái khám sau ba ngày.",
+      "sau_bao_lau": {
+        "value": 3,
+        "unit": "ngay"
+      },
+      "ngay_cu_the": null
+    },
+    "tinh_trang_ra_vien": null
+  },
+  "chi_dinh": {
+    "de_cap": "khong_chi_dinh",
+    "chan_doan_lich_su_lam_sang": null,
+    "items": []
+  },
+  "bang_chung": [
+    {
+      "field_path": "/tom_tat",
+      "segment_ids": [
+        "seg-2"
+      ],
+      "trich_doan": "Khám thấy tim đều. Chẩn đoán ban đầu tăng huyết áp. Chưa cần chỉ định dịch vụ.",
+      "vai_tro": "bac_si"
+    },
+    {
+      "field_path": "/tom_tat",
+      "segment_ids": [
+        "seg-1"
+      ],
+      "trich_doan": "Tôi đau ngực ba ngày, không khó thở. Chưa biết mình có dị ứng thuốc không.",
+      "vai_tro": "benh_nhan"
+    },
+    {
+      "field_path": "/phieu_kham/ly_do_kham",
+      "segment_ids": [
+        "seg-1"
+      ],
+      "trich_doan": "đau ngực ba ngày",
+      "vai_tro": "benh_nhan"
+    },
+    {
+      "field_path": "/phieu_kham/benh_su",
+      "segment_ids": [
+        "seg-1"
+      ],
+      "trich_doan": "đau ngực ba ngày, không khó thở",
+      "vai_tro": "benh_nhan"
+    },
+    {
+      "field_path": "/phieu_kham/di_ung",
+      "segment_ids": [
+        "seg-1"
+      ],
+      "trich_doan": "Chưa biết mình có dị ứng thuốc không.",
+      "vai_tro": "benh_nhan"
+    },
+    {
+      "field_path": "/phieu_kham/kham_tim_mach_ho_hap",
+      "segment_ids": [
+        "seg-2"
+      ],
+      "trich_doan": "Khám thấy tim đều.",
+      "vai_tro": "bac_si"
+    },
+    {
+      "field_path": "/phieu_kham/chan_doan/0",
+      "segment_ids": [
+        "seg-2"
+      ],
+      "trich_doan": "Chẩn đoán ban đầu tăng huyết áp.",
+      "vai_tro": "bac_si"
+    },
+    {
+      "field_path": "/phieu_kham/hen_tai_kham",
+      "segment_ids": [
+        "seg-2"
+      ],
+      "trich_doan": "Tái khám sau ba ngày.",
+      "vai_tro": "bac_si"
+    },
+    {
+      "field_path": "/chi_dinh/de_cap",
+      "segment_ids": [
+        "seg-2"
+      ],
+      "trich_doan": "Chưa cần chỉ định dịch vụ.",
+      "vai_tro": "bac_si"
+    }
+  ],
+  "can_xem_lai": [
+    {
+      "field_path": "/phieu_kham/chan_doan/0/vai_tro",
+      "loai": "can_xac_nhan",
+      "mo_ta": "Bác sĩ đã nói chẩn đoán ban đầu nhưng chưa nêu chính hay kèm; cần xác nhận vai trò trước khi hoàn tất.",
+      "segment_ids": [
+        "seg-2"
+      ]
+    }
+  ]
+}

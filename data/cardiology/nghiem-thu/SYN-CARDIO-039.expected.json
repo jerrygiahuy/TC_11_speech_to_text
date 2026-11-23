@@ -1,0 +1,57 @@
+{
+  "_nguon": "bộ ca nghiệm thu, Ca 3. Giai đoạn A: chỉ conversation_text. Giai đoạn B: thêm recovery_dictation.",
+  "ca": "SYN-CARDIO-039",
+  "thoi_gian_kham": "2026-11-19T09:00",
+  "sinh_hieu_fixture": {
+    "mach": 78,
+    "ha_tam_thu": 118,
+    "ha_tam_truong": 72,
+    "spo2": 96
+  },
+  "giai_doan_a": {
+    "fields": {
+      "kham_chuyen_khoa": "",
+      "kham_khac": "",
+      "mo_ta_ra_vien": "",
+      "icd_ra_vien": "",
+      "da_xu_ly": "",
+      "tinh_trang_ra_vien": "",
+      "ly_do": "tái khám suy tim",
+      "benh_su": "Khó thở khi gắng sức mức độ ổn định, không khó thở khi nghỉ",
+      "tien_su_ban_than": "Suy tim đang theo dõi",
+      "tien_su_gia_dinh": "Không rõ tiền sử gia đình",
+      "di_ung": "Có",
+      "di_ung_mo_ta": "Penicillin",
+      "thuoc_dang_dung": "",
+      "kham_toan_than": "Tỉnh táo, tiếp xúc tốt",
+      "kham_tim_mach_ho_hap": "Tĩnh mạch cổ không nổi. Tiếng tim rõ. Phổi chưa ghi nhận ran. Phù mắt cá chân nhẹ hai bên",
+      "mo_ta_ban_dau": "Suy tim, không đặc hiệu",
+      "icd_ban_dau": "",
+      "icd_kem_theo": "",
+      "ghi_chu_kq": "Điện giải và chức năng thận cần đối chiếu; Có kết quả siêu âm tim để bác sĩ xem",
+      "huong_dieu_tri": "Tiếp tục điều trị và theo dõi cân nặng theo hướng dẫn của bác sĩ",
+      "loi_dan": "Theo dõi khó thở, phù và cân nặng hằng ngày",
+      "hen_tai_kham": "Có",
+      "ngay_tai_kham": "2026-12-03"
+    },
+    "thuocDangDung": [],
+    "chiDinh": []
+  },
+  "giai_doan_b": {
+    "fields": {
+      "thuoc_dang_dung": "NB có"
+    },
+    "thuocDangDung": [
+      {
+        "ten": "Bisoprolol",
+        "ham_luong": "2,5 mg",
+        "cach_dung": "mỗi ngày một lần"
+      },
+      {
+        "ten": "Furosemide",
+        "ham_luong": "40 mg",
+        "cach_dung": "buổi sáng"
+      }
+    ]
+  }
+}

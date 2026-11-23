@@ -1,0 +1,30 @@
+{
+  "version": "1.0.0",
+  "source_evidence": "SEEN",
+  "sections": {
+    "GENERAL": [
+      "Tỉnh táo, tiếp xúc tốt",
+      "Thể trạng trung bình",
+      "Da và tổ chức dưới da màu sắc bình thường, không phù, không dấu xuất huyết",
+      "Niêm mạc hồng",
+      "Lông, tóc, móng bình thường",
+      "Hạch ngoại vi không sưng đau, không sờ thấy tuyến giáp",
+      "Nhiệt độ, mạch, huyết áp bình thường"
+    ],
+    "CARDIO_RESP": [
+      "Lồng ngực cân đối hai bên",
+      "Mỏm tim đập ở liên sườn V, giữa đòn trái, tĩnh mạch cổ không nổi",
+      "Diện đục của tim không to, không rung miu",
+      "Tiếng T1, T2 đều rõ, không âm thổi",
+      "Không có tiếng tim bệnh lý",
+      "Mạch quay đều, rõ",
+      "Không tím môi, đầu chi",
+      "Lồng ngực cân đối di động theo nhịp thở",
+      "Không khó thở, không co kéo cơ hô hấp phụ",
+      "Rung thanh đều hai bên",
+      "Gõ trong",
+      "Phổi trong, không ran",
+      "Rì rào phế nang êm dịu hai phế trường"
+    ]
+  }
+}

@@ -1,0 +1,12 @@
+# Môi trường huấn luyện NER (.venv-ner-train), tách khỏi .venv-stt: chỉ ở đây mới có torch.
+# torch bản CPU lấy từ index riêng của PyTorch (xem scripts/setup-ner-train.ps1).
+torch>=2.5
+transformers>=4.46,<6
+accelerate>=1.0
+seqeval>=1.2
+onnx>=1.17
+onnxruntime>=1.32,<2
+tokenizers>=0.20,<1
+numpy>=1.26,<3
+# Tách từ lại bản viết thường bằng VnCoreNLP (stt/ner_segment.py)
+pyjnius>=1.9,<2

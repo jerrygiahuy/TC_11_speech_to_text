@@ -1,0 +1,80 @@
+{
+  "schema_version": "2.0.0",
+  "tom_tat": "Bác sĩ chỉ định dịch vụ mẫu B một lần, bên trái. Ví dụ giả lập.",
+  "phieu_kham": {
+    "ly_do_kham": null,
+    "benh_su": null,
+    "tien_su_ban_than": null,
+    "tien_su_gia_dinh": null,
+    "di_ung": {
+      "trang_thai": "chua_de_cap",
+      "loai": [],
+      "mo_ta": null
+    },
+    "co_thuoc_dang_dung": null,
+    "thuoc_dang_dung": [],
+    "kham_toan_than": null,
+    "kham_chuyen_khoa": null,
+    "kham_tim_mach_ho_hap": null,
+    "kham_khac": null,
+    "chan_doan": [],
+    "ghi_chu_ket_qua": null,
+    "da_xu_ly": null,
+    "huong_dieu_tri": null,
+    "loi_dan": null,
+    "hen_tai_kham": {
+      "co_hen": null,
+      "nguyen_van": null,
+      "sau_bao_lau": {
+        "value": null,
+        "unit": null
+      },
+      "ngay_cu_the": null
+    },
+    "tinh_trang_ra_vien": null
+  },
+  "chi_dinh": {
+    "de_cap": "co_chi_dinh",
+    "chan_doan_lich_su_lam_sang": null,
+    "items": [
+      {
+        "ten_dich_vu": "Dịch vụ mẫu B",
+        "so_luong": 1,
+        "ghi_chu": null,
+        "vi_tri": null,
+        "ben": "trai",
+        "ly_do_chi_dinh": null,
+        "muc_do_khan": null,
+        "hanh_dong": "de_nghi_moi"
+      }
+    ]
+  },
+  "bang_chung": [
+    {
+      "field_path": "/tom_tat",
+      "segment_ids": [
+        "seg-1"
+      ],
+      "trich_doan": "Chỉ định dịch vụ mẫu B một lần, bên trái.",
+      "vai_tro": "bac_si"
+    },
+    {
+      "field_path": "/chi_dinh",
+      "segment_ids": [
+        "seg-1"
+      ],
+      "trich_doan": "Chỉ định dịch vụ mẫu B một lần, bên trái.",
+      "vai_tro": "bac_si"
+    }
+  ],
+  "can_xem_lai": [
+    {
+      "field_path": "/chi_dinh/chan_doan_lich_su_lam_sang",
+      "loai": "thieu_thong_tin",
+      "mo_ta": "Chưa có chẩn đoán/lịch sử lâm sàng bắt buộc trước xác nhận chỉ định.",
+      "segment_ids": [
+        "seg-1"
+      ]
+    }
+  ]
+}

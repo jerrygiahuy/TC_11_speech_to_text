@@ -1,0 +1,16 @@
+{
+  "_nguon": "dựng từ nội dung kịch bản ca-chua-dong-y (SYN-CARDIO-049). Ca chưa đồng ý: dữ liệu không rời máy (ai_route local_only), chỉ bộ trích mock cục bộ chạy.",
+  "kich_ban": "ca-chua-dong-y",
+  "benh_nhan_id": "GIA-000456",
+  "ai_route": "local_only",
+  "provider": "mock",
+  "fields": {
+    "ly_do": "một lần ngất thoáng qua",
+    "di_ung": "Có",
+    "di_ung_mo_ta": "penicillin",
+    "hen_tai_kham": "Có",
+    "icd_ra_vien": "",
+    "mo_ta_ra_vien": ""
+  },
+  "tai_kham_sau_ngay": 7
+}

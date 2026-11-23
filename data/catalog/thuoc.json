@@ -1,0 +1,74 @@
+[
+  {
+    "ma": "TH-TM-001",
+    "ten": "Amlodipine",
+    "hoat_chat": "Amlodipine",
+    "ham_luong": "5 mg",
+    "dang_bao_che": "Viên nén",
+    "mock": true
+  },
+  {
+    "ma": "TH-TM-002",
+    "ten": "Atorvastatin",
+    "hoat_chat": "Atorvastatin",
+    "ham_luong": "20 mg",
+    "dang_bao_che": "Viên nén bao phim",
+    "mock": true
+  },
+  {
+    "ma": "TH-TM-003",
+    "ten": "Atorvastatin",
+    "hoat_chat": "Atorvastatin",
+    "ham_luong": "40 mg",
+    "dang_bao_che": "Viên nén bao phim",
+    "mock": true
+  },
+  {
+    "ma": "TH-TM-004",
+    "ten": "Rosuvastatin",
+    "hoat_chat": "Rosuvastatin",
+    "ham_luong": "10 mg",
+    "dang_bao_che": "Viên nén bao phim",
+    "mock": true
+  },
+  {
+    "ma": "TH-TM-005",
+    "ten": "Aspirin",
+    "hoat_chat": "Acetylsalicylic acid",
+    "ham_luong": "81 mg",
+    "dang_bao_che": "Viên nén bao tan trong ruột",
+    "mock": true
+  },
+  {
+    "ma": "TH-TM-006",
+    "ten": "Bisoprolol",
+    "hoat_chat": "Bisoprolol",
+    "ham_luong": "2,5 mg",
+    "dang_bao_che": "Viên nén bao phim",
+    "mock": true
+  },
+  {
+    "ma": "TH-TM-007",
+    "ten": "Furosemide",
+    "hoat_chat": "Furosemide",
+    "ham_luong": "40 mg",
+    "dang_bao_che": "Viên nén",
+    "mock": true
+  },
+  {
+    "ma": "TH-TM-008",
+    "ten": "Apixaban",
+    "hoat_chat": "Apixaban",
+    "ham_luong": "5 mg",
+    "dang_bao_che": "Viên nén bao phim",
+    "mock": true
+  },
+  {
+    "ma": "TH-TM-009",
+    "ten": "Losartan",
+    "hoat_chat": "Losartan",
+    "ham_luong": "50 mg",
+    "dang_bao_che": "Viên nén bao phim",
+    "mock": true
+  }
+]

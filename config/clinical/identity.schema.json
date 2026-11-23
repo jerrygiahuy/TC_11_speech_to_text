@@ -1,0 +1,250 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Restricted identity store v1 - NEVER AI input",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "patient",
+    "practitioners",
+    "coverages"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.1.0"
+    },
+    "patient": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "external_patient_id",
+        "ho_ten",
+        "ngay_sinh",
+        "gioi_tinh",
+        "dia_chi",
+        "dien_thoai",
+        "email",
+        "giay_to",
+        "nguoi_dai_dien"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "external_patient_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ho_ten": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ngay_sinh": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "gioi_tinh": {
+          "enum": [
+            "nam",
+            "nu",
+            "khac",
+            "chua_ro",
+            null
+          ]
+        },
+        "dia_chi": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "dien_thoai": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "email": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "giay_to": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "loai",
+              "so"
+            ],
+            "properties": {
+              "loai": {
+                "enum": [
+                  "dinh_danh_ca_nhan",
+                  "cccd",
+                  "can_cuoc",
+                  "ho_chieu",
+                  "khac"
+                ]
+              },
+              "so": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        "nguoi_dai_dien": {
+          "anyOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "ho_ten",
+                "quan_he",
+                "dien_thoai"
+              ],
+              "properties": {
+                "ho_ten": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "quan_he": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "dien_thoai": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "practitioners": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "display_name",
+          "ma_nguoi_hanh_nghe",
+          "login_account"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "display_name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "ma_nguoi_hanh_nghe": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "login_account": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "coverages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "patient_id",
+          "loai",
+          "so_the_hop_dong",
+          "payer_id",
+          "hieu_luc_tu",
+          "hieu_luc_den",
+          "thong_tin_quyen_loi"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "patient_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "loai": {
+            "enum": [
+              "bhyt",
+              "bao_hiem_tu_nhan",
+              "khac"
+            ]
+          },
+          "so_the_hop_dong": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "payer_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "hieu_luc_tu": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date"
+          },
+          "hieu_luc_den": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date"
+          },
+          "thong_tin_quyen_loi": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

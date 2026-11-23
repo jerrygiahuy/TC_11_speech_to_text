@@ -1,0 +1,36 @@
+{
+  "id": "ca-chua-dong-y",
+  "ten": "Ca chưa đồng ý xử lý AI (SYN-CARDIO-049, ngất): chỉ chạy cục bộ",
+  "benh_nhan_id": "GIA-000456",
+  "mode": "dictation",
+  "dong_y_override": false,
+  "doan": [
+    {
+      "vai_tro": "bac_si",
+      "text": "bệnh nhân nam 35 tuổi tên trần văn mô phỏng điện thoại 0900000456 đến khám vì một lần ngất thoáng qua"
+    },
+    {
+      "vai_tro": "bac_si",
+      "text": "ngất trong thời gian ngắn khi đang đứng tỉnh lại tự nhiên chưa ghi nhận co giật không dùng thuốc thường xuyên dị ứng penicillin"
+    },
+    {
+      "vai_tro": "bac_si",
+      "text": "khám tim phổi mạch đều tiếng tim rõ chưa ghi nhận âm thổi phổi trong không ran điện tâm đồ cần được đánh giá"
+    },
+    {
+      "vai_tro": "bac_si",
+      "text": "chẩn đoán ngất và trụy chỉ định điện tâm đồ tránh tự lái xe cho đến khi được đánh giá hẹn tái khám sau 7 ngày"
+    }
+  ],
+  "expected": {
+    "phai_che": [
+      "trần văn mô phỏng",
+      "0900000456"
+    ],
+    "phai_giu": [
+      "ngất thoáng qua",
+      "điện tâm đồ"
+    ],
+    "bi_chan": false
+  }
+}
